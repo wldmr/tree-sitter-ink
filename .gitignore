@@ -36,3 +36,7 @@ dist/
 *.wasm
 *.obj
 *.o
+
+# Debugging output
+log.html
+*.ink.json
