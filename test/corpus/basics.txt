@@ -4,3 +4,54 @@ Text
 Hello, world!
 ---
 (ink (text))
+
+
+========
+Comments
+========
+"What do you make of this?" she asked.
+
+// Something unprintable...
+
+"I couldn't possibly comment," I replied.
+
+/* 
+	... or an unlimited block of text
+ */
+---
+(ink
+	(text)
+	(comment)
+	(text)
+	(comment))
+
+
+===========================
+Comments can occur anywhere
+===========================
+"What do you make of this?" she asked.  // At end of line.
+
+"I couldn't possibly comment," I /* commentingly */ replied.
+---
+(ink
+	(text)
+	(comment)
+	(text)
+	(comment)
+	(text))
+
+
+=============
+TODO Comments
+=============
+TODO: Write this section properly!
+
+And?
+
+TODO: Write this section properly!
+
+---
+(ink
+	(todo_comment (todo_keyword))
+	(text)
+	(todo_comment (todo_keyword)))

@@ -5,17 +5,48 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
         {
           "type": "text",
+          "named": true
+        },
+        {
+          "type": "todo_comment",
           "named": true
         }
       ]
     }
   },
   {
+    "type": "todo_comment",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "todo_keyword",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": ":",
+    "named": false
+  },
+  {
+    "type": "comment",
+    "named": true
+  },
+  {
     "type": "text",
+    "named": true
+  },
+  {
+    "type": "todo_keyword",
     "named": true
   }
 ]

@@ -2,7 +2,7 @@
   "name": "ink",
   "rules": {
     "ink": {
-      "type": "REPEAT",
+      "type": "REPEAT1",
       "content": {
         "type": "SYMBOL",
         "name": "_toplevel"
@@ -14,18 +14,77 @@
         {
           "type": "SYMBOL",
           "name": "text"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "todo_comment"
         }
       ]
     },
     "text": {
       "type": "PATTERN",
-      "value": "[a-zA-Z0-9 .'\":,!]+"
+      "value": "[^\\n\\/]+?"
+    },
+    "comment": {
+      "type": "TOKEN",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "PATTERN",
+            "value": "\\/\\/[^\\n]*\\n"
+          },
+          {
+            "type": "PATTERN",
+            "value": "\\/\\*(.|\\r?\\n)+\\*\\/"
+          }
+        ]
+      }
+    },
+    "todo_keyword": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 1,
+        "content": {
+          "type": "STRING",
+          "value": "TODO"
+        }
+      }
+    },
+    "todo_comment": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "todo_keyword"
+        },
+        {
+          "type": "IMMEDIATE_TOKEN",
+          "content": {
+            "type": "STRING",
+            "value": ":"
+          }
+        },
+        {
+          "type": "PATTERN",
+          "value": "[^\\n]*"
+        },
+        {
+          "type": "PATTERN",
+          "value": "\\n"
+        }
+      ]
     }
   },
   "extras": [
     {
       "type": "PATTERN",
       "value": "\\s"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "comment"
     }
   ],
   "conflicts": [],
