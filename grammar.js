@@ -60,7 +60,7 @@ module.exports = grammar({
     bracket_close: _ => ']',
 
     comment: _ => token(choice(
-      /\/\/[^\n]*\n/,
+      /\/\/[^\n]*/,
       /\/\*(.|\r?\n)+\*\//
     )),
 
