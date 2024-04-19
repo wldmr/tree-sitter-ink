@@ -13,10 +13,11 @@ module.exports = grammar({
       $.text,
       $.tag,
       $.choice,
+      $.knot,
       $.todo_comment,
     ),
 
-    text: _ => /[^\n\/#*\[\]]+?/,
+    text: _ => /[^\n\/#*\[\]=]+?/,
 
     tag: _ => /#[^\n#]+/,
 
@@ -36,6 +37,22 @@ module.exports = grammar({
       $.bracket_close,
       field('final', optional($.text)),
     )),
+
+    knot: $ => prec.right(seq(
+      $.knot_mark,
+      field('name', $.identifier),
+      /* Annoying: Need to add a leading space before the optional closing knot mark,
+       * because otherwise the parser thinks it's the start of another knot.
+       * This is hopefully what people do anyway, so it might not be a big problem in practice. #copeium
+       * 
+       * TODO: Call this out in the Readme, if there ever is one.
+       */
+      optional(seq(' ', $.knot_mark)),
+    )),
+
+    knot_mark: _ => /==+/,
+
+    identifier: _ => prec(1, /[a-zA-z_][a-zA-Z0-9_]*/),
 
     symbol: _ => '*',
 

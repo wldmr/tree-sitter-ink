@@ -25,13 +25,17 @@
         },
         {
           "type": "SYMBOL",
+          "name": "knot"
+        },
+        {
+          "type": "SYMBOL",
           "name": "todo_comment"
         }
       ]
     },
     "text": {
       "type": "PATTERN",
-      "value": "[^\\n\\/#*\\[\\]]+?"
+      "value": "[^\\n\\/#*\\[\\]=]+?"
     },
     "tag": {
       "type": "PATTERN",
@@ -138,6 +142,60 @@
             }
           }
         ]
+      }
+    },
+    "knot": {
+      "type": "PREC_RIGHT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "knot_mark"
+          },
+          {
+            "type": "FIELD",
+            "name": "name",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            }
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": " "
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "knot_mark"
+                  }
+                ]
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "knot_mark": {
+      "type": "PATTERN",
+      "value": "==+"
+    },
+    "identifier": {
+      "type": "PREC",
+      "value": 1,
+      "content": {
+        "type": "PATTERN",
+        "value": "[a-zA-z_][a-zA-Z0-9_]*"
       }
     },
     "symbol": {

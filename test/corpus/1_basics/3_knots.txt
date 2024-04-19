@@ -1,0 +1,14 @@
+=====
+Knots
+=====
+=== top_knot ===
+Hey, I'm text.
+== bottom_knot
+I'ma texte ase wella …
+---
+(ink
+	(knot (knot_mark) name: (identifier) (knot_mark))
+	(text)
+	(knot (knot_mark) name: (identifier))
+	(text)
+)

@@ -76,6 +76,11 @@
     }
   },
   {
+    "type": "identifier",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "ink",
     "named": true,
     "fields": {},
@@ -88,6 +93,10 @@
           "named": true
         },
         {
+          "type": "knot",
+          "named": true
+        },
+        {
           "type": "tag",
           "named": true
         },
@@ -97,6 +106,32 @@
         },
         {
           "type": "todo_comment",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "knot",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "knot_mark",
           "named": true
         }
       ]
@@ -118,6 +153,10 @@
     }
   },
   {
+    "type": " ",
+    "named": false
+  },
+  {
     "type": ":",
     "named": false
   },
@@ -131,6 +170,10 @@
   },
   {
     "type": "comment",
+    "named": true
+  },
+  {
+    "type": "knot_mark",
     "named": true
   },
   {
