@@ -1,5 +1,81 @@
 [
   {
+    "type": "choice",
+    "named": true,
+    "fields": {
+      "mark": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "symbol",
+            "named": true
+          }
+        ]
+      },
+      "text": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "choice_text",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "choice_text",
+    "named": true,
+    "fields": {
+      "final": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "text",
+            "named": true
+          }
+        ]
+      },
+      "main": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "text",
+            "named": true
+          }
+        ]
+      },
+      "temporary": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "text",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "bracket_close",
+          "named": true
+        },
+        {
+          "type": "bracket_open",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "ink",
     "named": true,
     "fields": {},
@@ -7,6 +83,10 @@
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "choice",
+          "named": true
+        },
         {
           "type": "tag",
           "named": true
@@ -42,7 +122,19 @@
     "named": false
   },
   {
+    "type": "bracket_close",
+    "named": true
+  },
+  {
+    "type": "bracket_open",
+    "named": true
+  },
+  {
     "type": "comment",
+    "named": true
+  },
+  {
+    "type": "symbol",
     "named": true
   },
   {

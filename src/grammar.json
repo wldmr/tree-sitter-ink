@@ -21,17 +21,136 @@
         },
         {
           "type": "SYMBOL",
+          "name": "choice"
+        },
+        {
+          "type": "SYMBOL",
           "name": "todo_comment"
         }
       ]
     },
     "text": {
       "type": "PATTERN",
-      "value": "[^\\n\\/#]+?"
+      "value": "[^\\n\\/#*\\[\\]]+?"
     },
     "tag": {
       "type": "PATTERN",
       "value": "#[^\\n#]+"
+    },
+    "choice": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "mark",
+          "content": {
+            "type": "SYMBOL",
+            "name": "symbol"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "text",
+          "content": {
+            "type": "SYMBOL",
+            "name": "choice_text"
+          }
+        }
+      ]
+    },
+    "choice_text": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "main",
+          "content": {
+            "type": "SYMBOL",
+            "name": "text"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_compound_choice_text"
+        }
+      ]
+    },
+    "_compound_choice_text": {
+      "type": "PREC_RIGHT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "FIELD",
+            "name": "main",
+            "content": {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "text"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            }
+          },
+          {
+            "type": "SYMBOL",
+            "name": "bracket_open"
+          },
+          {
+            "type": "FIELD",
+            "name": "temporary",
+            "content": {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "text"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            }
+          },
+          {
+            "type": "SYMBOL",
+            "name": "bracket_close"
+          },
+          {
+            "type": "FIELD",
+            "name": "final",
+            "content": {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "text"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "symbol": {
+      "type": "STRING",
+      "value": "*"
+    },
+    "bracket_open": {
+      "type": "STRING",
+      "value": "["
+    },
+    "bracket_close": {
+      "type": "STRING",
+      "value": "]"
     },
     "comment": {
       "type": "TOKEN",

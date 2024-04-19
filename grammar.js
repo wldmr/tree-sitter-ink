@@ -12,12 +12,35 @@ module.exports = grammar({
     _toplevel: $ => choice(
       $.text,
       $.tag,
+      $.choice,
       $.todo_comment,
     ),
 
-    text: _ => /[^\n\/#]+?/,
+    text: _ => /[^\n\/#*\[\]]+?/,
 
     tag: _ => /#[^\n#]+/,
+
+    choice: $ => seq(
+      field('mark', $.symbol),
+      field('text', $.choice_text)),
+
+    choice_text: $ => choice(
+      field('main', $.text),
+      $._compound_choice_text,
+    ),
+
+    _compound_choice_text: $ => prec.right(seq(
+      field('main', optional($.text)),
+      $.bracket_open,
+      field('temporary', optional($.text)),
+      $.bracket_close,
+      field('final', optional($.text)),
+    )),
+
+    symbol: _ => '*',
+
+    bracket_open: _ => '[',
+    bracket_close: _ => ']',
 
     comment: _ => token(choice(
       /\/\/[^\n]*\n/,
