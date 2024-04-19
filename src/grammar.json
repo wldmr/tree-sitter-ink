@@ -166,22 +166,17 @@
             "type": "CHOICE",
             "members": [
               {
-                "type": "SEQ",
-                "members": [
-                  {
-                    "type": "STRING",
-                    "value": " "
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "knot_mark"
-                  }
-                ]
+                "type": "SYMBOL",
+                "name": "knot_mark"
               },
               {
                 "type": "BLANK"
               }
             ]
+          },
+          {
+            "type": "PATTERN",
+            "value": "\\n"
           }
         ]
       }
@@ -217,7 +212,7 @@
         "members": [
           {
             "type": "PATTERN",
-            "value": "\\/\\/[^\\n]*\\n"
+            "value": "\\/\\/[^\\n]*"
           },
           {
             "type": "PATTERN",

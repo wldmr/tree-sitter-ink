@@ -1,14 +1,18 @@
 =====
 Knots
 =====
-=== top_knot ===
-Hey, I'm text.
-== bottom_knot
-I'ma texte ase wella …
+=== back_in_london ===
+
+We arrived into London at 9.45pm exactly.
+
+== bottom_knot // only two '='s and no closing mark: fine
+
+So, more text I guess.
 ---
 (ink
 	(knot (knot_mark) name: (identifier) (knot_mark))
 	(text)
-	(knot (knot_mark) name: (identifier))
+	(knot (knot_mark) name: (identifier) (comment))
 	(text)
 )
+

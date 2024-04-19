@@ -41,13 +41,8 @@ module.exports = grammar({
     knot: $ => prec.right(seq(
       $.knot_mark,
       field('name', $.identifier),
-      /* Annoying: Need to add a leading space before the optional closing knot mark,
-       * because otherwise the parser thinks it's the start of another knot.
-       * This is hopefully what people do anyway, so it might not be a big problem in practice. #copeium
-       * 
-       * TODO: Call this out in the Readme, if there ever is one.
-       */
-      optional(seq(' ', $.knot_mark)),
+      optional($.knot_mark),
+      /\n/
     )),
 
     knot_mark: _ => /==+/,
