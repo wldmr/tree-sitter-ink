@@ -8,6 +8,10 @@
       "required": true,
       "types": [
         {
+          "type": "tag",
+          "named": true
+        },
+        {
           "type": "text",
           "named": true
         },
@@ -39,6 +43,10 @@
   },
   {
     "type": "comment",
+    "named": true
+  },
+  {
+    "type": "tag",
     "named": true
   },
   {

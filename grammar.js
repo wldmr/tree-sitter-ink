@@ -11,10 +11,13 @@ module.exports = grammar({
 
     _toplevel: $ => choice(
       $.text,
+      $.tag,
       $.todo_comment,
     ),
 
-    text: _ => /[^\n\/]+?/,
+    text: _ => /[^\n\/#]+?/,
+
+    tag: _ => /#[^\n#]+/,
 
     comment: _ => token(choice(
       /\/\/[^\n]*\n/,
@@ -25,7 +28,7 @@ module.exports = grammar({
   
     todo_comment: $ => seq(
       $.todo_keyword,
-      token.immediate(':'),
+      ':',
       /[^\n]*/,
       /\n/,
     ),

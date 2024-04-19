@@ -17,13 +17,21 @@
         },
         {
           "type": "SYMBOL",
+          "name": "tag"
+        },
+        {
+          "type": "SYMBOL",
           "name": "todo_comment"
         }
       ]
     },
     "text": {
       "type": "PATTERN",
-      "value": "[^\\n\\/]+?"
+      "value": "[^\\n\\/#]+?"
+    },
+    "tag": {
+      "type": "PATTERN",
+      "value": "#[^\\n#]+"
     },
     "comment": {
       "type": "TOKEN",
@@ -60,11 +68,8 @@
           "name": "todo_keyword"
         },
         {
-          "type": "IMMEDIATE_TOKEN",
-          "content": {
-            "type": "STRING",
-            "value": ":"
-          }
+          "type": "STRING",
+          "value": ":"
         },
         {
           "type": "PATTERN",

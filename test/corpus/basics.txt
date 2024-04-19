@@ -48,10 +48,24 @@ TODO: Write this section properly!
 
 And?
 
-TODO: Write this section properly!
+   TODO : Make sure indent and whitespace doesn't break anything.
 
 ---
 (ink
 	(todo_comment (todo_keyword))
 	(text)
 	(todo_comment (todo_keyword)))
+
+
+====
+Tags
+====
+A line of normal game-text. # colour it blue
+# another tag  # yet another tag
+
+Some more text. # and a tag
+---
+(ink
+	(text) (tag)
+	(tag) (tag)
+	(text) (tag) )
