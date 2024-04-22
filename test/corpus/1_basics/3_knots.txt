@@ -10,9 +10,7 @@ We arrived into London at 9.45pm exactly.
 So, more text I guess.
 ---
 (ink
-	(knot (knot_mark) name: (identifier) (knot_mark))
+	(knot name: (identifier))
 	(text)
-	(knot (knot_mark) name: (identifier) (comment))
-	(text)
-)
-
+	(knot name: (identifier) (comment))
+	(text))

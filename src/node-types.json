@@ -59,20 +59,6 @@
           }
         ]
       }
-    },
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "bracket_close",
-          "named": true
-        },
-        {
-          "type": "bracket_open",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -125,16 +111,6 @@
           }
         ]
       }
-    },
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "knot_mark",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -157,19 +133,15 @@
     "named": false
   },
   {
-    "type": "bracket_close",
-    "named": true
+    "type": "[",
+    "named": false
   },
   {
-    "type": "bracket_open",
-    "named": true
+    "type": "]",
+    "named": false
   },
   {
     "type": "comment",
-    "named": true
-  },
-  {
-    "type": "knot_mark",
     "named": true
   },
   {

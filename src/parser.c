@@ -18,12 +18,12 @@
 enum ts_symbol_identifiers {
   sym_text = 1,
   sym_tag = 2,
-  aux_sym_knot_token1 = 3,
-  sym_knot_mark = 4,
-  aux_sym_identifier_token1 = 5,
-  sym_symbol = 6,
-  sym_bracket_open = 7,
-  sym_bracket_close = 8,
+  anon_sym_LBRACK = 3,
+  anon_sym_RBRACK = 4,
+  aux_sym_knot_token1 = 5,
+  sym__knot_mark = 6,
+  aux_sym_identifier_token1 = 7,
+  sym_symbol = 8,
   sym_comment = 9,
   sym_todo_keyword = 10,
   anon_sym_COLON = 11,
@@ -43,12 +43,12 @@ static const char * const ts_symbol_names[] = {
   [ts_builtin_sym_end] = "end",
   [sym_text] = "text",
   [sym_tag] = "tag",
+  [anon_sym_LBRACK] = "[",
+  [anon_sym_RBRACK] = "]",
   [aux_sym_knot_token1] = "knot_token1",
-  [sym_knot_mark] = "knot_mark",
+  [sym__knot_mark] = "_knot_mark",
   [aux_sym_identifier_token1] = "identifier_token1",
   [sym_symbol] = "symbol",
-  [sym_bracket_open] = "bracket_open",
-  [sym_bracket_close] = "bracket_close",
   [sym_comment] = "comment",
   [sym_todo_keyword] = "todo_keyword",
   [anon_sym_COLON] = ":",
@@ -68,12 +68,12 @@ static const TSSymbol ts_symbol_map[] = {
   [ts_builtin_sym_end] = ts_builtin_sym_end,
   [sym_text] = sym_text,
   [sym_tag] = sym_tag,
+  [anon_sym_LBRACK] = anon_sym_LBRACK,
+  [anon_sym_RBRACK] = anon_sym_RBRACK,
   [aux_sym_knot_token1] = aux_sym_knot_token1,
-  [sym_knot_mark] = sym_knot_mark,
+  [sym__knot_mark] = sym__knot_mark,
   [aux_sym_identifier_token1] = aux_sym_identifier_token1,
   [sym_symbol] = sym_symbol,
-  [sym_bracket_open] = sym_bracket_open,
-  [sym_bracket_close] = sym_bracket_close,
   [sym_comment] = sym_comment,
   [sym_todo_keyword] = sym_todo_keyword,
   [anon_sym_COLON] = anon_sym_COLON,
@@ -102,12 +102,20 @@ static const TSSymbolMetadata ts_symbol_metadata[] = {
     .visible = true,
     .named = true,
   },
+  [anon_sym_LBRACK] = {
+    .visible = true,
+    .named = false,
+  },
+  [anon_sym_RBRACK] = {
+    .visible = true,
+    .named = false,
+  },
   [aux_sym_knot_token1] = {
     .visible = false,
     .named = false,
   },
-  [sym_knot_mark] = {
-    .visible = true,
+  [sym__knot_mark] = {
+    .visible = false,
     .named = true,
   },
   [aux_sym_identifier_token1] = {
@@ -115,14 +123,6 @@ static const TSSymbolMetadata ts_symbol_metadata[] = {
     .named = false,
   },
   [sym_symbol] = {
-    .visible = true,
-    .named = true,
-  },
-  [sym_bracket_open] = {
-    .visible = true,
-    .named = true,
-  },
-  [sym_bracket_close] = {
     .visible = true,
     .named = true,
   },
@@ -292,21 +292,21 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
     case 0:
       if (eof) ADVANCE(14);
       if (lookahead == '#') ADVANCE(10);
-      if (lookahead == '*') ADVANCE(25);
+      if (lookahead == '*') ADVANCE(27);
       if (lookahead == '/') ADVANCE(3);
       if (lookahead == ':') ADVANCE(32);
       if (lookahead == '=') ADVANCE(5);
       if (lookahead == 'T') ADVANCE(7);
-      if (lookahead == '[') ADVANCE(26);
-      if (lookahead == ']') ADVANCE(27);
+      if (lookahead == '[') ADVANCE(22);
+      if (lookahead == ']') ADVANCE(23);
       if (('\t' <= lookahead && lookahead <= '\r') ||
           lookahead == ' ') SKIP(0)
       END_STATE();
     case 1:
       if (lookahead == '\n') SKIP(1)
       if (lookahead == '/') ADVANCE(3);
-      if (lookahead == '[') ADVANCE(26);
-      if (lookahead == ']') ADVANCE(27);
+      if (lookahead == '[') ADVANCE(22);
+      if (lookahead == ']') ADVANCE(23);
       if (('\t' <= lookahead && lookahead <= '\r') ||
           lookahead == ' ') ADVANCE(19);
       if (lookahead != 0 &&
@@ -315,7 +315,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           lookahead != '=') ADVANCE(20);
       END_STATE();
     case 2:
-      if (lookahead == '\n') ADVANCE(22);
+      if (lookahead == '\n') ADVANCE(24);
       if (lookahead == '/') ADVANCE(3);
       if (lookahead == '=') ADVANCE(5);
       if (('\t' <= lookahead && lookahead <= '\r') ||
@@ -329,10 +329,10 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
       if (lookahead == '/') ADVANCE(3);
       if (('\t' <= lookahead && lookahead <= '\r') ||
           lookahead == ' ') SKIP(4)
-      if (('A' <= lookahead && lookahead <= 'z')) ADVANCE(24);
+      if (('A' <= lookahead && lookahead <= 'z')) ADVANCE(26);
       END_STATE();
     case 5:
-      if (lookahead == '=') ADVANCE(23);
+      if (lookahead == '=') ADVANCE(25);
       END_STATE();
     case 6:
       if (lookahead == 'D') ADVANCE(8);
@@ -373,11 +373,11 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
       if (eof) ADVANCE(14);
       if (lookahead == '\n') SKIP(13)
       if (lookahead == '#') ADVANCE(10);
-      if (lookahead == '*') ADVANCE(25);
+      if (lookahead == '*') ADVANCE(27);
       if (lookahead == '/') ADVANCE(3);
       if (lookahead == '=') ADVANCE(5);
       if (lookahead == 'T') ADVANCE(17);
-      if (lookahead == '[') ADVANCE(26);
+      if (lookahead == '[') ADVANCE(22);
       if (('\t' <= lookahead && lookahead <= '\r') ||
           lookahead == ' ') ADVANCE(18);
       if (lookahead != 0 &&
@@ -469,28 +469,28 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           lookahead != '#') ADVANCE(21);
       END_STATE();
     case 22:
-      ACCEPT_TOKEN(aux_sym_knot_token1);
-      if (lookahead == '\n') ADVANCE(22);
+      ACCEPT_TOKEN(anon_sym_LBRACK);
       END_STATE();
     case 23:
-      ACCEPT_TOKEN(sym_knot_mark);
-      if (lookahead == '=') ADVANCE(23);
+      ACCEPT_TOKEN(anon_sym_RBRACK);
       END_STATE();
     case 24:
+      ACCEPT_TOKEN(aux_sym_knot_token1);
+      if (lookahead == '\n') ADVANCE(24);
+      END_STATE();
+    case 25:
+      ACCEPT_TOKEN(sym__knot_mark);
+      if (lookahead == '=') ADVANCE(25);
+      END_STATE();
+    case 26:
       ACCEPT_TOKEN(aux_sym_identifier_token1);
       if (('0' <= lookahead && lookahead <= '9') ||
           ('A' <= lookahead && lookahead <= 'Z') ||
           lookahead == '_' ||
-          ('a' <= lookahead && lookahead <= 'z')) ADVANCE(24);
-      END_STATE();
-    case 25:
-      ACCEPT_TOKEN(sym_symbol);
-      END_STATE();
-    case 26:
-      ACCEPT_TOKEN(sym_bracket_open);
+          ('a' <= lookahead && lookahead <= 'z')) ADVANCE(26);
       END_STATE();
     case 27:
-      ACCEPT_TOKEN(sym_bracket_close);
+      ACCEPT_TOKEN(sym_symbol);
       END_STATE();
     case 28:
       ACCEPT_TOKEN(sym_comment);
@@ -603,10 +603,10 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
   [0] = {
     [ts_builtin_sym_end] = ACTIONS(1),
     [sym_tag] = ACTIONS(1),
-    [sym_knot_mark] = ACTIONS(1),
+    [anon_sym_LBRACK] = ACTIONS(1),
+    [anon_sym_RBRACK] = ACTIONS(1),
+    [sym__knot_mark] = ACTIONS(1),
     [sym_symbol] = ACTIONS(1),
-    [sym_bracket_open] = ACTIONS(1),
-    [sym_bracket_close] = ACTIONS(1),
     [sym_comment] = ACTIONS(3),
     [sym_todo_keyword] = ACTIONS(1),
     [anon_sym_COLON] = ACTIONS(1),
@@ -620,7 +620,7 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [aux_sym_ink_repeat1] = STATE(3),
     [sym_text] = ACTIONS(5),
     [sym_tag] = ACTIONS(5),
-    [sym_knot_mark] = ACTIONS(7),
+    [sym__knot_mark] = ACTIONS(7),
     [sym_symbol] = ACTIONS(9),
     [sym_comment] = ACTIONS(11),
     [sym_todo_keyword] = ACTIONS(13),
@@ -634,7 +634,7 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [ts_builtin_sym_end] = ACTIONS(15),
     [sym_text] = ACTIONS(17),
     [sym_tag] = ACTIONS(17),
-    [sym_knot_mark] = ACTIONS(20),
+    [sym__knot_mark] = ACTIONS(20),
     [sym_symbol] = ACTIONS(23),
     [sym_comment] = ACTIONS(11),
     [sym_todo_keyword] = ACTIONS(26),
@@ -648,7 +648,7 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [ts_builtin_sym_end] = ACTIONS(29),
     [sym_text] = ACTIONS(31),
     [sym_tag] = ACTIONS(31),
-    [sym_knot_mark] = ACTIONS(7),
+    [sym__knot_mark] = ACTIONS(7),
     [sym_symbol] = ACTIONS(9),
     [sym_comment] = ACTIONS(11),
     [sym_todo_keyword] = ACTIONS(13),
@@ -662,11 +662,11 @@ static const uint16_t ts_small_parse_table[] = {
     ACTIONS(33), 1,
       ts_builtin_sym_end,
     ACTIONS(37), 1,
-      sym_bracket_open,
+      anon_sym_LBRACK,
     ACTIONS(35), 5,
       sym_text,
       sym_tag,
-      sym_knot_mark,
+      sym__knot_mark,
       sym_symbol,
       sym_todo_keyword,
   [17] = 3,
@@ -677,7 +677,7 @@ static const uint16_t ts_small_parse_table[] = {
     ACTIONS(41), 5,
       sym_text,
       sym_tag,
-      sym_knot_mark,
+      sym__knot_mark,
       sym_symbol,
       sym_todo_keyword,
   [31] = 4,
@@ -689,7 +689,7 @@ static const uint16_t ts_small_parse_table[] = {
       sym_text,
     ACTIONS(47), 4,
       sym_tag,
-      sym_knot_mark,
+      sym__knot_mark,
       sym_symbol,
       sym_todo_keyword,
   [47] = 3,
@@ -700,7 +700,7 @@ static const uint16_t ts_small_parse_table[] = {
     ACTIONS(51), 5,
       sym_text,
       sym_tag,
-      sym_knot_mark,
+      sym__knot_mark,
       sym_symbol,
       sym_todo_keyword,
   [61] = 3,
@@ -711,7 +711,7 @@ static const uint16_t ts_small_parse_table[] = {
     ACTIONS(55), 5,
       sym_text,
       sym_tag,
-      sym_knot_mark,
+      sym__knot_mark,
       sym_symbol,
       sym_todo_keyword,
   [75] = 3,
@@ -722,7 +722,7 @@ static const uint16_t ts_small_parse_table[] = {
     ACTIONS(59), 5,
       sym_text,
       sym_tag,
-      sym_knot_mark,
+      sym__knot_mark,
       sym_symbol,
       sym_todo_keyword,
   [89] = 4,
@@ -734,7 +734,7 @@ static const uint16_t ts_small_parse_table[] = {
       sym_text,
     ACTIONS(65), 4,
       sym_tag,
-      sym_knot_mark,
+      sym__knot_mark,
       sym_symbol,
       sym_todo_keyword,
   [105] = 3,
@@ -745,7 +745,7 @@ static const uint16_t ts_small_parse_table[] = {
     ACTIONS(69), 5,
       sym_text,
       sym_tag,
-      sym_knot_mark,
+      sym__knot_mark,
       sym_symbol,
       sym_todo_keyword,
   [119] = 3,
@@ -756,7 +756,7 @@ static const uint16_t ts_small_parse_table[] = {
     ACTIONS(73), 5,
       sym_text,
       sym_tag,
-      sym_knot_mark,
+      sym__knot_mark,
       sym_symbol,
       sym_todo_keyword,
   [133] = 3,
@@ -767,7 +767,7 @@ static const uint16_t ts_small_parse_table[] = {
     ACTIONS(77), 5,
       sym_text,
       sym_tag,
-      sym_knot_mark,
+      sym__knot_mark,
       sym_symbol,
       sym_todo_keyword,
   [147] = 3,
@@ -778,7 +778,7 @@ static const uint16_t ts_small_parse_table[] = {
     ACTIONS(81), 5,
       sym_text,
       sym_tag,
-      sym_knot_mark,
+      sym__knot_mark,
       sym_symbol,
       sym_todo_keyword,
   [161] = 3,
@@ -789,7 +789,7 @@ static const uint16_t ts_small_parse_table[] = {
     ACTIONS(85), 5,
       sym_text,
       sym_tag,
-      sym_knot_mark,
+      sym__knot_mark,
       sym_symbol,
       sym_todo_keyword,
   [175] = 4,
@@ -801,7 +801,7 @@ static const uint16_t ts_small_parse_table[] = {
       sym_text,
     ACTIONS(91), 4,
       sym_tag,
-      sym_knot_mark,
+      sym__knot_mark,
       sym_symbol,
       sym_todo_keyword,
   [191] = 4,
@@ -813,7 +813,7 @@ static const uint16_t ts_small_parse_table[] = {
       sym_text,
     ACTIONS(97), 4,
       sym_tag,
-      sym_knot_mark,
+      sym__knot_mark,
       sym_symbol,
       sym_todo_keyword,
   [207] = 5,
@@ -822,7 +822,7 @@ static const uint16_t ts_small_parse_table[] = {
     ACTIONS(99), 1,
       sym_text,
     ACTIONS(101), 1,
-      sym_bracket_open,
+      anon_sym_LBRACK,
     STATE(11), 1,
       sym_choice_text,
     STATE(12), 1,
@@ -833,7 +833,7 @@ static const uint16_t ts_small_parse_table[] = {
     ACTIONS(103), 1,
       sym_text,
     ACTIONS(105), 1,
-      sym_bracket_close,
+      anon_sym_RBRACK,
   [233] = 3,
     ACTIONS(3), 1,
       sym_comment,
@@ -847,26 +847,26 @@ static const uint16_t ts_small_parse_table[] = {
     ACTIONS(109), 1,
       sym_text,
     ACTIONS(111), 1,
-      sym_bracket_close,
+      anon_sym_RBRACK,
   [253] = 3,
     ACTIONS(11), 1,
       sym_comment,
     ACTIONS(113), 1,
       aux_sym_knot_token1,
     ACTIONS(115), 1,
-      sym_knot_mark,
+      sym__knot_mark,
   [263] = 3,
     ACTIONS(11), 1,
       sym_comment,
     ACTIONS(117), 1,
       aux_sym_knot_token1,
     ACTIONS(119), 1,
-      sym_knot_mark,
+      sym__knot_mark,
   [273] = 2,
     ACTIONS(3), 1,
       sym_comment,
     ACTIONS(121), 1,
-      sym_bracket_close,
+      anon_sym_RBRACK,
   [280] = 2,
     ACTIONS(11), 1,
       sym_comment,
@@ -876,7 +876,7 @@ static const uint16_t ts_small_parse_table[] = {
     ACTIONS(3), 1,
       sym_comment,
     ACTIONS(125), 1,
-      sym_bracket_close,
+      anon_sym_RBRACK,
   [294] = 2,
     ACTIONS(11), 1,
       sym_comment,

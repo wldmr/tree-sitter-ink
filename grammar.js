@@ -32,27 +32,24 @@ module.exports = grammar({
 
     _compound_choice_text: $ => prec.right(seq(
       field('main', optional($.text)),
-      $.bracket_open,
+      '[',
       field('temporary', optional($.text)),
-      $.bracket_close,
+      ']',
       field('final', optional($.text)),
     )),
 
     knot: $ => prec.right(seq(
-      $.knot_mark,
+      $._knot_mark,
       field('name', $.identifier),
-      optional($.knot_mark),
+      optional($._knot_mark),
       /\n/
     )),
 
-    knot_mark: _ => /==+/,
+    _knot_mark: _ => /==+/,
 
     identifier: _ => prec(1, /[a-zA-z_][a-zA-Z0-9_]*/),
 
     symbol: _ => '*',
-
-    bracket_open: _ => '[',
-    bracket_close: _ => ']',
 
     comment: _ => token(choice(
       /\/\/[^\n]*/,

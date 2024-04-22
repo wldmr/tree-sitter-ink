@@ -26,9 +26,7 @@ Hello world!
 		mark: (symbol)
 		text: (choice_text
 			main: (text)
-			(bracket_open)
 			temporary: (text)
-			(bracket_close)
 			final: (text)) )
 	(text))
 
@@ -52,9 +50,7 @@ Multiple choices
 		mark: (symbol)
 		text: (choice_text
 			main: (text)
-			(bracket_open)
 			temporary: (text)
-			(bracket_close)
 			final: (text)))
 	(text)
 
@@ -62,8 +58,6 @@ Multiple choices
 		mark: (symbol)
 		text: (choice_text
 			main: (text)
-			(bracket_open)
-			(bracket_close)
 			final: (text)))
 	(text)
 
@@ -71,9 +65,7 @@ Multiple choices
 		mark: (symbol)
 		text: (choice_text
 			main: (text)
-			(bracket_open)
 			temporary: (text)
-			(bracket_close)
 			final: (text)))
 	(text))
 

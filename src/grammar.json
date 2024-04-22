@@ -102,8 +102,8 @@
             }
           },
           {
-            "type": "SYMBOL",
-            "name": "bracket_open"
+            "type": "STRING",
+            "value": "["
           },
           {
             "type": "FIELD",
@@ -122,8 +122,8 @@
             }
           },
           {
-            "type": "SYMBOL",
-            "name": "bracket_close"
+            "type": "STRING",
+            "value": "]"
           },
           {
             "type": "FIELD",
@@ -152,7 +152,7 @@
         "members": [
           {
             "type": "SYMBOL",
-            "name": "knot_mark"
+            "name": "_knot_mark"
           },
           {
             "type": "FIELD",
@@ -167,7 +167,7 @@
             "members": [
               {
                 "type": "SYMBOL",
-                "name": "knot_mark"
+                "name": "_knot_mark"
               },
               {
                 "type": "BLANK"
@@ -181,7 +181,7 @@
         ]
       }
     },
-    "knot_mark": {
+    "_knot_mark": {
       "type": "PATTERN",
       "value": "==+"
     },
@@ -196,14 +196,6 @@
     "symbol": {
       "type": "STRING",
       "value": "*"
-    },
-    "bracket_open": {
-      "type": "STRING",
-      "value": "["
-    },
-    "bracket_close": {
-      "type": "STRING",
-      "value": "]"
     },
     "comment": {
       "type": "TOKEN",
