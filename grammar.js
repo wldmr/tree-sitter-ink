@@ -1,23 +1,54 @@
+const _tp = n => (rule => token(prec(n, rule)));
+TOKEN = {
+  mark: _tp(20),
+  text: _tp(-10),
+}
+
 module.exports = grammar({
   name: 'ink',
 
   extras: $ => [
-    /\s/,
+    $._space,
     $.comment,
   ],
 
   rules: {
-    ink: $ => repeat1($._toplevel),
-
-    _toplevel: $ => choice(
-      $.text,
-      $.tag,
-      $.choice,
-      $.knot,
-      $.todo_comment,
+    ink: $ => seq(
+      repeat(seq(
+        optional($._toplevel),
+        $._newline)),
+      optional($._toplevel)  // last line might not have a newline
     ),
 
-    text: _ => /[^\n\/#*\[\]=]+?/,
+    _newline: _ => /\n/,
+    _space: _ => TOKEN.mark(/[ \t]+/),
+
+    _toplevel: $ => choice(
+      $.todo_comment,
+      alias($.line_comment, $.comment),
+      repeat1($.tag),
+      $.divert,
+      $.paragraph,
+      $.knot,
+      $.choice,
+    ),
+
+    paragraph: $ => seq(
+      repeat1($.text), // repeat1 because there might be a block comment in between
+      optional($.divert),
+      repeat($.tag),
+      optional(alias($.line_comment, $.comment)),
+    ),
+
+    // text: _ => TOKEN.text(choice(
+    //   /[^\n\r\/#\[\]\{\}|]+?/,
+    // )),
+
+    text: _ => TOKEN.text(repeat1(choice(
+      /[^\n\r\/#\[\]\{\}|\-]+/, // Weird lookahead hack: We break this regex up on '-', although a '-' is an acceptable text character
+      /-[^>]/,  // so hat this guy has a chance to match ('-' _not_ followed by a '>'). This gives the parser the chance to break on '->'
+    ))),
+
 
     tag: _ => /#[^\n#]+/,
 
@@ -39,30 +70,30 @@ module.exports = grammar({
     )),
 
     knot: $ => prec.right(seq(
-      $._knot_mark,
+      $.knot_mark,
       field('name', $.identifier),
-      optional($._knot_mark),
-      /\n/
+      optional($.knot_mark),
+      optional(alias($.line_comment, $.comment))
     )),
 
-    _knot_mark: _ => /==+/,
+    knot_mark: _ => TOKEN.mark(/==+/),
+    divert_mark: _ => TOKEN.mark('->'),
 
-    identifier: _ => prec(1, /[a-zA-z_][a-zA-Z0-9_]*/),
+    divert: $ => seq(
+      $.divert_mark, field('target', $.identifier),
+    ),
+
+    identifier: _ => /[a-zA-z_][a-zA-Z0-9_]*/,
 
     symbol: _ => '*',
 
-    comment: _ => token(choice(
-      /\/\/[^\n]*/,
-      /\/\*(.|\r?\n)+\*\//
-    )),
+    comment: _ => /\/\*(.|\r?\n)+\*\//,
+    line_comment: _ => /\/\/[^\n]*/,
 
-    todo_keyword: _ => token(prec(1, 'TODO')),
-  
-    todo_comment: $ => seq(
-      $.todo_keyword,
+    todo_comment: _ => seq(
+      TOKEN.mark('TODO'),
       ':',
       /[^\n]*/,
-      /\n/,
     ),
 
   },

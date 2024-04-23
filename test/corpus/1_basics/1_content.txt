@@ -1,71 +1,76 @@
-====
-Text
-====
+==========
+.AAA. Text
+==========
 Hello, world!
 ---
-(ink (text))
+(ink (paragraph (text)))
 
 
-========
-Comments
-========
+==============
+.AAB. Comments
+==============
 "What do you make of this?" she asked.
 
-// Something unprintable...
+	// Something unprintable...
 
 "I couldn't possibly comment," I replied.
 
-/* 
+/*
 	... or an unlimited block of text
  */
 ---
 (ink
-	(text)
+	(paragraph
+		(text))
 	(comment)
-	(text)
+	(paragraph
+		(text))
 	(comment))
 
 
-===========================
-Comments can occur anywhere
-===========================
+=================================
+.AAC. Comments can occur anywhere
+=================================
 "What do you make of this?" she asked.  // At end of line.
 
 "I couldn't possibly comment," I /* commentingly */ replied.
 ---
 (ink
-	(text)
-	(comment)
-	(text)
-	(comment)
-	(text))
+	(paragraph
+		(text)
+		(comment))
+	(paragraph
+		(text)
+		(comment)
+		(text)))
 
 
-=============
-TODO Comments
-=============
+===================
+.AAD. TODO Comments
+===================
 TODO: Write this section properly!
 
 And?
 
-   TODO : Make sure indent and whitespace doesn't break anything.
+	TODO : Make sure indent and whitespace doesn't break anything.
 
 ---
 (ink
-	(todo_comment (todo_keyword))
-	(text)
-	(todo_comment (todo_keyword)))
+	(todo_comment)
+	(paragraph (text))
+	(todo_comment))
 
 
-====
-Tags
-====
+==========
+.AAE. Tags
+==========
 A line of normal game-text. # colour it blue
 # another tag  # yet another tag
 
 Some more text. # and a tag
 ---
 (ink
-	(text) (tag)
-	(tag) (tag)
-	(text) (tag) )
+	(paragraph (text) (tag))
+	(tag)
+	(tag)
+	(paragraph (text) (tag)) )

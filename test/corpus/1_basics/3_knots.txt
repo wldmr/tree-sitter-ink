@@ -1,6 +1,6 @@
-=====
-Knots
-=====
+===
+.ACA. Knots
+===
 === back_in_london ===
 
 We arrived into London at 9.45pm exactly.
@@ -10,7 +10,27 @@ We arrived into London at 9.45pm exactly.
 So, more text I guess.
 ---
 (ink
-	(knot name: (identifier))
-	(text)
-	(knot name: (identifier) (comment))
-	(text))
+	(knot
+		(knot_mark)
+		name: (identifier)
+		(knot_mark))
+	(paragraph (text))
+	(knot
+		(knot_mark)
+		name: (identifier)
+		(comment))
+	(paragraph (text)))
+
+
+===
+.ACB. Simplest Knotty Script
+===
+-> top_knot
+
+=== top_knot ===
+Hello world!
+---
+(ink
+	(divert (divert_mark) target: (identifier))
+	(knot (knot_mark) name: (identifier) (knot_mark))
+	(paragraph (text)))

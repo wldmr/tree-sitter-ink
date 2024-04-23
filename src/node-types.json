@@ -62,9 +62,30 @@
     }
   },
   {
-    "type": "identifier",
+    "type": "divert",
     "named": true,
-    "fields": {}
+    "fields": {
+      "target": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "divert_mark",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "ink",
@@ -72,10 +93,18 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "choice",
+          "named": true
+        },
+        {
+          "type": "comment",
+          "named": true
+        },
+        {
+          "type": "divert",
           "named": true
         },
         {
@@ -83,11 +112,11 @@
           "named": true
         },
         {
-          "type": "tag",
+          "type": "paragraph",
           "named": true
         },
         {
-          "type": "text",
+          "type": "tag",
           "named": true
         },
         {
@@ -111,25 +140,60 @@
           }
         ]
       }
-    }
-  },
-  {
-    "type": "todo_comment",
-    "named": true,
-    "fields": {},
+    },
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
-          "type": "todo_keyword",
+          "type": "comment",
+          "named": true
+        },
+        {
+          "type": "knot_mark",
           "named": true
         }
       ]
     }
   },
   {
+    "type": "paragraph",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "comment",
+          "named": true
+        },
+        {
+          "type": "divert",
+          "named": true
+        },
+        {
+          "type": "tag",
+          "named": true
+        },
+        {
+          "type": "text",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "todo_comment",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": ":",
+    "named": false
+  },
+  {
+    "type": "TODO",
     "named": false
   },
   {
@@ -145,6 +209,18 @@
     "named": true
   },
   {
+    "type": "divert_mark",
+    "named": true
+  },
+  {
+    "type": "identifier",
+    "named": true
+  },
+  {
+    "type": "knot_mark",
+    "named": true
+  },
+  {
     "type": "symbol",
     "named": true
   },
@@ -154,10 +230,6 @@
   },
   {
     "type": "text",
-    "named": true
-  },
-  {
-    "type": "todo_keyword",
     "named": true
   }
 ]

@@ -2,10 +2,59 @@
   "name": "ink",
   "rules": {
     "ink": {
-      "type": "REPEAT1",
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "_toplevel"
+                  },
+                  {
+                    "type": "BLANK"
+                  }
+                ]
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_newline"
+              }
+            ]
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_toplevel"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "_newline": {
+      "type": "PATTERN",
+      "value": "\\n"
+    },
+    "_space": {
+      "type": "TOKEN",
       "content": {
-        "type": "SYMBOL",
-        "name": "_toplevel"
+        "type": "PREC",
+        "value": 20,
+        "content": {
+          "type": "PATTERN",
+          "value": "[ \\t]+"
+        }
       }
     },
     "_toplevel": {
@@ -13,15 +62,31 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "text"
+          "name": "todo_comment"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "line_comment"
+          },
+          "named": true,
+          "value": "comment"
+        },
+        {
+          "type": "REPEAT1",
+          "content": {
+            "type": "SYMBOL",
+            "name": "tag"
+          }
         },
         {
           "type": "SYMBOL",
-          "name": "tag"
+          "name": "divert"
         },
         {
           "type": "SYMBOL",
-          "name": "choice"
+          "name": "paragraph"
         },
         {
           "type": "SYMBOL",
@@ -29,13 +94,80 @@
         },
         {
           "type": "SYMBOL",
-          "name": "todo_comment"
+          "name": "choice"
+        }
+      ]
+    },
+    "paragraph": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "REPEAT1",
+          "content": {
+            "type": "SYMBOL",
+            "name": "text"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "divert"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "tag"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "line_comment"
+              },
+              "named": true,
+              "value": "comment"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },
     "text": {
-      "type": "PATTERN",
-      "value": "[^\\n\\/#*\\[\\]=]+?"
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": -10,
+        "content": {
+          "type": "REPEAT1",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "PATTERN",
+                "value": "[^\\n\\r\\/#\\[\\]\\{\\}|\\-]+"
+              },
+              {
+                "type": "PATTERN",
+                "value": "-[^>]"
+              }
+            ]
+          }
+        }
+      }
     },
     "tag": {
       "type": "PATTERN",
@@ -152,7 +284,7 @@
         "members": [
           {
             "type": "SYMBOL",
-            "name": "_knot_mark"
+            "name": "knot_mark"
           },
           {
             "type": "FIELD",
@@ -167,7 +299,7 @@
             "members": [
               {
                 "type": "SYMBOL",
-                "name": "_knot_mark"
+                "name": "knot_mark"
               },
               {
                 "type": "BLANK"
@@ -175,61 +307,93 @@
             ]
           },
           {
-            "type": "PATTERN",
-            "value": "\\n"
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "ALIAS",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "line_comment"
+                },
+                "named": true,
+                "value": "comment"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
           }
         ]
       }
     },
-    "_knot_mark": {
-      "type": "PATTERN",
-      "value": "==+"
+    "knot_mark": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 20,
+        "content": {
+          "type": "PATTERN",
+          "value": "==+"
+        }
+      }
+    },
+    "divert_mark": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 20,
+        "content": {
+          "type": "STRING",
+          "value": "->"
+        }
+      }
+    },
+    "divert": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "divert_mark"
+        },
+        {
+          "type": "FIELD",
+          "name": "target",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
     },
     "identifier": {
-      "type": "PREC",
-      "value": 1,
-      "content": {
-        "type": "PATTERN",
-        "value": "[a-zA-z_][a-zA-Z0-9_]*"
-      }
+      "type": "PATTERN",
+      "value": "[a-zA-z_][a-zA-Z0-9_]*"
     },
     "symbol": {
       "type": "STRING",
       "value": "*"
     },
     "comment": {
-      "type": "TOKEN",
-      "content": {
-        "type": "CHOICE",
-        "members": [
-          {
-            "type": "PATTERN",
-            "value": "\\/\\/[^\\n]*"
-          },
-          {
-            "type": "PATTERN",
-            "value": "\\/\\*(.|\\r?\\n)+\\*\\/"
-          }
-        ]
-      }
+      "type": "PATTERN",
+      "value": "\\/\\*(.|\\r?\\n)+\\*\\/"
     },
-    "todo_keyword": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": 1,
-        "content": {
-          "type": "STRING",
-          "value": "TODO"
-        }
-      }
+    "line_comment": {
+      "type": "PATTERN",
+      "value": "\\/\\/[^\\n]*"
     },
     "todo_comment": {
       "type": "SEQ",
       "members": [
         {
-          "type": "SYMBOL",
-          "name": "todo_keyword"
+          "type": "TOKEN",
+          "content": {
+            "type": "PREC",
+            "value": 20,
+            "content": {
+              "type": "STRING",
+              "value": "TODO"
+            }
+          }
         },
         {
           "type": "STRING",
@@ -238,18 +402,14 @@
         {
           "type": "PATTERN",
           "value": "[^\\n]*"
-        },
-        {
-          "type": "PATTERN",
-          "value": "\\n"
         }
       ]
     }
   },
   "extras": [
     {
-      "type": "PATTERN",
-      "value": "\\s"
+      "type": "SYMBOL",
+      "name": "_space"
     },
     {
       "type": "SYMBOL",
