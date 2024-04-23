@@ -3,6 +3,9 @@ alias gen := generate
 test filter="''": generate
 	tree-sitter test --filter {{filter}} -D
 
+testlog filter="''": generate
+	tree-sitter test --filter {{filter}} -d
+
 generate:
 	tree-sitter generate
 
