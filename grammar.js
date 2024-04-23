@@ -34,19 +34,19 @@ module.exports = grammar({
     ),
 
     paragraph: $ => seq(
-      repeat1($.text), // repeat1 because there might be a block comment in between
-      optional($.divert),
+      repeat1(choice($.text, $.glue)), // repeat1 because there might be a block comment in between
+      repeat($.divert),
       repeat($.tag),
       optional(alias($.line_comment, $.comment)),
     ),
 
-    // text: _ => TOKEN.text(choice(
-    //   /[^\n\r\/#\[\]\{\}|]+?/,
-    // )),
+    glue: _ => TOKEN.mark('<>'),
 
     text: _ => TOKEN.text(repeat1(choice(
-      /[^\n\r\/#\[\]\{\}|\-]+/, // Weird lookahead hack: We break this regex up on '-', although a '-' is an acceptable text character
-      /-[^>]/,  // so hat this guy has a chance to match ('-' _not_ followed by a '>'). This gives the parser the chance to break on '->'
+      /[^\n\r\/#\[\]\{\}|\-<]+/, // Weird lookahead hack: We break this regex up on the first letters of multi character marks (such as '-' for '->'),
+      // That way, these next guys (sort of lookahead regexes) get to run and potentially fail if they match a certain mark.
+      /-[^>]/,  // Fails on '->'. This gives the parser a chance to match a divert '->'
+      /<[^>]/,  // Fails on '<>'.
     ))),
 
 

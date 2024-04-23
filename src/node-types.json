@@ -173,6 +173,10 @@
           "named": true
         },
         {
+          "type": "glue",
+          "named": true
+        },
+        {
           "type": "tag",
           "named": true
         },
@@ -210,6 +214,10 @@
   },
   {
     "type": "divert_mark",
+    "named": true
+  },
+  {
+    "type": "glue",
     "named": true
   },
   {
