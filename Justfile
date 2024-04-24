@@ -1,7 +1,7 @@
 alias gen := generate
 
-test filter="''": generate
-	tree-sitter test --filter {{filter}} -D
+test *args: generate
+	tree-sitter test -D {{args}}
 
 testlog filter="''": generate
 	tree-sitter test --filter {{filter}} -d
