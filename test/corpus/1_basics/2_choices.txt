@@ -5,13 +5,16 @@ Hello world!
 *	Hello back!
 	Nice to hear from you!
 ---
-(ink
-	(paragraph (text))
-	(choice
-		mark: (symbol)
-		text: (choice_text main: (text)))
-	(paragraph (text)))
 
+(ink
+  (paragraph
+    (text))
+  (choice
+    mark: (symbol)
+    main: (flow
+      (text)))
+  (paragraph
+    (text)))
 
 ===
 .ABB. Suppressing Choice Text
@@ -20,16 +23,20 @@ Hello world!
 *	Hello [back!] right back to you!
 	Nice to hear from you!
 ---
-(ink
-	(paragraph (text))
-	(choice
-		mark: (symbol)
-		text: (choice_text
-			main: (text)
-			temporary: (text)
-			final: (text)) )
-	(paragraph (text)))
 
+(ink
+  (paragraph
+    (text))
+  (choice
+    mark: (symbol)
+    main: (flow
+      (text))
+    temporary: (flow
+      (text))
+    final: (flow
+      (text)))
+  (paragraph
+    (text)))
 
 ===
 .ABC. Multiple choices
@@ -42,29 +49,35 @@ Hello world!
 *	"I said, this journey is appalling[."] and I want no more of it."
 	"Ah," he replied, not unkindly. "I see you are feeling frustrated. Tomorrow, things will improve."
 ---
+
 (ink
-	(paragraph (text))
-
-	(choice
-		mark: (symbol)
-		text: (choice_text
-			main: (text)
-			temporary: (text)
-			final: (text)))
-	(paragraph (text))
-
-	(choice
-		mark: (symbol)
-		text: (choice_text
-			main: (text)
-			final: (text)))
-	(paragraph (text))
-
-	(choice
-		mark: (symbol)
-		text: (choice_text
-			main: (text)
-			temporary: (text)
-			final: (text)))
-	(paragraph (text)))
-
+  (paragraph
+    (text))
+  (choice
+    mark: (symbol)
+    main: (flow
+      (text))
+    temporary: (flow
+      (text))
+    final: (flow
+      (text)))
+  (paragraph
+    (text))
+  (choice
+    mark: (symbol)
+    main: (flow
+      (text))
+    final: (flow
+      (text)))
+  (paragraph
+    (text))
+  (choice
+    mark: (symbol)
+    main: (flow
+      (text))
+    temporary: (flow
+      (text))
+    final: (flow
+      (text)))
+  (paragraph
+    (text)))

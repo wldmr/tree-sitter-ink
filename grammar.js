@@ -37,11 +37,13 @@ module.exports = grammar({
     ),
 
     paragraph: $ => seq(
-      repeat1(choice($.text, $.glue)), // repeat1 because there might be a block comment in between
-      repeat($.divert),
+      alias($.flow, ''),
+      optional($.divert),
       repeat($.tag),
       optional(alias($.line_comment, $.comment)),
     ),
+
+    flow: $ => repeat1(choice($.text, $.glue)),
 
     glue: _ => TOKEN.mark('<>'),
 
@@ -49,20 +51,24 @@ module.exports = grammar({
 
     choice: $ => seq(
       field('mark', $.symbol),
-      field('text', $.choice_text)),
-
-    choice_text: $ => choice(
-      field('main', $.text),
-      $._compound_choice_text,
+      $._choice_content
     ),
 
-    _compound_choice_text: $ => prec.right(seq(
-      field('main', optional($.text)),
+    _choice_content: $ => seq(
+      choice(
+        field('main', $.flow),
+        $._compound_choice_content
+      ),
+      optional($.divert)
+    ),
+
+    _compound_choice_content: $ => prec.right(seq(
+      field('main', optional($.flow)),
       '[',
-      field('temporary', optional($.text)),
+      field('temporary', optional($.flow)),
       ']',
-      field('final', optional($.text)),
-    )),
+      field('final', optional($.flow),
+    ))),
 
     knot: $ => prec.right(seq(
       $.knot_mark,
