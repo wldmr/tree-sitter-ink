@@ -38,6 +38,7 @@ as fast as we could.
 	(paragraph (text))
 )
 
+
 ===
 .ADC. Glue
 ===
@@ -115,4 +116,24 @@ When we <> came home, <> <> <> we went to sleep.
 		(glue)
 		(glue)
 		(text))
+)
+
+===
+.ADDc. No spurious diverts or glues
+===
+We hurried home to Savile Road sevent-<> no wait, it was a number <<>-> what_number
+
+=== what_number ===
+20
+
+---
+(ink
+	(paragraph
+		(text)
+		(glue)
+		(text)
+		(glue)
+		(divert (divert_mark) target: (identifier)))
+	(knot (knot_mark) name: (identifier) (knot_mark))
+	(paragraph (text))
 )
