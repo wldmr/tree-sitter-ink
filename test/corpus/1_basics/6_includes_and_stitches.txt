@@ -12,14 +12,60 @@
 	...
 
 ---
+
 (ink
-	(knot (knot_mark) name: (identifier) (knot_mark))
-	(stitch (stitch_mark) name: (identifier))
-	(paragraph (text))
-	(stitch (stitch_mark) name: (identifier))
-	(paragraph (text))
-	(stitch (stitch_mark) name: (identifier))
-	(paragraph (text))
-	(stitch (stitch_mark) name: (identifier))
-	(paragraph (text))
-)
+  (knot
+    (knot_mark)
+    name: (identifier)
+    (knot_mark))
+  (stitch
+    (stitch_mark)
+    name: (identifier))
+  (paragraph
+    (text))
+  (stitch
+    (stitch_mark)
+    name: (identifier))
+  (paragraph
+    (text))
+  (stitch
+    (stitch_mark)
+    name: (identifier))
+  (paragraph
+    (text))
+  (stitch
+    (stitch_mark)
+    name: (identifier))
+  (paragraph
+    (text)))
+
+
+===
+.AFB. Stitches have unique names
+===
+*	[Travel in third class]
+	-> the_orient_express.in_third_class
+
+*	[Travel in the guard's van]
+	-> the_orient_express.in_the_guards_van
+---
+
+(ink
+  (choice
+    mark: (symbol)
+    temporary: (flow
+      (text)))
+  (divert
+    (divert_mark)
+    target: (qualified_name
+      (identifier)
+      (identifier)))
+  (choice
+    mark: (symbol)
+    temporary: (flow
+      (text)))
+  (divert
+    (divert_mark)
+    target: (qualified_name
+      (identifier)
+      (identifier))))

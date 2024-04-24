@@ -88,10 +88,11 @@ module.exports = grammar({
     )),
 
     divert: $ => seq(
-      $.divert_mark, field('target', $.identifier),
+      $.divert_mark, field('target', choice($.identifier, $.qualified_name)),
     ),
 
     identifier: _ => /[a-zA-z_][a-zA-Z0-9_]*/,
+    qualified_name: $ => seq($.identifier, token.immediate('.'), $.identifier),
 
     symbol: _ => '*',
 
