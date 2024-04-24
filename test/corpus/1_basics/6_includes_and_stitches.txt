@@ -1,0 +1,25 @@
+===
+.AFA. Knots can be subdivided
+===
+=== the_orient_express ===
+= in_first_class
+	...
+= in_third_class
+	...
+= in_the_guards_van
+	...
+= missed_the_train
+	...
+
+---
+(ink
+	(knot (knot_mark) name: (identifier) (knot_mark))
+	(stitch (stitch_mark) name: (identifier))
+	(paragraph (text))
+	(stitch (stitch_mark) name: (identifier))
+	(paragraph (text))
+	(stitch (stitch_mark) name: (identifier))
+	(paragraph (text))
+	(stitch (stitch_mark) name: (identifier))
+	(paragraph (text))
+)

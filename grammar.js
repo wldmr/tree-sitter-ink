@@ -33,6 +33,7 @@ module.exports = grammar({
       $.divert,
       $.paragraph,
       $.knot,
+      $.stitch,
       $.choice,
     ),
 
@@ -79,6 +80,12 @@ module.exports = grammar({
 
     knot_mark: _ => TOKEN.mark(/==+/),
     divert_mark: _ => TOKEN.mark('->'),
+
+    stitch: $ => prec.right(seq(
+      alias('=', $.stitch_mark),
+      field('name', $.identifier),
+      optional(alias($.line_comment, $.comment))
+    )),
 
     divert: $ => seq(
       $.divert_mark, field('target', $.identifier),

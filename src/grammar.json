@@ -94,6 +94,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "stitch"
+        },
+        {
+          "type": "SYMBOL",
           "name": "choice"
         }
       ]
@@ -365,6 +369,49 @@
           "type": "STRING",
           "value": "->"
         }
+      }
+    },
+    "stitch": {
+      "type": "PREC_RIGHT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "ALIAS",
+            "content": {
+              "type": "STRING",
+              "value": "="
+            },
+            "named": true,
+            "value": "stitch_mark"
+          },
+          {
+            "type": "FIELD",
+            "name": "name",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            }
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "ALIAS",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "line_comment"
+                },
+                "named": true,
+                "value": "comment"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
+        ]
       }
     },
     "divert": {

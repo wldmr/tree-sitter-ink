@@ -148,6 +148,10 @@
           "named": true
         },
         {
+          "type": "stitch",
+          "named": true
+        },
+        {
           "type": "tag",
           "named": true
         },
@@ -212,6 +216,36 @@
     }
   },
   {
+    "type": "stitch",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "comment",
+          "named": true
+        },
+        {
+          "type": "stitch_mark",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "todo_comment",
     "named": true,
     "fields": {}
@@ -250,6 +284,10 @@
   },
   {
     "type": "knot_mark",
+    "named": true
+  },
+  {
+    "type": "stitch_mark",
     "named": true
   },
   {
