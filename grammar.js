@@ -1,11 +1,14 @@
 const _tp = n => (rule => token(prec(n, rule)));
 TOKEN = {
   mark: _tp(20),
-  text: _tp(-10),
 }
 
 module.exports = grammar({
   name: 'ink',
+
+  externals: $ => [
+    $.text,
+  ],
 
   extras: $ => [
     $._space,
@@ -41,14 +44,6 @@ module.exports = grammar({
     ),
 
     glue: _ => TOKEN.mark('<>'),
-
-    text: _ => TOKEN.text(repeat1(choice(
-      /[^\n\r\/#\[\]\{\}|\-<]+/, // Weird lookahead hack: We break this regex up on the first letters of multi character marks (such as '-' for '->'),
-      // That way, these next guys (sort of lookahead regexes) get to run and potentially fail if they match a certain mark.
-      /-[^>]/,  // Fails on '->'. This gives the parser a chance to match a divert '->'
-      /<[^>]/,  // Fails on '<>'.
-    ))),
-
 
     tag: _ => /#[^\n#]+/,
 

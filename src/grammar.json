@@ -161,33 +161,6 @@
         }
       }
     },
-    "text": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": -10,
-        "content": {
-          "type": "REPEAT1",
-          "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "PATTERN",
-                "value": "[^\\n\\r\\/#\\[\\]\\{\\}|\\-<]+"
-              },
-              {
-                "type": "PATTERN",
-                "value": "-[^>]"
-              },
-              {
-                "type": "PATTERN",
-                "value": "<[^>]"
-              }
-            ]
-          }
-        }
-      }
-    },
     "tag": {
       "type": "PATTERN",
       "value": "#[^\\n#]+"
@@ -437,7 +410,12 @@
   ],
   "conflicts": [],
   "precedences": [],
-  "externals": [],
+  "externals": [
+    {
+      "type": "SYMBOL",
+      "name": "text"
+    }
+  ],
   "inline": [],
   "supertypes": []
 }
