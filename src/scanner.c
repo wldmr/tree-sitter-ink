@@ -117,13 +117,14 @@ bool tree_sitter_ink_external_scanner_scan(
         case 'T':
           // This one's a doozy: TODO<spaces>:
           lexer->advance(lexer, false);
+          if (found_text) break;  // but only at the start of the line
           if (lexer->lookahead != 'O') break;
           lexer->advance(lexer, false);
           if (lexer->lookahead != 'D') break;
           lexer->advance(lexer, false);
           if (lexer->lookahead != 'O') break;
           lexer->advance(lexer, false);
-          while (lexer->lookahead == ' ')
+          while (lexer->lookahead == ' ' || lexer->lookahead == '\t')
             lexer->advance(lexer, false);
           if (lexer->lookahead != ':') break;
           goto end_of_text_scan;

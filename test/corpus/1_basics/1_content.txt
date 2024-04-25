@@ -52,13 +52,22 @@ TODO: Write this section properly!
 
 And?
 
-	TODO : Make sure indent and whitespace doesn't break anything.
-
 ---
 (ink
 	(todo_comment)
-	(paragraph (text))
-	(todo_comment))
+	(paragraph (text)))
+
+
+=================================
+.AADa. TODO Comments corner cases
+=================================
+	   TODO 	: Make sure indent and whitespace doesn't break anything.
+
+He remembered that he was allowed to write TODO: anywhere else on the line.
+---
+(ink
+	(todo_comment)
+	(paragraph (text)))
 
 
 ==========
