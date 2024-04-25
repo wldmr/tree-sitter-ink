@@ -108,11 +108,11 @@ bool tree_sitter_ink_external_scanner_scan(
 
         case ' ':
         case '\t':
-          // Bit of a special case: We skip whitespace, but we move the end along with it.
+          // Bit of a special case: We skip whitespace until we found text.
           // This prevents "found_text" to be true if we're still consuming leading whitespace.
-          lexer->advance(lexer, true);
+          lexer->advance(lexer, !found_text);
           lexer->mark_end(lexer);
-          continue;
+          continue; // break would lead to setting found_text = true, which we don't want if this was a leading space.
 
         case 'T':
           // This one's a doozy: TODO<spaces>:
