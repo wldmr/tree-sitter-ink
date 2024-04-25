@@ -57,13 +57,18 @@ module.exports = grammar({
 
     choice: $ => seq(
       field('mark', $.symbol),
-      optional($.condition),
+      repeat($.condition),
       $._choice_content
     ),
 
-    condition: $ => seq(
-      '{', $.expr, '}'
-    ),
+    condition: $ => prec.right(seq(
+      // There can apparently be linebreaks between conditions.
+      optional(/\n/),
+      '{',
+      $.expr,
+      '}',
+      optional(/\n/),
+    )),
 
     _choice_content: $ => choice(
         seq(field('main', $.flow), optional($.divert)),

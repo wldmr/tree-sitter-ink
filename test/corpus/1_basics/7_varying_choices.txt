@@ -186,3 +186,34 @@
     (divert
       (divert_mark)
       target: (identifier))))
+
+
+===
+.AGF. Advanced Conditional Choices: Multiple Choices
+===
+*	{ not visit_paris } 	[Go to Paris] -> visit_paris
++ 	{ visit_paris } { not bored_of_paris }
+	[Return to Paris] -> visit_paris
+
+---
+
+(ink
+  (choice
+    mark: (symbol)
+    (condition
+      (unary (identifier)))
+    temporary: (flow (text))
+    (divert
+      (divert_mark)
+      target: (identifier)))
+  (choice
+    mark: (symbol)
+    (condition
+      (identifier))
+    (condition
+      (unary (identifier)))
+    temporary: (flow (text))
+    (divert
+      (divert_mark)
+      target: (identifier)))
+)
