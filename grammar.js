@@ -98,7 +98,7 @@ module.exports = grammar({
     identifier: _ => /[a-zA-z_][a-zA-Z0-9_]*/,
     qualified_name: $ => seq($.identifier, token.immediate('.'), $.identifier),
 
-    symbol: _ => '*',
+    symbol: _ => choice('*', '+'),
 
     comment: _ => /\/\*(.|\r?\n)+\*\//,
     line_comment: _ => /\/\/[^\n]*/,

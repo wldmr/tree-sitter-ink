@@ -288,9 +288,22 @@
     }
   },
   {
+    "type": "symbol",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "todo_comment",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "*",
+    "named": false
+  },
+  {
+    "type": "+",
+    "named": false
   },
   {
     "type": ".",
@@ -342,10 +355,6 @@
   },
   {
     "type": "stitch_mark",
-    "named": true
-  },
-  {
-    "type": "symbol",
     "named": true
   },
   {

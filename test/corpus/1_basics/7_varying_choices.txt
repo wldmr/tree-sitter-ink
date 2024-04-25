@@ -74,3 +74,73 @@
   (divert
     (divert_mark)
     target: (identifier)))
+
+===
+.AGC. Sticky Choices
+===
+=== homers_couch ===
+	+	[Eat another donut]
+		You eat another donut. -> homers_couch
+	*	[Get off the couch]
+		You struggle up off the couch to go and compose epic poetry.
+		-> END
+
+---
+
+(ink
+  (knot
+    (knot_mark)
+    name: (identifier)
+    (knot_mark))
+  (choice
+    mark: (symbol)
+    temporary: (flow
+      (text)))
+  (paragraph
+    (text)
+    (divert
+      (divert_mark)
+      target: (identifier)))
+  (choice
+    mark: (symbol)
+    temporary: (flow
+      (text)))
+  (paragraph
+    (text))
+  (divert
+    (divert_mark)
+    target: (identifier)))
+
+===
+.AGD. Sticky Fallback Choices
+===
+=== conversation_loop
+	*	[Talk about the weather] -> chat_weather
+	*	[Talk about the children] -> chat_children
+	+	-> sit_in_silence_again
+
+---
+
+(ink
+  (knot
+    (knot_mark)
+    name: (identifier))
+  (choice
+    mark: (symbol)
+    temporary: (flow
+      (text))
+    (divert
+      (divert_mark)
+      target: (identifier)))
+  (choice
+    mark: (symbol)
+    temporary: (flow
+      (text))
+    (divert
+      (divert_mark)
+      target: (identifier)))
+  (choice
+    mark: (symbol)
+    (divert
+      (divert_mark)
+      target: (identifier))))
