@@ -129,12 +129,14 @@ module.exports = grammar({
     unary: $ => prec(20, seq(field('op', $._unary_operator), $.expr)),
 
     _unary_operator: _ => choice(
-      'not',
+      'not', '!'
     ),
 
     _binary_operator: _ => choice(
       '*', '+', "-", "/",
-      "==", ">=", "<=", ">", "<"
+      "==", ">=", "<=", ">", "<",
+      "or", "||",
+      "and", "&&",
     ),
 
     identifier: _ => /[a-zA-z_][a-zA-Z0-9_]*/,

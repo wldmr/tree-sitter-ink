@@ -217,3 +217,51 @@
       (divert_mark)
       target: (identifier)))
 )
+
+
+===
+.AGG. Logical Operators (and parentheses)
+===
+*	{ not (visit_paris or visit_rome) && (visit_london || visit_new_york) } [ Wait. Go where? I'm confused. ] -> visit_someplace
+
+---
+
+(ink
+  (choice
+    mark: (symbol)
+    (condition
+      (binary
+        (unary
+          (paren
+            (binary
+              (identifier)
+              (identifier))))
+        (paren
+          (binary
+            (identifier)
+            (identifier)))))
+    temporary: (flow (text))
+    (divert
+      (divert_mark)
+      target: (identifier)))
+)
+
+
+===
+.AGH. Knot/stitch labels are actually read counts
+===
+*	{seen_clue} [Accuse Mr Jefferson]
+* {seen_clue > 3} [Flat-out arrest Mr Jefferson]
+
+---
+
+(ink
+  (choice
+    mark: (symbol)
+    (condition (identifier))
+    temporary: (flow (text)))
+  (choice
+    mark: (symbol)
+    (condition (binary (identifier) (number)))
+    temporary: (flow (text)))
+)

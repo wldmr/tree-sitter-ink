@@ -653,6 +653,10 @@
         {
           "type": "STRING",
           "value": "not"
+        },
+        {
+          "type": "STRING",
+          "value": "!"
         }
       ]
     },
@@ -694,6 +698,22 @@
         {
           "type": "STRING",
           "value": "<"
+        },
+        {
+          "type": "STRING",
+          "value": "or"
+        },
+        {
+          "type": "STRING",
+          "value": "||"
+        },
+        {
+          "type": "STRING",
+          "value": "and"
+        },
+        {
+          "type": "STRING",
+          "value": "&&"
         }
       ]
     },
