@@ -124,6 +124,21 @@
     }
   },
   {
+    "type": "include",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "path",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "ink",
     "named": true,
     "fields": {},
@@ -141,6 +156,10 @@
         },
         {
           "type": "divert",
+          "named": true
+        },
+        {
+          "type": "include",
           "named": true
         },
         {
@@ -278,6 +297,10 @@
     "named": false
   },
   {
+    "type": "INCLUDE",
+    "named": false
+  },
+  {
     "type": "TODO",
     "named": false
   },
@@ -307,6 +330,10 @@
   },
   {
     "type": "knot_mark",
+    "named": true
+  },
+  {
+    "type": "path",
     "named": true
   },
   {

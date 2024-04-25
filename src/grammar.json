@@ -99,6 +99,10 @@
         {
           "type": "SYMBOL",
           "name": "choice"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "include"
         }
       ]
     },
@@ -437,6 +441,31 @@
               }
             ]
           }
+        }
+      ]
+    },
+    "include": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "TOKEN",
+          "content": {
+            "type": "PREC",
+            "value": 20,
+            "content": {
+              "type": "STRING",
+              "value": "INCLUDE"
+            }
+          }
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[^\\n]+"
+          },
+          "named": true,
+          "value": "path"
         }
       ]
     },

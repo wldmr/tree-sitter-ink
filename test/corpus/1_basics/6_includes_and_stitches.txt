@@ -69,3 +69,36 @@
     target: (qualified_name
       (identifier)
       (identifier))))
+
+
+===
+.AFC. Script files can be combined
+===
+INCLUDE newspaper.ink
+INCLUDE cities/vienna.ink
+INCLUDE journeys/orient_express.ink
+---
+
+(ink
+  (include (path))
+  (include (path))
+  (include (path))
+  )
+
+===
+.AFCa. Include corner cases
+===
+      INCLUDE indented/is_completely_fine_I_th.ink
+ INCLUDE	tab_separated/is_completely_fine_I_th.ink
+
+He yelled, “I love that I can INCLUDE this word in text!!”
+INCLUDED in this is also a free beer.
+INC is a common suffix for a company
+---
+
+(ink
+  (include (path))
+  (include (path))
+  (paragraph (text))
+  (paragraph (text))
+  (paragraph (text)) )

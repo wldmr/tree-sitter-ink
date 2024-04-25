@@ -35,6 +35,7 @@ module.exports = grammar({
       $.knot,
       $.stitch,
       $.choice,
+      $.include,
     ),
 
     paragraph: $ => seq(
@@ -91,6 +92,9 @@ module.exports = grammar({
       $.divert_mark, field('target', choice($.identifier, $.qualified_name)),
     ),
 
+    // Let's just accept any old characters for the path. We don't have to do anything with it …
+    include: $ => seq(TOKEN.mark('INCLUDE'), alias(/[^\n]+/, $.path)),
+    
     identifier: _ => /[a-zA-z_][a-zA-Z0-9_]*/,
     qualified_name: $ => seq($.identifier, token.immediate('.'), $.identifier),
 

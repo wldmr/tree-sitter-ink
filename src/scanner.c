@@ -128,6 +128,28 @@ bool tree_sitter_ink_external_scanner_scan(
           if (lexer->lookahead != ':') break;
           goto end_of_text_scan;
 
+        case 'I':
+          lexer->advance(lexer, false);
+          // INCLUDE may only start at the beginning of the line
+          if (found_text) break;
+          if (lexer->lookahead != 'N') break;
+          lexer->advance(lexer, false);
+          if (lexer->lookahead != 'C') break;
+          lexer->advance(lexer, false);
+          if (lexer->lookahead != 'L') break;
+          lexer->advance(lexer, false);
+          if (lexer->lookahead != 'U') break;
+          lexer->advance(lexer, false);
+          if (lexer->lookahead != 'D') break;
+          lexer->advance(lexer, false);
+          if (lexer->lookahead != 'E') break;
+          lexer->advance(lexer, false);
+          if (lexer->lookahead != ' ' && lexer->lookahead != '\t') break;
+          lexer->advance(lexer, false);
+          while (lexer->lookahead == ' ' || lexer->lookahead == '\t')
+            lexer->advance(lexer, false);
+          goto end_of_text_scan;
+
         default:
           lexer->advance(lexer, false);
       }
