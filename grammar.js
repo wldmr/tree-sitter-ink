@@ -15,6 +15,10 @@ module.exports = grammar({
     $.comment,
   ],
 
+  inline: $ => [
+    $.expr,
+  ],
+
   rules: {
     ink: $ => seq(
       repeat(seq(
@@ -53,7 +57,12 @@ module.exports = grammar({
 
     choice: $ => seq(
       field('mark', $.symbol),
+      optional($.condition),
       $._choice_content
+    ),
+
+    condition: $ => seq(
+      '{', $.expr, '}'
     ),
 
     _choice_content: $ => choice(
@@ -94,7 +103,35 @@ module.exports = grammar({
 
     // Let's just accept any old characters for the path. We don't have to do anything with it …
     include: $ => seq(TOKEN.mark('INCLUDE'), alias(/[^\n]+/, $.path)),
-    
+
+    expr: $ => choice(
+
+      // terminals
+      $.identifier,
+      $.qualified_name,
+      alias(/\d+(\.\d+)?/, $.number),
+
+      // compound
+      $.paren,
+      $.unary,
+      $.binary,
+      
+    ),
+
+    // TODO: These precs and associativities are completely bogus
+    paren: $ => prec.right(100, seq("(", $.expr, ")")),
+    binary: $ => prec.right(10, seq($.expr, field('op', $._binary_operator), $.expr)),
+    unary: $ => prec(20, seq(field('op', $._unary_operator), $.expr)),
+
+    _unary_operator: _ => choice(
+      'not',
+    ),
+
+    _binary_operator: _ => choice(
+      '*', '+', "-", "/",
+      "==", ">=", "<=", ">", "<"
+    ),
+
     identifier: _ => /[a-zA-z_][a-zA-Z0-9_]*/,
     qualified_name: $ => seq($.identifier, token.immediate('.'), $.identifier),
 

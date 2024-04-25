@@ -144,3 +144,45 @@
     (divert
       (divert_mark)
       target: (identifier))))
+
+===
+.AGE. Conditional Choices
+===
+*	{ not visit_paris } 	[Go to Paris] -> visit_paris
++ 	{ visit_paris 	 } 		[Return to Paris] -> visit_paris
+
+*	{ visit_paris.met_estelle } [ Telephone Mme Estelle ] -> phone_estelle
+
+---
+
+(ink
+  (choice
+    mark: (symbol)
+    (condition
+      (unary
+        (identifier)))
+    temporary: (flow
+      (text))
+    (divert
+      (divert_mark)
+      target: (identifier)))
+  (choice
+    mark: (symbol)
+    (condition
+      (identifier))
+    temporary: (flow
+      (text))
+    (divert
+      (divert_mark)
+      target: (identifier)))
+  (choice
+    mark: (symbol)
+    (condition
+      (qualified_name
+        (identifier)
+        (identifier)))
+    temporary: (flow
+      (text))
+    (divert
+      (divert_mark)
+      target: (identifier))))
