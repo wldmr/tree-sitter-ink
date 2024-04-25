@@ -70,6 +70,10 @@
         {
           "type": "divert",
           "named": true
+        },
+        {
+          "type": "divert_mark",
+          "named": true
         }
       ]
     }

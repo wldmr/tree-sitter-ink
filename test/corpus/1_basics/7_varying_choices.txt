@@ -1,0 +1,76 @@
+===
+.AGA. Fallback Choices
+===
+*	-> out_of_options
+
+* 	->
+	Mulder never could explain how he got out of that burning box car. -> season_2
+
+---
+
+(ink
+  (choice
+    mark: (symbol)
+    (divert
+      (divert_mark)
+      target: (identifier)))
+  (choice
+    mark: (symbol)
+    (divert_mark))
+  (paragraph
+    (text)
+    (divert
+      (divert_mark)
+      target: (identifier))))
+
+===
+.AGB. Fallback Choices extended example
+===
+=== find_help ===
+
+	You search desperately for a friendly face in the crowd.
+	*	The woman in the hat[?] pushes you roughly aside. -> find_help
+	*	The man with the briefcase[?] looks disgusted as you stumble past him. -> find_help
+	*	->
+		But it is too late: you collapse onto the station platform. This is the end.
+		-> END
+
+---
+
+(ink
+  (knot
+    (knot_mark)
+    name: (identifier)
+    (knot_mark))
+  (paragraph
+    (text))
+  (choice
+    mark: (symbol)
+    main: (flow
+      (text))
+    temporary: (flow
+      (text))
+    final: (flow
+      (text))
+    (divert
+      (divert_mark)
+      target: (identifier)))
+  (choice
+    mark: (symbol)
+    main: (flow
+      (text))
+    temporary: (flow
+      (text))
+    final: (flow
+      (text))
+    (divert
+      (divert_mark)
+      target: (identifier)))
+  (choice
+    mark: (symbol)
+    (divert_mark))
+  (paragraph
+    (text))
+  (divert
+    (divert_mark)
+    target: (identifier)))

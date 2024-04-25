@@ -56,12 +56,12 @@ module.exports = grammar({
       $._choice_content
     ),
 
-    _choice_content: $ => seq(
-      choice(
-        field('main', $.flow),
-        $._compound_choice_content
-      ),
-      optional($.divert)
+    _choice_content: $ => choice(
+        seq(field('main', $.flow), optional($.divert)),
+        seq($._compound_choice_content, optional($.divert)),
+        // types of fallback choices:
+        $.divert,
+        $.divert_mark,
     ),
 
     _compound_choice_content: $ => prec.right(seq(
