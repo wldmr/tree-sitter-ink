@@ -52,14 +52,19 @@ bool tree_sitter_ink_external_scanner_scan(
         case '#':
           goto end_of_text_scan;
 
+        // FIXME: The cases checking for 'have we found text yet' are dodgy; this isn't usually a sufficient condition.
+        // Example: * and + are only not part of the text if we're actually the _first_ text of a choice.
+        // In all other cases it would be allowed (such as after a glue).
+        // Maybe we need different kinds of TEXT for each instance?
         case '*':
         case '+':
-          // If encountered before we've found an text: these are actually choices
+          // If encountered before we've found any text: these are actually choices
           // For gathers see the '-' branch, natch.
           if (!found_text) {
             // printf("found choice mark in lookahead.\n");
             goto end_of_text_scan;
           }
+          lexer->advance(lexer, false);
           break;
 
         case '=':
