@@ -52,18 +52,18 @@ module.exports = grammar({
     ),
 
     // TODO: I think flow means something else in Ink; I think the Ink parser calls this 'Content'. Maybe call it text_content?
-    flow: $ => prec.left(repeat1(choice($.text, $.glue, $.alternatives))),
+    flow: $ => prec.right(repeat1(choice($.text, $.glue, $.alternatives))),
 
     glue: _ => TOKEN.mark('<>'),
 
     alternatives: $ => seq(
       choice(
-        seq('{', ''),  // Odd hack. Just matching '{' here would prevent the other cases from being recognized (the &,!,~ would just be part of the text).
-        seq('{', '&'),
-        seq('{', '!'),
-        seq('{', '~'),
+        seq('{', token(prec(0, ''))),  // Odd hack. Just matching '{' here would prevent the other cases from being recognized (the &,!,~ would just be part of the text).
+        seq('{', token(prec(1, '&'))),
+        seq('{', token(prec(1, '!'))),
+        seq('{', token(prec(1, '~'))),
       ),
-      repeat1(choice('|', $.flow)),
+      repeat1(choice('|', seq($.flow, optional($.divert)))),
       '}',
     ),
 

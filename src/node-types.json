@@ -31,6 +31,10 @@
       "required": false,
       "types": [
         {
+          "type": "divert",
+          "named": true
+        },
+        {
           "type": "flow",
           "named": true
         }

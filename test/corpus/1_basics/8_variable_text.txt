@@ -47,7 +47,7 @@ It was {&Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday} today.
 		(text)))
 
 ===
-.AHB. Alternatives: Once Only
+.AHC. Alternatives: Once Only
 ===
 He told me a joke. {!I laughed politely.|I smiled.|I grimaced.|I promised myself to not react again.}
 
@@ -62,7 +62,7 @@ He told me a joke. {!I laughed politely.|I smiled.|I grimaced.|I promised myself
 			(flow (text)))))
 
 ===
-.AHC. Alternatives: Shuffle
+.AHD. Alternatives: Shuffle
 ===
 I tossed the coin. {~Heads|Tails}.
 
@@ -76,7 +76,47 @@ I tossed the coin. {~Heads|Tails}.
 		(text)))
 
 ===
-.AHxTODO. Alternative inside Choice text
+.AHE. Alternatives: Blank elements
+===
+I took a step forward. {!||||Then the lights went out. -> eek}
+
+---
+(ink
+	(paragraph
+		(text)
+		(alternatives
+			(flow (text))
+			(divert (divert_mark) target: (identifier))) ))
+
+
+===
+.AHF. Alternatives Can Be Nested
+===
+The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|arm|cheek}}.
+
+---
+(ink
+	(paragraph
+		(text)
+		(alternatives
+			(flow
+				(alternatives
+					(flow (text)))
+				(text))
+			(flow (text)))
+		(alternatives
+			(flow (text))
+			(flow
+				(text)
+				(alternatives
+					(flow (text))
+					(flow (text))
+					(flow (text)))))
+		(text)))
+
+
+===
+.AHxTODO. Alternatives Inside Choice Text
 ===
 + 	"Hello, {&Master|Monsieur Fogg|you|brown-eyes}_"[] I declared.
 

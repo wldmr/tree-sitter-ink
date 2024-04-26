@@ -157,7 +157,7 @@
       ]
     },
     "flow": {
-      "type": "PREC_LEFT",
+      "type": "PREC_RIGHT",
       "value": 0,
       "content": {
         "type": "REPEAT1",
@@ -205,8 +205,15 @@
                   "value": "{"
                 },
                 {
-                  "type": "STRING",
-                  "value": ""
+                  "type": "TOKEN",
+                  "content": {
+                    "type": "PREC",
+                    "value": 0,
+                    "content": {
+                      "type": "STRING",
+                      "value": ""
+                    }
+                  }
                 }
               ]
             },
@@ -218,8 +225,15 @@
                   "value": "{"
                 },
                 {
-                  "type": "STRING",
-                  "value": "&"
+                  "type": "TOKEN",
+                  "content": {
+                    "type": "PREC",
+                    "value": 1,
+                    "content": {
+                      "type": "STRING",
+                      "value": "&"
+                    }
+                  }
                 }
               ]
             },
@@ -231,8 +245,15 @@
                   "value": "{"
                 },
                 {
-                  "type": "STRING",
-                  "value": "!"
+                  "type": "TOKEN",
+                  "content": {
+                    "type": "PREC",
+                    "value": 1,
+                    "content": {
+                      "type": "STRING",
+                      "value": "!"
+                    }
+                  }
                 }
               ]
             },
@@ -244,8 +265,15 @@
                   "value": "{"
                 },
                 {
-                  "type": "STRING",
-                  "value": "~"
+                  "type": "TOKEN",
+                  "content": {
+                    "type": "PREC",
+                    "value": 1,
+                    "content": {
+                      "type": "STRING",
+                      "value": "~"
+                    }
+                  }
                 }
               ]
             }
@@ -261,8 +289,25 @@
                 "value": "|"
               },
               {
-                "type": "SYMBOL",
-                "name": "flow"
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "flow"
+                  },
+                  {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "SYMBOL",
+                        "name": "divert"
+                      },
+                      {
+                        "type": "BLANK"
+                      }
+                    ]
+                  }
+                ]
               }
             ]
           }
