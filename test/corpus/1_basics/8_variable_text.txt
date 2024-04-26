@@ -28,9 +28,57 @@ The radio hissed into life. {"Three!"|"Two!"|"One!"|There was the white noise ra
 )
 
 ===
+.AHB. Alternatives: Cycles
+===
+It was {&Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday} today.
+
+---
+(ink
+	(paragraph
+		(text)
+		(alternatives
+			(flow (text))
+			(flow (text))
+			(flow (text))
+			(flow (text))
+			(flow (text))
+			(flow (text))
+			(flow (text)) )
+		(text)))
+
+===
+.AHB. Alternatives: Once Only
+===
+He told me a joke. {!I laughed politely.|I smiled.|I grimaced.|I promised myself to not react again.}
+
+---
+(ink
+	(paragraph
+		(text)
+		(alternatives
+			(flow (text))
+			(flow (text))
+			(flow (text))
+			(flow (text)))))
+
+===
+.AHC. Alternatives: Shuffle
+===
+I tossed the coin. {~Heads|Tails}.
+
+---
+(ink
+	(paragraph
+		(text)
+		(alternatives
+			(flow (text))
+			(flow (text)) )
+		(text)))
+
+===
 .AHxTODO. Alternative inside Choice text
 ===
-+ 	"Hello, {&Master|Monsieur Fogg|you|brown-eyes}!"[] I declared.
++ 	"Hello, {&Master|Monsieur Fogg|you|brown-eyes}_"[] I declared.
 
 ---
 (ink

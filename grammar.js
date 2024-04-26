@@ -57,8 +57,12 @@ module.exports = grammar({
     glue: _ => TOKEN.mark('<>'),
 
     alternatives: $ => seq(
-      '{',
-      //field('mark', optional(choice('&', '!', '~'))),  TODO: Needs provisions for the marks in the C-scanner
+      choice(
+        seq('{', ''),  // Odd hack. Just matching '{' here would prevent the other cases from being recognized (the &,!,~ would just be part of the text).
+        seq('{', '&'),
+        seq('{', '!'),
+        seq('{', '~'),
+      ),
       repeat1(choice('|', $.flow)),
       '}',
     ),
