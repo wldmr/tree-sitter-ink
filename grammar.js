@@ -29,7 +29,7 @@ module.exports = grammar({
       optional($._toplevel)  // last line might not have a newline
     ),
 
-    _newline: _ => /\n/,
+    _newline: _ => '\n',
     _space: _ => TOKEN.mark(/[ \t]+/),
 
     _toplevel: $ => choice(
@@ -103,17 +103,17 @@ module.exports = grammar({
     ))),
 
     knot: $ => prec.right(seq(
-      $.knot_mark,
+      $._knot_mark,
       field('name', $.identifier),
-      optional($.knot_mark),
+      optional($._knot_mark),
       optional(alias($.line_comment, $.comment))
     )),
 
-    knot_mark: _ => TOKEN.mark(/==+/),
+    _knot_mark: _ => alias(TOKEN.mark(/==+/), "=="),
     divert_mark: _ => TOKEN.mark('->'),
 
     stitch: $ => prec.right(seq(
-      alias('=', $.stitch_mark),
+      '=',
       field('name', $.identifier),
       optional(alias($.line_comment, $.comment))
     )),

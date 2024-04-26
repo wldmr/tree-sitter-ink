@@ -15,30 +15,23 @@
 
 (ink
   (knot
-    (knot_mark)
-    name: (identifier)
-    (knot_mark))
+    name: (identifier))
   (stitch
-    (stitch_mark)
     name: (identifier))
   (paragraph
     (text))
   (stitch
-    (stitch_mark)
     name: (identifier))
   (paragraph
     (text))
   (stitch
-    (stitch_mark)
     name: (identifier))
   (paragraph
     (text))
   (stitch
-    (stitch_mark)
     name: (identifier))
   (paragraph
     (text)))
-
 
 ===
 .AFB. Stitches have unique names
@@ -70,7 +63,6 @@
       (identifier)
       (identifier))))
 
-
 ===
 .AFC. Script files can be combined
 ===
@@ -80,10 +72,12 @@ INCLUDE journeys/orient_express.ink
 ---
 
 (ink
-  (include (path))
-  (include (path))
-  (include (path))
-  )
+  (include
+    (path))
+  (include
+    (path))
+  (include
+    (path)))
 
 ===
 .AFCa. Include corner cases
@@ -97,8 +91,13 @@ INC is a common suffix for a company
 ---
 
 (ink
-  (include (path))
-  (include (path))
-  (paragraph (text))
-  (paragraph (text))
-  (paragraph (text)) )
+  (include
+    (path))
+  (include
+    (path))
+  (paragraph
+    (text))
+  (paragraph
+    (text))
+  (paragraph
+    (text)))

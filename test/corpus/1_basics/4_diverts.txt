@@ -11,13 +11,20 @@ We hurried home to Savile Row as fast as we could.
 // For some reason we need an empty line here. Bug in Tree-Sitter or grammar?
 
 ---
+
 (ink
-	(knot (knot_mark) name: (identifier) (knot_mark))
-	(paragraph (text))
-	(divert (divert_mark) target: (identifier))
-	(knot (knot_mark) name: (identifier) (knot_mark))
-	(paragraph (text))
-	(comment))
+  (knot
+    name: (identifier))
+  (paragraph
+    (text))
+  (divert
+    (divert_mark)
+    target: (identifier))
+  (knot
+    name: (identifier))
+  (paragraph
+    (text))
+  (comment))
 
 ===
 .ADB. Diverts are invisible
@@ -29,15 +36,19 @@ We hurried home to Savile Row -> as_fast_as_we_could
 as fast as we could.
 
 ---
-(ink
-	(knot (knot_mark) name: (identifier) (knot_mark))
-	(paragraph
-		(text)
-		(divert (divert_mark) target: (identifier)))
-	(knot (knot_mark) name: (identifier) (knot_mark))
-	(paragraph (text))
-)
 
+(ink
+  (knot
+    name: (identifier))
+  (paragraph
+    (text)
+    (divert
+      (divert_mark)
+      target: (identifier)))
+  (knot
+    name: (identifier))
+  (paragraph
+    (text)))
 
 ===
 .ADC. Glue
@@ -53,23 +64,28 @@ to Savile Row
 === as_fast_as_we_could ===
 <> as fast as we could.
 ---
+
 (ink
-	(knot (knot_mark) name: (identifier) (knot_mark))
-	(paragraph
-		(text)
-		(glue))
-	(divert (divert_mark) target: (identifier))
-
-	(knot (knot_mark) name: (identifier) (knot_mark))
-	(paragraph
-		(text))
-	(divert (divert_mark) target: (identifier))
-
-	(knot (knot_mark) name: (identifier) (knot_mark))
-	(paragraph
-		(glue)
-		(text))
-)
+  (knot
+    name: (identifier))
+  (paragraph
+    (text)
+    (glue))
+  (divert
+    (divert_mark)
+    target: (identifier))
+  (knot
+    name: (identifier))
+  (paragraph
+    (text))
+  (divert
+    (divert_mark)
+    target: (identifier))
+  (knot
+    name: (identifier))
+  (paragraph
+    (glue)
+    (text)))
 
 ===
 .ADDa. Glue on same line as divert
@@ -83,40 +99,45 @@ We hurried home <> -> to_savile_row
 === as_fast_as_we_could ===
 <> as fast as we could.
 ---
+
 (ink
-	(knot (knot_mark) name: (identifier) (knot_mark))
-	(paragraph
-		(text)
-		(glue)
-		(divert (divert_mark) target: (identifier)) )
-
-	(knot (knot_mark) name: (identifier) (knot_mark))
-	(paragraph
-		(glue)
-		(text)
-		(divert (divert_mark) target: (identifier)) )
-
-	(knot (knot_mark) name: (identifier) (knot_mark))
-	(paragraph
-		(glue)
-		(text))
-)
+  (knot
+    name: (identifier))
+  (paragraph
+    (text)
+    (glue)
+    (divert
+      (divert_mark)
+      target: (identifier)))
+  (knot
+    name: (identifier))
+  (paragraph
+    (glue)
+    (text)
+    (divert
+      (divert_mark)
+      target: (identifier)))
+  (knot
+    name: (identifier))
+  (paragraph
+    (glue)
+    (text)))
 
 ===
 .ADDb. Can't use too much glue
 ===
 When we <> came home, <> <> <> we went to sleep.
 ---
+
 (ink
-	(paragraph
-		(text)
-		(glue)
-		(text)
-		(glue)
-		(glue)
-		(glue)
-		(text))
-)
+  (paragraph
+    (text)
+    (glue)
+    (text)
+    (glue)
+    (glue)
+    (glue)
+    (text)))
 
 ===
 .ADDc. No spurious diverts or glues
@@ -127,13 +148,17 @@ We hurried home to Savile Road sevent-<> no wait, it was a number <<>-> what_num
 20
 
 ---
+
 (ink
-	(paragraph
-		(text)
-		(glue)
-		(text)
-		(glue)
-		(divert (divert_mark) target: (identifier)))
-	(knot (knot_mark) name: (identifier) (knot_mark))
-	(paragraph (text))
-)
+  (paragraph
+    (text)
+    (glue)
+    (text)
+    (glue)
+    (divert
+      (divert_mark)
+      target: (identifier)))
+  (knot
+    name: (identifier))
+  (paragraph
+    (text)))

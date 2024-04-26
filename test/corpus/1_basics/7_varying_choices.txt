@@ -39,9 +39,7 @@
 
 (ink
   (knot
-    (knot_mark)
-    name: (identifier)
-    (knot_mark))
+    name: (identifier))
   (paragraph
     (text))
   (choice
@@ -89,9 +87,7 @@
 
 (ink
   (knot
-    (knot_mark)
-    name: (identifier)
-    (knot_mark))
+    name: (identifier))
   (choice
     mark: (symbol)
     temporary: (flow
@@ -123,7 +119,6 @@
 
 (ink
   (knot
-    (knot_mark)
     name: (identifier))
   (choice
     mark: (symbol)
@@ -187,7 +182,6 @@
       (divert_mark)
       target: (identifier))))
 
-
 ===
 .AGF. Advanced Conditional Choices: Multiple Choices
 ===
@@ -201,8 +195,10 @@
   (choice
     mark: (symbol)
     (condition
-      (unary (identifier)))
-    temporary: (flow (text))
+      (unary
+        (identifier)))
+    temporary: (flow
+      (text))
     (divert
       (divert_mark)
       target: (identifier)))
@@ -211,13 +207,13 @@
     (condition
       (identifier))
     (condition
-      (unary (identifier)))
-    temporary: (flow (text))
+      (unary
+        (identifier)))
+    temporary: (flow
+      (text))
     (divert
       (divert_mark)
-      target: (identifier)))
-)
-
+      target: (identifier))))
 
 ===
 .AGG. Logical Operators (and parentheses)
@@ -240,12 +236,11 @@
           (binary
             (identifier)
             (identifier)))))
-    temporary: (flow (text))
+    temporary: (flow
+      (text))
     (divert
       (divert_mark)
-      target: (identifier)))
-)
-
+      target: (identifier))))
 
 ===
 .AGH. Knot/stitch labels are actually read counts
@@ -258,10 +253,15 @@
 (ink
   (choice
     mark: (symbol)
-    (condition (identifier))
-    temporary: (flow (text)))
+    (condition
+      (identifier))
+    temporary: (flow
+      (text)))
   (choice
     mark: (symbol)
-    (condition (binary (identifier) (number)))
-    temporary: (flow (text)))
-)
+    (condition
+      (binary
+        (identifier)
+        (number)))
+    temporary: (flow
+      (text))))

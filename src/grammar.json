@@ -43,8 +43,8 @@
       ]
     },
     "_newline": {
-      "type": "PATTERN",
-      "value": "\\n"
+      "type": "STRING",
+      "value": "\n"
     },
     "_space": {
       "type": "TOKEN",
@@ -510,7 +510,7 @@
         "members": [
           {
             "type": "SYMBOL",
-            "name": "knot_mark"
+            "name": "_knot_mark"
           },
           {
             "type": "FIELD",
@@ -525,7 +525,7 @@
             "members": [
               {
                 "type": "SYMBOL",
-                "name": "knot_mark"
+                "name": "_knot_mark"
               },
               {
                 "type": "BLANK"
@@ -552,16 +552,21 @@
         ]
       }
     },
-    "knot_mark": {
-      "type": "TOKEN",
+    "_knot_mark": {
+      "type": "ALIAS",
       "content": {
-        "type": "PREC",
-        "value": 20,
+        "type": "TOKEN",
         "content": {
-          "type": "PATTERN",
-          "value": "==+"
+          "type": "PREC",
+          "value": 20,
+          "content": {
+            "type": "PATTERN",
+            "value": "==+"
+          }
         }
-      }
+      },
+      "named": false,
+      "value": "=="
     },
     "divert_mark": {
       "type": "TOKEN",
@@ -581,13 +586,8 @@
         "type": "SEQ",
         "members": [
           {
-            "type": "ALIAS",
-            "content": {
-              "type": "STRING",
-              "value": "="
-            },
-            "named": true,
-            "value": "stitch_mark"
+            "type": "STRING",
+            "value": "="
           },
           {
             "type": "FIELD",

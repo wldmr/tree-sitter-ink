@@ -16,9 +16,7 @@ You open the gate, and step out onto the path.
 
 (ink
   (knot
-    (knot_mark)
-    name: (identifier)
-    (knot_mark))
+    name: (identifier))
   (paragraph
     (text))
   (choice
@@ -43,9 +41,7 @@ You open the gate, and step out onto the path.
       (divert_mark)
       target: (identifier)))
   (knot
-    (knot_mark)
-    name: (identifier)
-    (knot_mark))
+    name: (identifier))
   (paragraph
     (text))
   (paragraph
@@ -83,9 +79,7 @@ He insisted that we hurried home to Savile Row
 
 (ink
   (knot
-    (knot_mark)
-    (identifier)
-    (knot_mark))
+    (identifier))
   (paragraph
     (text))
   (choice
@@ -116,27 +110,21 @@ He insisted that we hurried home to Savile Row
       (divert_mark)
       (identifier)))
   (knot
-    (knot_mark)
-    (identifier)
-    (knot_mark))
+    (identifier))
   (paragraph
     (text)
     (divert
       (divert_mark)
       (identifier)))
   (knot
-    (knot_mark)
-    (identifier)
-    (knot_mark))
+    (identifier))
   (paragraph
     (text))
   (divert
     (divert_mark)
     (identifier))
   (knot
-    (knot_mark)
-    (identifier)
-    (knot_mark))
+    (identifier))
   (paragraph
     (glue)
     (text)))

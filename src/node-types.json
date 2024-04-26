@@ -365,15 +365,11 @@
       }
     },
     "children": {
-      "multiple": true,
-      "required": true,
+      "multiple": false,
+      "required": false,
       "types": [
         {
           "type": "comment",
-          "named": true
-        },
-        {
-          "type": "knot_mark",
           "named": true
         }
       ]
@@ -468,15 +464,11 @@
       }
     },
     "children": {
-      "multiple": true,
-      "required": true,
+      "multiple": false,
+      "required": false,
       "types": [
         {
           "type": "comment",
-          "named": true
-        },
-        {
-          "type": "stitch_mark",
           "named": true
         }
       ]
@@ -599,6 +591,10 @@
     "named": false
   },
   {
+    "type": "=",
+    "named": false
+  },
+  {
     "type": "==",
     "named": false
   },
@@ -651,10 +647,6 @@
     "named": true
   },
   {
-    "type": "knot_mark",
-    "named": true
-  },
-  {
     "type": "not",
     "named": false
   },
@@ -668,10 +660,6 @@
   },
   {
     "type": "path",
-    "named": true
-  },
-  {
-    "type": "stitch_mark",
     "named": true
   },
   {

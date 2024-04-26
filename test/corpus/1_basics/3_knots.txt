@@ -9,18 +9,17 @@ We arrived into London at 9.45pm exactly.
 
 So, more text I guess.
 ---
-(ink
-	(knot
-		(knot_mark)
-		name: (identifier)
-		(knot_mark))
-	(paragraph (text))
-	(knot
-		(knot_mark)
-		name: (identifier)
-		(comment))
-	(paragraph (text)))
 
+(ink
+  (knot
+    name: (identifier))
+  (paragraph
+    (text))
+  (knot
+    name: (identifier)
+    (comment))
+  (paragraph
+    (text)))
 
 ===
 .ACB. Simplest Knotty Script
@@ -30,7 +29,12 @@ So, more text I guess.
 === top_knot ===
 Hello world!
 ---
+
 (ink
-	(divert (divert_mark) target: (identifier))
-	(knot (knot_mark) name: (identifier) (knot_mark))
-	(paragraph (text)))
+  (divert
+    (divert_mark)
+    target: (identifier))
+  (knot
+    name: (identifier))
+  (paragraph
+    (text)))
