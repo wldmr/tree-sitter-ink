@@ -8,11 +8,30 @@
       "required": true,
       "types": [
         {
+          "type": "alternatives",
+          "named": true
+        },
+        {
           "type": "glue",
           "named": true
         },
         {
           "type": "text",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "alternatives",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "flow",
           "named": true
         }
       ]
@@ -249,6 +268,10 @@
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "alternatives",
+          "named": true
+        },
         {
           "type": "glue",
           "named": true
@@ -645,6 +668,10 @@
   },
   {
     "type": "{",
+    "named": false
+  },
+  {
+    "type": "|",
     "named": false
   },
   {

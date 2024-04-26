@@ -1,6 +1,7 @@
 const _tp = n => (rule => token(prec(n, rule)));
 TOKEN = {
   mark: _tp(20),
+  condition_mark: _tp(30),
 }
 
 module.exports = grammar({
@@ -17,6 +18,7 @@ module.exports = grammar({
 
   inline: $ => [
     $.expr,
+    // $.flow,  // maybe?
   ],
 
   rules: {
@@ -49,9 +51,17 @@ module.exports = grammar({
       optional(alias($.line_comment, $.comment)),
     ),
 
-    flow: $ => repeat1(choice($.text, $.glue)),
+    // TODO: I think flow means something else in Ink; I think the Ink parser calls this 'Content'. Maybe call it text_content?
+    flow: $ => prec.left(repeat1(choice($.text, $.glue, $.alternatives))),
 
     glue: _ => TOKEN.mark('<>'),
+
+    alternatives: $ => seq(
+      '{',
+      //field('mark', optional(choice('&', '!', '~'))),  TODO: Needs provisions for the marks in the C-scanner
+      repeat1(choice('|', $.flow)),
+      '}',
+    ),
 
     tag: _ => /#[^\n#]+/,
 
@@ -64,7 +74,7 @@ module.exports = grammar({
     condition: $ => prec.right(seq(
       // There can apparently be linebreaks between conditions.
       optional(/\n/),
-      '{',
+      TOKEN.condition_mark('{'),  // this precedence is so that a condition gets chosen over a flow starting with an alternative.
       $.expr,
       '}',
       optional(/\n/),
