@@ -116,7 +116,7 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
 
 
 ===
-.AHxTODO. Alternatives Inside Choice Text
+.AHG. Alternatives Inside Choice Text
 ===
 + 	"Hello, {&Master|Monsieur Fogg|you|brown-eyes}_"[] I declared.
 
@@ -133,3 +133,23 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
 				(flow (text)) )
 			(text))
 		final: (flow (text))))
+
+
+===
+.AHH. Alternatives Starting Choice Text
+===
++	\ {&They headed towards the Sandlands|They set off for the desert|The party followed the old road South}
+
+---
+(ink
+	(choice
+		mark: (symbol)
+		main: (flow
+			(alternatives
+				(flow (text))
+				(flow (text))
+				(flow (text))
+			)
+		)
+	)
+)

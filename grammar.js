@@ -57,11 +57,12 @@ module.exports = grammar({
     glue: _ => TOKEN.mark('<>'),
 
     alternatives: $ => seq(
+      '{',
       choice(
-        seq('{', token(prec(0, ''))),  // Odd hack. Just matching '{' here would prevent the other cases from being recognized (the &,!,~ would just be part of the text).
-        seq('{', token(prec(1, '&'))),
-        seq('{', token(prec(1, '!'))),
-        seq('{', token(prec(1, '~'))),
+        token(prec(0, '')),  // Odd hack. Just matching '{' here would prevent the other cases from being recognized (the &,!,~ would just be part of the text).
+        token(prec(1, '&')),
+        token(prec(1, '!')),
+        token(prec(1, '~')),
       ),
       repeat1(choice('|', seq($.flow, optional($.divert)))),
       '}',
@@ -72,6 +73,7 @@ module.exports = grammar({
     choice: $ => seq(
       field('mark', $.symbol),
       repeat($.condition),
+      optional('\\'),
       $._choice_content
     ),
 

@@ -5,6 +5,7 @@
 
 typedef enum Token {
   TEXT,
+  NEWLINE_ESCAPE,
 } Token_t;
 
 void *tree_sitter_ink_external_scanner_create(void) {
@@ -35,7 +36,7 @@ bool tree_sitter_ink_external_scanner_scan(
   TSLexer *lexer,
   const bool *valid_symbols
 ) {
-  
+
   if (valid_symbols[TEXT]) {
     lexer->mark_end(lexer);
     bool found_text = false;
@@ -62,6 +63,15 @@ bool tree_sitter_ink_external_scanner_scan(
           // For gathers see the '-' branch, natch.
           if (!found_text) {
             // printf("found choice mark in lookahead.\n");
+            goto end_of_text_scan;
+          }
+          lexer->advance(lexer, false);
+          break;
+
+        case '\\':
+          // If encountered before we've found any text: these are actually choices
+          if (!found_text) {
+            // printf("literally found a literal backslash in lookahead. Like, omergerd.\n");
             goto end_of_text_scan;
           }
           lexer->advance(lexer, false);
