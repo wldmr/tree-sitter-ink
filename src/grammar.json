@@ -22,8 +22,8 @@
                 ]
               },
               {
-                "type": "SYMBOL",
-                "name": "_newline"
+                "type": "PATTERN",
+                "value": "\\n"
               }
             ]
           }
@@ -41,21 +41,6 @@
           ]
         }
       ]
-    },
-    "_newline": {
-      "type": "STRING",
-      "value": "\n"
-    },
-    "_space": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": 20,
-        "content": {
-          "type": "PATTERN",
-          "value": "[ \\t]+"
-        }
-      }
     },
     "_toplevel": {
       "type": "CHOICE",
@@ -911,8 +896,8 @@
   },
   "extras": [
     {
-      "type": "SYMBOL",
-      "name": "_space"
+      "type": "PATTERN",
+      "value": "[ \\t]+"
     },
     {
       "type": "SYMBOL",

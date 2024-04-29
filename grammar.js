@@ -12,7 +12,7 @@ module.exports = grammar({
   ],
 
   extras: $ => [
-    $._space,
+    /[ \t]+/,
     $.comment,
   ],
 
@@ -23,14 +23,9 @@ module.exports = grammar({
 
   rules: {
     ink: $ => seq(
-      repeat(seq(
-        optional($._toplevel),
-        $._newline)),
-      optional($._toplevel)  // last line might not have a newline
+      repeat(seq(optional($._toplevel), /\n/)),
+      optional($._toplevel), // last line might not have a newline
     ),
-
-    _newline: _ => '\n',
-    _space: _ => TOKEN.mark(/[ \t]+/),
 
     _toplevel: $ => choice(
       $.todo_comment,
