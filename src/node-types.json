@@ -1,32 +1,5 @@
 [
   {
-    "type": "",
-    "named": false,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "alternatives",
-          "named": true
-        },
-        {
-          "type": "conditional_text",
-          "named": true
-        },
-        {
-          "type": "glue",
-          "named": true
-        },
-        {
-          "type": "text",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "alternatives",
     "named": true,
     "fields": {},
@@ -34,10 +7,6 @@
       "multiple": true,
       "required": false,
       "types": [
-        {
-          "type": "divert",
-          "named": true
-        },
         {
           "type": "flow",
           "named": true
@@ -58,27 +27,7 @@
             "named": false
           },
           {
-            "type": "*",
-            "named": false
-          },
-          {
-            "type": "+",
-            "named": false
-          },
-          {
-            "type": "-",
-            "named": false
-          },
-          {
-            "type": "/",
-            "named": false
-          },
-          {
             "type": "<",
-            "named": false
-          },
-          {
-            "type": "<=",
             "named": false
           },
           {
@@ -87,10 +36,6 @@
           },
           {
             "type": ">",
-            "named": false
-          },
-          {
-            "type": ">=",
             "named": false
           },
           {
@@ -125,113 +70,6 @@
           "named": true
         },
         {
-          "type": "paren",
-          "named": true
-        },
-        {
-          "type": "qualified_name",
-          "named": true
-        },
-        {
-          "type": "unary",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "choice",
-    "named": true,
-    "fields": {
-      "final": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "flow",
-            "named": true
-          }
-        ]
-      },
-      "main": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "flow",
-            "named": true
-          }
-        ]
-      },
-      "mark": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "symbol",
-            "named": true
-          }
-        ]
-      },
-      "temporary": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "flow",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "condition",
-          "named": true
-        },
-        {
-          "type": "divert",
-          "named": true
-        },
-        {
-          "type": "divert_mark",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "condition",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "binary",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "number",
-          "named": true
-        },
-        {
-          "type": "paren",
-          "named": true
-        },
-        {
-          "type": "qualified_name",
-          "named": true
-        },
-        {
           "type": "unary",
           "named": true
         }
@@ -256,14 +94,6 @@
           },
           {
             "type": "number",
-            "named": true
-          },
-          {
-            "type": "paren",
-            "named": true
-          },
-          {
-            "type": "qualified_name",
             "named": true
           },
           {
@@ -295,36 +125,6 @@
     }
   },
   {
-    "type": "divert",
-    "named": true,
-    "fields": {
-      "target": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "qualified_name",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "divert_mark",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "flow",
     "named": true,
     "fields": {},
@@ -341,26 +141,7 @@
           "named": true
         },
         {
-          "type": "glue",
-          "named": true
-        },
-        {
           "type": "text",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "include",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "path",
           "named": true
         }
       ]
@@ -375,178 +156,11 @@
       "required": false,
       "types": [
         {
-          "type": "choice",
-          "named": true
-        },
-        {
-          "type": "comment",
-          "named": true
-        },
-        {
-          "type": "divert",
-          "named": true
-        },
-        {
-          "type": "include",
-          "named": true
-        },
-        {
-          "type": "knot",
-          "named": true
-        },
-        {
-          "type": "paragraph",
-          "named": true
-        },
-        {
-          "type": "stitch",
-          "named": true
-        },
-        {
-          "type": "tag",
-          "named": true
-        },
-        {
-          "type": "todo_comment",
+          "type": "flow",
           "named": true
         }
       ]
     }
-  },
-  {
-    "type": "knot",
-    "named": true,
-    "fields": {
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "comment",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "paragraph",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "comment",
-          "named": true
-        },
-        {
-          "type": "divert",
-          "named": true
-        },
-        {
-          "type": "tag",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "paren",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "binary",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "number",
-          "named": true
-        },
-        {
-          "type": "paren",
-          "named": true
-        },
-        {
-          "type": "qualified_name",
-          "named": true
-        },
-        {
-          "type": "unary",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "qualified_name",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "identifier",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "stitch",
-    "named": true,
-    "fields": {
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "comment",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "symbol",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "todo_comment",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "unary",
@@ -584,14 +198,6 @@
           "named": true
         },
         {
-          "type": "paren",
-          "named": true
-        },
-        {
-          "type": "qualified_name",
-          "named": true
-        },
-        {
           "type": "unary",
           "named": true
         }
@@ -599,51 +205,11 @@
     }
   },
   {
-    "type": "",
-    "named": false
-  },
-  {
     "type": "!",
     "named": false
   },
   {
-    "type": "$",
-    "named": false
-  },
-  {
-    "type": "&",
-    "named": false
-  },
-  {
     "type": "&&",
-    "named": false
-  },
-  {
-    "type": "(",
-    "named": false
-  },
-  {
-    "type": ")",
-    "named": false
-  },
-  {
-    "type": "*",
-    "named": false
-  },
-  {
-    "type": "+",
-    "named": false
-  },
-  {
-    "type": "-",
-    "named": false
-  },
-  {
-    "type": ".",
-    "named": false
-  },
-  {
-    "type": "/",
     "named": false
   },
   {
@@ -655,14 +221,6 @@
     "named": false
   },
   {
-    "type": "<=",
-    "named": false
-  },
-  {
-    "type": "=",
-    "named": false
-  },
-  {
     "type": "==",
     "named": false
   },
@@ -671,44 +229,8 @@
     "named": false
   },
   {
-    "type": ">=",
-    "named": false
-  },
-  {
-    "type": "INCLUDE",
-    "named": false
-  },
-  {
-    "type": "TODO",
-    "named": false
-  },
-  {
-    "type": "[",
-    "named": false
-  },
-  {
-    "type": "\\",
-    "named": false
-  },
-  {
-    "type": "]",
-    "named": false
-  },
-  {
     "type": "and",
     "named": false
-  },
-  {
-    "type": "comment",
-    "named": true
-  },
-  {
-    "type": "divert_mark",
-    "named": true
-  },
-  {
-    "type": "glue",
-    "named": true
   },
   {
     "type": "identifier",
@@ -725,14 +247,6 @@
   {
     "type": "or",
     "named": false
-  },
-  {
-    "type": "path",
-    "named": true
-  },
-  {
-    "type": "tag",
-    "named": true
   },
   {
     "type": "text",
@@ -752,10 +266,6 @@
   },
   {
     "type": "}",
-    "named": false
-  },
-  {
-    "type": "~",
     "named": false
   }
 ]
