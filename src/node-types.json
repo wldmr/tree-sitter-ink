@@ -23,31 +23,11 @@
         "required": true,
         "types": [
           {
-            "type": "&&",
-            "named": false
-          },
-          {
-            "type": "<",
-            "named": false
-          },
-          {
-            "type": "==",
-            "named": false
-          },
-          {
-            "type": ">",
-            "named": false
-          },
-          {
             "type": "and",
             "named": false
           },
           {
             "type": "or",
-            "named": false
-          },
-          {
-            "type": "||",
             "named": false
           }
         ]
@@ -63,14 +43,6 @@
         },
         {
           "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "number",
-          "named": true
-        },
-        {
-          "type": "unary",
           "named": true
         }
       ]
@@ -90,14 +62,6 @@
           },
           {
             "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "number",
-            "named": true
-          },
-          {
-            "type": "unary",
             "named": true
           }
         ]
@@ -163,69 +127,11 @@
     }
   },
   {
-    "type": "unary",
-    "named": true,
-    "fields": {
-      "op": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "!",
-            "named": false
-          },
-          {
-            "type": "not",
-            "named": false
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "binary",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "number",
-          "named": true
-        },
-        {
-          "type": "unary",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "!",
-    "named": false
-  },
-  {
-    "type": "&&",
-    "named": false
-  },
-  {
     "type": ":",
     "named": false
   },
   {
-    "type": "<",
-    "named": false
-  },
-  {
-    "type": "==",
-    "named": false
-  },
-  {
-    "type": ">",
+    "type": "\\n",
     "named": false
   },
   {
@@ -234,14 +140,6 @@
   },
   {
     "type": "identifier",
-    "named": true
-  },
-  {
-    "type": "not",
-    "named": false
-  },
-  {
-    "type": "number",
     "named": true
   },
   {
@@ -258,10 +156,6 @@
   },
   {
     "type": "|",
-    "named": false
-  },
-  {
-    "type": "||",
     "named": false
   },
   {

@@ -181,27 +181,19 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
 ===
 .AHJ. Conditional Text vs Sequence
 ===
-{blofeld and age > 30:I saw that old git,|Dunno,} I said.
+{blofeld and old: I saw that old git,|Dunno,} I said.
 
-{blofeld is age > 30: and that's a fact,|I already told you about his age,} I said.
+{blofeld is old: and that's a fact,|I already told you about his age,} I said.
 
 ---
 (ink
 
 	(flow
 		(conditional_text
-			condition: (binary
-				(identifier)
-				op: "and"
-				(binary
-					(identifier)
-					op: ">"
-					(number)))
-			iftrue: (flow
-				(text))
-			else: (flow
-				(text)))
-		(flow (text)))
+			condition: (binary (identifier) (identifier))
+			iftrue: (flow (text))
+			else: (flow (text)))
+		(text))
 
 	(flow
 		(alternatives

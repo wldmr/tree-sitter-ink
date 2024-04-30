@@ -7,24 +7,40 @@
         {
           "type": "REPEAT",
           "content": {
-            "type": "SEQ",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "flow"
-              },
-              {
-                "type": "PATTERN",
-                "value": "\\n"
-              }
-            ]
+            "type": "SYMBOL",
+            "name": "_line"
           }
         }
       ]
     },
+    "_line": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "flow"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "\\n"
+          },
+          "named": false,
+          "value": "\\n"
+        }
+      ]
+    },
     "text": {
-      "type": "PATTERN",
-      "value": "[^\\n\\{\\}|]+"
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": -10,
+        "content": {
+          "type": "PATTERN",
+          "value": "[^\\n\\{\\}|]+"
+        }
+      }
     },
     "flow": {
       "type": "PREC_RIGHT",
@@ -90,12 +106,8 @@
           "type": "FIELD",
           "name": "condition",
           "content": {
-            "type": "PREC",
-            "value": 50,
-            "content": {
-              "type": "SYMBOL",
-              "name": "expr"
-            }
+            "type": "SYMBOL",
+            "name": "_expr"
           }
         },
         {
@@ -128,25 +140,12 @@
         }
       ]
     },
-    "expr": {
+    "_expr": {
       "type": "CHOICE",
       "members": [
         {
           "type": "SYMBOL",
           "name": "identifier"
-        },
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "PATTERN",
-            "value": "\\d+(\\.\\d+)?"
-          },
-          "named": true,
-          "value": "number"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "unary"
         },
         {
           "type": "SYMBOL",
@@ -155,14 +154,14 @@
       ]
     },
     "binary": {
-      "type": "PREC_RIGHT",
-      "value": 10,
+      "type": "PREC_LEFT",
+      "value": 0,
       "content": {
         "type": "SEQ",
         "members": [
           {
             "type": "SYMBOL",
-            "name": "expr"
+            "name": "_expr"
           },
           {
             "type": "FIELD",
@@ -174,81 +173,31 @@
           },
           {
             "type": "SYMBOL",
-            "name": "expr"
+            "name": "_expr"
           }
         ]
       }
-    },
-    "unary": {
-      "type": "PREC",
-      "value": 20,
-      "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "FIELD",
-            "name": "op",
-            "content": {
-              "type": "SYMBOL",
-              "name": "_unary_operator"
-            }
-          },
-          {
-            "type": "SYMBOL",
-            "name": "expr"
-          }
-        ]
-      }
-    },
-    "_unary_operator": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "not"
-        },
-        {
-          "type": "STRING",
-          "value": "!"
-        }
-      ]
     },
     "_binary_operator": {
       "type": "CHOICE",
       "members": [
         {
           "type": "STRING",
-          "value": "=="
-        },
-        {
-          "type": "STRING",
-          "value": ">"
-        },
-        {
-          "type": "STRING",
-          "value": "<"
-        },
-        {
-          "type": "STRING",
-          "value": "or"
-        },
-        {
-          "type": "STRING",
-          "value": "||"
-        },
-        {
-          "type": "STRING",
           "value": "and"
         },
         {
           "type": "STRING",
-          "value": "&&"
+          "value": "or"
         }
       ]
     },
     "identifier": {
       "type": "PATTERN",
       "value": "[a-zA-z_][a-zA-Z0-9_]*"
+    },
+    "number": {
+      "type": "PATTERN",
+      "value": "\\d+(\\.\\d+)?"
     }
   },
   "extras": [
@@ -257,11 +206,16 @@
       "value": "\\s+"
     }
   ],
-  "conflicts": [],
+  "conflicts": [
+    [
+      "alternatives",
+      "conditional_text"
+    ]
+  ],
   "precedences": [],
   "externals": [],
   "inline": [
-    "expr"
+    "_expr"
   ],
   "supertypes": []
 }
