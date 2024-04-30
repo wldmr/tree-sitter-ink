@@ -138,7 +138,7 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
 ===
 .AHH. Alternatives Starting Choice Text
 ===
-+	\ {&They headed towards the Sandlands|They set off for the desert|The party followed the old road South}
++\	{&They headed towards the Sandlands|They set off for the desert|The party followed the old road South}
 
 ---
 (ink
@@ -153,3 +153,26 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
 		)
 	)
 )
+
+
+===
+.AHI. Conditional Text
+===
+{met_blofeld: "I saw him. Only for a moment. His real name was {met_blofeld.learned_his_name: Franz|kept a secret}." | "I missed him. Was he particularly evil?" }
+
+---
+(ink
+	(paragraph
+		(conditional_text
+			condition: (identifier)
+			iftrue: (flow
+				(text)
+				(conditional_text
+					condition: (qualified_name
+						(identifier)
+						(identifier))
+					iftrue: (flow (text))
+					else: (flow (text)))
+				(text))
+			else: (flow (text)))))
+

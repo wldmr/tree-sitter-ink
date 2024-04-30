@@ -1,7 +1,9 @@
 const _tp = n => (rule => token(prec(n, rule)));
 TOKEN = {
   mark: _tp(20),
-  condition_mark: _tp(30),
+  alternatives_mark: _tp(40),
+  conditional_text_mark: _tp(40),
+  condition_mark: _tp(50),
 }
 
 module.exports = grammar({
@@ -14,6 +16,16 @@ module.exports = grammar({
   extras: $ => [
     /[ \t]+/,
     $.comment,
+  ],
+
+  /*
+  conflicts: $ => [
+    [$.text, $.expr]
+  ],
+  */
+
+  precedences: _ => [
+    ["expr", "text"]
   ],
 
   inline: $ => [
@@ -39,6 +51,11 @@ module.exports = grammar({
       $.include,
     ),
 
+    /*
+    word: _ => token(prec(-1, /[\s\{\}\[\]#$]+/)),
+    text: $ => repeat1($.word),
+    */
+
     paragraph: $ => seq(
       alias($.flow, ''),
       optional($.divert),
@@ -47,19 +64,35 @@ module.exports = grammar({
     ),
 
     // TODO: I think flow means something else in Ink; I think the Ink parser calls this 'Content'. Maybe call it text_content?
-    flow: $ => prec.right(repeat1(choice($.text, $.glue, $.alternatives))),
+    flow: $ => prec.right(repeat1(choice(
+      $.glue,
+      $.conditional_text,
+      $.alternatives,
+      prec.dynamic(-1, $.text),
+    ))),
 
     glue: _ => TOKEN.mark('<>'),
 
     alternatives: $ => seq(
-      '{',
+      TOKEN.alternatives_mark('{'),
       choice(
         token(prec(0, '')),  // Odd hack. Just matching '{' here would prevent the other cases from being recognized (the &,!,~ would just be part of the text).
+        token(prec(1, '$')),  // This also means 'sequence'. I couldn't find it documented anywhere, but it's in the compiler code.
         token(prec(1, '&')),
         token(prec(1, '!')),
         token(prec(1, '~')),
       ),
       repeat1(choice('|', seq($.flow, optional($.divert)))),
+      '}',
+    ),
+
+    conditional_text: $ => seq(
+      TOKEN.conditional_text_mark('{'),
+      field('condition', $.expr),
+      ":",
+      field('iftrue', $.flow),
+      "|",
+      field('else', $.flow),
       '}',
     ),
 

@@ -12,6 +12,10 @@
           "named": true
         },
         {
+          "type": "conditional_text",
+          "named": true
+        },
+        {
           "type": "glue",
           "named": true
         },
@@ -235,6 +239,62 @@
     }
   },
   {
+    "type": "conditional_text",
+    "named": true,
+    "fields": {
+      "condition": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "binary",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "number",
+            "named": true
+          },
+          {
+            "type": "paren",
+            "named": true
+          },
+          {
+            "type": "qualified_name",
+            "named": true
+          },
+          {
+            "type": "unary",
+            "named": true
+          }
+        ]
+      },
+      "else": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "flow",
+            "named": true
+          }
+        ]
+      },
+      "iftrue": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "flow",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "divert",
     "named": true,
     "fields": {
@@ -274,6 +334,10 @@
       "types": [
         {
           "type": "alternatives",
+          "named": true
+        },
+        {
+          "type": "conditional_text",
           "named": true
         },
         {
@@ -540,6 +604,10 @@
   },
   {
     "type": "!",
+    "named": false
+  },
+  {
+    "type": "$",
     "named": false
   },
   {

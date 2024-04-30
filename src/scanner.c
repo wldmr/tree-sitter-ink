@@ -41,7 +41,7 @@ bool tree_sitter_ink_external_scanner_scan(
     lexer->mark_end(lexer);
     bool found_text = false;
     for (;;) {
-      // printf("Current symbol is '%c' (%d).\n", lexer->lookahead, lexer->lookahead);
+      printf("Current symbol is '%c' (%d).\n", lexer->lookahead, lexer->lookahead);
 
       switch (lexer->lookahead) {
         case '\n':
