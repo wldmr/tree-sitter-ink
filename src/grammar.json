@@ -194,22 +194,26 @@
     "identifier": {
       "type": "PATTERN",
       "value": "[a-zA-z_][a-zA-Z0-9_]*"
-    },
-    "number": {
-      "type": "PATTERN",
-      "value": "\\d+(\\.\\d+)?"
     }
   },
   "extras": [
     {
       "type": "PATTERN",
-      "value": "\\s+"
+      "value": "\\s"
     }
   ],
   "conflicts": [
     [
       "alternatives",
       "conditional_text"
+    ],
+    [
+      "_expr",
+      "text"
+    ],
+    [
+      "identifier",
+      "text"
     ]
   ],
   "precedences": [],
