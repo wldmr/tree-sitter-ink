@@ -8,24 +8,27 @@ The radio hissed into life. {"Three!"|"Two!"|"One!"|There was the white noise ra
 ---
 
 (ink
-	(paragraph
-		(text)
-		(alternatives
-			(flow (text))
-			(flow (text))
-			(flow (text))
-			(flow (text))
-			(flow (text))
-		)
-)
-	(paragraph
-		(alternatives
-			(flow (text))
-			(flow (text))
-			(flow (text))
-		)
-	)
-)
+  (paragraph
+    (text)
+    (logic
+      (flow
+        (text))
+      (flow
+        (text))
+      (flow
+        (text))
+      (flow
+        (text))
+      (flow
+        (text))))
+  (paragraph
+    (logic
+      (flow
+        (text))
+      (flow
+        (text))
+      (flow
+        (text)))))
 
 ===
 .AHB. Alternatives: Cycles
@@ -33,18 +36,27 @@ The radio hissed into life. {"Three!"|"Two!"|"One!"|There was the white noise ra
 It was {&Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday} today.
 
 ---
+
 (ink
-	(paragraph
-		(text)
-		(alternatives
-			(flow (text))
-			(flow (text))
-			(flow (text))
-			(flow (text))
-			(flow (text))
-			(flow (text))
-			(flow (text)) )
-		(text)))
+  (paragraph
+    (text)
+    (logic
+      prefix: (repeat_mark)
+      (flow
+        (text))
+      (flow
+        (text))
+      (flow
+        (text))
+      (flow
+        (text))
+      (flow
+        (text))
+      (flow
+        (text))
+      (flow
+        (text)))
+    (text)))
 
 ===
 .AHC. Alternatives: Once Only
@@ -52,14 +64,20 @@ It was {&Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday} today.
 He told me a joke. {!I laughed politely.|I smiled.|I grimaced.|I promised myself to not react again.}
 
 ---
+
 (ink
-	(paragraph
-		(text)
-		(alternatives
-			(flow (text))
-			(flow (text))
-			(flow (text))
-			(flow (text)))))
+  (paragraph
+    (text)
+    (logic
+      prefix: (once_only_mark)
+      (flow
+        (text))
+      (flow
+        (text))
+      (flow
+        (text))
+      (flow
+        (text)))))
 
 ===
 .AHD. Alternatives: Shuffle
@@ -67,13 +85,17 @@ He told me a joke. {!I laughed politely.|I smiled.|I grimaced.|I promised myself
 I tossed the coin. {~Heads|Tails}.
 
 ---
+
 (ink
-	(paragraph
-		(text)
-		(alternatives
-			(flow (text))
-			(flow (text)) )
-		(text)))
+  (paragraph
+    (text)
+    (logic
+      prefix: (shuffle_mark)
+      (flow
+        (text))
+      (flow
+        (text)))
+    (text)))
 
 ===
 .AHE. Alternatives: Blank elements
@@ -81,13 +103,17 @@ I tossed the coin. {~Heads|Tails}.
 I took a step forward. {!||||Then the lights went out. -> eek}
 
 ---
-(ink
-	(paragraph
-		(text)
-		(alternatives
-			(flow (text))
-			(divert (divert_mark) target: (identifier))) ))
 
+(ink
+  (paragraph
+    (text)
+    (logic
+      prefix: (once_only_mark)
+      (flow
+        (text))
+      (divert
+        (divert_mark)
+        target: (identifier)))))
 
 ===
 .AHF. Alternatives Can Be Nested
@@ -95,25 +121,34 @@ I took a step forward. {!||||Then the lights went out. -> eek}
 The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|arm|cheek}}.
 
 ---
-(ink
-	(paragraph
-		(text)
-		(alternatives
-			(flow
-				(alternatives
-					(flow (text)))
-				(text))
-			(flow (text)))
-		(alternatives
-			(flow (text))
-			(flow
-				(text)
-				(alternatives
-					(flow (text))
-					(flow (text))
-					(flow (text)))))
-		(text)))
 
+(ink
+  (paragraph
+    (text)
+    (logic
+      prefix: (repeat_mark)
+      (flow
+        (logic
+          (flow
+            (text)))
+        (text))
+      (flow
+        (text)))
+    (logic
+      prefix: (repeat_mark)
+      (flow
+        (text))
+      (flow
+        (text)
+        (logic
+          prefix: (repeat_mark)
+          (flow
+            (text))
+          (flow
+            (text))
+          (flow
+            (text)))))
+    (text)))
 
 ===
 .AHG. Alternatives Inside Choice Text
@@ -121,19 +156,25 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
 + 	"Hello, {&Master|Monsieur Fogg|you|brown-eyes}_"[] I declared.
 
 ---
-(ink
-	(choice
-		mark: (symbol)
-		main: (flow
-			(text)
-			(alternatives
-				(flow (text))
-				(flow (text))
-				(flow (text))
-				(flow (text)) )
-			(text))
-		final: (flow (text))))
 
+(ink
+  (choice
+    mark: (symbol)
+    main: (flow
+      (text)
+      (logic
+        prefix: (repeat_mark)
+        (flow
+          (text))
+        (flow
+          (text))
+        (flow
+          (text))
+        (flow
+          (text)))
+      (text))
+    final: (flow
+      (text))))
 
 ===
 .AHH. Alternatives Starting Choice Text
@@ -141,19 +182,19 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
 +\	{&They headed towards the Sandlands|They set off for the desert|The party followed the old road South}
 
 ---
-(ink
-	(choice
-		mark: (symbol)
-		main: (flow
-			(alternatives
-				(flow (text))
-				(flow (text))
-				(flow (text))
-			)
-		)
-	)
-)
 
+(ink
+  (choice
+    mark: (symbol)
+    main: (flow
+      (logic
+        prefix: (repeat_mark)
+        (flow
+          (text))
+        (flow
+          (text))
+        (flow
+          (text))))))
 
 ===
 .AHI. Conditional Text
@@ -161,18 +202,19 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
 {met_blofeld: "I saw him. Only for a moment. His real name was {met_blofeld.learned_his_name: Franz|kept a secret}." | "I missed him. Was he particularly evil?" }
 
 ---
-(ink
-	(paragraph
-		(conditional_text
-			condition: (identifier)
-			iftrue: (flow
-				(text)
-				(conditional_text
-					condition: (qualified_name
-						(identifier)
-						(identifier))
-					iftrue: (flow (text))
-					else: (flow (text)))
-				(text))
-			else: (flow (text)))))
 
+(ink
+  (paragraph
+    (logic
+      (logic_condition)
+      (flow
+        (text)
+        (logic
+          (logic_condition)
+          (flow
+            (text))
+          (flow
+            (text)))
+        (text))
+      (flow
+        (text)))))

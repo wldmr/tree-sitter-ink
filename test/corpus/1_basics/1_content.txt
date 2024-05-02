@@ -3,8 +3,10 @@
 ==========
 Hello, world!
 ---
-(ink (paragraph (text)))
 
+(ink
+  (paragraph
+    (text)))
 
 ==============
 .AAB. Comments
@@ -19,14 +21,14 @@ Hello, world!
 	... or an unlimited block of text
  */
 ---
-(ink
-	(paragraph
-		(text))
-	(comment)
-	(paragraph
-		(text))
-	(comment))
 
+(ink
+  (paragraph
+    (text))
+  (comment)
+  (paragraph
+    (text))
+  (comment))
 
 =================================
 .AAC. Comments can occur anywhere
@@ -35,15 +37,14 @@ Hello, world!
 
 "I couldn't possibly comment," I /* commentingly */ replied.
 ---
-(ink
-	(paragraph
-		(text)
-		(comment))
-	(paragraph
-		(text)
-		(comment)
-		(text)))
 
+(ink
+  (paragraph
+    (text))
+  (comment)
+  (paragraph
+    (text
+      (comment))))
 
 ===================
 .AAD. TODO Comments
@@ -53,10 +54,11 @@ TODO: Write this section properly!
 And?
 
 ---
-(ink
-	(todo_comment)
-	(paragraph (text)))
 
+(ink
+  (todo_comment)
+  (paragraph
+    (text)))
 
 =================================
 .AADa. TODO Comments corner cases
@@ -65,10 +67,11 @@ And?
 
 He remembered that he was allowed to write TODO: anywhere else on the line.
 ---
-(ink
-	(todo_comment)
-	(paragraph (text)))
 
+(ink
+  (todo_comment)
+  (paragraph
+    (text)))
 
 ==========
 .AAE. Tags
@@ -78,8 +81,13 @@ A line of normal game-text. # colour it blue
 
 Some more text. # and a tag
 ---
+
 (ink
-	(paragraph (text) (tag))
-	(tag)
-	(tag)
-	(paragraph (text) (tag)) )
+  (paragraph
+    (text)
+    (tag))
+  (tag)
+  (tag)
+  (paragraph
+    (text)
+    (tag)))

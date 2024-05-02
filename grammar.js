@@ -1,5 +1,6 @@
 const _tp = n => (rule => token(prec(n, rule)));
 TOKEN = {
+  text: _tp(-20),
   mark: _tp(20),
   alternatives_mark: _tp(40),
   conditional_text_mark: _tp(40),
@@ -9,23 +10,9 @@ TOKEN = {
 module.exports = grammar({
   name: 'ink',
 
-  externals: $ => [
-    $.text,
-  ],
-
   extras: $ => [
     /[ \t]+/,
     $.comment,
-  ],
-
-  /*
-  conflicts: $ => [
-    [$.text, $.expr]
-  ],
-  */
-
-  precedences: _ => [
-    ["expr", "text"]
   ],
 
   inline: $ => [
@@ -41,7 +28,6 @@ module.exports = grammar({
 
     _toplevel: $ => choice(
       $.todo_comment,
-      alias($.line_comment, $.comment),
       repeat1($.tag),
       $.divert,
       $.paragraph,
@@ -51,48 +37,49 @@ module.exports = grammar({
       $.include,
     ),
 
-    /*
-    word: _ => token(prec(-1, /[\s\{\}\[\]#$]+/)),
-    text: $ => repeat1($.word),
-    */
+    text: $ => prec.right(repeat1(
+     choice(
+      TOKEN.text(/[^\s\{\}\[\]#\-$!&~<>/*+|]+/),
+      TOKEN.text(/[ \t]+/), // spaces and tabs are actually fine
+      TOKEN.text(/\\[\{\}\[\]$!&~\-]/),  // escaped special char
+      TOKEN.text(/[$!&~|]/), // repeat marks and separator can be text, if they're not in a position where a repeat mark is expected
+      // TOKEN.text(/\[|\]/),  // outside of choices, square brackets are just text
+      TOKEN.text(/\/[^\/*]/), // not yet a comment
+      TOKEN.text(/-[^>]/), // not a divert
+      TOKEN.text(/<[^-]/), // not a trevid
+      TOKEN.text(/<[^>]/), // not a glue
+    ) 
+    )),
 
     paragraph: $ => seq(
       alias($.flow, ''),
       optional($.divert),
       repeat($.tag),
-      optional(alias($.line_comment, $.comment)),
     ),
 
     // TODO: I think flow means something else in Ink; I think the Ink parser calls this 'Content'. Maybe call it text_content?
     flow: $ => prec.right(repeat1(choice(
       $.glue,
-      $.conditional_text,
-      $.alternatives,
-      prec.dynamic(-1, $.text),
+      $.logic,
+      $.text,
     ))),
 
     glue: _ => TOKEN.mark('<>'),
 
-    alternatives: $ => seq(
-      TOKEN.alternatives_mark('{'),
-      choice(
-        token(prec(0, '')),  // Odd hack. Just matching '{' here would prevent the other cases from being recognized (the &,!,~ would just be part of the text).
-        token(prec(1, '$')),  // This also means 'sequence'. I couldn't find it documented anywhere, but it's in the compiler code.
-        token(prec(1, '&')),
-        token(prec(1, '!')),
-        token(prec(1, '~')),
-      ),
+    logic: $ => seq(
+      '{',
+      field('prefix', optional(choice(
+        alias('$', $.sequence_mark),
+        alias('&', $.repeat_mark),
+        alias('~', $.shuffle_mark),
+        alias('!', $.once_only_mark),
+        alias(/[^&~!$][^:]*:/, $.logic_condition),
+        // field('condition', seq($.expr, ':')),
+        //                    ^^^^^^^^^^^^^^^^
+        // I'd love to parse conditions as expr + ':', but that fails because a sequence may start with anything;
+        // If the first thing after the opening brace is a word, the parser sees an identifier and has a nervous breakdown.
+      ))),
       repeat1(choice('|', seq($.flow, optional($.divert)))),
-      '}',
-    ),
-
-    conditional_text: $ => seq(
-      TOKEN.conditional_text_mark('{'),
-      field('condition', $.expr),
-      ":",
-      field('iftrue', $.flow),
-      "|",
-      field('else', $.flow),
       '}',
     ),
 
@@ -108,7 +95,7 @@ module.exports = grammar({
     condition: $ => prec.right(seq(
       // There can apparently be linebreaks between conditions.
       optional(/\n/),
-      TOKEN.condition_mark('{'),  // this precedence is so that a condition gets chosen over a flow starting with an alternative.
+      TOKEN.condition_mark('{'),
       $.expr,
       '}',
       optional(/\n/),
@@ -134,16 +121,14 @@ module.exports = grammar({
       $._knot_mark,
       field('name', $.identifier),
       optional($._knot_mark),
-      optional(alias($.line_comment, $.comment))
     )),
 
-    _knot_mark: _ => alias(TOKEN.mark(/==+/), "=="),
+    _knot_mark: _ => alias(TOKEN.mark(/==+/), "=="), // TODO: Be sure to document that we collapse all knot marks to "==".
     divert_mark: _ => TOKEN.mark('->'),
 
     stitch: $ => prec.right(seq(
       '=',
       field('name', $.identifier),
-      optional(alias($.line_comment, $.comment))
     )),
 
     divert: $ => seq(
@@ -151,7 +136,7 @@ module.exports = grammar({
     ),
 
     // Let's just accept any old characters for the path. We don't have to do anything with it …
-    include: $ => seq(TOKEN.mark('INCLUDE'), alias(/[^\n]+/, $.path)),
+    include: $ => seq(/INCLUDE\s/, alias(/[^\n]+/, $.path)),
 
     expr: $ => choice(
 
@@ -188,8 +173,7 @@ module.exports = grammar({
 
     symbol: _ => choice('*', '+'),
 
-    comment: _ => /\/\*(.|\r?\n)+\*\//,
-    line_comment: _ => /\/\/[^\n]*/,
+    comment: _ => /\/\/[^\n]*|\/\*(.|\r?\n)*?\*\//,
 
     todo_comment: _ => seq(
       TOKEN.mark('TODO'),

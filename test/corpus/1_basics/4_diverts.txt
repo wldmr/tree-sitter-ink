@@ -140,9 +140,9 @@ When we <> came home, <> <> <> we went to sleep.
     (text)))
 
 ===
-.ADDc. No spurious diverts or glues
+.ADDc. Sometimes the scanner needs help using backslashes
 ===
-We hurried home to Savile Road sevent-<> no wait, it was a number <<>-> what_number
+We hurried home to Savile Road sevent-\<> no wait, it was a number <\<>-> what_number
 
 === what_number ===
 20

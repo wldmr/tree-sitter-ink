@@ -16,8 +16,8 @@ So, more text I guess.
   (paragraph
     (text))
   (knot
-    name: (identifier)
-    (comment))
+    name: (identifier))
+  (comment)
   (paragraph
     (text)))
 
