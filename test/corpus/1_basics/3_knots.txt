@@ -32,7 +32,6 @@ Hello world!
 
 (ink
   (divert
-    (divert_mark)
     target: (identifier))
   (knot
     name: (identifier))

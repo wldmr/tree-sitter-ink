@@ -521,7 +521,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "divert_mark"
+          "name": "_divert_mark"
         }
       ]
     },
@@ -626,29 +626,15 @@
     "_knot_mark": {
       "type": "ALIAS",
       "content": {
-        "type": "TOKEN",
-        "content": {
-          "type": "PREC",
-          "value": 0,
-          "content": {
-            "type": "PATTERN",
-            "value": "==+"
-          }
-        }
+        "type": "PATTERN",
+        "value": "==+"
       },
       "named": false,
-      "value": "=="
+      "value": "knot_mark"
     },
-    "divert_mark": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": 0,
-        "content": {
-          "type": "STRING",
-          "value": "->"
-        }
-      }
+    "_divert_mark": {
+      "type": "STRING",
+      "value": "->"
     },
     "stitch": {
       "type": "PREC_RIGHT",
@@ -798,7 +784,7 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "divert_mark"
+          "name": "_divert_mark"
         },
         {
           "type": "FIELD",
@@ -1281,62 +1267,7 @@
     }
   ],
   "conflicts": [],
-  "precedences": [
-    [
-      {
-        "type": "STRING",
-        "value": "*"
-      },
-      {
-        "type": "STRING",
-        "value": "/"
-      }
-    ],
-    [
-      {
-        "type": "STRING",
-        "value": "+"
-      },
-      {
-        "type": "STRING",
-        "value": "-"
-      }
-    ],
-    [
-      {
-        "type": "STRING",
-        "value": "=="
-      },
-      {
-        "type": "STRING",
-        "value": "<="
-      },
-      {
-        "type": "STRING",
-        "value": ">="
-      }
-    ],
-    [
-      {
-        "type": "STRING",
-        "value": "&&"
-      },
-      {
-        "type": "STRING",
-        "value": "and"
-      }
-    ],
-    [
-      {
-        "type": "STRING",
-        "value": "||"
-      },
-      {
-        "type": "STRING",
-        "value": "or"
-      }
-    ]
-  ],
+  "precedences": [],
   "externals": [],
   "inline": [
     "expr"

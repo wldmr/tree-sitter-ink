@@ -111,7 +111,7 @@ module.exports = grammar({
         seq($._compound_choice_content, optional($.divert)),
         // types of fallback choices:
         $.divert,
-        $.divert_mark,
+        $._divert_mark,
     ),
 
     _compound_choice_content: $ => prec.right(seq(
@@ -128,8 +128,8 @@ module.exports = grammar({
       optional($._knot_mark),
     )),
 
-    _knot_mark: _ => alias(TOKEN.mark(/==+/), "=="), // TODO: Be sure to document that we collapse all knot marks to "==".
-    divert_mark: _ => TOKEN.mark('->'),
+    _knot_mark: _ => alias(/==+/, "knot_mark"), // TODO: Be sure to document that we collapse all knot marks to this "literal" (to distinguish it from the comparison operator)
+    _divert_mark: _ => '->',
 
     stitch: $ => prec.right(seq(
       '=',
@@ -161,7 +161,7 @@ module.exports = grammar({
     ),
 
     divert: $ => seq(
-      $.divert_mark, field('target', choice($.identifier, $.qualified_name)),
+      $._divert_mark, field('target', choice($.identifier, $.qualified_name)),
     ),
 
     // Let's just accept any old characters for the path. We don't have to do anything with it …

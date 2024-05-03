@@ -12,15 +12,12 @@
   (choice
     mark: (symbol)
     (divert
-      (divert_mark)
       target: (identifier)))
   (choice
-    mark: (symbol)
-    (divert_mark))
+    mark: (symbol))
   (paragraph
     (text)
     (divert
-      (divert_mark)
       target: (identifier))))
 
 ===
@@ -51,7 +48,6 @@
     final: (flow
       (text))
     (divert
-      (divert_mark)
       target: (identifier)))
   (choice
     mark: (symbol)
@@ -62,15 +58,12 @@
     final: (flow
       (text))
     (divert
-      (divert_mark)
       target: (identifier)))
   (choice
-    mark: (symbol)
-    (divert_mark))
+    mark: (symbol))
   (paragraph
     (text))
   (divert
-    (divert_mark)
     target: (identifier)))
 
 ===
@@ -95,7 +88,6 @@
   (paragraph
     (text)
     (divert
-      (divert_mark)
       target: (identifier)))
   (choice
     mark: (symbol)
@@ -104,7 +96,6 @@
   (paragraph
     (text))
   (divert
-    (divert_mark)
     target: (identifier)))
 
 ===
@@ -125,19 +116,16 @@
     temporary: (flow
       (text))
     (divert
-      (divert_mark)
       target: (identifier)))
   (choice
     mark: (symbol)
     temporary: (flow
       (text))
     (divert
-      (divert_mark)
       target: (identifier)))
   (choice
     mark: (symbol)
     (divert
-      (divert_mark)
       target: (identifier))))
 
 ===
@@ -159,7 +147,6 @@
     temporary: (flow
       (text))
     (divert
-      (divert_mark)
       target: (identifier)))
   (choice
     mark: (symbol)
@@ -168,7 +155,6 @@
     temporary: (flow
       (text))
     (divert
-      (divert_mark)
       target: (identifier)))
   (choice
     mark: (symbol)
@@ -179,7 +165,6 @@
     temporary: (flow
       (text))
     (divert
-      (divert_mark)
       target: (identifier))))
 
 ===
@@ -200,7 +185,6 @@
     temporary: (flow
       (text))
     (divert
-      (divert_mark)
       target: (identifier)))
   (choice
     mark: (symbol)
@@ -212,7 +196,6 @@
     temporary: (flow
       (text))
     (divert
-      (divert_mark)
       target: (identifier))))
 
 ===
@@ -239,7 +222,6 @@
     temporary: (flow
       (text))
     (divert
-      (divert_mark)
       target: (identifier))))
 
 ===

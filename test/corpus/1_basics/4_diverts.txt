@@ -18,7 +18,6 @@ We hurried home to Savile Row as fast as we could.
   (paragraph
     (text))
   (divert
-    (divert_mark)
     target: (identifier))
   (knot
     name: (identifier))
@@ -43,7 +42,6 @@ as fast as we could.
   (paragraph
     (text)
     (divert
-      (divert_mark)
       target: (identifier)))
   (knot
     name: (identifier))
@@ -72,14 +70,12 @@ to Savile Row
     (text)
     (glue))
   (divert
-    (divert_mark)
     target: (identifier))
   (knot
     name: (identifier))
   (paragraph
     (text))
   (divert
-    (divert_mark)
     target: (identifier))
   (knot
     name: (identifier))
@@ -107,7 +103,6 @@ We hurried home <> -> to_savile_row
     (text)
     (glue)
     (divert
-      (divert_mark)
       target: (identifier)))
   (knot
     name: (identifier))
@@ -115,7 +110,6 @@ We hurried home <> -> to_savile_row
     (glue)
     (text)
     (divert
-      (divert_mark)
       target: (identifier)))
   (knot
     name: (identifier))
@@ -156,7 +150,6 @@ We hurried home to Savile Road sevent-\<> no wait, it was a number <\<>-> what_n
     (text)
     (glue)
     (divert
-      (divert_mark)
       target: (identifier)))
   (knot
     name: (identifier))

@@ -245,10 +245,6 @@
         {
           "type": "divert",
           "named": true
-        },
-        {
-          "type": "divert_mark",
-          "named": true
         }
       ]
     }
@@ -325,16 +321,6 @@
           }
         ]
       }
-    },
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "divert_mark",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -847,10 +833,6 @@
     "named": true
   },
   {
-    "type": "divert_mark",
-    "named": true
-  },
-  {
     "type": "false",
     "named": false
   },
@@ -865,6 +847,10 @@
   {
     "type": "identifier",
     "named": true
+  },
+  {
+    "type": "knot_mark",
+    "named": false
   },
   {
     "type": "logic_condition",

@@ -112,7 +112,6 @@ I took a step forward. {!||||Then the lights went out. -> eek}
       (flow
         (text))
       (divert
-        (divert_mark)
         target: (identifier)))))
 
 ===
