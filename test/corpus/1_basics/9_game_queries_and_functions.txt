@@ -1,0 +1,107 @@
+===
+.AIA. CHOICE_COUNT
+===
+*	{false} Option A
+*	{true} Option B
+*	{CHOICE_COUNT() == 1} Option C
+
+---
+
+(ink
+	(choice
+		mark: (symbol)
+		(condition)
+		main: (flow (text)))
+	(choice
+		mark: (symbol)
+		(condition)
+		main: (flow (text)))
+	(choice
+		mark: (symbol)
+		(condition
+			(binary
+				(call name: (identifier))
+				(number)))
+		main: (flow (text)))
+)
+
+===
+.AIB. TURNS_SINCE
+===
+*	{TURNS_SINCE(-> sleeping.intro) > 10} You are feeling tired... -> sleeping
+*	{TURNS_SINCE(-> laugh) == 0}  You try to stop laughing.
+---
+(ink
+	(choice
+		(symbol)
+		(condition
+			(binary
+				(call
+					(identifier)
+					(args
+						(divert
+							(divert_mark)
+							(qualified_name
+								(identifier)
+								(identifier)))))
+				(number)))
+		(flow (text))
+		(divert (divert_mark) (identifier)))
+	(choice
+		(symbol)
+		(condition
+			(binary
+				(call
+					(identifier)
+					(args
+						(divert
+							(divert_mark)
+							(identifier))))
+				(number)))
+		(flow (text)))
+)
+
+===
+.AIC. came_from
+===
+=== function came_from(-> x)
+	~ return TURNS_SINCE(x) == 0
+
+---
+(ink
+	(function_declaration
+		(identifier)
+		(params
+			(divert
+				(divert_mark)
+				(identifier))))
+	(code
+		(return
+			(binary
+				(call
+					(identifier)
+					(args (identifier)))
+				(number)))))
+===
+.AIX. Expressions TODO: Move to appropriate section when written
+===
+* {a + b * not !c == 4 || a / (b + c) <= -3} Go to prison
+
+---
+(ink
+	(choice
+		(symbol)
+		(condition
+			(binary
+				(binary
+					(binary
+						(identifier)
+						(binary (identifier) (unary (unary (identifier)))))
+					(number))
+				(binary
+					(binary
+						(identifier)
+						(paren (binary (identifier) (identifier))))
+					(unary (number)))
+				))
+		(flow (text))))

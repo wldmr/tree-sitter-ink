@@ -23,6 +23,49 @@
     }
   },
   {
+    "type": "args",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "binary",
+          "named": true
+        },
+        {
+          "type": "call",
+          "named": true
+        },
+        {
+          "type": "divert",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "paren",
+          "named": true
+        },
+        {
+          "type": "qualified_name",
+          "named": true
+        },
+        {
+          "type": "unary",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "binary",
     "named": true,
     "fields": {
@@ -87,10 +130,14 @@
     },
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "binary",
+          "named": true
+        },
+        {
+          "type": "call",
           "named": true
         },
         {
@@ -114,6 +161,32 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "call",
+    "named": true,
+    "fields": {
+      "args": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "args",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -181,7 +254,7 @@
     }
   },
   {
-    "type": "condition",
+    "type": "code",
     "named": true,
     "fields": {},
     "children": {
@@ -189,7 +262,26 @@
       "required": true,
       "types": [
         {
+          "type": "return",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "condition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
           "type": "binary",
+          "named": true
+        },
+        {
+          "type": "call",
           "named": true
         },
         {
@@ -269,6 +361,32 @@
     }
   },
   {
+    "type": "function_declaration",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "params": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "params",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "include",
     "named": true,
     "fields": {},
@@ -296,7 +414,15 @@
           "named": true
         },
         {
+          "type": "code",
+          "named": true
+        },
+        {
           "type": "divert",
+          "named": true
+        },
+        {
+          "type": "function_declaration",
           "named": true
         },
         {
@@ -408,15 +534,38 @@
     }
   },
   {
+    "type": "params",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "divert",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "paren",
     "named": true,
     "fields": {},
     "children": {
       "multiple": false,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "binary",
+          "named": true
+        },
+        {
+          "type": "call",
           "named": true
         },
         {
@@ -452,6 +601,45 @@
       "types": [
         {
           "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "return",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "binary",
+          "named": true
+        },
+        {
+          "type": "call",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "paren",
+          "named": true
+        },
+        {
+          "type": "qualified_name",
+          "named": true
+        },
+        {
+          "type": "unary",
           "named": true
         }
       ]
@@ -501,6 +689,10 @@
             "named": false
           },
           {
+            "type": "-",
+            "named": false
+          },
+          {
             "type": "not",
             "named": false
           }
@@ -509,10 +701,14 @@
     },
     "children": {
       "multiple": false,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "binary",
+          "named": true
+        },
+        {
+          "type": "call",
           "named": true
         },
         {
@@ -563,7 +759,15 @@
     "named": false
   },
   {
+    "type": ",",
+    "named": false
+  },
+  {
     "type": "-",
+    "named": false
+  },
+  {
+    "type": "-[^>]",
     "named": false
   },
   {
@@ -572,6 +776,10 @@
   },
   {
     "type": "/",
+    "named": false
+  },
+  {
+    "type": "/[^/*]",
     "named": false
   },
   {
@@ -584,6 +792,10 @@
   },
   {
     "type": "<=",
+    "named": false
+  },
+  {
+    "type": "<[^->]",
     "named": false
   },
   {
@@ -611,6 +823,10 @@
     "named": false
   },
   {
+    "type": "[$!&~|]",
+    "named": false
+  },
+  {
     "type": "\\",
     "named": false
   },
@@ -623,12 +839,24 @@
     "named": false
   },
   {
+    "type": "char",
+    "named": false
+  },
+  {
     "type": "comment",
     "named": true
   },
   {
     "type": "divert_mark",
     "named": true
+  },
+  {
+    "type": "false",
+    "named": false
+  },
+  {
+    "type": "function",
+    "named": false
   },
   {
     "type": "glue",
@@ -667,6 +895,10 @@
     "named": true
   },
   {
+    "type": "return",
+    "named": false
+  },
+  {
     "type": "sequence_mark",
     "named": true
   },
@@ -677,6 +909,14 @@
   {
     "type": "tag",
     "named": true
+  },
+  {
+    "type": "text",
+    "named": false
+  },
+  {
+    "type": "true",
+    "named": false
   },
   {
     "type": "{",
@@ -692,6 +932,10 @@
   },
   {
     "type": "}",
+    "named": false
+  },
+  {
+    "type": "~",
     "named": false
   }
 ]

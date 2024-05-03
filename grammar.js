@@ -1,7 +1,12 @@
 const _tp = n => (rule => token(prec(n, rule)));
+
+function binop($, p, ...operators) {
+  return prec.left(p, seq($.expr, field('op', choice(...operators)), $.expr))
+}
+
 TOKEN = {
   text: _tp(-20),
-  mark: _tp(20),
+  mark: _tp(0),
   alternatives_mark: _tp(40),
   conditional_text_mark: _tp(40),
   condition_mark: _tp(50),
@@ -32,22 +37,22 @@ module.exports = grammar({
       $.divert,
       $.paragraph,
       $.knot,
+      $.function_declaration,
+      $.code,
       $.stitch,
       $.choice,
       $.include,
     ),
 
-    text: $ => prec.right(repeat1(
+    text: _ => prec.right(repeat1(
      choice(
-      TOKEN.text(/[^\s\{\}\[\]#\-$!&~<>/*+|]+/),
-      TOKEN.text(/[ \t]+/), // spaces and tabs are actually fine
-      TOKEN.text(/\\[\{\}\[\]$!&~\-]/),  // escaped special char
-      TOKEN.text(/[$!&~|]/), // repeat marks and separator can be text, if they're not in a position where a repeat mark is expected
+      alias(TOKEN.text(/[^\n\{\}\[\]#\-$!&~<>/*+|]+/), 'text'),
+      alias(TOKEN.text(/\\[\{\}\[\]$!&~\-]/), '\char'),  // escaped special char
+      alias(TOKEN.text(/[$!&~|]/), '[$!&~|]'), // repeat marks and separator can be text, if they're not in a position where a repeat mark is expected
       // TOKEN.text(/\[|\]/),  // outside of choices, square brackets are just text
-      TOKEN.text(/\/[^\/*]/), // not yet a comment
-      TOKEN.text(/-[^>]/), // not a divert
-      TOKEN.text(/<[^-]/), // not a trevid
-      TOKEN.text(/<[^>]/), // not a glue
+      alias(TOKEN.text(/\/[^\/*]/), '/[^/*]'), // not yet a comment
+      alias(TOKEN.text(/-[^>]/), '-[^>]'), // not a divert
+      alias(TOKEN.text(/<[^->]/), '<[^->]'), // not a trevid or glue
     ) 
     )),
 
@@ -131,6 +136,30 @@ module.exports = grammar({
       field('name', $.identifier),
     )),
 
+    function_declaration: $ => prec.right(seq(
+      $._knot_mark,
+      'function',
+      field('name', $.identifier),
+      '(',
+      field('params', optional($.params)),
+      ')',
+    )),
+
+    code: $ => seq('~', $._code_stmt),
+    _code_stmt: $ => choice(
+      $.return,
+    ),
+    return: $ => seq(
+      'return',
+      $.expr,
+    ),
+
+    _param: $ => choice($.identifier, $.divert),
+    params: $ => seq(
+      $._param,
+      repeat(seq(",", $._param))
+    ),
+
     divert: $ => seq(
       $.divert_mark, field('target', choice($.identifier, $.qualified_name)),
     ),
@@ -144,28 +173,37 @@ module.exports = grammar({
       $.identifier,
       $.qualified_name,
       alias(/\d+(\.\d+)?/, $.number),
+      'false',
+      'true',
 
       // compound
+      $.call,
       $.paren,
       $.unary,
       $.binary,
       
     ),
 
-    // TODO: These precs and associativities are completely bogus
-    paren: $ => prec.right(100, seq("(", $.expr, ")")),
-    binary: $ => prec.right(10, seq($.expr, field('op', $._binary_operator), $.expr)),
-    unary: $ => prec(20, seq(field('op', $._unary_operator), $.expr)),
-
-    _unary_operator: _ => choice(
-      'not', '!'
+    call: $ => prec.left(11, seq(
+      field('name', $.identifier),
+      '(',
+      field('args', optional($.args)),
+      ')'
+    )),
+    _arg: $ => choice($.expr, $.divert),
+    args: $ => seq(
+      $._arg,
+      repeat(seq(",", $._arg))
     ),
 
-    _binary_operator: _ => choice(
-      '*', '+', "-", "/",
-      "==", ">=", "<=", ">", "<",
-      "or", "||",
-      "and", "&&",
+    paren: $ => prec(10, seq("(", $.expr, ")")),
+    unary: $ => prec.right(9, seq(field('op', choice('not', '!', '-')), $.expr)),
+    binary: $ => choice(
+      binop($, 8, '*', '/'),
+      binop($, 7, '+', '-'),
+      binop($, 6, '==', '<=', '>=', '<', '>'),
+      binop($, 5, 'and', '&&'),
+      binop($, 4, 'or', '||'),
     ),
 
     identifier: _ => /[a-zA-z_][a-zA-Z0-9_]*/,
