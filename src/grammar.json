@@ -173,6 +173,10 @@
             },
             {
               "type": "SYMBOL",
+              "name": "gather"
+            },
+            {
+              "type": "SYMBOL",
               "name": "include"
             }
           ]
@@ -507,6 +511,22 @@
         }
       ]
     },
+    "gather": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "REPEAT1",
+          "content": {
+            "type": "STRING",
+            "value": "-"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "flow"
+        }
+      ]
+    },
     "condition": {
       "type": "PREC_RIGHT",
       "value": 0,
@@ -754,6 +774,10 @@
           {
             "type": "SYMBOL",
             "name": "_eol"
+          },
+          {
+            "type": "STRING",
+            "value": "\n"
           }
         ]
       }

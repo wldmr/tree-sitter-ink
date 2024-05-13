@@ -71,6 +71,7 @@ module.exports = grammar({
         $.paragraph,
         $.code,
         $.choice,
+        $.gather,
         $.include,
       ),
       $._eol,
@@ -130,6 +131,11 @@ module.exports = grammar({
       $._choice_content
     ),
 
+    gather: $ => seq(
+      repeat1('-'),
+      $.flow,
+    ),
+
     condition: $ => prec.right(seq(
       // There can apparently be linebreaks between conditions.
       optional(/\n/),
@@ -169,6 +175,7 @@ module.exports = grammar({
       '=',
       field('name', $.identifier),
       $._eol,
+      '\n'
     )),
 
     function_declaration: $ => prec.right(seq(

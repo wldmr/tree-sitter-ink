@@ -324,6 +324,10 @@
           "named": true
         },
         {
+          "type": "gather",
+          "named": true
+        },
+        {
           "type": "include",
           "named": true
         },
@@ -409,6 +413,21 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "gather",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "flow",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -776,6 +795,10 @@
         }
       ]
     }
+  },
+  {
+    "type": "\n",
+    "named": false
   },
   {
     "type": "!",
