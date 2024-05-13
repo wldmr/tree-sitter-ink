@@ -479,11 +479,19 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "FIELD",
-          "name": "mark",
+          "type": "REPEAT1",
           "content": {
-            "type": "SYMBOL",
-            "name": "symbol"
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "*"
+              },
+              {
+                "type": "STRING",
+                "value": "+"
+              }
+            ]
           }
         },
         {
@@ -1336,19 +1344,6 @@
         {
           "type": "SYMBOL",
           "name": "identifier"
-        }
-      ]
-    },
-    "symbol": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "*"
-        },
-        {
-          "type": "STRING",
-          "value": "+"
         }
       ]
     },

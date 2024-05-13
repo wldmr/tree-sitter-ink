@@ -55,7 +55,6 @@
 (ink
   (content_block
     (choice
-      mark: (symbol)
       temporary: (flow
         (text)))
     (divert
@@ -63,7 +62,6 @@
         (identifier)
         (identifier)))
     (choice
-      mark: (symbol)
       temporary: (flow
         (text)))
     (divert

@@ -11,7 +11,6 @@ Hello world!
     (paragraph
       (text))
     (choice
-      mark: (symbol)
       main: (flow
         (text)))
     (paragraph
@@ -30,7 +29,6 @@ Hello world!
     (paragraph
       (text))
     (choice
-      mark: (symbol)
       main: (flow
         (text))
       temporary: (flow
@@ -57,7 +55,6 @@ Hello world!
     (paragraph
       (text))
     (choice
-      mark: (symbol)
       main: (flow
         (text))
       temporary: (flow
@@ -67,7 +64,6 @@ Hello world!
     (paragraph
       (text))
     (choice
-      mark: (symbol)
       main: (flow
         (text))
       final: (flow
@@ -75,7 +71,6 @@ Hello world!
     (paragraph
       (text))
     (choice
-      mark: (symbol)
       main: (flow
         (text))
       temporary: (flow

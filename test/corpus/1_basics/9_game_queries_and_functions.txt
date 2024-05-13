@@ -10,17 +10,14 @@
 (ink
   (content_block
     (choice
-      mark: (symbol)
       (condition)
       main: (flow
         (text)))
     (choice
-      mark: (symbol)
       (condition)
       main: (flow
         (text)))
     (choice
-      mark: (symbol)
       (condition
         (binary
           (call
@@ -39,7 +36,6 @@
 (ink
   (content_block
     (choice
-      (symbol)
       (condition
         (binary
           (call
@@ -55,7 +51,6 @@
       (divert
         (identifier)))
     (choice
-      (symbol)
       (condition
         (binary
           (call
@@ -102,7 +97,6 @@
 (ink
   (content_block
     (choice
-      (symbol)
       (condition
         (binary
           (binary

@@ -125,7 +125,7 @@ module.exports = grammar({
     tag: _ => /#[^\n#]+/,
 
     choice: $ => seq(
-      field('mark', $.symbol),
+      repeat1(choice('*', '+')), // yes, this technically allows mixing * and + on the same 'choice', but it's simpler and probably leads to the structure the user intends.
       repeat($.condition),
       optional('\\'),
       $._choice_content
@@ -250,8 +250,6 @@ module.exports = grammar({
 
     identifier: _ => /[a-zA-z_][a-zA-Z0-9_]*/,
     qualified_name: $ => seq($.identifier, token.immediate('.'), $.identifier),
-
-    symbol: _ => choice('*', '+'),
 
     comment: _ => /\/\/[^\n]*|\/\*(.|\r?\n)*?\*\//,
 

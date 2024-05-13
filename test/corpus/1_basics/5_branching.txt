@@ -22,19 +22,16 @@ You open the gate, and step out onto the path.
       (paragraph
         (text))
       (choice
-        mark: (symbol)
         temporary: (flow
           (text))
         (divert
           target: (identifier)))
       (choice
-        mark: (symbol)
         temporary: (flow
           (text))
         (divert
           target: (identifier)))
       (choice
-        mark: (symbol)
         temporary: (flow
           (text))
         (divert
@@ -86,7 +83,6 @@ He insisted that we hurried home to Savile Row
       (paragraph
         (text))
       (choice
-        (symbol)
         (flow
           (text))
         (flow
@@ -94,7 +90,6 @@ He insisted that we hurried home to Savile Row
       (divert
         (identifier))
       (choice
-        (symbol)
         (flow
           (text))
         (flow
@@ -104,7 +99,6 @@ He insisted that we hurried home to Savile Row
       (divert
         (identifier))
       (choice
-        (symbol)
         (flow
           (text))
         (divert

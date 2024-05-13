@@ -213,16 +213,6 @@
           }
         ]
       },
-      "mark": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "symbol",
-            "named": true
-          }
-        ]
-      },
       "temporary": {
         "multiple": false,
         "required": false,
@@ -722,11 +712,6 @@
         }
       ]
     }
-  },
-  {
-    "type": "symbol",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "text",

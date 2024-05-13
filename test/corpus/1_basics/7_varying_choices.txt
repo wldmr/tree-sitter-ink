@@ -11,11 +11,9 @@
 (ink
   (content_block
     (choice
-      mark: (symbol)
       (divert
         target: (identifier)))
-    (choice
-      mark: (symbol))
+    (choice)
     (paragraph
       (text)
       (divert
@@ -43,7 +41,6 @@
       (paragraph
         (text))
       (choice
-        mark: (symbol)
         main: (flow
           (text))
         temporary: (flow
@@ -53,7 +50,6 @@
         (divert
           target: (identifier)))
       (choice
-        mark: (symbol)
         main: (flow
           (text))
         temporary: (flow
@@ -62,8 +58,7 @@
           (text))
         (divert
           target: (identifier)))
-      (choice
-        mark: (symbol))
+      (choice)
       (paragraph
         (text))
       (divert
@@ -87,7 +82,6 @@
       name: (identifier))
     (content_block
       (choice
-        mark: (symbol)
         temporary: (flow
           (text)))
       (paragraph
@@ -95,7 +89,6 @@
         (divert
           target: (identifier)))
       (choice
-        mark: (symbol)
         temporary: (flow
           (text)))
       (paragraph
@@ -119,19 +112,16 @@
       name: (identifier))
     (content_block
       (choice
-        mark: (symbol)
         temporary: (flow
           (text))
         (divert
           target: (identifier)))
       (choice
-        mark: (symbol)
         temporary: (flow
           (text))
         (divert
           target: (identifier)))
       (choice
-        mark: (symbol)
         (divert
           target: (identifier))))))
 
@@ -148,7 +138,6 @@
 (ink
   (content_block
     (choice
-      mark: (symbol)
       (condition
         (unary
           (identifier)))
@@ -157,7 +146,6 @@
       (divert
         target: (identifier)))
     (choice
-      mark: (symbol)
       (condition
         (identifier))
       temporary: (flow
@@ -165,7 +153,6 @@
       (divert
         target: (identifier)))
     (choice
-      mark: (symbol)
       (condition
         (qualified_name
           (identifier)
@@ -187,7 +174,6 @@
 (ink
   (content_block
     (choice
-      mark: (symbol)
       (condition
         (unary
           (identifier)))
@@ -196,7 +182,6 @@
       (divert
         target: (identifier)))
     (choice
-      mark: (symbol)
       (condition
         (identifier))
       (condition
@@ -217,7 +202,6 @@
 (ink
   (content_block
     (choice
-      mark: (symbol)
       (condition
         (binary
           (unary
@@ -245,13 +229,11 @@
 (ink
   (content_block
     (choice
-      mark: (symbol)
       (condition
         (identifier))
       temporary: (flow
         (text)))
     (choice
-      mark: (symbol)
       (condition
         (binary
           (identifier)

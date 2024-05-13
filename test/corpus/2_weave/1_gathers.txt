@@ -15,18 +15,15 @@
 	(content_block
 		(paragraph (text))
 		(choice
-			(symbol)
 			(flow (text))
 			(flow (text))
 			(flow (text)))
 		(paragraph (text))
 		(choice
-			(symbol)
 			(flow (text))
 			(flow (text)))
 		(paragraph (text))
 		(choice
-			(symbol)
 			(flow (text))
 			(flow (text))
 			(flow (text)))
@@ -62,23 +59,18 @@ I ran through the forest, the dogs snapping at my heels.
 		(content_block
 			(paragraph (text))
 			(choice
-				(symbol)
 				(flow (text))
 				(flow (text) (glue)))
 			(choice
-				(symbol)
 				(flow (text))
 				(flow (text) (glue)))
 			(choice
-				(symbol)
 				(flow (text) (glue)))
 			(gather (flow (text)))
 			(choice
-				(symbol)
 				(flow (text))
 				(flow (text)))
 			(choice
-				(symbol)
 				(flow (text))
 				(flow (text)))
 			(gather (flow (text)))

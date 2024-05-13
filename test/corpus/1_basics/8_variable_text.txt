@@ -165,7 +165,6 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
 (ink
   (content_block
     (choice
-      mark: (symbol)
       main: (flow
         (text)
         (logic
@@ -192,7 +191,6 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
 (ink
   (content_block
     (choice
-      mark: (symbol)
       main: (flow
         (logic
           prefix: (repeat_mark)
