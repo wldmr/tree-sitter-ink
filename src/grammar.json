@@ -45,8 +45,17 @@
           {
             "type": "REPEAT1",
             "content": {
-              "type": "SYMBOL",
-              "name": "_content_item"
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_content_item"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "content_block"
+                }
+              ]
             }
           },
           {

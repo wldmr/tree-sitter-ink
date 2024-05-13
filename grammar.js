@@ -41,7 +41,10 @@ module.exports = grammar({
 
     content_block: $ => prec.right(seq(
       $._block_start,
-      repeat1($._content_item),
+      repeat1(choice(
+        $._content_item,
+        $.content_block,
+      )),
       $._block_end,
     )),
 

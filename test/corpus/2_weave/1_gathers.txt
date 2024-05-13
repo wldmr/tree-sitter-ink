@@ -14,22 +14,23 @@
 (ink
 	(content_block
 		(paragraph (text))
-		(choice
-			(flow (text))
-			(flow (text))
-			(flow (text)))
-		(paragraph (text))
-		(choice
-			(flow (text))
-			(flow (text)))
-		(paragraph (text))
-		(choice
-			(flow (text))
-			(flow (text))
-			(flow (text)))
-		(paragraph (text))
-
-		(gather (flow (text)))
+		(content_block
+				(choice
+					(flow (text))
+					(flow (text))
+					(flow (text)))
+				(paragraph (text))
+				(choice
+					(flow (text))
+					(flow (text)))
+				(paragraph (text))
+				(choice
+					(flow (text))
+					(flow (text))
+					(flow (text)))
+				(paragraph (text))
+			(gather (flow (text)))
+		)
 	)
 )
 
@@ -58,22 +59,24 @@ I ran through the forest, the dogs snapping at my heels.
 		(knot (identifier))
 		(content_block
 			(paragraph (text))
-			(choice
-				(flow (text))
-				(flow (text) (glue)))
-			(choice
-				(flow (text))
-				(flow (text) (glue)))
-			(choice
-				(flow (text) (glue)))
-			(gather (flow (text)))
-			(choice
-				(flow (text))
-				(flow (text)))
-			(choice
-				(flow (text))
-				(flow (text)))
-			(gather (flow (text)))
+			(content_block
+				(choice
+					(flow (text))
+					(flow (text) (glue)))
+				(choice
+					(flow (text))
+					(flow (text) (glue)))
+				(choice
+					(flow (text) (glue)))
+				(gather (flow (text)))
+				(choice
+					(flow (text))
+					(flow (text)))
+				(choice
+					(flow (text))
+					(flow (text)))
+				(gather (flow (text)))
+			)
 		)
 	)
 )

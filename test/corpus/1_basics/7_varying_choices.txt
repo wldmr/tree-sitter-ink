@@ -40,29 +40,31 @@
     (content_block
       (paragraph
         (text))
-      (choice
-        main: (flow
-          (text))
-        temporary: (flow
-          (text))
-        final: (flow
-          (text))
+      (content_block
+        (choice
+          main: (flow
+            (text))
+          temporary: (flow
+            (text))
+          final: (flow
+            (text))
+          (divert
+            target: (identifier)))
+        (choice
+          main: (flow
+            (text))
+          temporary: (flow
+            (text))
+          final: (flow
+            (text))
+          (divert
+            target: (identifier)))
+        (content_block
+          (choice)
+          (paragraph
+            (text)))
         (divert
-          target: (identifier)))
-      (choice
-        main: (flow
-          (text))
-        temporary: (flow
-          (text))
-        final: (flow
-          (text))
-        (divert
-          target: (identifier)))
-      (choice)
-      (paragraph
-        (text))
-      (divert
-        target: (identifier)))))
+          target: (identifier))))))
 
 ===
 .AGC. Sticky Choices
@@ -121,9 +123,10 @@
           (text))
         (divert
           target: (identifier)))
-      (choice
-        (divert
-          target: (identifier))))))
+      (content_block
+        (choice
+          (divert
+            target: (identifier)))))))
 
 ===
 .AGE. Conditional Choices

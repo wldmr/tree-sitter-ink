@@ -10,11 +10,12 @@ Hello world!
   (content_block
     (paragraph
       (text))
-    (choice
-      main: (flow
-        (text)))
-    (paragraph
-      (text))))
+    (content_block
+      (choice
+        main: (flow
+          (text)))
+      (paragraph
+        (text)))))
 
 ===
 .ABB. Suppressing Choice Text
@@ -28,15 +29,16 @@ Hello world!
   (content_block
     (paragraph
       (text))
-    (choice
-      main: (flow
-        (text))
-      temporary: (flow
-        (text))
-      final: (flow
-        (text)))
-    (paragraph
-      (text))))
+    (content_block
+      (choice
+        main: (flow
+          (text))
+        temporary: (flow
+          (text))
+        final: (flow
+          (text)))
+      (paragraph
+        (text)))))
 
 ===
 .ABC. Multiple choices
@@ -54,28 +56,29 @@ Hello world!
   (content_block
     (paragraph
       (text))
-    (choice
-      main: (flow
+    (content_block
+      (choice
+        main: (flow
+          (text))
+        temporary: (flow
+          (text))
+        final: (flow
+          (text)))
+      (paragraph
         (text))
-      temporary: (flow
+      (choice
+        main: (flow
+          (text))
+        final: (flow
+          (text)))
+      (paragraph
         (text))
-      final: (flow
-        (text)))
-    (paragraph
-      (text))
-    (choice
-      main: (flow
-        (text))
-      final: (flow
-        (text)))
-    (paragraph
-      (text))
-    (choice
-      main: (flow
-        (text))
-      temporary: (flow
-        (text))
-      final: (flow
-        (text)))
-    (paragraph
-      (text))))
+      (choice
+        main: (flow
+          (text))
+        temporary: (flow
+          (text))
+        final: (flow
+          (text)))
+      (paragraph
+        (text)))))

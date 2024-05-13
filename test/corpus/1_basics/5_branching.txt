@@ -21,21 +21,22 @@ You open the gate, and step out onto the path.
     (content_block
       (paragraph
         (text))
-      (choice
-        temporary: (flow
-          (text))
-        (divert
-          target: (identifier)))
-      (choice
-        temporary: (flow
-          (text))
-        (divert
-          target: (identifier)))
-      (choice
-        temporary: (flow
-          (text))
-        (divert
-          target: (identifier)))))
+      (content_block
+        (choice
+          temporary: (flow
+            (text))
+          (divert
+            target: (identifier)))
+        (choice
+          temporary: (flow
+            (text))
+          (divert
+            target: (identifier)))
+        (choice
+          temporary: (flow
+            (text))
+          (divert
+            target: (identifier))))))
   (knot_block
     (knot
       name: (identifier))
@@ -82,27 +83,28 @@ He insisted that we hurried home to Savile Row
     (content_block
       (paragraph
         (text))
-      (choice
-        (flow
-          (text))
-        (flow
-          (text)))
-      (divert
-        (identifier))
-      (choice
-        (flow
-          (text))
-        (flow
-          (text)))
-      (paragraph
-        (text))
-      (divert
-        (identifier))
-      (choice
-        (flow
+      (content_block
+        (choice
+          (flow
+            (text))
+          (flow
+            (text)))
+        (divert
+          (identifier))
+        (choice
+          (flow
+            (text))
+          (flow
+            (text)))
+        (paragraph
           (text))
         (divert
-          (identifier)))))
+          (identifier))
+        (choice
+          (flow
+            (text))
+          (divert
+            (identifier))))))
   (knot_block
     (knot
       (identifier))
@@ -117,8 +119,9 @@ He insisted that we hurried home to Savile Row
     (content_block
       (paragraph
         (text))
-      (divert
-        (identifier))))
+      (content_block
+        (divert
+          (identifier)))))
   (knot_block
     (knot
       (identifier))

@@ -310,6 +310,10 @@
           "named": true
         },
         {
+          "type": "content_block",
+          "named": true
+        },
+        {
           "type": "divert",
           "named": true
         },

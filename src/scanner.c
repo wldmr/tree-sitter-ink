@@ -32,11 +32,14 @@ inline void print_valid_symbols(const bool *valid_symbols) {
 }
 
 typedef uint8_t BlockLevel;
-const BlockLevel BT_NONE = 0;
-const BlockLevel BT_KNOT = 1;
-const BlockLevel BT_STITCH = 2;
-// CONTENT can actually nest arbitrarily, so this is just the lowest number for content.
-const BlockLevel BT_CONTENT = 3;
+const BlockLevel BL_NONE = 0;
+/// Special value meaning 'same as previous block'
+const BlockLevel BL_UNSPECIFIED = 1;
+const BlockLevel BL_KNOT = 2;
+const BlockLevel BL_STITCH = 3;
+/// CONTENT can nest arbitrarily, so this is just the lowest number for content.
+const BlockLevel BL_CONTENT = 4;
+const BlockLevel BL_MAX = UINT8_MAX;
 
 typedef struct {
   Array(BlockLevel) blocks;
@@ -109,7 +112,7 @@ void tree_sitter_ink_external_scanner_deserialize(void *payload, const char *buf
 
   // Make sure the thing is never empty so we never have to check.
   if (scanner->blocks.size == 0)
-    array_push(&scanner->blocks, BT_NONE);
+    array_push(&scanner->blocks, BL_NONE);
 }
 
 
@@ -137,42 +140,59 @@ inline char pretty(char c) {
   }
 }
 
+inline void skip_ws(TSLexer *lexer) {
+  while (lookahead(lexer) <= ' ' && !is_eof(lexer))
+    skip(lexer);
+}
+
 /// Looks ahead to see if a new block could be started here.
 ///
 /// Callers must call scanner->mark_end themselves if necessary; this function does not call it.
 ///
-/// If no block type can be found, return BT_NONE. This only happens at EOF (or at trailing whitespace before EOF).
+/// At EOF, return BL_NONE.
+/// If next non-whitespaces gives no indication, return BL_UNSPECIFIED.
 ///
 /// Mutates lexer, does not mutate scanner.
 BlockLevel lookahead_block_start(TSLexer *lexer, Scanner *scanner) {
   MSG("Looking ahead for block start marker\n");
 
-  // Only interested in what happens _after_ any whitespace
-  for (
-    int32_t c = lookahead(lexer);
-    c <= ' ' && !is_eof(lexer);
-    c = lookahead(lexer)
-  ) skip(lexer);
-  
+  skip_ws(lexer);
 
   if (lookahead(lexer) == '\0' && is_eof(lexer)) {
-    MSG("Next block: %d, because EOF.\n", BT_NONE);
-    return BT_NONE;
+    MSG("Next block: %d, because EOF.\n", BL_NONE);
+    return BL_NONE;
   }
 
   if (lookahead(lexer) != '=') {
-    MSG("Next block: %d.\n", BT_CONTENT);
-    return BT_CONTENT;
+    MSG("Next block is content. Level indicators");
+    static const BlockLevel max_markers = BL_MAX - BL_CONTENT;
+    uint8_t markers = 0;
+    uint32_t c = lookahead(lexer);
+    while ((c == '*' || c == '+' || c == '-') && (markers < max_markers)) {
+      MSG(" %c", c);
+      markers += 1;
+      consume(lexer);
+      skip_ws(lexer);
+      c = lookahead(lexer);
+    }
+
+    if (markers) {
+      MSG(" -> Content at level %d.\n", BL_CONTENT + markers);
+      return BL_CONTENT + markers;
+    } else {
+      MSG(" none -> Level unspecified.\n");
+      return BL_UNSPECIFIED;
+    }
   }
 
   // We've seen one '='; now determine whether we'll start a stitch or a knot.
   consume(lexer);
   if (lookahead(lexer) == '=') {
-    MSG("Next block: %d.\n", BT_KNOT);
-    return BT_KNOT;
+    MSG("Next block: %d.\n", BL_KNOT);
+    return BL_KNOT;
   } else {
-    MSG("Next block: %d.\n", BT_STITCH);
-    return BT_STITCH;
+    MSG("Next block: %d.\n", BL_STITCH);
+    return BL_STITCH;
   }
 }
 
@@ -193,7 +213,7 @@ bool tree_sitter_ink_external_scanner_scan(
 
   if (valid_symbols[ERROR]) {
     MSG("In error recovery.\n");
-    // MSG("Abort like babies!\n");
+    // MSG("Abort like babies!\n"); assert(false);
     // return false;
   }
 
@@ -214,111 +234,36 @@ bool tree_sitter_ink_external_scanner_scan(
 
   if (valid_symbols[BLOCK_START] || valid_symbols[BLOCK_END]) {
     MSG("Checking for Block delimiters.\n");
-    if (scanner->blocks.size == 0) {
-      MSG("Why are there more blocks in the scanner? Highly suspicious. Abort!");
-      goto after_block_delimiters;
-    }
 
     mark_end(lexer);  // Block tokens are zero width.
 
     BlockLevel current_block = *array_back(&scanner->blocks);
     BlockLevel next_block = lookahead_block_start(lexer, scanner);
 
-    if (next_block == BT_NONE) {
-      MSG("We're at the end of file, we can only close the current block.\n");
-      if (valid_symbols[BLOCK_END] && !valid_symbols[ERROR]) {
-        lexer->result_symbol = BLOCK_END;
-        // We already checked for the existence of blocks at the start, so we can just pop.
-        array_pop(&scanner->blocks);
-        return true;
-      }
+    // We mustn't add BL_UNSPECIFIED to the blocks array.
+    if (next_block == BL_UNSPECIFIED) {
+      next_block = (current_block >= BL_CONTENT) ? current_block : BL_CONTENT;
+      MSG("Next block is BL_UNSPECFIED: Corrected to %d.\n", next_block);
     }
 
-    // This next block may look a bit much, but the idea is simple:
-    // Based on the current block and the next block, we decide whether to start or end a block.
-    else if (current_block == BT_KNOT) {
-      switch (next_block) {
-        case BT_KNOT:
-          MSG("  Knot->Knot: Must end current knot block.\n");
-          lexer->result_symbol = BLOCK_END;
-          array_pop(&scanner->blocks);
-          return true;
-        case BT_STITCH:
-          MSG("  Knot->Stitch: Start stitch, no need to end the knot yet.\n");
-          lexer->result_symbol = BLOCK_START;
-          array_push(&scanner->blocks, BT_STITCH);
-          return true;
-        case BT_CONTENT:
-          MSG("  Knot->Content: Start content block, no need to end the knot yet.\n");
-          lexer->result_symbol = BLOCK_START;
-          array_push(&scanner->blocks, BT_CONTENT);
-          return true;
-        default:
-          assert(false);  // if we land here, it's a bug!
-      }
-    } else if (current_block == BT_STITCH) {
-      switch (next_block) {
-        case BT_KNOT:
-          MSG("  Stitch->Knot: Must end current stitch block.\n");
-          lexer->result_symbol = BLOCK_END;
-          array_pop(&scanner->blocks);
-          return true;
-        case BT_STITCH:
-          MSG("  Stitch->Stitch: Must end current stitch block.\n");
-          lexer->result_symbol = BLOCK_END;
-          array_pop(&scanner->blocks);
-          return true;
-        case BT_CONTENT:
-          MSG("  Stitch->Content: Start content block, no need to end the knot yet.\n");
-          lexer->result_symbol = BLOCK_START;
-          array_push(&scanner->blocks, BT_CONTENT);
-          return true;
-        default:
-          assert(false);  // if we land here, it's a bug!
-      }
-    } else if (current_block == BT_CONTENT) {
-      switch (next_block) {
-        case BT_KNOT:
-          MSG("  Content->Knot: Must end current content block.\n");
-          lexer->result_symbol = BLOCK_END;
-          array_pop(&scanner->blocks);
-          return true;
-        case BT_STITCH:
-          MSG("  Content->Stitch: Must end current content block.\n");
-          lexer->result_symbol = BLOCK_END;
-          array_pop(&scanner->blocks);
-          return true;
-        case BT_CONTENT:
-          // TODO: Content should eventually nest
-          MSG("  Content->Content: Do nothing (for now).\n");
-          break;
-        default:
-          assert(false);  // if we land here, it's a bug!
-      }
-    } else if (current_block == BT_NONE) {
-      switch (next_block) {
-        case BT_KNOT:
-          MSG("  None->Knot: Must start knot block.\n");
-          lexer->result_symbol = BLOCK_START;
-          array_push(&scanner->blocks, BT_KNOT);
-          return true;
-        case BT_STITCH:
-          MSG("  None->Stitch: Must start stitch block.\n");
-          lexer->result_symbol = BLOCK_START;
-          array_push(&scanner->blocks, BT_STITCH);
-          return true;
-        case BT_CONTENT:
-          MSG("  None->Content: Must start content block.\n");
-          lexer->result_symbol = BLOCK_START;
-          array_push(&scanner->blocks, BT_CONTENT);
-          return true;
-        default:
-          assert(false);  // if we land here, it's a bug!
-      }
+    MSG("Current %d -> Next %d: ", current_block, next_block);
+    if (next_block > current_block) {
+      MSG("Start block.\n");
+      lexer->result_symbol = BLOCK_START;
+      array_push(&scanner->blocks, next_block);
+      return valid_symbols[BLOCK_START];
+    } else if (current_block >= BL_CONTENT && next_block == current_block) {
+      MSG("Content blocks of same level. Nothing to do.\n");
+    } else if (next_block <= current_block) {
+      MSG("End block.\n");
+      lexer->result_symbol = BLOCK_END;
+      array_pop(&scanner->blocks);
+      return valid_symbols[BLOCK_END];
+    } else {
+      MSG("Staying at same level.\n");
     }
 
   }
-  after_block_delimiters:
 
   MSG("*** FALLTHROUGH! ***\n");
   return false;
