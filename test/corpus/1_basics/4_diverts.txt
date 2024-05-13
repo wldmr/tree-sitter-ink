@@ -13,17 +13,21 @@ We hurried home to Savile Row as fast as we could.
 ---
 
 (ink
-  (knot
-    name: (identifier))
-  (paragraph
-    (text))
-  (divert
-    target: (identifier))
-  (knot
-    name: (identifier))
-  (paragraph
-    (text))
-  (comment))
+  (knot_block
+    (knot
+      name: (identifier))
+    (content_block
+      (paragraph
+        (text))
+      (divert
+        target: (identifier))))
+  (knot_block
+    (knot
+      name: (identifier))
+    (content_block
+      (paragraph
+        (text))
+      (comment))))
 
 ===
 .ADB. Diverts are invisible
@@ -37,16 +41,20 @@ as fast as we could.
 ---
 
 (ink
-  (knot
-    name: (identifier))
-  (paragraph
-    (text)
-    (divert
-      target: (identifier)))
-  (knot
-    name: (identifier))
-  (paragraph
-    (text)))
+  (knot_block
+    (knot
+      name: (identifier))
+    (content_block
+      (paragraph
+        (text)
+        (divert
+          target: (identifier)))))
+  (knot_block
+    (knot
+      name: (identifier))
+    (content_block
+      (paragraph
+        (text)))))
 
 ===
 .ADC. Glue
@@ -64,24 +72,30 @@ to Savile Row
 ---
 
 (ink
-  (knot
-    name: (identifier))
-  (paragraph
-    (text)
-    (glue))
-  (divert
-    target: (identifier))
-  (knot
-    name: (identifier))
-  (paragraph
-    (text))
-  (divert
-    target: (identifier))
-  (knot
-    name: (identifier))
-  (paragraph
-    (glue)
-    (text)))
+  (knot_block
+    (knot
+      name: (identifier))
+    (content_block
+      (paragraph
+        (text)
+        (glue))
+      (divert
+        target: (identifier))))
+  (knot_block
+    (knot
+      name: (identifier))
+    (content_block
+      (paragraph
+        (text))
+      (divert
+        target: (identifier))))
+  (knot_block
+    (knot
+      name: (identifier))
+    (content_block
+      (paragraph
+        (glue)
+        (text)))))
 
 ===
 .ADDa. Glue on same line as divert
@@ -97,25 +111,31 @@ We hurried home <> -> to_savile_row
 ---
 
 (ink
-  (knot
-    name: (identifier))
-  (paragraph
-    (text)
-    (glue)
-    (divert
-      target: (identifier)))
-  (knot
-    name: (identifier))
-  (paragraph
-    (glue)
-    (text)
-    (divert
-      target: (identifier)))
-  (knot
-    name: (identifier))
-  (paragraph
-    (glue)
-    (text)))
+  (knot_block
+    (knot
+      name: (identifier))
+    (content_block
+      (paragraph
+        (text)
+        (glue)
+        (divert
+          target: (identifier)))))
+  (knot_block
+    (knot
+      name: (identifier))
+    (content_block
+      (paragraph
+        (glue)
+        (text)
+        (divert
+          target: (identifier)))))
+  (knot_block
+    (knot
+      name: (identifier))
+    (content_block
+      (paragraph
+        (glue)
+        (text)))))
 
 ===
 .ADDb. Can't use too much glue
@@ -124,14 +144,15 @@ When we <> came home, <> <> <> we went to sleep.
 ---
 
 (ink
-  (paragraph
-    (text)
-    (glue)
-    (text)
-    (glue)
-    (glue)
-    (glue)
-    (text)))
+  (content_block
+    (paragraph
+      (text)
+      (glue)
+      (text)
+      (glue)
+      (glue)
+      (glue)
+      (text))))
 
 ===
 .ADDc. Sometimes the scanner needs help using backslashes
@@ -144,14 +165,17 @@ We hurried home to Savile Road sevent-\<> no wait, it was a number <\<>-> what_n
 ---
 
 (ink
-  (paragraph
-    (text)
-    (glue)
-    (text)
-    (glue)
-    (divert
-      target: (identifier)))
-  (knot
-    name: (identifier))
-  (paragraph
-    (text)))
+  (content_block
+    (paragraph
+      (text)
+      (glue)
+      (text)
+      (glue)
+      (divert
+        target: (identifier))))
+  (knot_block
+    (knot
+      name: (identifier))
+    (content_block
+      (paragraph
+        (text)))))

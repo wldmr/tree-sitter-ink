@@ -15,34 +15,38 @@ You open the gate, and step out onto the path.
 ---
 
 (ink
-  (knot
-    name: (identifier))
-  (paragraph
-    (text))
-  (choice
-    mark: (symbol)
-    temporary: (flow
-      (text))
-    (divert
-      target: (identifier)))
-  (choice
-    mark: (symbol)
-    temporary: (flow
-      (text))
-    (divert
-      target: (identifier)))
-  (choice
-    mark: (symbol)
-    temporary: (flow
-      (text))
-    (divert
-      target: (identifier)))
-  (knot
-    name: (identifier))
-  (paragraph
-    (text))
-  (paragraph
-    (text)))
+  (knot_block
+    (knot
+      name: (identifier))
+    (content_block
+      (paragraph
+        (text))
+      (choice
+        mark: (symbol)
+        temporary: (flow
+          (text))
+        (divert
+          target: (identifier)))
+      (choice
+        mark: (symbol)
+        temporary: (flow
+          (text))
+        (divert
+          target: (identifier)))
+      (choice
+        mark: (symbol)
+        temporary: (flow
+          (text))
+        (divert
+          target: (identifier)))))
+  (knot_block
+    (knot
+      name: (identifier))
+    (content_block
+      (paragraph
+        (text))
+      (paragraph
+        (text)))))
 
 ===
 .AEB. Branching and joining
@@ -75,48 +79,56 @@ He insisted that we hurried home to Savile Row
 ---
 
 (ink
-  (knot
-    (identifier))
-  (paragraph
-    (text))
-  (choice
-    (symbol)
-    (flow
-      (text))
-    (flow
-      (text)))
-  (divert
-    (identifier))
-  (choice
-    (symbol)
-    (flow
-      (text))
-    (flow
-      (text)))
-  (paragraph
-    (text))
-  (divert
-    (identifier))
-  (choice
-    (symbol)
-    (flow
-      (text))
-    (divert
-      (identifier)))
-  (knot
-    (identifier))
-  (paragraph
-    (text)
-    (divert
-      (identifier)))
-  (knot
-    (identifier))
-  (paragraph
-    (text))
-  (divert
-    (identifier))
-  (knot
-    (identifier))
-  (paragraph
-    (glue)
-    (text)))
+  (knot_block
+    (knot
+      (identifier))
+    (content_block
+      (paragraph
+        (text))
+      (choice
+        (symbol)
+        (flow
+          (text))
+        (flow
+          (text)))
+      (divert
+        (identifier))
+      (choice
+        (symbol)
+        (flow
+          (text))
+        (flow
+          (text)))
+      (paragraph
+        (text))
+      (divert
+        (identifier))
+      (choice
+        (symbol)
+        (flow
+          (text))
+        (divert
+          (identifier)))))
+  (knot_block
+    (knot
+      (identifier))
+    (content_block
+      (paragraph
+        (text)
+        (divert
+          (identifier)))))
+  (knot_block
+    (knot
+      (identifier))
+    (content_block
+      (paragraph
+        (text))
+      (divert
+        (identifier))))
+  (knot_block
+    (knot
+      (identifier))
+    (content_block
+      (paragraph
+        (glue)
+        (text)))))

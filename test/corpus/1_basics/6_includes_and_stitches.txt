@@ -14,24 +14,33 @@
 ---
 
 (ink
-  (knot
-    name: (identifier))
-  (stitch
-    name: (identifier))
-  (paragraph
-    (text))
-  (stitch
-    name: (identifier))
-  (paragraph
-    (text))
-  (stitch
-    name: (identifier))
-  (paragraph
-    (text))
-  (stitch
-    name: (identifier))
-  (paragraph
-    (text)))
+  (knot_block
+    (knot
+      name: (identifier))
+    (stitch_block
+      (stitch
+        name: (identifier))
+      (content_block
+        (paragraph
+          (text))))
+    (stitch_block
+      (stitch
+        name: (identifier))
+      (content_block
+        (paragraph
+          (text))))
+    (stitch_block
+      (stitch
+        name: (identifier))
+      (content_block
+        (paragraph
+          (text))))
+    (stitch_block
+      (stitch
+        name: (identifier))
+      (content_block
+        (paragraph
+          (text))))))
 
 ===
 .AFB. Stitches have unique names
@@ -44,22 +53,23 @@
 ---
 
 (ink
-  (choice
-    mark: (symbol)
-    temporary: (flow
-      (text)))
-  (divert
-    target: (qualified_name
-      (identifier)
-      (identifier)))
-  (choice
-    mark: (symbol)
-    temporary: (flow
-      (text)))
-  (divert
-    target: (qualified_name
-      (identifier)
-      (identifier))))
+  (content_block
+    (choice
+      mark: (symbol)
+      temporary: (flow
+        (text)))
+    (divert
+      target: (qualified_name
+        (identifier)
+        (identifier)))
+    (choice
+      mark: (symbol)
+      temporary: (flow
+        (text)))
+    (divert
+      target: (qualified_name
+        (identifier)
+        (identifier)))))
 
 ===
 .AFC. Script files can be combined
@@ -70,12 +80,13 @@ INCLUDE journeys/orient_express.ink
 ---
 
 (ink
-  (include
-    (path))
-  (include
-    (path))
-  (include
-    (path)))
+  (content_block
+    (include
+      (path))
+    (include
+      (path))
+    (include
+      (path))))
 
 ===
 .AFCa. Include corner cases
@@ -89,13 +100,14 @@ INC is a common suffix for a company
 ---
 
 (ink
-  (include
-    (path))
-  (include
-    (path))
-  (paragraph
-    (text))
-  (paragraph
-    (text))
-  (paragraph
-    (text)))
+  (content_block
+    (include
+      (path))
+    (include
+      (path))
+    (paragraph
+      (text))
+    (paragraph
+      (text))
+    (paragraph
+      (text))))

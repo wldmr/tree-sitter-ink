@@ -7,14 +7,15 @@ Hello world!
 ---
 
 (ink
-  (paragraph
-    (text))
-  (choice
-    mark: (symbol)
-    main: (flow
-      (text)))
-  (paragraph
-    (text)))
+  (content_block
+    (paragraph
+      (text))
+    (choice
+      mark: (symbol)
+      main: (flow
+        (text)))
+    (paragraph
+      (text))))
 
 ===
 .ABB. Suppressing Choice Text
@@ -25,18 +26,19 @@ Hello world!
 ---
 
 (ink
-  (paragraph
-    (text))
-  (choice
-    mark: (symbol)
-    main: (flow
+  (content_block
+    (paragraph
       (text))
-    temporary: (flow
-      (text))
-    final: (flow
-      (text)))
-  (paragraph
-    (text)))
+    (choice
+      mark: (symbol)
+      main: (flow
+        (text))
+      temporary: (flow
+        (text))
+      final: (flow
+        (text)))
+    (paragraph
+      (text))))
 
 ===
 .ABC. Multiple choices
@@ -51,33 +53,34 @@ Hello world!
 ---
 
 (ink
-  (paragraph
-    (text))
-  (choice
-    mark: (symbol)
-    main: (flow
+  (content_block
+    (paragraph
       (text))
-    temporary: (flow
+    (choice
+      mark: (symbol)
+      main: (flow
+        (text))
+      temporary: (flow
+        (text))
+      final: (flow
+        (text)))
+    (paragraph
       (text))
-    final: (flow
-      (text)))
-  (paragraph
-    (text))
-  (choice
-    mark: (symbol)
-    main: (flow
+    (choice
+      mark: (symbol)
+      main: (flow
+        (text))
+      final: (flow
+        (text)))
+    (paragraph
       (text))
-    final: (flow
-      (text)))
-  (paragraph
-    (text))
-  (choice
-    mark: (symbol)
-    main: (flow
-      (text))
-    temporary: (flow
-      (text))
-    final: (flow
-      (text)))
-  (paragraph
-    (text)))
+    (choice
+      mark: (symbol)
+      main: (flow
+        (text))
+      temporary: (flow
+        (text))
+      final: (flow
+        (text)))
+    (paragraph
+      (text))))

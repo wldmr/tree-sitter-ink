@@ -8,27 +8,28 @@ The radio hissed into life. {"Three!"|"Two!"|"One!"|There was the white noise ra
 ---
 
 (ink
-  (paragraph
-    (text)
-    (logic
-      (flow
-        (text))
-      (flow
-        (text))
-      (flow
-        (text))
-      (flow
-        (text))
-      (flow
-        (text))))
-  (paragraph
-    (logic
-      (flow
-        (text))
-      (flow
-        (text))
-      (flow
-        (text)))))
+  (content_block
+    (paragraph
+      (text)
+      (logic
+        (flow
+          (text))
+        (flow
+          (text))
+        (flow
+          (text))
+        (flow
+          (text))
+        (flow
+          (text))))
+    (paragraph
+      (logic
+        (flow
+          (text))
+        (flow
+          (text))
+        (flow
+          (text))))))
 
 ===
 .AHB. Alternatives: Cycles
@@ -38,128 +39,8 @@ It was {&Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday} today.
 ---
 
 (ink
-  (paragraph
-    (text)
-    (logic
-      prefix: (repeat_mark)
-      (flow
-        (text))
-      (flow
-        (text))
-      (flow
-        (text))
-      (flow
-        (text))
-      (flow
-        (text))
-      (flow
-        (text))
-      (flow
-        (text)))
-    (text)))
-
-===
-.AHC. Alternatives: Once Only
-===
-He told me a joke. {!I laughed politely.|I smiled.|I grimaced.|I promised myself to not react again.}
-
----
-
-(ink
-  (paragraph
-    (text)
-    (logic
-      prefix: (once_only_mark)
-      (flow
-        (text))
-      (flow
-        (text))
-      (flow
-        (text))
-      (flow
-        (text)))))
-
-===
-.AHD. Alternatives: Shuffle
-===
-I tossed the coin. {~Heads|Tails}.
-
----
-
-(ink
-  (paragraph
-    (text)
-    (logic
-      prefix: (shuffle_mark)
-      (flow
-        (text))
-      (flow
-        (text)))
-    (text)))
-
-===
-.AHE. Alternatives: Blank elements
-===
-I took a step forward. {!||||Then the lights went out. -> eek}
-
----
-
-(ink
-  (paragraph
-    (text)
-    (logic
-      prefix: (once_only_mark)
-      (flow
-        (text))
-      (divert
-        target: (identifier)))))
-
-===
-.AHF. Alternatives Can Be Nested
-===
-The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|arm|cheek}}.
-
----
-
-(ink
-  (paragraph
-    (text)
-    (logic
-      prefix: (repeat_mark)
-      (flow
-        (logic
-          (flow
-            (text)))
-        (text))
-      (flow
-        (text)))
-    (logic
-      prefix: (repeat_mark)
-      (flow
-        (text))
-      (flow
-        (text)
-        (logic
-          prefix: (repeat_mark)
-          (flow
-            (text))
-          (flow
-            (text))
-          (flow
-            (text)))))
-    (text)))
-
-===
-.AHG. Alternatives Inside Choice Text
-===
-+ 	"Hello, {&Master|Monsieur Fogg|you|brown-eyes}_"[] I declared.
-
----
-
-(ink
-  (choice
-    mark: (symbol)
-    main: (flow
+  (content_block
+    (paragraph
       (text)
       (logic
         prefix: (repeat_mark)
@@ -170,10 +51,136 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
         (flow
           (text))
         (flow
+          (text))
+        (flow
+          (text))
+        (flow
+          (text))
+        (flow
           (text)))
-      (text))
-    final: (flow
       (text))))
+
+===
+.AHC. Alternatives: Once Only
+===
+He told me a joke. {!I laughed politely.|I smiled.|I grimaced.|I promised myself to not react again.}
+
+---
+
+(ink
+  (content_block
+    (paragraph
+      (text)
+      (logic
+        prefix: (once_only_mark)
+        (flow
+          (text))
+        (flow
+          (text))
+        (flow
+          (text))
+        (flow
+          (text))))))
+
+===
+.AHD. Alternatives: Shuffle
+===
+I tossed the coin. {~Heads|Tails}.
+
+---
+
+(ink
+  (content_block
+    (paragraph
+      (text)
+      (logic
+        prefix: (shuffle_mark)
+        (flow
+          (text))
+        (flow
+          (text)))
+      (text))))
+
+===
+.AHE. Alternatives: Blank elements
+===
+I took a step forward. {!||||Then the lights went out. -> eek}
+
+---
+
+(ink
+  (content_block
+    (paragraph
+      (text)
+      (logic
+        prefix: (once_only_mark)
+        (flow
+          (text))
+        (divert
+          target: (identifier))))))
+
+===
+.AHF. Alternatives Can Be Nested
+===
+The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|arm|cheek}}.
+
+---
+
+(ink
+  (content_block
+    (paragraph
+      (text)
+      (logic
+        prefix: (repeat_mark)
+        (flow
+          (logic
+            (flow
+              (text)))
+          (text))
+        (flow
+          (text)))
+      (logic
+        prefix: (repeat_mark)
+        (flow
+          (text))
+        (flow
+          (text)
+          (logic
+            prefix: (repeat_mark)
+            (flow
+              (text))
+            (flow
+              (text))
+            (flow
+              (text)))))
+      (text))))
+
+===
+.AHG. Alternatives Inside Choice Text
+===
++ 	"Hello, {&Master|Monsieur Fogg|you|brown-eyes}_"[] I declared.
+
+---
+
+(ink
+  (content_block
+    (choice
+      mark: (symbol)
+      main: (flow
+        (text)
+        (logic
+          prefix: (repeat_mark)
+          (flow
+            (text))
+          (flow
+            (text))
+          (flow
+            (text))
+          (flow
+            (text)))
+        (text))
+      final: (flow
+        (text)))))
 
 ===
 .AHH. Alternatives Starting Choice Text
@@ -183,17 +190,18 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
 ---
 
 (ink
-  (choice
-    mark: (symbol)
-    main: (flow
-      (logic
-        prefix: (repeat_mark)
-        (flow
-          (text))
-        (flow
-          (text))
-        (flow
-          (text))))))
+  (content_block
+    (choice
+      mark: (symbol)
+      main: (flow
+        (logic
+          prefix: (repeat_mark)
+          (flow
+            (text))
+          (flow
+            (text))
+          (flow
+            (text)))))))
 
 ===
 .AHI. Conditional Text
@@ -203,17 +211,18 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
 ---
 
 (ink
-  (paragraph
-    (logic
-      (logic_condition)
-      (flow
-        (text)
-        (logic
-          (logic_condition)
-          (flow
-            (text))
-          (flow
-            (text)))
-        (text))
-      (flow
-        (text)))))
+  (content_block
+    (paragraph
+      (logic
+        (logic_condition)
+        (flow
+          (text)
+          (logic
+            (logic_condition)
+            (flow
+              (text))
+            (flow
+              (text)))
+          (text))
+        (flow
+          (text))))))

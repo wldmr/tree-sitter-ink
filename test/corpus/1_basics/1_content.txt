@@ -5,15 +5,16 @@ Hello, world!
 ---
 
 (ink
-  (paragraph
-    (text)))
+  (content_block
+    (paragraph
+      (text))))
 
 ==============
 .AAB. Comments
 ==============
 "What do you make of this?" she asked.
 
-	// Something unprintable...
+    // Something unprintable...
 
 "I couldn't possibly comment," I replied.
 
@@ -23,12 +24,11 @@ Hello, world!
 ---
 
 (ink
-  (paragraph
-    (text))
-  (comment)
-  (paragraph
-    (text))
-  (comment))
+  (content_block
+    (paragraph (text))
+    (comment)
+    (paragraph (text))
+    (comment)))
 
 =================================
 .AAC. Comments can occur anywhere
@@ -39,12 +39,13 @@ Hello, world!
 ---
 
 (ink
-  (paragraph
-    (text))
-  (comment)
-  (paragraph
-    (text
-      (comment))))
+  (content_block
+    (paragraph
+      (text))
+    (comment)
+    (paragraph
+      (text
+        (comment)))))
 
 ===================
 .AAD. TODO Comments
@@ -56,9 +57,10 @@ And?
 ---
 
 (ink
-  (todo_comment)
-  (paragraph
-    (text)))
+  (content_block
+    (todo_comment)
+    (paragraph
+      (text))))
 
 =================================
 .AADa. TODO Comments corner cases
@@ -69,9 +71,10 @@ He remembered that he was allowed to write TODO: anywhere else on the line.
 ---
 
 (ink
-  (todo_comment)
-  (paragraph
-    (text)))
+  (content_block
+    (todo_comment)
+    (paragraph
+      (text))))
 
 ==========
 .AAE. Tags
@@ -83,11 +86,12 @@ Some more text. # and a tag
 ---
 
 (ink
-  (paragraph
-    (text)
-    (tag))
-  (tag)
-  (tag)
-  (paragraph
-    (text)
-    (tag)))
+  (content_block
+    (paragraph
+      (text)
+      (tag))
+    (tag)
+    (tag)
+    (paragraph
+      (text)
+      (tag))))

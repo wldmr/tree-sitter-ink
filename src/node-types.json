@@ -1,6 +1,6 @@
 [
   {
-    "type": "",
+    "type": "_flow",
     "named": false,
     "fields": {},
     "children": {
@@ -304,6 +304,45 @@
     }
   },
   {
+    "type": "content_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "choice",
+          "named": true
+        },
+        {
+          "type": "code",
+          "named": true
+        },
+        {
+          "type": "divert",
+          "named": true
+        },
+        {
+          "type": "include",
+          "named": true
+        },
+        {
+          "type": "paragraph",
+          "named": true
+        },
+        {
+          "type": "tag",
+          "named": true
+        },
+        {
+          "type": "todo_comment",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "divert",
     "named": true,
     "fields": {
@@ -396,43 +435,15 @@
       "required": false,
       "types": [
         {
-          "type": "choice",
+          "type": "content_block",
           "named": true
         },
         {
-          "type": "code",
+          "type": "knot_block",
           "named": true
         },
         {
-          "type": "divert",
-          "named": true
-        },
-        {
-          "type": "function_declaration",
-          "named": true
-        },
-        {
-          "type": "include",
-          "named": true
-        },
-        {
-          "type": "knot",
-          "named": true
-        },
-        {
-          "type": "paragraph",
-          "named": true
-        },
-        {
-          "type": "stitch",
-          "named": true
-        },
-        {
-          "type": "tag",
-          "named": true
-        },
-        {
-          "type": "todo_comment",
+          "type": "stitch_block",
           "named": true
         }
       ]
@@ -452,6 +463,33 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "knot_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "content_block",
+          "named": true
+        },
+        {
+          "type": "function_declaration",
+          "named": true
+        },
+        {
+          "type": "knot",
+          "named": true
+        },
+        {
+          "type": "stitch_block",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -645,6 +683,25 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "stitch_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "content_block",
+          "named": true
+        },
+        {
+          "type": "stitch",
+          "named": true
+        }
+      ]
     }
   },
   {

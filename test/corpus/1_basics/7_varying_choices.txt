@@ -9,16 +9,17 @@
 ---
 
 (ink
-  (choice
-    mark: (symbol)
-    (divert
-      target: (identifier)))
-  (choice
-    mark: (symbol))
-  (paragraph
-    (text)
-    (divert
-      target: (identifier))))
+  (content_block
+    (choice
+      mark: (symbol)
+      (divert
+        target: (identifier)))
+    (choice
+      mark: (symbol))
+    (paragraph
+      (text)
+      (divert
+        target: (identifier)))))
 
 ===
 .AGB. Fallback Choices extended example
@@ -35,36 +36,38 @@
 ---
 
 (ink
-  (knot
-    name: (identifier))
-  (paragraph
-    (text))
-  (choice
-    mark: (symbol)
-    main: (flow
-      (text))
-    temporary: (flow
-      (text))
-    final: (flow
-      (text))
-    (divert
-      target: (identifier)))
-  (choice
-    mark: (symbol)
-    main: (flow
-      (text))
-    temporary: (flow
-      (text))
-    final: (flow
-      (text))
-    (divert
-      target: (identifier)))
-  (choice
-    mark: (symbol))
-  (paragraph
-    (text))
-  (divert
-    target: (identifier)))
+  (knot_block
+    (knot
+      name: (identifier))
+    (content_block
+      (paragraph
+        (text))
+      (choice
+        mark: (symbol)
+        main: (flow
+          (text))
+        temporary: (flow
+          (text))
+        final: (flow
+          (text))
+        (divert
+          target: (identifier)))
+      (choice
+        mark: (symbol)
+        main: (flow
+          (text))
+        temporary: (flow
+          (text))
+        final: (flow
+          (text))
+        (divert
+          target: (identifier)))
+      (choice
+        mark: (symbol))
+      (paragraph
+        (text))
+      (divert
+        target: (identifier)))))
 
 ===
 .AGC. Sticky Choices
@@ -79,24 +82,26 @@
 ---
 
 (ink
-  (knot
-    name: (identifier))
-  (choice
-    mark: (symbol)
-    temporary: (flow
-      (text)))
-  (paragraph
-    (text)
-    (divert
-      target: (identifier)))
-  (choice
-    mark: (symbol)
-    temporary: (flow
-      (text)))
-  (paragraph
-    (text))
-  (divert
-    target: (identifier)))
+  (knot_block
+    (knot
+      name: (identifier))
+    (content_block
+      (choice
+        mark: (symbol)
+        temporary: (flow
+          (text)))
+      (paragraph
+        (text)
+        (divert
+          target: (identifier)))
+      (choice
+        mark: (symbol)
+        temporary: (flow
+          (text)))
+      (paragraph
+        (text))
+      (divert
+        target: (identifier)))))
 
 ===
 .AGD. Sticky Fallback Choices
@@ -109,24 +114,26 @@
 ---
 
 (ink
-  (knot
-    name: (identifier))
-  (choice
-    mark: (symbol)
-    temporary: (flow
-      (text))
-    (divert
-      target: (identifier)))
-  (choice
-    mark: (symbol)
-    temporary: (flow
-      (text))
-    (divert
-      target: (identifier)))
-  (choice
-    mark: (symbol)
-    (divert
-      target: (identifier))))
+  (knot_block
+    (knot
+      name: (identifier))
+    (content_block
+      (choice
+        mark: (symbol)
+        temporary: (flow
+          (text))
+        (divert
+          target: (identifier)))
+      (choice
+        mark: (symbol)
+        temporary: (flow
+          (text))
+        (divert
+          target: (identifier)))
+      (choice
+        mark: (symbol)
+        (divert
+          target: (identifier))))))
 
 ===
 .AGE. Conditional Choices
@@ -139,33 +146,34 @@
 ---
 
 (ink
-  (choice
-    mark: (symbol)
-    (condition
-      (unary
-        (identifier)))
-    temporary: (flow
-      (text))
-    (divert
-      target: (identifier)))
-  (choice
-    mark: (symbol)
-    (condition
-      (identifier))
-    temporary: (flow
-      (text))
-    (divert
-      target: (identifier)))
-  (choice
-    mark: (symbol)
-    (condition
-      (qualified_name
-        (identifier)
-        (identifier)))
-    temporary: (flow
-      (text))
-    (divert
-      target: (identifier))))
+  (content_block
+    (choice
+      mark: (symbol)
+      (condition
+        (unary
+          (identifier)))
+      temporary: (flow
+        (text))
+      (divert
+        target: (identifier)))
+    (choice
+      mark: (symbol)
+      (condition
+        (identifier))
+      temporary: (flow
+        (text))
+      (divert
+        target: (identifier)))
+    (choice
+      mark: (symbol)
+      (condition
+        (qualified_name
+          (identifier)
+          (identifier)))
+      temporary: (flow
+        (text))
+      (divert
+        target: (identifier)))))
 
 ===
 .AGF. Advanced Conditional Choices: Multiple Choices
@@ -177,26 +185,27 @@
 ---
 
 (ink
-  (choice
-    mark: (symbol)
-    (condition
-      (unary
-        (identifier)))
-    temporary: (flow
-      (text))
-    (divert
-      target: (identifier)))
-  (choice
-    mark: (symbol)
-    (condition
-      (identifier))
-    (condition
-      (unary
-        (identifier)))
-    temporary: (flow
-      (text))
-    (divert
-      target: (identifier))))
+  (content_block
+    (choice
+      mark: (symbol)
+      (condition
+        (unary
+          (identifier)))
+      temporary: (flow
+        (text))
+      (divert
+        target: (identifier)))
+    (choice
+      mark: (symbol)
+      (condition
+        (identifier))
+      (condition
+        (unary
+          (identifier)))
+      temporary: (flow
+        (text))
+      (divert
+        target: (identifier)))))
 
 ===
 .AGG. Logical Operators (and parentheses)
@@ -206,23 +215,24 @@
 ---
 
 (ink
-  (choice
-    mark: (symbol)
-    (condition
-      (binary
-        (unary
+  (content_block
+    (choice
+      mark: (symbol)
+      (condition
+        (binary
+          (unary
+            (paren
+              (binary
+                (identifier)
+                (identifier))))
           (paren
             (binary
               (identifier)
-              (identifier))))
-        (paren
-          (binary
-            (identifier)
-            (identifier)))))
-    temporary: (flow
-      (text))
-    (divert
-      target: (identifier))))
+              (identifier)))))
+      temporary: (flow
+        (text))
+      (divert
+        target: (identifier)))))
 
 ===
 .AGH. Knot/stitch labels are actually read counts
@@ -233,17 +243,18 @@
 ---
 
 (ink
-  (choice
-    mark: (symbol)
-    (condition
-      (identifier))
-    temporary: (flow
-      (text)))
-  (choice
-    mark: (symbol)
-    (condition
-      (binary
-        (identifier)
-        (number)))
-    temporary: (flow
-      (text))))
+  (content_block
+    (choice
+      mark: (symbol)
+      (condition
+        (identifier))
+      temporary: (flow
+        (text)))
+    (choice
+      mark: (symbol)
+      (condition
+        (binary
+          (identifier)
+          (number)))
+      temporary: (flow
+        (text)))))

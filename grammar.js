@@ -15,8 +15,15 @@ TOKEN = {
 module.exports = grammar({
   name: 'ink',
 
+  externals: $ => [
+    $._eol,
+    $._block_start,
+    $._block_end,
+    $._error_sentinel,
+  ],
+
   extras: $ => [
-    /[ \t]+/,
+    /\s+/,
     $.comment,
   ],
 
@@ -27,27 +34,53 @@ module.exports = grammar({
 
   rules: {
     ink: $ => seq(
-      repeat(seq(optional($._toplevel), /\n/)),
-      optional($._toplevel), // last line might not have a newline
+      optional($.content_block),
+      repeat($.stitch_block), // Evidently we can define orphan stitches. OK …
+      repeat($.knot_block),
     ),
 
-    _toplevel: $ => choice(
-      $.todo_comment,
-      repeat1($.tag),
-      $.divert,
-      $.paragraph,
-      $.knot,
-      $.function_declaration,
-      $.code,
+    content_block: $ => prec.right(seq(
+      $._block_start,
+      repeat1($._content_item),
+      $._block_end,
+    )),
+
+    knot_block: $ => prec.right(seq(
+      $._block_start,
+      choice(
+        $.knot,
+        $.function_declaration,
+      ),
+      optional($.content_block),
+      repeat($.stitch_block),
+      $._block_end,
+    )),
+
+    stitch_block: $ => prec.right(seq(
+      $._block_start,
       $.stitch,
-      $.choice,
-      $.include,
+      optional($.content_block),
+      $._block_end,
+    )),
+
+    _content_item: $ => seq(
+      choice(
+        $.todo_comment,
+        repeat1($.tag),
+        $.divert,
+        $.paragraph,
+        $.code,
+        $.choice,
+        $.include,
+      ),
+      $._eol,
     ),
 
     text: _ => prec.right(repeat1(
      choice(
       alias(TOKEN.text(/[^\n\{\}\[\]#\-$!&~<>/*+|]+/), 'text'),
       alias(TOKEN.text(/\\[\{\}\[\]$!&~\-]/), '\char'),  // escaped special char
+      // alias(TOKEN.text(/\\\n/), '\\n'),  // escaped newline
       alias(TOKEN.text(/[$!&~|]/), '[$!&~|]'), // repeat marks and separator can be text, if they're not in a position where a repeat mark is expected
       // TOKEN.text(/\[|\]/),  // outside of choices, square brackets are just text
       alias(TOKEN.text(/\/[^\/*]/), '/[^/*]'), // not yet a comment
@@ -57,7 +90,7 @@ module.exports = grammar({
     )),
 
     paragraph: $ => seq(
-      alias($.flow, ''),
+      alias($.flow, '_flow'),
       optional($.divert),
       repeat($.tag),
     ),
@@ -126,14 +159,16 @@ module.exports = grammar({
       $._knot_mark,
       field('name', $.identifier),
       optional($._knot_mark),
+      $._eol,
     )),
 
-    _knot_mark: _ => alias(/==+/, "knot_mark"), // TODO: Be sure to document that we collapse all knot marks to this "literal" (to distinguish it from the comparison operator)
+    _knot_mark: _ => alias(/==+/, 'knot_mark'), // TODO: Be sure to document that we collapse all knot marks to this "literal" (to distinguish it from the comparison operator)
     _divert_mark: _ => '->',
 
     stitch: $ => prec.right(seq(
       '=',
       field('name', $.identifier),
+      $._eol,
     )),
 
     function_declaration: $ => prec.right(seq(
