@@ -519,7 +519,7 @@
           "type": "REPEAT",
           "content": {
             "type": "SYMBOL",
-            "name": "condition"
+            "name": "_condition_field"
           }
         },
         {
@@ -597,7 +597,7 @@
         }
       ]
     },
-    "condition": {
+    "_condition_field": {
       "type": "PREC_RIGHT",
       "value": 0,
       "content": {
@@ -627,8 +627,12 @@
             }
           },
           {
-            "type": "SYMBOL",
-            "name": "expr"
+            "type": "FIELD",
+            "name": "condition",
+            "content": {
+              "type": "SYMBOL",
+              "name": "expr"
+            }
           },
           {
             "type": "STRING",
@@ -1039,12 +1043,22 @@
           "value": "number"
         },
         {
-          "type": "STRING",
-          "value": "false"
-        },
-        {
-          "type": "STRING",
-          "value": "true"
+          "type": "ALIAS",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "false"
+              },
+              {
+                "type": "STRING",
+                "value": "true"
+              }
+            ]
+          },
+          "named": true,
+          "value": "boolean"
         },
         {
           "type": "SYMBOL",

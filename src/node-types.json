@@ -28,10 +28,14 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
         {
           "type": "binary",
+          "named": true
+        },
+        {
+          "type": "boolean",
           "named": true
         },
         {
@@ -130,10 +134,14 @@
     },
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
         {
           "type": "binary",
+          "named": true
+        },
+        {
+          "type": "boolean",
           "named": true
         },
         {
@@ -193,6 +201,44 @@
     "type": "choice",
     "named": true,
     "fields": {
+      "condition": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "binary",
+            "named": true
+          },
+          {
+            "type": "boolean",
+            "named": true
+          },
+          {
+            "type": "call",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "number",
+            "named": true
+          },
+          {
+            "type": "paren",
+            "named": true
+          },
+          {
+            "type": "qualified_name",
+            "named": true
+          },
+          {
+            "type": "unary",
+            "named": true
+          }
+        ]
+      },
       "final": {
         "multiple": false,
         "required": false,
@@ -235,13 +281,9 @@
       }
     },
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": false,
       "types": [
-        {
-          "type": "condition",
-          "named": true
-        },
         {
           "type": "divert",
           "named": true
@@ -259,45 +301,6 @@
       "types": [
         {
           "type": "return",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "condition",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "binary",
-          "named": true
-        },
-        {
-          "type": "call",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "number",
-          "named": true
-        },
-        {
-          "type": "paren",
-          "named": true
-        },
-        {
-          "type": "qualified_name",
-          "named": true
-        },
-        {
-          "type": "unary",
           "named": true
         }
       ]
@@ -616,10 +619,14 @@
     "fields": {},
     "children": {
       "multiple": false,
-      "required": false,
+      "required": true,
       "types": [
         {
           "type": "binary",
+          "named": true
+        },
+        {
+          "type": "boolean",
           "named": true
         },
         {
@@ -670,10 +677,14 @@
     "fields": {},
     "children": {
       "multiple": false,
-      "required": false,
+      "required": true,
       "types": [
         {
           "type": "binary",
+          "named": true
+        },
+        {
+          "type": "boolean",
           "named": true
         },
         {
@@ -773,10 +784,14 @@
     },
     "children": {
       "multiple": false,
-      "required": false,
+      "required": true,
       "types": [
         {
           "type": "binary",
+          "named": true
+        },
+        {
+          "type": "boolean",
           "named": true
         },
         {
@@ -915,16 +930,16 @@
     "named": false
   },
   {
+    "type": "boolean",
+    "named": true
+  },
+  {
     "type": "char",
     "named": false
   },
   {
     "type": "comment",
     "named": true
-  },
-  {
-    "type": "false",
-    "named": false
   },
   {
     "type": "function",
@@ -988,10 +1003,6 @@
   },
   {
     "type": "text",
-    "named": false
-  },
-  {
-    "type": "true",
     "named": false
   },
   {

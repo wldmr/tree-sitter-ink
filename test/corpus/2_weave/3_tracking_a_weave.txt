@@ -33,11 +33,10 @@ The guard frowns at you.
           final: (flow (text)))
         (gather (flow (text)))
         (choice
-          (condition (identifier))
+          condition: (identifier)
           main: (flow (text)))
         (comment)
         (choice
           main: (flow (text))
           final: (flow (text))) ) ) ) )
-
 

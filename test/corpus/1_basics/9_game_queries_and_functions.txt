@@ -10,19 +10,19 @@
 (ink
   (content_block
     (choice
-      (condition)
+      condition: (boolean)
       main: (flow
         (text)))
     (choice
-      (condition)
+      condition: (boolean)
       main: (flow
         (text)))
     (choice
-      (condition
+      condition:
         (binary
           (call
             name: (identifier))
-          (number)))
+          (number))
       main: (flow
         (text)))))
 
@@ -36,30 +36,30 @@
 (ink
   (content_block
     (choice
-      (condition
+      condition:
         (binary
           (call
-            (identifier)
-            (args
+            name: (identifier)
+            args: (args
               (divert
-                (qualified_name
+                target: (qualified_name
                   (identifier)
                   (identifier)))))
-          (number)))
-      (flow
+          (number))
+      main: (flow
         (text))
       (divert
-        (identifier)))
+        target: (identifier)))
     (choice
-      (condition
+      condition:
         (binary
           (call
-            (identifier)
-            (args
+            name: (identifier)
+            args: (args
               (divert
-                (identifier))))
-          (number)))
-      (flow
+                target: (identifier))))
+          (number))
+      main: (flow
         (text)))))
 
 ===
@@ -97,7 +97,7 @@
 (ink
   (content_block
     (choice
-      (condition
+      condition:
         (binary
           (binary
             (binary
@@ -116,6 +116,6 @@
                   (identifier)
                   (identifier))))
             (unary
-              (number)))))
-      (flow
+              (number))))
+      main: (flow
         (text)))))

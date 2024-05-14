@@ -130,7 +130,7 @@ module.exports = grammar({
     choice: $ => seq(
       repeat1(choice('*', '+')), // yes, this technically allows mixing * and + on the same 'choice', but it's simpler and probably leads to the structure the user intends.
       optional($._label_field),
-      repeat($.condition),
+      repeat($._condition_field),
       optional('\\'),
       $._choice_content
     ),
@@ -145,12 +145,11 @@ module.exports = grammar({
       '(', field('label', $.identifier), ')',
     ),
 
-    // TODO: make this a field, like label
-    condition: $ => prec.right(seq(
+    _condition_field: $ => prec.right(seq(
       // There can apparently be linebreaks between conditions.
       optional(/\n/),
       TOKEN.condition_mark('{'),
-      $.expr,
+      field('condition', $.expr),
       '}',
       optional(/\n/),
     )),
@@ -225,8 +224,7 @@ module.exports = grammar({
       $.identifier,
       $.qualified_name,
       alias(/\d+(\.\d+)?/, $.number),
-      'false',
-      'true',
+      alias(choice('false', 'true'), $.boolean),
 
       // compound
       $.call,

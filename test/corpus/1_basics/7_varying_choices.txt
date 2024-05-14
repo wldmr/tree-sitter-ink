@@ -141,25 +141,21 @@
 (ink
   (content_block
     (choice
-      (condition
-        (unary
-          (identifier)))
+      condition: (unary (identifier))
       temporary: (flow
         (text))
       (divert
         target: (identifier)))
     (choice
-      (condition
-        (identifier))
+      condition: (identifier)
       temporary: (flow
         (text))
       (divert
         target: (identifier)))
     (choice
-      (condition
-        (qualified_name
+      condition: (qualified_name
           (identifier)
-          (identifier)))
+          (identifier))
       temporary: (flow
         (text))
       (divert
@@ -177,19 +173,14 @@
 (ink
   (content_block
     (choice
-      (condition
-        (unary
-          (identifier)))
+      condition: (unary (identifier))
       temporary: (flow
         (text))
       (divert
         target: (identifier)))
     (choice
-      (condition
-        (identifier))
-      (condition
-        (unary
-          (identifier)))
+      condition: (identifier)
+      condition: (unary (identifier))
       temporary: (flow
         (text))
       (divert
@@ -205,17 +196,16 @@
 (ink
   (content_block
     (choice
-      (condition
-        (binary
-          (unary
-            (paren
-              (binary
-                (identifier)
-                (identifier))))
+      condition: (binary
+        (unary
           (paren
             (binary
               (identifier)
-              (identifier)))))
+              (identifier))))
+        (paren
+          (binary
+            (identifier)
+            (identifier))))
       temporary: (flow
         (text))
       (divert
@@ -232,14 +222,12 @@
 (ink
   (content_block
     (choice
-      (condition
-        (identifier))
+      condition: (identifier)
       temporary: (flow
         (text)))
     (choice
-      (condition
-        (binary
+      condition: (binary
           (identifier)
-          (number)))
+          (number))
       temporary: (flow
         (text)))))
