@@ -63,10 +63,76 @@
           "named": true
         },
         {
+          "type": "string",
+          "named": true
+        },
+        {
           "type": "unary",
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "assignment",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "binary",
+            "named": true
+          },
+          {
+            "type": "boolean",
+            "named": true
+          },
+          {
+            "type": "call",
+            "named": true
+          },
+          {
+            "type": "divert",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "number",
+            "named": true
+          },
+          {
+            "type": "paren",
+            "named": true
+          },
+          {
+            "type": "qualified_name",
+            "named": true
+          },
+          {
+            "type": "string",
+            "named": true
+          },
+          {
+            "type": "unary",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -77,6 +143,10 @@
         "multiple": false,
         "required": true,
         "types": [
+          {
+            "type": "!=",
+            "named": false
+          },
           {
             "type": "&&",
             "named": false
@@ -118,6 +188,10 @@
             "named": false
           },
           {
+            "type": "?",
+            "named": false
+          },
+          {
             "type": "and",
             "named": false
           },
@@ -149,6 +223,10 @@
           "named": true
         },
         {
+          "type": "divert",
+          "named": true
+        },
+        {
           "type": "identifier",
           "named": true
         },
@@ -162,6 +240,10 @@
         },
         {
           "type": "qualified_name",
+          "named": true
+        },
+        {
+          "type": "string",
           "named": true
         },
         {
@@ -218,6 +300,10 @@
             "named": true
           },
           {
+            "type": "divert",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
           },
@@ -231,6 +317,10 @@
           },
           {
             "type": "qualified_name",
+            "named": true
+          },
+          {
+            "type": "string",
             "named": true
           },
           {
@@ -300,6 +390,10 @@
       "required": true,
       "types": [
         {
+          "type": "assignment",
+          "named": true
+        },
+        {
           "type": "return",
           "named": true
         }
@@ -348,6 +442,10 @@
         },
         {
           "type": "todo_comment",
+          "named": true
+        },
+        {
+          "type": "var",
           "named": true
         }
       ]
@@ -634,6 +732,10 @@
           "named": true
         },
         {
+          "type": "divert",
+          "named": true
+        },
+        {
           "type": "identifier",
           "named": true
         },
@@ -647,6 +749,10 @@
         },
         {
           "type": "qualified_name",
+          "named": true
+        },
+        {
+          "type": "string",
           "named": true
         },
         {
@@ -692,6 +798,10 @@
           "named": true
         },
         {
+          "type": "divert",
+          "named": true
+        },
+        {
           "type": "identifier",
           "named": true
         },
@@ -705,6 +815,10 @@
         },
         {
           "type": "qualified_name",
+          "named": true
+        },
+        {
+          "type": "string",
           "named": true
         },
         {
@@ -799,6 +913,10 @@
           "named": true
         },
         {
+          "type": "divert",
+          "named": true
+        },
+        {
           "type": "identifier",
           "named": true
         },
@@ -815,10 +933,76 @@
           "named": true
         },
         {
+          "type": "string",
+          "named": true
+        },
+        {
           "type": "unary",
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "var",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "binary",
+            "named": true
+          },
+          {
+            "type": "boolean",
+            "named": true
+          },
+          {
+            "type": "call",
+            "named": true
+          },
+          {
+            "type": "divert",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "number",
+            "named": true
+          },
+          {
+            "type": "paren",
+            "named": true
+          },
+          {
+            "type": "qualified_name",
+            "named": true
+          },
+          {
+            "type": "string",
+            "named": true
+          },
+          {
+            "type": "unary",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -827,6 +1011,10 @@
   },
   {
     "type": "!",
+    "named": false
+  },
+  {
+    "type": "!=",
     "named": false
   },
   {
@@ -906,7 +1094,15 @@
     "named": false
   },
   {
+    "type": "?",
+    "named": false
+  },
+  {
     "type": "TODO",
+    "named": false
+  },
+  {
+    "type": "VAR",
     "named": false
   },
   {
@@ -995,6 +1191,10 @@
   },
   {
     "type": "shuffle_mark",
+    "named": true
+  },
+  {
+    "type": "string",
     "named": true
   },
   {

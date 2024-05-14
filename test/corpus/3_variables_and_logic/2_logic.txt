@@ -1,0 +1,76 @@
+===
+.CBA. Logic
+===
+=== set_some_variables ===
+	~ knows_about_wager = true
+	~ x = (x * x) - (y * y) + c
+	~ y = 2 * x * y
+---
+
+(ink
+  (knot_block
+    (knot
+      name: (identifier))
+    (content_block
+      (code
+        (assignment
+          name: (identifier)
+          value: (boolean)))
+      (code
+        (assignment
+          name: (identifier)
+          value: (binary
+            (binary
+              (paren
+                (binary
+                  (identifier)
+                  (identifier)))
+              (paren
+                (binary
+                  (identifier)
+                  (identifier))))
+            (identifier))))
+      (code
+        (assignment
+          name: (identifier)
+          value: (binary
+            (binary
+              (number)
+              (identifier))
+            (identifier)))))))
+
+===
+.CBB. Mathematics
+===
+// Nothing new here, really, but just for a little more completeness
+// Note: The docs use inline logic, but we can't parse that. So we're using code.
+~ x = INT(3.2)
+---
+(ink
+  (content_block
+    (comment)
+    (comment)
+    (code
+      (assignment
+        name: (identifier)
+        value: (call
+          name: (identifier)
+          args: (args (number)))))
+  )
+)
+
+===
+.CBC. String Queries
+===
+// Note: The example in the docs uses expressions {braces}, but we can't parse that, so we're using code
+~ return "Yes, please." == "Yes, please."
+~ return "No, thank you." != "Yes, please."
+~ return "Yes, please" ? "ease"
+---
+(ink
+  (content_block
+    (comment)
+    (code (return (binary (string) (string))))
+    (code (return (binary (string) (string))))
+    (code (return (binary (string) (string))))
+))

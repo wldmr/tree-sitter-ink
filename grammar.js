@@ -76,6 +76,7 @@ module.exports = grammar({
         $.choice,
         $.gather,
         $.include,
+        $.var,
       ),
       $._eol,
     ),
@@ -108,6 +109,9 @@ module.exports = grammar({
 
     glue: _ => TOKEN.mark('<>'),
 
+    // The {...} syntax in Ink has several functions: Repetition, Conditonal Text, and evaluating expressions.
+    // I have so far failed to distinguish these cases syntactically, so they are smooshed together here
+    // in a rather unsatisfying way.
     logic: $ => seq(
       '{',
       field('prefix', optional(choice(
@@ -121,6 +125,8 @@ module.exports = grammar({
         // I'd love to parse conditions as expr + ':', but that fails because a sequence may start with anything;
         // If the first thing after the opening brace is a word, the parser sees an identifier and has a nervous breakdown.
       ))),
+      // Although it would make sense to do, adding $.expr here breaks a lot of stuff
+      // (text will be interpreted as identifiers, strings, numbers, etc.).
       repeat1(choice('|', seq($.flow, optional($.divert)))),
       '}',
     ),
@@ -198,12 +204,15 @@ module.exports = grammar({
 
     code: $ => seq('~', $._code_stmt),
     _code_stmt: $ => choice(
+      $.assignment,
       $.return,
     ),
-    return: $ => seq(
-      'return',
-      $.expr,
+    assignment: $ => seq(
+      field('name', $.identifier),
+      '=',
+      field('value', $.expr)
     ),
+    return: $ => seq('return', $.expr),
 
     _param: $ => choice($.identifier, $.divert),
     params: $ => seq(
@@ -218,6 +227,13 @@ module.exports = grammar({
     // Let's just accept any old characters for the path. We don't have to do anything with it …
     include: $ => seq(/INCLUDE\s/, alias(/[^\n]+/, $.path)),
 
+    var: $ => seq(
+      'VAR',
+      field('name', $.identifier),
+      '=',
+      field('value', $.expr),
+    ),
+
     expr: $ => choice(
 
       // terminals
@@ -225,6 +241,8 @@ module.exports = grammar({
       $.qualified_name,
       alias(/\d+(\.\d+)?/, $.number),
       alias(choice('false', 'true'), $.boolean),
+      $.string,
+      $.divert,
 
       // compound
       $.call,
@@ -240,10 +258,9 @@ module.exports = grammar({
       field('args', optional($.args)),
       ')'
     )),
-    _arg: $ => choice($.expr, $.divert),
     args: $ => seq(
-      $._arg,
-      repeat(seq(",", $._arg))
+      $.expr,
+      repeat(seq(",", $.expr))
     ),
 
     paren: $ => prec(10, seq("(", $.expr, ")")),
@@ -251,13 +268,23 @@ module.exports = grammar({
     binary: $ => choice(
       binop($, 8, '*', '/'),
       binop($, 7, '+', '-'),
-      binop($, 6, '==', '<=', '>=', '<', '>'),
+      binop($, 6, '==', '!=', '?', '<=', '>=', '<', '>'),
       binop($, 5, 'and', '&&'),
       binop($, 4, 'or', '||'),
     ),
 
     identifier: _ => /[a-zA-z_][a-zA-Z0-9_]*/,
     qualified_name: $ => seq($.identifier, token.immediate('.'), $.identifier),
+
+    string: _ => token(seq(
+      '"',
+      prec.left(repeat(choice(
+        /[^\\"]+/,
+        alias('\\"', '\\"'),
+        alias('\\', '\\\\'),
+      ))),
+      '"',
+    )),
 
     comment: _ => /\/\/[^\n]*|\/\*(.|\r?\n)*?\*\//,
 

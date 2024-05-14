@@ -187,6 +187,10 @@
             {
               "type": "SYMBOL",
               "name": "include"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "var"
             }
           ]
         },
@@ -923,7 +927,36 @@
       "members": [
         {
           "type": "SYMBOL",
+          "name": "assignment"
+        },
+        {
+          "type": "SYMBOL",
           "name": "return"
+        }
+      ]
+    },
+    "assignment": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "="
+        },
+        {
+          "type": "FIELD",
+          "name": "value",
+          "content": {
+            "type": "SYMBOL",
+            "name": "expr"
+          }
         }
       ]
     },
@@ -1022,6 +1055,35 @@
         }
       ]
     },
+    "var": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "VAR"
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "="
+        },
+        {
+          "type": "FIELD",
+          "name": "value",
+          "content": {
+            "type": "SYMBOL",
+            "name": "expr"
+          }
+        }
+      ]
+    },
     "expr": {
       "type": "CHOICE",
       "members": [
@@ -1059,6 +1121,14 @@
           },
           "named": true,
           "value": "boolean"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "string"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "divert"
         },
         {
           "type": "SYMBOL",
@@ -1119,25 +1189,12 @@
         ]
       }
     },
-    "_arg": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "expr"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "divert"
-        }
-      ]
-    },
     "args": {
       "type": "SEQ",
       "members": [
         {
           "type": "SYMBOL",
-          "name": "_arg"
+          "name": "expr"
         },
         {
           "type": "REPEAT",
@@ -1150,7 +1207,7 @@
               },
               {
                 "type": "SYMBOL",
-                "name": "_arg"
+                "name": "expr"
               }
             ]
           }
@@ -1305,6 +1362,14 @@
                     },
                     {
                       "type": "STRING",
+                      "value": "!="
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "?"
+                    },
+                    {
+                      "type": "STRING",
                       "value": "<="
                     },
                     {
@@ -1422,6 +1487,56 @@
           "name": "identifier"
         }
       ]
+    },
+    "string": {
+      "type": "TOKEN",
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "\""
+          },
+          {
+            "type": "PREC_LEFT",
+            "value": 0,
+            "content": {
+              "type": "REPEAT",
+              "content": {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "PATTERN",
+                    "value": "[^\\\\\"]+"
+                  },
+                  {
+                    "type": "ALIAS",
+                    "content": {
+                      "type": "STRING",
+                      "value": "\\\""
+                    },
+                    "named": false,
+                    "value": "\\\""
+                  },
+                  {
+                    "type": "ALIAS",
+                    "content": {
+                      "type": "STRING",
+                      "value": "\\"
+                    },
+                    "named": false,
+                    "value": "\\\\"
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "type": "STRING",
+            "value": "\""
+          }
+        ]
+      }
     },
     "comment": {
       "type": "PATTERN",

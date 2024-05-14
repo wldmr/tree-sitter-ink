@@ -1,0 +1,40 @@
+===
+.CAA. Definining Global Variables
+===
+VAR knowledge_of_the_cure = false
+VAR players_name = "Emilia, the \"escaped\" \ convict"
+VAR empty_string = ""
+VAR number_of_infected_people = 521
+VAR current_epilogue = -> they_all_die_of_the_plague
+---
+(ink
+  (content_block
+    (var name: (identifier) value: (boolean))
+    (var name: (identifier) value: (string))
+    (var name: (identifier) value: (string))
+    (var name: (identifier) value: (number))
+    (var name: (identifier) value: (divert target: (identifier)))
+  )
+)
+
+===
+.CAB. Printing Variables
+===
+VAR friendly_name_of_player = "Jackie"
+VAR age = 23
+
+My name is Jean Passepartout, but my friend's call me {friendly_name_of_player}. I'm {age} years old.
+---
+(ink
+  (content_block
+    (var (identifier) (string))
+    (var (identifier) (number))
+    (paragraph
+      (text)
+      (logic (flow (text)))
+      (text)
+      (logic (flow (text)))
+      (text)
+    )
+  )
+)
