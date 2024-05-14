@@ -1,0 +1,43 @@
+===
+.BCA. Gathers and options can be labelled
+===
+- (top)
+
+=== meet_guard ===
+The guard frowns at you.
+
+* 	(greet) [Greet him]
+	'Greetings.'
+*	(get_out) 'Get out of my way[.'],' you tell the guard.
+
+- 	'Hmm,' replies the guard.
+
+*	{greet} 	'Having a nice day?' // only if you greeted him
+
+* 	'Hmm?'[] you reply.
+---
+(ink
+  (content_block
+    (gather label: (identifier)))
+  (knot_block
+    (knot name: (identifier))
+    (content_block
+      (paragraph (text))
+      (content_block
+        (choice label: (identifier) temporary: (flow (text)))
+        (paragraph (text))
+        (choice
+          label: (identifier)
+          main: (flow (text))
+          temporary: (flow (text))
+          final: (flow (text)))
+        (gather (flow (text)))
+        (choice
+          (condition (identifier))
+          main: (flow (text)))
+        (comment)
+        (choice
+          main: (flow (text))
+          final: (flow (text))) ) ) ) )
+
+

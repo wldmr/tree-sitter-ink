@@ -1,0 +1,59 @@
+===
+.BBA. Options and gathers can be nested
+===
+- 	"Well, Poirot? Murder or suicide?"
+	*	"Murder!"
+	 	"And who did it?"
+		* * 	"Detective-Inspector Japp!"
+		- -	"You must be joking"
+	* 	"Suicide!"
+		"Really, Poirot? Are you quite sure?"
+		* *		"It is perfectly obvious."
+	-	Mrs. Christie lowered her manuscript a moment. The rest of the writing group sat, open-mouthed.
+---
+(ink
+	(content_block
+		(gather (flow (text)))
+		(choice (flow (text)))
+		(paragraph (text))
+		(content_block
+			(choice (flow (text)))
+			(gather (flow (text))))
+		(choice (flow (text)))
+		(paragraph (text))
+		(content_block
+			(choice (flow (text))))
+		(gather (flow (text)))))
+
+===
+.BBB. You can nest as many levels as you like
+===
+-	"Tell us a tale, Captain!"
+	*	"Very well, you sea-dogs. Here's a tale..."
+		* * 	"It was a dark and stormy night..."
+				* * * 	"...and the crew were restless..."
+						* * * *  "... and they said to their Captain..."
+								* * * * *		"...Tell us a tale Captain!"
+	*	"No, it's past your bed-time."
+-	To a man, the crew began to yawn.
+---
+(ink
+	(content_block
+		(gather (flow (text)))
+		(choice (flow (text)))
+		(content_block
+			(choice (flow (text)))
+			(content_block
+				(choice (flow (text)))
+				(content_block
+					(choice (flow (text)))
+					(content_block
+						(choice (flow (text)))
+					)
+				)
+			)
+		)
+		(choice (flow (text)))
+		(gather (flow (text)))
+	)
+)
