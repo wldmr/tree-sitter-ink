@@ -43,7 +43,6 @@ It was {&Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday} today.
     (paragraph
       (text)
       (logic
-        prefix: (repeat_mark)
         (flow
           (text))
         (flow
@@ -72,7 +71,6 @@ He told me a joke. {!I laughed politely.|I smiled.|I grimaced.|I promised myself
     (paragraph
       (text)
       (logic
-        prefix: (once_only_mark)
         (flow
           (text))
         (flow
@@ -94,7 +92,6 @@ I tossed the coin. {~Heads|Tails}.
     (paragraph
       (text)
       (logic
-        prefix: (shuffle_mark)
         (flow
           (text))
         (flow
@@ -113,7 +110,6 @@ I took a step forward. {!||||Then the lights went out. -> eek}
     (paragraph
       (text)
       (logic
-        prefix: (once_only_mark)
         (flow
           (text))
         (divert
@@ -131,7 +127,6 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
     (paragraph
       (text)
       (logic
-        prefix: (repeat_mark)
         (flow
           (logic
             (flow
@@ -140,13 +135,11 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
         (flow
           (text)))
       (logic
-        prefix: (repeat_mark)
         (flow
           (text))
         (flow
           (text)
           (logic
-            prefix: (repeat_mark)
             (flow
               (text))
             (flow
@@ -168,7 +161,6 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
       main: (flow
         (text)
         (logic
-          prefix: (repeat_mark)
           (flow
             (text))
           (flow
@@ -193,7 +185,6 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
     (choice
       main: (flow
         (logic
-          prefix: (repeat_mark)
           (flow
             (text))
           (flow
@@ -224,3 +215,33 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
           (text))
         (flow
           (text))))))
+
+
+===
+.AHJa. Minimal examples (inline)
+===
+{identifier}
+{sequence|}
+{condition:this|}
+---
+(ink
+  (content_block
+    (paragraph (eval (identifier)))
+    (paragraph (alternatives (flow (text))))
+    (paragraph (conditional_text (identifier) (flow (text))))
+  )
+)
+
+
+===
+.AHJb. Distinguishing between expression and text
+===
+{this or that: result | otherwise }
+{this is that:result | }
+---
+(ink
+  (content_block
+    (paragraph (conditional_text (binary (identifier) (identifier)) (flow (text))))
+    (paragraph (alternatives (flow (text))))
+  )
+)

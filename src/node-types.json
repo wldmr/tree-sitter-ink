@@ -8,15 +8,42 @@
       "required": true,
       "types": [
         {
+          "type": "alternatives",
+          "named": true
+        },
+        {
+          "type": "conditional_text",
+          "named": true
+        },
+        {
+          "type": "eval",
+          "named": true
+        },
+        {
           "type": "glue",
           "named": true
         },
         {
-          "type": "logic",
+          "type": "text",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "alternatives",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "divert",
           "named": true
         },
         {
-          "type": "text",
+          "type": "flow",
           "named": true
         }
       ]
@@ -326,6 +353,14 @@
           {
             "type": "unary",
             "named": true
+          },
+          {
+            "type": "{",
+            "named": false
+          },
+          {
+            "type": "}",
+            "named": false
           }
         ]
       },
@@ -340,9 +375,17 @@
         ]
       },
       "label": {
-        "multiple": false,
+        "multiple": true,
         "required": false,
         "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
           {
             "type": "identifier",
             "named": true
@@ -395,6 +438,61 @@
         },
         {
           "type": "return",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "conditional_text",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "binary",
+          "named": true
+        },
+        {
+          "type": "boolean",
+          "named": true
+        },
+        {
+          "type": "call",
+          "named": true
+        },
+        {
+          "type": "divert",
+          "named": true
+        },
+        {
+          "type": "flow",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "paren",
+          "named": true
+        },
+        {
+          "type": "qualified_name",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "unary",
           "named": true
         }
       ]
@@ -472,6 +570,57 @@
     }
   },
   {
+    "type": "eval",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "binary",
+          "named": true
+        },
+        {
+          "type": "boolean",
+          "named": true
+        },
+        {
+          "type": "call",
+          "named": true
+        },
+        {
+          "type": "divert",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "paren",
+          "named": true
+        },
+        {
+          "type": "qualified_name",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "unary",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "flow",
     "named": true,
     "fields": {},
@@ -480,11 +629,19 @@
       "required": true,
       "types": [
         {
-          "type": "glue",
+          "type": "alternatives",
           "named": true
         },
         {
-          "type": "logic",
+          "type": "conditional_text",
+          "named": true
+        },
+        {
+          "type": "eval",
+          "named": true
+        },
+        {
+          "type": "glue",
           "named": true
         },
         {
@@ -525,9 +682,17 @@
     "named": true,
     "fields": {
       "label": {
-        "multiple": false,
+        "multiple": true,
         "required": false,
         "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
           {
             "type": "identifier",
             "named": true
@@ -545,6 +710,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "identifier",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "include",
@@ -622,52 +792,6 @@
         },
         {
           "type": "stitch_block",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "logic",
-    "named": true,
-    "fields": {
-      "prefix": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "logic_condition",
-            "named": true
-          },
-          {
-            "type": "once_only_mark",
-            "named": true
-          },
-          {
-            "type": "repeat_mark",
-            "named": true
-          },
-          {
-            "type": "sequence_mark",
-            "named": true
-          },
-          {
-            "type": "shuffle_mark",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "divert",
-          "named": true
-        },
-        {
-          "type": "flow",
           "named": true
         }
       ]
@@ -1006,15 +1130,19 @@
     }
   },
   {
-    "type": "\n",
-    "named": false
-  },
-  {
     "type": "!",
     "named": false
   },
   {
     "type": "!=",
+    "named": false
+  },
+  {
+    "type": "$",
+    "named": false
+  },
+  {
+    "type": "&",
     "named": false
   },
   {
@@ -1146,16 +1274,12 @@
     "named": true
   },
   {
-    "type": "identifier",
-    "named": true
-  },
-  {
     "type": "knot_mark",
     "named": false
   },
   {
-    "type": "logic_condition",
-    "named": true
+    "type": "looks_like_identifier",
+    "named": false
   },
   {
     "type": "not",
@@ -1163,10 +1287,6 @@
   },
   {
     "type": "number",
-    "named": true
-  },
-  {
-    "type": "once_only_mark",
     "named": true
   },
   {
@@ -1178,20 +1298,8 @@
     "named": true
   },
   {
-    "type": "repeat_mark",
-    "named": true
-  },
-  {
     "type": "return",
     "named": false
-  },
-  {
-    "type": "sequence_mark",
-    "named": true
-  },
-  {
-    "type": "shuffle_mark",
-    "named": true
   },
   {
     "type": "string",
@@ -1202,7 +1310,7 @@
     "named": true
   },
   {
-    "type": "text",
+    "type": "word",
     "named": false
   },
   {
