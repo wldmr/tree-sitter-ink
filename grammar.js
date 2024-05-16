@@ -1,4 +1,4 @@
-const _tp = n => (rule => token(prec(n, rule)));
+IDENT_REGEX = /[a-zA-z_][a-zA-Z0-9_]*/
 
 module.exports = grammar({
   name: 'ink',
@@ -6,19 +6,20 @@ module.exports = grammar({
   inline: $ => [$._expr],
 
   conflicts: $ => [
-    // If I enable any of these, tree-sitter tells me 'unnecessary conflicts' 🤷
-    [$.alternatives, $.conditional_text],
-    [$._expr, $.text],
     [$.identifier, $.text],
+    // [$.conditional_text, $.text],
   ],
 
   rules: {
     ink: $ => seq(repeat($._line)),
-    _line: $ =>  seq($.flow, alias(/\n/, '\\n')),
+    _line: $ =>  seq($.flow, alias('\n', '\\n')),
 
-    // positive or negative precedence here determines if the flow rule tries conditional_text or alternatives,
-    // but it doesn't get it right in context.
-    text: _ => token(prec(-10, /[^\n\{\}|]+/)),
+    text: $ => prec.right(repeat1(choice(
+      /[^\s\{\}|:]+/,
+      // Have to include the following two to trigger the conflict.
+      ':',
+      IDENT_REGEX, // If I use $.idenifier here, then I'm told to add a [$.conditional_text, $.text] conflict instead. Same result.
+    ))),
 
     flow: $ => prec.right(repeat1(choice(
       $.conditional_text,
@@ -28,11 +29,11 @@ module.exports = grammar({
 
     alternatives: $ => seq(
       '{',
-      repeat1(choice('|', $.flow)),
+      repeat(choice('|', $.flow)),
       '}',
     ),
 
-    conditional_text: $ => seq(
+    conditional_text: $ => prec.right(seq(
       '{',
       field('condition', $._expr),
       ":",
@@ -40,7 +41,7 @@ module.exports = grammar({
       "|",
       field('else', $.flow),
       '}',
-    ),
+    )),
 
     _expr: $ => choice(
       $.identifier,
@@ -51,7 +52,7 @@ module.exports = grammar({
 
     _binary_operator: _ => choice("and", "or"),
 
-    identifier: _ => /[a-zA-z_][a-zA-Z0-9_]*/,
+    identifier: _ => IDENT_REGEX,
 
   },
 

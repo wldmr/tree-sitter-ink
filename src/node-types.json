@@ -112,6 +112,11 @@
     }
   },
   {
+    "type": "identifier",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "ink",
     "named": true,
     "fields": {},
@@ -127,6 +132,11 @@
     }
   },
   {
+    "type": "text",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": ":",
     "named": false
   },
@@ -139,16 +149,8 @@
     "named": false
   },
   {
-    "type": "identifier",
-    "named": true
-  },
-  {
     "type": "or",
     "named": false
-  },
-  {
-    "type": "text",
-    "named": true
   },
   {
     "type": "{",
