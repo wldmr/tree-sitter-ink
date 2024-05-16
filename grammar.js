@@ -7,7 +7,6 @@ module.exports = grammar({
 
   conflicts: $ => [
     [$.identifier, $.text],
-    // [$.conditional_text, $.text],
   ],
 
   rules: {
@@ -15,10 +14,10 @@ module.exports = grammar({
     _line: $ =>  seq($.flow, alias('\n', '\\n')),
 
     text: $ => prec.right(repeat1(choice(
+      IDENT_REGEX,  // this needs to come first, because the next regex is more general and tree-sitter goes by rule order. If the next regex matched an identifier, it wouldn't trigger the conflict.
       /[^\s\{\}|:]+/,
-      // Have to include the following two to trigger the conflict.
       ':',
-      IDENT_REGEX, // If I use $.idenifier here, then I'm told to add a [$.conditional_text, $.text] conflict instead. Same result.
+      $._binary_operator,
     ))),
 
     flow: $ => prec.right(repeat1(choice(
@@ -27,13 +26,7 @@ module.exports = grammar({
       $.text,
     ))),
 
-    alternatives: $ => seq(
-      '{',
-      repeat(choice('|', $.flow)),
-      '}',
-    ),
-
-    conditional_text: $ => prec.right(seq(
+    conditional_text: $ => seq(
       '{',
       field('condition', $._expr),
       ":",
@@ -41,7 +34,13 @@ module.exports = grammar({
       "|",
       field('else', $.flow),
       '}',
-    )),
+    ),
+
+    alternatives: $ => seq(
+      '{',
+      repeat(choice('|', $.flow)),
+      '}',
+    ),
 
     _expr: $ => choice(
       $.identifier,
