@@ -1,11 +1,17 @@
 const mark = rule => token(prec(1, rule));
-const text_token = rule => token(prec(0, rule));
 
 function binop($, p, ...operators) {
   return prec.left(p, seq($.expr, field('op', choice(...operators)), $.expr))
 }
 
 IDENTIFIER_REGEX  = /[a-zA-z_][a-zA-Z0-9_]*/
+
+PREC = {
+  // For ink syntax contstructs that could be confused for text content
+  ink: 1,
+  // Otherwise it's just text.
+  text: 0,
+}
 
 module.exports = grammar({
   name: 'ink',
@@ -27,11 +33,13 @@ module.exports = grammar({
     // $.flow,  // maybe?
   ],
 
-  precedences: _ => [
-    ['choice-condition', 'flow-logic'],
+  precedences: $ => [
+    [$._choice_condition, $.eval],  // since they are syntactically the same, maybe we just treat a condition as an eval?
   ],
 
   conflicts: $ => [
+    [$.text, $.identifier],
+    [$.text, $.alternatives],
   ],
 
   rules: {
@@ -83,16 +91,38 @@ module.exports = grammar({
       $._eol,
     ),
 
-    text: $ => prec.right(repeat1(
+    text: _ => prec.right(repeat1(
      choice(
-      alias(IDENTIFIER_REGEX, 'looks_like_identifier'), // to trigger ambiguity with expressions
-      alias(text_token(/[^\s\{\}\[\]#\-$!&~<>/*+|]+/), 'word'),
-      alias(text_token(/\\[\{\}\[\]$!&~\-|]/), '\char'),  // escaped special char
-      alias(text_token(/[$!&~|]/), '[$!&~|]'), // repeat marks and separator can be text, if they're not in a position where a repeat mark is expected
-      alias(text_token(/\/[^\/*]/), '/[^/*]'), // not yet a comment
-      alias(text_token(/-[^>]/), '-[^>]'), // not a divert
-      alias(text_token(/<[^->]/), '<[^->]'), // not a trevid or glue
-      text_token(':'), // colons separate conditions in conditional text, so we need to split text at them
+      IDENTIFIER_REGEX, // to trigger ambiguity with expressions
+      'and',
+      'or',
+      ':', // colons separate conditions in conditional text, so we need to split text at them
+      '!',
+      '+',
+      '-',
+      '*',
+      '/',
+      '(',
+      ')',
+      'not',
+      'and',
+      'or',
+      '||',
+      '&&',
+      '==',
+      '!=',
+      '<=',
+      '>=',
+      '<',
+      '>',
+      '?',
+      '"',
+      alias(/[^\s\{\}\[\]#\-$!?&~<>/*+|:=\(\)"]+/, 'word'),
+      alias(/\\[\{\}\[\]$!&~\-|]/, '\char'),  // escaped special char
+      alias(/[$!&~|]/, '[$!&~|]'), // repeat marks and separator can be text, if they're not in a position where a repeat mark is expected
+      alias(/\/[^\/*]/, '/[^/*]'), // not yet a comment
+      alias(/-[^>]/, '-[^>]'), // not a divert
+      alias(/<[^->]/, '<[^->]'), // not a trevid or glue
       // alias(/\\\r?\n/, '\\n'),  // escaped newline
       // alias(/\[|\]/, '[]'),  // outside of choices, square brackets are just text
     ) 
@@ -125,22 +155,11 @@ module.exports = grammar({
       $.conditional_text,
     ),
 
-    eval: $ => prec.right('flow-logic', seq('{', $.expr, '}')),
+    eval: $ => prec.right(seq('{', $.expr, '}')),
 
-    alternatives: $ => prec.right('flow-logic', seq(
+    conditional_text: $ => prec.right(seq(
       '{',
-      optional(choice(
-        '$', '&', '~', '!',
-        $._flow_to_divert  // bare sequence
-      )),
-      '|',
-      repeat(choice('|', $._flow_to_divert)),
-      '}'
-    )),
-
-    conditional_text: $ => prec.right('flow-logic', seq(
-      '{',
-      $.expr,
+      prec.dynamic(PREC.ink, $.expr),
       ':',
       $._flow_to_divert,
       '|',
@@ -148,25 +167,36 @@ module.exports = grammar({
       '}',
     )),
 
+    alternatives: $ => prec.right(seq(
+      '{',
+      optional(choice(
+        '$', '&', '~', '!',
+        prec.dynamic(PREC.text, $._flow_to_divert),  // start of a bare sequence: Hey {Mr. Fogg|you}.
+      )),
+      '|',
+      repeat(choice('|', $._flow_to_divert)),
+      '}'
+    )),
+
     tag: _ => /#[^\n#]+/,
 
     choice: $ => seq(
-      repeat1(choice('*', '+')), // yes, this technically allows mixing * and + on the same 'choice', but it's simpler and probably leads to the structure the user intends.
+      repeat1(prec(PREC.ink, choice('*', '+'))), // yes, this technically allows mixing * and + on the same 'choice', but it's simpler and probably leads to the structure the user intends.
       optional(seq($._label_field, optional($._eol))),
       repeat(seq($._choice_condition, optional($._eol))),
-      optional('\\'),
+      optional('\\'),  // to separate conditions from content starting with logic (e.g. conditional text): https://github.com/inkle/ink/blob/master/Documentation/WritingWithInk.md#features-of-alternatives
       $._choice_content
     ),
 
     gather: $ => seq(
-      repeat1(mark('-')),
+      repeat1(prec(PREC.ink, '-')),
       optional($._label_field),
       optional($.flow),
     ),
 
-    _label_field: $ => field('label', seq('(', $.identifier, ')')),
+    _label_field: $ => prec(PREC.ink, field('label', seq('(', $.identifier, ')'))),
 
-    _choice_condition: $ => prec.right('choice-condition', field('condition', seq('{', $.expr, '}', ))),
+    _choice_condition: $ => prec.right(field('condition', seq('{', $.expr, '}', ))),
 
     _choice_content: $ => choice(
       seq(field('main', $.flow), optional($.divert)),
@@ -270,7 +300,7 @@ module.exports = grammar({
       repeat(seq(",", $.expr))
     ),
 
-    paren: $ => prec(10, seq("(", $.expr, ")")),
+    paren: $ => prec(10, seq('(', $.expr, ")")),
     unary: $ => prec.right(9, seq(field('op', choice('not', '!', '-')), $.expr)),
     binary: $ => choice(
       binop($, 8, '*', '/'),

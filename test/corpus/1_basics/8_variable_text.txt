@@ -236,8 +236,8 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
 ===
 .AHJb. Distinguishing between expression and text
 ===
-{this or that: result | otherwise }
-{this is that:result | }
+{this or that:result|}
+{this is that:result|}
 ---
 (ink
   (content_block

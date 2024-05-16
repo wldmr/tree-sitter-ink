@@ -1138,6 +1138,10 @@
     "named": false
   },
   {
+    "type": "\"",
+    "named": false
+  },
+  {
     "type": "$",
     "named": false
   },
@@ -1275,10 +1279,6 @@
   },
   {
     "type": "knot_mark",
-    "named": false
-  },
-  {
-    "type": "looks_like_identifier",
     "named": false
   },
   {
