@@ -4,7 +4,7 @@ function binop($, p, ...operators) {
   return prec.left(p, seq($.expr, field('op', choice(...operators)), $.expr))
 }
 
-IDENTIFIER_REGEX  = /[a-zA-z_][a-zA-Z0-9_]*/
+IDENTIFIER_REGEX  = /[a-zA-Z_][a-zA-Z0-9_]*/
 
 PREC = {
   // For ink syntax contstructs that could be confused for text content
@@ -91,35 +91,24 @@ module.exports = grammar({
       $._eol,
     ),
 
+    // Text can sometimes conflict with Ink syntax.
+    // In order to trigger GLR conflicts, we must take care to split text into the same tokens as the ink syntax.
     text: _ => prec.right(repeat1(
      choice(
-      IDENTIFIER_REGEX, // to trigger ambiguity with expressions
-      'and',
-      'or',
-      ':', // colons separate conditions in conditional text, so we need to split text at them
-      '!',
+      '(', ')',
+      'not', '!', '-',
+      '*', '/',
       '+',
-      '-',
-      '*',
-      '/',
-      '(',
-      ')',
-      'not',
-      'and',
-      'or',
-      '||',
-      '&&',
-      '==',
-      '!=',
-      '<=',
-      '>=',
-      '<',
-      '>',
-      '?',
+      '==', '!=', '?', '<=', '>=', '<', '>',
+      'and', '&&',
+      'or', '||',
       '"',
-      alias(/[^\s\{\}\[\]#\-$!?&~<>/*+|:=\(\)"]+/, 'word'),
+      '.',
+      ':', // colons separate conditions in conditional text, so we need to split text at them
+      alias(IDENTIFIER_REGEX, 'word_or_ident'), // to trigger ambiguity with expressions; must come before the more general rules so that the conflict with identifiers actually triggers
+      alias(/[^\s\{\}\[\]#\-$!?&~<>/*+|:=\(\)".]+/, 'word'),
       alias(/\\[\{\}\[\]$!&~\-|]/, '\char'),  // escaped special char
-      alias(/[$!&~|]/, '[$!&~|]'), // repeat marks and separator can be text, if they're not in a position where a repeat mark is expected
+      alias(/[$!&~]/, '[$!&~|]'), // repeat marks and separator can be text, if they're not in a position where a repeat mark is expected
       alias(/\/[^\/*]/, '/[^/*]'), // not yet a comment
       alias(/-[^>]/, '-[^>]'), // not a divert
       alias(/<[^->]/, '<[^->]'), // not a trevid or glue
@@ -271,7 +260,7 @@ module.exports = grammar({
       field('value', $.expr),
     ),
 
-    expr: $ => prec.right(choice(
+    expr: $ => choice(
 
       // terminals
       $.identifier,
@@ -287,7 +276,7 @@ module.exports = grammar({
       $.unary,
       $.binary,
 
-    )),
+    ),
 
     call: $ => prec.left(11, seq(
       field('name', $.identifier),
@@ -300,7 +289,7 @@ module.exports = grammar({
       repeat(seq(",", $.expr))
     ),
 
-    paren: $ => prec(10, seq('(', $.expr, ")")),
+    paren: $ => prec.right(10, seq('(', $.expr, ')')),
     unary: $ => prec.right(9, seq(field('op', choice('not', '!', '-')), $.expr)),
     binary: $ => choice(
       binop($, 8, '*', '/'),
