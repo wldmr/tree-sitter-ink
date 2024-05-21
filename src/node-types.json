@@ -446,53 +446,64 @@
   {
     "type": "conditional_text",
     "named": true,
-    "fields": {},
+    "fields": {
+      "condition": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "binary",
+            "named": true
+          },
+          {
+            "type": "boolean",
+            "named": true
+          },
+          {
+            "type": "call",
+            "named": true
+          },
+          {
+            "type": "divert",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "number",
+            "named": true
+          },
+          {
+            "type": "paren",
+            "named": true
+          },
+          {
+            "type": "qualified_name",
+            "named": true
+          },
+          {
+            "type": "string",
+            "named": true
+          },
+          {
+            "type": "unary",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": true,
       "types": [
-        {
-          "type": "binary",
-          "named": true
-        },
-        {
-          "type": "boolean",
-          "named": true
-        },
-        {
-          "type": "call",
-          "named": true
-        },
         {
           "type": "divert",
           "named": true
         },
         {
           "type": "flow",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "number",
-          "named": true
-        },
-        {
-          "type": "paren",
-          "named": true
-        },
-        {
-          "type": "qualified_name",
-          "named": true
-        },
-        {
-          "type": "string",
-          "named": true
-        },
-        {
-          "type": "unary",
           "named": true
         }
       ]
@@ -1178,10 +1189,6 @@
     "named": false
   },
   {
-    "type": "-[^>]",
-    "named": false
-  },
-  {
     "type": ".",
     "named": false
   },
@@ -1242,7 +1249,7 @@
     "named": false
   },
   {
-    "type": "[$!&~|]",
+    "type": "[$!&~]",
     "named": false
   },
   {

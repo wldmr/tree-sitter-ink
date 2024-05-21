@@ -330,7 +330,7 @@
                 "value": "[$!&~]"
               },
               "named": false,
-              "value": "[$!&~|]"
+              "value": "[$!&~]"
             },
             {
               "type": "ALIAS",
@@ -340,15 +340,6 @@
               },
               "named": false,
               "value": "/[^/*]"
-            },
-            {
-              "type": "ALIAS",
-              "content": {
-                "type": "PATTERN",
-                "value": "-[^>]"
-              },
-              "named": false,
-              "value": "-[^>]"
             },
             {
               "type": "ALIAS",
@@ -498,11 +489,15 @@
             "value": "{"
           },
           {
-            "type": "PREC_DYNAMIC",
-            "value": 1,
+            "type": "FIELD",
+            "name": "condition",
             "content": {
-              "type": "SYMBOL",
-              "name": "expr"
+              "type": "PREC_DYNAMIC",
+              "value": 1,
+              "content": {
+                "type": "SYMBOL",
+                "name": "expr"
+              }
             }
           },
           {

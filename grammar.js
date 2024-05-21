@@ -108,9 +108,8 @@ module.exports = grammar({
       alias(IDENTIFIER_REGEX, 'word_or_ident'), // to trigger ambiguity with expressions; must come before the more general rules so that the conflict with identifiers actually triggers
       alias(/[^\s\{\}\[\]#\-$!?&~<>/*+|:=\(\)".]+/, 'word'),
       alias(/\\[\{\}\[\]$!&~\-|]/, '\char'),  // escaped special char
-      alias(/[$!&~]/, '[$!&~|]'), // repeat marks and separator can be text, if they're not in a position where a repeat mark is expected
+      alias(/[$!&~]/, '[$!&~]'), // repeat marks and separator can be text, if they're not in a position where a repeat mark is expected
       alias(/\/[^\/*]/, '/[^/*]'), // not yet a comment
-      alias(/-[^>]/, '-[^>]'), // not a divert
       alias(/<[^->]/, '<[^->]'), // not a trevid or glue
       // alias(/\\\r?\n/, '\\n'),  // escaped newline
       // alias(/\[|\]/, '[]'),  // outside of choices, square brackets are just text
@@ -148,7 +147,7 @@ module.exports = grammar({
 
     conditional_text: $ => prec.right(seq(
       '{',
-      prec.dynamic(PREC.ink, $.expr),
+      field('condition', prec.dynamic(PREC.ink, $.expr)),
       ':',
       $._flow_to_divert,
       '|',
