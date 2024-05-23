@@ -9,6 +9,24 @@ PREC = {
   text: 0,
 }
 
+/** Create an object with grammar rules corresponding to expressions.
+
+Depending on value for `named`, create a tree of named nodes ($.expr,
+$.identifier, etc), or anonymous nodes ($._expr, $._identifier).
+
+The reason for this is that logic blocks (`{…}`) are ambiguous:
+Sometimes they start with an expression (conditional blocks),
+sometimes it's just text (alternatives).
+
+To be able to trigger a GLR conflict for this distinction, we need both
+cases to create the same tokenization, but depending on which parse wins,
+we need different tokens in the parse tree (expressions are a full tree
+of named nodes, but text is just one named node (made up of many anonymous ones))
+
+This one is a doozy; maybe skip this part on a first read. It should become
+clearer when you see how it is used. Still, I nearly lost my mind writing
+this grammar, so be warned.
+*/
 function make_expr(named = true) {
   let rule = str => named ? str : '_' + str;
 
@@ -213,7 +231,7 @@ module.exports = grammar({
     alternatives: $ => prec.right(seq(
       '{',
       optional(choice(
-        '$', '&', '~', mark('!'),
+        '$', '&', '~', mark('!'),  // ! can conflict with expressions starting with negation; but in this position, the alternatives marker gets precedence.
       )),
       optional(alias($._fake_flow, $.flow)),
       optional($.divert),

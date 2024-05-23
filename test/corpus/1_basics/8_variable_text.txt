@@ -209,30 +209,52 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
 
 
 ===
-.AHJa. Minimal examples (inline)
+.AHJa. Inline Logic syntax: Minimal distinguishing examples
 ===
-{identifier}
-{sequence|}
-{condition:this|}
+{identifier}  // eval
+{sequence|}  // a pipe means it's an alternative
+{condition:this|}  // a colon and then a pipe means it _might_ be conditional text (but note next test)
 ---
 (ink
   (content_block
     (paragraph (eval (identifier)))
+    (comment)
     (paragraph (alternatives (flow (text))))
+    (comment)
     (paragraph (conditional_text (identifier) (flow (text))))
+    (comment)
   )
 )
-
 
 ===
 .AHJb. Distinguishing between expression and text
 ===
-{this or that:result|}
-{this is that:result|}
+{this or that:result|}  // there is a valid expression before the colon
+{this is that:result|}  // `is` is not an operator, therefore the whole run is treated as text
 ---
 (ink
   (content_block
     (paragraph (conditional_text (binary (identifier) (identifier)) (flow (text))))
+    (comment)
     (paragraph (alternatives (flow (text))))
+    (comment)
   )
+)
+
+===
+.AHJc. Paranthesized expressions directly after opening brace _must_ be balanced (even if there is no colon)
+===
+{(a + b|}
+{(a + b)|}
+/* To be clear: This is how the ink compiler works as well. */
+---
+(ink
+  (content_block
+    (paragraph
+      (alternatives
+        (flow (text (MISSING ")")))))
+    (paragraph
+      (alternatives
+        (flow (text))))
+    (comment))
 )
