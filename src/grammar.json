@@ -1641,7 +1641,7 @@
     },
     "identifier": {
       "type": "PATTERN",
-      "value": "[a-zA-Z_][a-zA-Z0-9_]*"
+      "value": "[\\p{Letter}_][\\p{Letter}\\p{Number}_]*"
     },
     "qualified_name": {
       "type": "SEQ",
@@ -2121,7 +2121,7 @@
     },
     "_identifier": {
       "type": "PATTERN",
-      "value": "[a-zA-Z_][a-zA-Z0-9_]*"
+      "value": "[\\p{Letter}_][\\p{Letter}\\p{Number}_]*"
     },
     "_qualified_name": {
       "type": "SEQ",

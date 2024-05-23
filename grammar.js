@@ -1,6 +1,8 @@
 const mark = rule => token(prec(1, rule));
 
-IDENTIFIER_REGEX  = /[a-zA-Z_][a-zA-Z0-9_]*/
+// The Ink docs get very specific about which Unicode they allow.
+// But just saying Letters and Numbers is so much simpler. This should be fine.
+IDENTIFIER_REGEX  = /[\p{Letter}_][\p{Letter}\p{Number}_]*/
 
 PREC = {
   // For ink syntax contstructs that could be confused for text content

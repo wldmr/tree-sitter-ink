@@ -1,0 +1,26 @@
+===
+.FAA. International Characters in Identifiers
+===
+=== Hey_You_1  // English
+=== يا_أنت_1  // Arabic
+=== Հեյ_դու_1 // Armenian
+=== Привіт_ти_1  // Cyrillic
+=== Γεια_σου_1  // Greek
+=== ⲛⲁⲛⲉ_ⲧⲟⲟⲩⲓ_ⲟⲩⲁⲓ // Coptic
+=== היי_אתה_1  // Hebrew
+=== Ĥĳŷ_Ÿőũ_1  // Latin Ext A
+=== ȞǁɁ_Ɏƣǔ_1  // Latin Ext B
+=== Hæ_ÿou_1  // Latin Supplement
+---
+(ink
+	(knot_block (knot (identifier) (comment)))
+	(knot_block (knot (identifier) (comment)))
+	(knot_block (knot (identifier) (comment)))
+	(knot_block (knot (identifier) (comment)))
+	(knot_block (knot (identifier) (comment)))
+	(knot_block (knot (identifier) (comment)))
+	(knot_block (knot (identifier) (comment)))
+	(knot_block (knot (identifier) (comment)))
+	(knot_block (knot (identifier) (comment)))
+	(knot_block (knot (identifier) (comment)))
+)
