@@ -233,10 +233,16 @@ module.exports = grammar({
     alternatives: $ => prec.right(seq(
       '{',
       optional(choice(
-        '$', '&', '~', mark('!'),  // ! can conflict with expressions starting with negation; but in this position, the alternatives marker gets precedence.
+        seq(
+          // ! can conflict with expressions starting with negation; but in this position, the alternatives marker gets precedence.
+          choice('$', '&', '~', mark('!')),
+          optional($._flow_to_divert),
+        ),
+        seq(
+          optional(alias($._fake_flow, $.flow)),
+          optional($.divert),
+        ),
       )),
-      optional(alias($._fake_flow, $.flow)),
-      optional($.divert),
       '|',
       repeat(choice('|', $._flow_to_divert)),
       '}'
