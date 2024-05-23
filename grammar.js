@@ -1,9 +1,5 @@
 const mark = rule => token(prec(1, rule));
 
-function binop($, p, ...operators) {
-  return prec.left(p, seq($.expr, field('op', choice(...operators)), $.expr))
-}
-
 IDENTIFIER_REGEX  = /[a-zA-Z_][a-zA-Z0-9_]*/
 
 PREC = {
@@ -11,6 +7,75 @@ PREC = {
   ink: 1,
   // Otherwise it's just text.
   text: 0,
+}
+
+function make_expr(named = true) {
+  let rule = str => named ? str : '_' + str;
+
+  let binop = ($, precedence, ...operators) => prec.left(precedence, seq(
+    $[rule('expr')],
+    field('op', choice(...operators)),
+    $[rule('expr')])
+  );
+
+  return {
+    [rule('expr')]: $ => choice(
+
+      // terminals
+      $[rule('identifier')],
+      $[rule('qualified_name')],
+      alias(/\d+(\.\d+)?/, $[rule('number')]),
+      alias(choice('false', 'true'), $[rule('boolean')]),
+      $[rule('string')],
+      $[rule('divert')],
+
+      // compound
+      $[rule('call')],
+      $[rule('paren')],
+      $[rule('unary')],
+      $[rule('binary')],
+
+    ),
+
+    [rule('call')]: $ => prec.left(11, seq(
+      field('name', $[rule('identifier')]),
+      '(',
+      field('args', optional($[rule('args')])),
+      ')'
+    )),
+    [rule('args')]: $ => seq(
+      $[rule('expr')],
+      repeat(seq(",", $[rule('expr')]))
+    ),
+
+    [rule('paren')]: $ => prec.left(10, seq('(', $[rule('expr')], ')')),
+    [rule('unary')]: $ => prec.left(9, seq(field('op', choice('not', '!', '-')), $[rule('expr')])),
+    [rule('binary')]: $ => choice(
+      binop($, 8, '*', '/'),
+      binop($, 7, '+', '-'),
+      binop($, 6, '==', '!=', '?', '<=', '>=', '<', '>'),
+      binop($, 5, 'and', '&&'),
+      binop($, 4, 'or', '||'),
+    ),
+
+    [rule('identifier')]: _ => IDENTIFIER_REGEX,
+    [rule('qualified_name')]: $ => seq($[rule('identifier')], token.immediate('.'), $[rule('identifier')]),
+
+    [rule('string')]: _ => token(seq(
+      '"',
+      prec.left(repeat(choice(
+        /[^\\"|]+/, // strings are always interrupded by pipes '|'
+        alias('\\"', '\\"'),
+        alias('\\', '\\\\'),
+      ))),
+      '"',
+    )),
+
+    [rule('divert')]: $ => seq(
+      $._divert_mark, field('target', choice($[rule('identifier')], $[rule('qualified_name')])),
+    ),
+
+  }
 }
 
 module.exports = grammar({
@@ -38,8 +103,10 @@ module.exports = grammar({
   ],
 
   conflicts: $ => [
-    [$.text, $.identifier],
-    [$.text, $.alternatives],
+    [$.conditional_text, $._expr],
+    [$.identifier, $._identifier],
+    [$.string, $._string],
+    [$._fake_flow],
   ],
 
   rules: {
@@ -91,30 +158,19 @@ module.exports = grammar({
       $._eol,
     ),
 
-    // Text can sometimes conflict with Ink syntax.
-    // In order to trigger GLR conflicts, we must take care to split text into the same tokens as the ink syntax.
     text: _ => prec.right(repeat1(
      choice(
-      '(', ')',
-      'not', '!', '-',
-      '*', '/',
-      '+',
-      '==', '!=', '?', '<=', '>=', '<', '>',
-      'and', '&&',
-      'or', '||',
-      '"',
-      '.',
-      ':', // colons separate conditions in conditional text, so we need to split text at them
-      alias(IDENTIFIER_REGEX, 'word_or_ident'), // to trigger ambiguity with expressions; must come before the more general rules so that the conflict with identifiers actually triggers
-      alias(/[^\s\{\}\[\]#\-$!?&~<>/*+|:=\(\)".]+/, 'word'),
-      alias(/\\[\{\}\[\]$!&~\-|]/, '\char'),  // escaped special char
-      alias(/[$!&~]/, '[$!&~]'), // repeat marks and separator can be text, if they're not in a position where a repeat mark is expected
-      alias(/\/[^\/*]/, '/[^/*]'), // not yet a comment
-      alias(/<[^->]/, '<[^->]'), // not a trevid or glue
-      // alias(/\\\r?\n/, '\\n'),  // escaped newline
-      // alias(/\[|\]/, '[]'),  // outside of choices, square brackets are just text
-    ) 
-    )),
+       '-',
+       '>',
+       '<',
+       token(prec(-1, alias(/[^\s\{\}\[\]#\-<>/|]+/, 'word'))),
+       alias(/\\[\{\}\[\]$!&~\-|]/, '\char'),  // escaped special char
+       alias(/[$!&~]/, '[$!&~]'), // repeat marks and separator can be text, if they're not in a position where a repeat mark is expected
+       alias(/\/[^\/*]/, '/[^/*]'), // not yet a comment
+       alias(/<[^->]/, '<[^->]'), // not a trevid or glue
+       // alias(/\\\r?\n/, '\\n'),  // escaped newline
+       // alias(/\[|\]/, '[]'),  // outside of choices, square brackets are just text
+    ))),
 
     paragraph: $ => seq(
       alias($.flow, '_flow'),
@@ -147,8 +203,7 @@ module.exports = grammar({
 
     conditional_text: $ => prec.right(seq(
       '{',
-      field('condition', prec.dynamic(PREC.ink, $.expr)),
-      ':',
+      prec.dynamic(PREC.ink, seq(field('condition', $.expr), ':')),
       $._flow_to_divert,
       '|',
       optional($._flow_to_divert),
@@ -158,12 +213,29 @@ module.exports = grammar({
     alternatives: $ => prec.right(seq(
       '{',
       optional(choice(
-        '$', '&', '~', '!',
-        prec.dynamic(PREC.text, $._flow_to_divert),  // start of a bare sequence: Hey {Mr. Fogg|you}.
+        '$', '&', '~', mark('!'),
       )),
+      optional(alias($._fake_flow, $.flow)),
+      optional($.divert),
       '|',
       repeat(choice('|', $._flow_to_divert)),
       '}'
+    )),
+
+    _fake_flow: $ => prec.right(seq(
+      choice(
+        alias(seq(
+          prec.dynamic(PREC.text, $._expr), optional(':'),  // the part causing the conflict with conditional text
+          optional(alias($.text, 'textrest')),
+        ), $.text),
+        $._logic,
+        $.glue,
+      ),
+      prec.right(repeat(choice(
+        $.glue,
+        $._logic,
+        $.text,
+      ))),
     )),
 
     tag: _ => /#[^\n#]+/,
@@ -184,7 +256,7 @@ module.exports = grammar({
 
     _label_field: $ => prec(PREC.ink, field('label', seq('(', $.identifier, ')'))),
 
-    _choice_condition: $ => prec.right(field('condition', seq('{', $.expr, '}', ))),
+    _choice_condition: $ => prec.right(PREC.ink, field('condition', seq('{', $.expr, '}', ))),
 
     _choice_content: $ => choice(
       seq(field('main', $.flow), optional($.divert)),
@@ -245,10 +317,6 @@ module.exports = grammar({
       repeat(seq(",", $._param))
     ),
 
-    divert: $ => seq(
-      $._divert_mark, field('target', choice($.identifier, $.qualified_name)),
-    ),
-
     // Let's just accept any old characters for the path. We don't have to do anything with it …
     include: $ => seq(/INCLUDE\s/, alias(/[^\n]+/, $.path)),
 
@@ -259,57 +327,10 @@ module.exports = grammar({
       field('value', $.expr),
     ),
 
-    expr: $ => choice(
-
-      // terminals
-      $.identifier,
-      $.qualified_name,
-      alias(/\d+(\.\d+)?/, $.number),
-      alias(choice('false', 'true'), $.boolean),
-      $.string,
-      $.divert,
-
-      // compound
-      $.call,
-      $.paren,
-      $.unary,
-      $.binary,
-
-    ),
-
-    call: $ => prec.left(11, seq(
-      field('name', $.identifier),
-      '(',
-      field('args', optional($.args)),
-      ')'
-    )),
-    args: $ => seq(
-      $.expr,
-      repeat(seq(",", $.expr))
-    ),
-
-    paren: $ => prec.right(10, seq('(', $.expr, ')')),
-    unary: $ => prec.right(9, seq(field('op', choice('not', '!', '-')), $.expr)),
-    binary: $ => choice(
-      binop($, 8, '*', '/'),
-      binop($, 7, '+', '-'),
-      binop($, 6, '==', '!=', '?', '<=', '>=', '<', '>'),
-      binop($, 5, 'and', '&&'),
-      binop($, 4, 'or', '||'),
-    ),
-
-    identifier: _ => IDENTIFIER_REGEX,
-    qualified_name: $ => seq($.identifier, token.immediate('.'), $.identifier),
-
-    string: _ => token(seq(
-      '"',
-      prec.left(repeat(choice(
-        /[^\\"]+/,
-        alias('\\"', '\\"'),
-        alias('\\', '\\\\'),
-      ))),
-      '"',
-    )),
+    // we create two sets of "expressions": One named for the actual expressions,
+    ...make_expr(named = true),
+    // and one anonymous, to be able to trigger the GLR conflict between text and the starting expression of conditional text.
+    ...make_expr(named = false),
 
     comment: _ => /\/\/[^\n]*|\/\*(.|\r?\n)*?\*\//,
 

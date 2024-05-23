@@ -999,8 +999,215 @@
     }
   },
   {
+    "type": "string",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "text",
     "named": true,
+    "fields": {
+      "args": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "!",
+            "named": false
+          },
+          {
+            "type": "!=",
+            "named": false
+          },
+          {
+            "type": "&&",
+            "named": false
+          },
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
+          {
+            "type": "*",
+            "named": false
+          },
+          {
+            "type": "+",
+            "named": false
+          },
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": "-",
+            "named": false
+          },
+          {
+            "type": ".",
+            "named": false
+          },
+          {
+            "type": "/",
+            "named": false
+          },
+          {
+            "type": "<",
+            "named": false
+          },
+          {
+            "type": "<=",
+            "named": false
+          },
+          {
+            "type": "==",
+            "named": false
+          },
+          {
+            "type": ">",
+            "named": false
+          },
+          {
+            "type": ">=",
+            "named": false
+          },
+          {
+            "type": "?",
+            "named": false
+          },
+          {
+            "type": "_boolean",
+            "named": true
+          },
+          {
+            "type": "_number",
+            "named": true
+          },
+          {
+            "type": "and",
+            "named": false
+          },
+          {
+            "type": "not",
+            "named": false
+          },
+          {
+            "type": "or",
+            "named": false
+          },
+          {
+            "type": "||",
+            "named": false
+          }
+        ]
+      },
+      "op": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "!",
+            "named": false
+          },
+          {
+            "type": "!=",
+            "named": false
+          },
+          {
+            "type": "&&",
+            "named": false
+          },
+          {
+            "type": "*",
+            "named": false
+          },
+          {
+            "type": "+",
+            "named": false
+          },
+          {
+            "type": "-",
+            "named": false
+          },
+          {
+            "type": "/",
+            "named": false
+          },
+          {
+            "type": "<",
+            "named": false
+          },
+          {
+            "type": "<=",
+            "named": false
+          },
+          {
+            "type": "==",
+            "named": false
+          },
+          {
+            "type": ">",
+            "named": false
+          },
+          {
+            "type": ">=",
+            "named": false
+          },
+          {
+            "type": "?",
+            "named": false
+          },
+          {
+            "type": "and",
+            "named": false
+          },
+          {
+            "type": "not",
+            "named": false
+          },
+          {
+            "type": "or",
+            "named": false
+          },
+          {
+            "type": "||",
+            "named": false
+          }
+        ]
+      },
+      "target": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": ".",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "_boolean",
+          "named": true
+        },
+        {
+          "type": "_number",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "textrest",
+    "named": false,
     "fields": {}
   },
   {
@@ -1149,10 +1356,6 @@
     "named": false
   },
   {
-    "type": "\"",
-    "named": false
-  },
-  {
     "type": "$",
     "named": false
   },
@@ -1261,6 +1464,14 @@
     "named": false
   },
   {
+    "type": "_boolean",
+    "named": true
+  },
+  {
+    "type": "_number",
+    "named": true
+  },
+  {
     "type": "and",
     "named": false
   },
@@ -1309,20 +1520,8 @@
     "named": false
   },
   {
-    "type": "string",
-    "named": true
-  },
-  {
     "type": "tag",
     "named": true
-  },
-  {
-    "type": "word",
-    "named": false
-  },
-  {
-    "type": "word_or_ident",
-    "named": false
   },
   {
     "type": "{",
