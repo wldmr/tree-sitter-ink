@@ -77,3 +77,46 @@
 		)
 	)
 )
+
+
+===
+.CCD. Example: Context-Relevant Content
+===
+=== dream ===
+	{
+		- visited_snakes && not dream_about_snakes:
+			~ fear++
+			-> dream_about_snakes
+
+		- visited_poland && not dream_about_polish_beer:
+			~ fear--
+			-> dream_about_polish_beer
+
+		- else:
+			// breakfast-based dreams have no effect
+			-> dream_about_marmalade
+	}
+---
+(ink
+	(knot_block
+		(knot (identifier))
+		(content_block
+			(paragraph
+				(cond_block
+					(cond_arm
+						(binary (identifier) (unary (identifier)))
+						(code (postfix (identifier)))
+						(divert (identifier)))
+					(cond_arm
+						(binary (identifier) (unary (identifier)))
+						(code (postfix (identifier)))
+						(divert (identifier)))
+					(cond_arm
+						(else)
+						(comment)
+						(divert (identifier)))
+				)
+			)
+		)
+	)
+)

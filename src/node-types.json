@@ -90,6 +90,10 @@
           "named": true
         },
         {
+          "type": "postfix",
+          "named": true
+        },
+        {
           "type": "qualified_name",
           "named": true
         },
@@ -148,6 +152,10 @@
           },
           {
             "type": "paren",
+            "named": true
+          },
+          {
+            "type": "postfix",
             "named": true
           },
           {
@@ -270,6 +278,10 @@
           "named": true
         },
         {
+          "type": "postfix",
+          "named": true
+        },
+        {
           "type": "qualified_name",
           "named": true
         },
@@ -344,6 +356,10 @@
           },
           {
             "type": "paren",
+            "named": true
+          },
+          {
+            "type": "postfix",
             "named": true
           },
           {
@@ -441,7 +457,51 @@
           "named": true
         },
         {
+          "type": "binary",
+          "named": true
+        },
+        {
+          "type": "boolean",
+          "named": true
+        },
+        {
+          "type": "call",
+          "named": true
+        },
+        {
+          "type": "divert",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "paren",
+          "named": true
+        },
+        {
+          "type": "postfix",
+          "named": true
+        },
+        {
+          "type": "qualified_name",
+          "named": true
+        },
+        {
           "type": "return",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "unary",
           "named": true
         }
       ]
@@ -501,6 +561,10 @@
         },
         {
           "type": "paren",
+          "named": true
+        },
+        {
+          "type": "postfix",
           "named": true
         },
         {
@@ -579,6 +643,10 @@
           },
           {
             "type": "paren",
+            "named": true
+          },
+          {
+            "type": "postfix",
             "named": true
           },
           {
@@ -716,6 +784,10 @@
         },
         {
           "type": "paren",
+          "named": true
+        },
+        {
+          "type": "postfix",
           "named": true
         },
         {
@@ -989,6 +1061,10 @@
           "named": true
         },
         {
+          "type": "postfix",
+          "named": true
+        },
+        {
           "type": "qualified_name",
           "named": true
         },
@@ -998,6 +1074,36 @@
         },
         {
           "type": "unary",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "postfix",
+    "named": true,
+    "fields": {
+      "op": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "++",
+            "named": false
+          },
+          {
+            "type": "--",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
           "named": true
         }
       ]
@@ -1052,6 +1158,10 @@
         },
         {
           "type": "paren",
+          "named": true
+        },
+        {
+          "type": "postfix",
           "named": true
         },
         {
@@ -1146,11 +1256,19 @@
             "named": false
           },
           {
+            "type": "++",
+            "named": false
+          },
+          {
             "type": ",",
             "named": false
           },
           {
             "type": "-",
+            "named": false
+          },
+          {
+            "type": "--",
             "named": false
           },
           {
@@ -1236,7 +1354,15 @@
             "named": false
           },
           {
+            "type": "++",
+            "named": false
+          },
+          {
             "type": "-",
+            "named": false
+          },
+          {
+            "type": "--",
             "named": false
           },
           {
@@ -1377,6 +1503,10 @@
           "named": true
         },
         {
+          "type": "postfix",
+          "named": true
+        },
+        {
           "type": "qualified_name",
           "named": true
         },
@@ -1438,6 +1568,10 @@
             "named": true
           },
           {
+            "type": "postfix",
+            "named": true
+          },
+          {
             "type": "qualified_name",
             "named": true
           },
@@ -1490,11 +1624,19 @@
     "named": false
   },
   {
+    "type": "++",
+    "named": false
+  },
+  {
     "type": ",",
     "named": false
   },
   {
     "type": "-",
+    "named": false
+  },
+  {
+    "type": "--",
     "named": false
   },
   {

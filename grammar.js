@@ -53,6 +53,7 @@ function make_expr(named = true) {
       $[rule('call')],
       $[rule('paren')],
       $[rule('unary')],
+      $[rule('postfix')],
       $[rule('binary')],
 
     ),
@@ -70,12 +71,13 @@ function make_expr(named = true) {
 
     [rule('paren')]: $ => prec.left(10, seq('(', $[rule('expr')], ')')),
     [rule('unary')]: $ => prec.left(9, seq(field('op', choice('not', '!', '-')), $[rule('expr')])),
+    [rule('postfix')]: $ => prec.left(8, seq($[rule('identifier')], field('op', choice('--', '++')))),
     [rule('binary')]: $ => choice(
-      binop($, 8, '*', '/'),
-      binop($, 7, '+', '-'),
-      binop($, 6, '==', '!=', '?', '<=', '>=', '<', '>'),
-      binop($, 5, 'and', '&&'),
-      binop($, 4, 'or', '||'),
+      binop($, 7, '*', '/'),
+      binop($, 6, '+', '-'),
+      binop($, 5, '==', '!=', '?', '<=', '>=', '<', '>'),
+      binop($, 4, 'and', '&&'),
+      binop($, 3, 'or', '||'),
     ),
 
     [rule('identifier')]: _ => IDENTIFIER_REGEX,
@@ -281,22 +283,32 @@ module.exports = grammar({
     )),
 
     cond_block: $ => prec.right(seq(
+      
       '{',
+      
       choice($._eol, alias($._first_cond_arm, $.cond_arm)),
       repeat($.cond_arm),
+      
       '}',
     )),
+    
+    
 
+    
     _first_cond_arm: $ => seq(
       $.expr, ':', $._eol,
+      
       optional($._then_block)
     ),
     
+    
     cond_arm: $ => prec.right(seq($._if_line, optional($._then_block))),
+    
 
     _if_line: $ => seq(mark('-'), choice($.expr, $.else), ':', optional($._eol)),
 
     _then_block: $ => prec.left(repeat1($._content_item_in_conditional)),
+    
 
     else: _ => 'else',
 
@@ -361,11 +373,14 @@ module.exports = grammar({
       ')',
     )),
 
-    code: $ => seq('~', $._code_stmt),
+    code: $ => seq('~', $._code_stmt, $._eol),
+    
     _code_stmt: $ => choice(
       $.assignment,
+      $.expr,
       $.return,
     ),
+    
     assignment: $ => seq(
       field('name', $.identifier),
       '=',
