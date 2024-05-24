@@ -428,10 +428,6 @@
         },
         {
           "type": "SYMBOL",
-          "name": "conditional_block"
-        },
-        {
-          "type": "SYMBOL",
           "name": "switch_block"
         }
       ]
@@ -737,76 +733,6 @@
         ]
       }
     },
-    "conditional_block": {
-      "type": "PREC_RIGHT",
-      "value": 0,
-      "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "STRING",
-            "value": "{"
-          },
-          {
-            "type": "PREC_DYNAMIC",
-            "value": 1,
-            "content": {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "FIELD",
-                  "name": "if",
-                  "content": {
-                    "type": "SYMBOL",
-                    "name": "expr"
-                  }
-                },
-                {
-                  "type": "STRING",
-                  "value": ":"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "_eol"
-                }
-              ]
-            }
-          },
-          {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "then_block"
-              },
-              {
-                "type": "BLANK"
-              }
-            ]
-          },
-          {
-            "type": "SYMBOL",
-            "name": "if_line"
-          },
-          {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "then_block"
-              },
-              {
-                "type": "BLANK"
-              }
-            ]
-          },
-          {
-            "type": "STRING",
-            "value": "}"
-          }
-        ]
-      }
-    },
     "switch_block": {
       "type": "PREC_RIGHT",
       "value": 0,
@@ -818,11 +744,25 @@
             "value": "{"
           },
           {
-            "type": "SYMBOL",
-            "name": "_eol"
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_eol"
+              },
+              {
+                "type": "ALIAS",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_first_switch_arm"
+                },
+                "named": true,
+                "value": "switch_arm"
+              }
+            ]
           },
           {
-            "type": "REPEAT1",
+            "type": "REPEAT",
             "content": {
               "type": "SYMBOL",
               "name": "switch_arm"
@@ -835,7 +775,53 @@
         ]
       }
     },
-    "if_line": {
+    "_first_switch_arm": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "expr"
+        },
+        {
+          "type": "STRING",
+          "value": ":"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_eol"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_then_block"
+        }
+      ]
+    },
+    "switch_arm": {
+      "type": "PREC_RIGHT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "_if_line"
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_then_block"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "_if_line": {
       "type": "SEQ",
       "members": [
         {
@@ -872,7 +858,7 @@
         }
       ]
     },
-    "then_block": {
+    "_then_block": {
       "type": "PREC_LEFT",
       "value": 0,
       "content": {
@@ -886,31 +872,6 @@
     "else": {
       "type": "STRING",
       "value": "else"
-    },
-    "switch_arm": {
-      "type": "PREC_RIGHT",
-      "value": 0,
-      "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "SYMBOL",
-            "name": "if_line"
-          },
-          {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "then_block"
-              },
-              {
-                "type": "BLANK"
-              }
-            ]
-          }
-        ]
-      }
     },
     "tag": {
       "type": "PATTERN",
@@ -2520,11 +2481,7 @@
   "conflicts": [
     [
       "conditional_text",
-      "conditional_block",
-      "_expr"
-    ],
-    [
-      "conditional_text",
+      "_first_switch_arm",
       "_expr"
     ],
     [

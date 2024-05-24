@@ -10,12 +10,12 @@
 (ink
 	(content_block
 		(paragraph
-			(conditional_block
-				if: (binary (identifier) (number))
-				(then_block
+			(switch_block
+				(switch_arm
+					(binary (identifier) (number))
 					(code (assignment name: (identifier) value: (binary (identifier) (number)))))
-				(if_line (else))
-				(then_block
+				(switch_arm
+					(else)
 					(code (assignment name: (identifier) value: (binary (identifier) (number)))))
 			)
 		)
@@ -37,15 +37,11 @@
 		(paragraph
 			(switch_block
 				(switch_arm
-					(if_line (binary (identifier) (number)))
-					(then_block
-						(code (assignment name: (identifier) value: (binary (identifier) (number)))))
-				)
+					(binary (identifier) (number))
+					(code (assignment name: (identifier) value: (binary (identifier) (number)))))
 				(switch_arm
-					(if_line (else))
-					(then_block
-						(code (assignment name: (identifier) value: (binary (identifier) (number)))))
-				)
+					(else)
+					(code (assignment name: (identifier) value: (binary (identifier) (number)))))
 			)
 		)
 	)

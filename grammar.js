@@ -123,7 +123,7 @@ module.exports = grammar({
   ],
 
   conflicts: $ => [
-    [$.conditional_text, $.conditional_block, $._expr],
+    [$.conditional_text, $._first_switch_arm, $._expr],
     [$.identifier, $._identifier],
     [$.string, $._string],
     [$._fake_flow],
@@ -232,7 +232,6 @@ module.exports = grammar({
       $.eval,
       $.alternatives,
       $.conditional_text,
-      $.conditional_block,
       $.switch_block,
     ),
 
@@ -281,27 +280,25 @@ module.exports = grammar({
       ))),
     )),
 
-    conditional_block: $ => prec.right(seq(
-      '{',
-      prec.dynamic(PREC.ink, seq(field('if', $.expr), ':', $._eol)),
-      optional($.then_block),  // not actually optional in Ink, but we don't need to throw errors.
-      $.if_line,  // technically there _must_ be an 'else' here, but we'll leave that to the compiler/linter/whatever
-      optional($.then_block),  // again, not actually optional in Ink
-      '}',
-    )),
-
     switch_block: $ => prec.right(seq(
-      '{', $._eol,
-      repeat1($.switch_arm),
+      '{',
+      choice($._eol, alias($._first_switch_arm, $.switch_arm)),
+      repeat($.switch_arm),
       '}',
     )),
 
-    if_line: $ => seq(mark('-'), choice($.expr, $.else), ':', $._eol),
+    _first_switch_arm: $ => seq(
+      $.expr, ':', $._eol,
+      $._then_block
+    ),
+    
+    switch_arm: $ => prec.right(seq($._if_line, optional($._then_block))),
 
-    then_block: $ => prec.left(repeat1($._content_item_in_conditional)),
+    _if_line: $ => seq(mark('-'), choice($.expr, $.else), ':', $._eol),
+
+    _then_block: $ => prec.left(repeat1($._content_item_in_conditional)),
+
     else: _ => 'else',
-
-    switch_arm: $ => prec.right(seq($.if_line, optional($.then_block))),
 
     tag: _ => /#[^\n#]+/,
 
