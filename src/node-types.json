@@ -12,6 +12,10 @@
           "named": true
         },
         {
+          "type": "cond_block",
+          "named": true
+        },
+        {
           "type": "conditional_text",
           "named": true
         },
@@ -21,10 +25,6 @@
         },
         {
           "type": "glue",
-          "named": true
-        },
-        {
-          "type": "switch_block",
           "named": true
         },
         {
@@ -448,6 +448,104 @@
     }
   },
   {
+    "type": "cond_arm",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "binary",
+          "named": true
+        },
+        {
+          "type": "boolean",
+          "named": true
+        },
+        {
+          "type": "call",
+          "named": true
+        },
+        {
+          "type": "choice",
+          "named": true
+        },
+        {
+          "type": "code",
+          "named": true
+        },
+        {
+          "type": "divert",
+          "named": true
+        },
+        {
+          "type": "else",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "include",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "paragraph",
+          "named": true
+        },
+        {
+          "type": "paren",
+          "named": true
+        },
+        {
+          "type": "qualified_name",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "tag",
+          "named": true
+        },
+        {
+          "type": "todo_comment",
+          "named": true
+        },
+        {
+          "type": "unary",
+          "named": true
+        },
+        {
+          "type": "var",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "cond_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "cond_arm",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "conditional_text",
     "named": true,
     "fields": {
@@ -648,6 +746,10 @@
           "named": true
         },
         {
+          "type": "cond_block",
+          "named": true
+        },
+        {
           "type": "conditional_text",
           "named": true
         },
@@ -657,10 +759,6 @@
         },
         {
           "type": "glue",
-          "named": true
-        },
-        {
-          "type": "switch_block",
           "named": true
         },
         {
@@ -1010,104 +1108,6 @@
     "type": "string",
     "named": true,
     "fields": {}
-  },
-  {
-    "type": "switch_arm",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "binary",
-          "named": true
-        },
-        {
-          "type": "boolean",
-          "named": true
-        },
-        {
-          "type": "call",
-          "named": true
-        },
-        {
-          "type": "choice",
-          "named": true
-        },
-        {
-          "type": "code",
-          "named": true
-        },
-        {
-          "type": "divert",
-          "named": true
-        },
-        {
-          "type": "else",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "include",
-          "named": true
-        },
-        {
-          "type": "number",
-          "named": true
-        },
-        {
-          "type": "paragraph",
-          "named": true
-        },
-        {
-          "type": "paren",
-          "named": true
-        },
-        {
-          "type": "qualified_name",
-          "named": true
-        },
-        {
-          "type": "string",
-          "named": true
-        },
-        {
-          "type": "tag",
-          "named": true
-        },
-        {
-          "type": "todo_comment",
-          "named": true
-        },
-        {
-          "type": "unary",
-          "named": true
-        },
-        {
-          "type": "var",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "switch_block",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "switch_arm",
-          "named": true
-        }
-      ]
-    }
   },
   {
     "type": "text",

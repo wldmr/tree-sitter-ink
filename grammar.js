@@ -123,7 +123,7 @@ module.exports = grammar({
   ],
 
   conflicts: $ => [
-    [$.conditional_text, $._first_switch_arm, $._expr],
+    [$.conditional_text, $._first_cond_arm, $._expr],
     [$.identifier, $._identifier],
     [$.string, $._string],
     [$._fake_flow],
@@ -232,7 +232,7 @@ module.exports = grammar({
       $.eval,
       $.alternatives,
       $.conditional_text,
-      $.switch_block,
+      $.cond_block,
     ),
 
     eval: $ => prec.right(seq('{', $.expr, '}')),
@@ -280,19 +280,19 @@ module.exports = grammar({
       ))),
     )),
 
-    switch_block: $ => prec.right(seq(
+    cond_block: $ => prec.right(seq(
       '{',
-      choice($._eol, alias($._first_switch_arm, $.switch_arm)),
-      repeat($.switch_arm),
+      choice($._eol, alias($._first_cond_arm, $.cond_arm)),
+      repeat($.cond_arm),
       '}',
     )),
 
-    _first_switch_arm: $ => seq(
+    _first_cond_arm: $ => seq(
       $.expr, ':', $._eol,
       optional($._then_block)
     ),
     
-    switch_arm: $ => prec.right(seq($._if_line, optional($._then_block))),
+    cond_arm: $ => prec.right(seq($._if_line, optional($._then_block))),
 
     _if_line: $ => seq(mark('-'), choice($.expr, $.else), ':', optional($._eol)),
 

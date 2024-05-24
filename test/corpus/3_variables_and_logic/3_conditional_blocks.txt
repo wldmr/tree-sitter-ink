@@ -10,11 +10,11 @@
 (ink
 	(content_block
 		(paragraph
-			(switch_block
-				(switch_arm
+			(cond_block
+				(cond_arm
 					(binary (identifier) (number))
 					(code (assignment name: (identifier) value: (binary (identifier) (number)))))
-				(switch_arm
+				(cond_arm
 					(else)
 					(code (assignment name: (identifier) value: (binary (identifier) (number)))))
 			)
@@ -38,14 +38,14 @@
 (ink
 	(content_block
 		(paragraph
-			(switch_block
-				(switch_arm
+			(cond_block
+				(cond_arm
 					(binary (identifier) (number))
 					(code (assignment name: (identifier) value: (number))))
-				(switch_arm
+				(cond_arm
 					(binary (identifier) (number))
 					(code (assignment name: (identifier) value: (binary (identifier) (number)))))
-				(switch_arm
+				(cond_arm
 					(else)
 					(code (assignment name: (identifier) value: (binary (identifier) (number)))))
 			)
@@ -67,12 +67,12 @@
 (ink
 	(content_block
 		(paragraph
-			(switch_block
-				(switch_arm (identifier))
-				(switch_arm (number) (paragraph (text)))
-				(switch_arm (number) (paragraph (text)))
-				(switch_arm (number) (paragraph (text)))
-				(switch_arm (else) (paragraph (text)))
+			(cond_block
+				(cond_arm (identifier))
+				(cond_arm (number) (paragraph (text)))
+				(cond_arm (number) (paragraph (text)))
+				(cond_arm (number) (paragraph (text)))
+				(cond_arm (else) (paragraph (text)))
 			)
 		)
 	)
