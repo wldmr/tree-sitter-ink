@@ -123,7 +123,7 @@ module.exports = grammar({
   ],
 
   conflicts: $ => [
-    [$.conditional_text, $._expr],
+    [$.conditional_text, $.conditional_block, $._expr],
     [$.identifier, $._identifier],
     [$.string, $._string],
     [$._fake_flow],
@@ -166,12 +166,27 @@ module.exports = grammar({
     _content_item: $ => seq(
       choice(
         $.todo_comment,
-        repeat1($.tag),
+        repeat1($.tag),  // IDEA: Group standalone tags with following item?
         $.divert,
         $.paragraph,
         $.code,
         $.choice,
         $.gather,
+        $.include,
+        $.var,
+      ),
+      $._eol,
+    ),
+
+    _content_item_in_conditional: $ => seq(
+      choice(
+        $.todo_comment,
+        repeat1($.tag),
+        $.divert,
+        $.paragraph,
+        $.code,
+        $.choice,
+        // $.gather, // gathers are not allowed
         $.include,
         $.var,
       ),
@@ -217,6 +232,8 @@ module.exports = grammar({
       $.eval,
       $.alternatives,
       $.conditional_text,
+      $.conditional_block,
+      $.switch_block,
     ),
 
     eval: $ => prec.right(seq('{', $.expr, '}')),
@@ -263,6 +280,28 @@ module.exports = grammar({
         $.text,
       ))),
     )),
+
+    conditional_block: $ => prec.right(seq(
+      '{',
+      prec.dynamic(PREC.ink, seq(field('if', $.expr), ':', $._eol)),
+      optional($.then_block),  // not actually optional in Ink, but we don't need to throw errors.
+      $.if_line,  // technically there _must_ be an 'else' here, but we'll leave that to the compiler/linter/whatever
+      optional($.then_block),  // again, not actually optional in Ink
+      '}',
+    )),
+
+    switch_block: $ => prec.right(seq(
+      '{', $._eol,
+      repeat1($.switch_arm),
+      '}',
+    )),
+
+    if_line: $ => seq(mark('-'), choice($.expr, $.else), ':', $._eol),
+
+    then_block: $ => prec.left(repeat1($._content_item_in_conditional)),
+    else: _ => 'else',
+
+    switch_arm: $ => prec.right(seq($.if_line, optional($.then_block))),
 
     tag: _ => /#[^\n#]+/,
 

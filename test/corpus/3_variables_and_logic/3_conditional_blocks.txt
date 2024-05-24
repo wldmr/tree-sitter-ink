@@ -1,0 +1,53 @@
+===
+.CCA. Simple if/else
+===
+{ x > 0:
+	~ y = x - 1
+- else:
+	~ y = x + 1
+}
+---
+(ink
+	(content_block
+		(paragraph
+			(conditional_block
+				if: (binary (identifier) (number))
+				(then_block
+					(code (assignment name: (identifier) value: (binary (identifier) (number)))))
+				(if_line (else))
+				(then_block
+					(code (assignment name: (identifier) value: (binary (identifier) (number)))))
+			)
+		)
+	)
+)
+
+===
+.CCB. Extended if/else
+===
+{
+	- x > 0:
+		~ y = x - 1
+	- else:
+		~ y = x + 1
+}
+---
+(ink
+	(content_block
+		(paragraph
+			(switch_block
+				(switch_arm
+					(if_line (binary (identifier) (number)))
+					(then_block
+						(code (assignment name: (identifier) value: (binary (identifier) (number)))))
+				)
+				(switch_arm
+					(if_line (else))
+					(then_block
+						(code (assignment name: (identifier) value: (binary (identifier) (number)))))
+				)
+			)
+		)
+	)
+)
+

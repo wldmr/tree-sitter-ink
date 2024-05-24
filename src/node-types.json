@@ -12,6 +12,10 @@
           "named": true
         },
         {
+          "type": "conditional_block",
+          "named": true
+        },
+        {
           "type": "conditional_text",
           "named": true
         },
@@ -21,6 +25,10 @@
         },
         {
           "type": "glue",
+          "named": true
+        },
+        {
+          "type": "switch_block",
           "named": true
         },
         {
@@ -444,6 +452,72 @@
     }
   },
   {
+    "type": "conditional_block",
+    "named": true,
+    "fields": {
+      "if": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "binary",
+            "named": true
+          },
+          {
+            "type": "boolean",
+            "named": true
+          },
+          {
+            "type": "call",
+            "named": true
+          },
+          {
+            "type": "divert",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "number",
+            "named": true
+          },
+          {
+            "type": "paren",
+            "named": true
+          },
+          {
+            "type": "qualified_name",
+            "named": true
+          },
+          {
+            "type": "string",
+            "named": true
+          },
+          {
+            "type": "unary",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "if_line",
+          "named": true
+        },
+        {
+          "type": "then_block",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "conditional_text",
     "named": true,
     "fields": {
@@ -644,6 +718,10 @@
           "named": true
         },
         {
+          "type": "conditional_block",
+          "named": true
+        },
+        {
           "type": "conditional_text",
           "named": true
         },
@@ -653,6 +731,10 @@
         },
         {
           "type": "glue",
+          "named": true
+        },
+        {
+          "type": "switch_block",
           "named": true
         },
         {
@@ -726,6 +808,61 @@
     "type": "identifier",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "if_line",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "binary",
+          "named": true
+        },
+        {
+          "type": "boolean",
+          "named": true
+        },
+        {
+          "type": "call",
+          "named": true
+        },
+        {
+          "type": "divert",
+          "named": true
+        },
+        {
+          "type": "else",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "paren",
+          "named": true
+        },
+        {
+          "type": "qualified_name",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "unary",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "include",
@@ -1004,6 +1141,40 @@
     "fields": {}
   },
   {
+    "type": "switch_arm",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "if_line",
+          "named": true
+        },
+        {
+          "type": "then_block",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "switch_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "switch_arm",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "text",
     "named": true,
     "fields": {
@@ -1209,6 +1380,49 @@
     "type": "textrest",
     "named": false,
     "fields": {}
+  },
+  {
+    "type": "then_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "choice",
+          "named": true
+        },
+        {
+          "type": "code",
+          "named": true
+        },
+        {
+          "type": "divert",
+          "named": true
+        },
+        {
+          "type": "include",
+          "named": true
+        },
+        {
+          "type": "paragraph",
+          "named": true
+        },
+        {
+          "type": "tag",
+          "named": true
+        },
+        {
+          "type": "todo_comment",
+          "named": true
+        },
+        {
+          "type": "var",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "todo_comment",
@@ -1485,6 +1699,10 @@
   },
   {
     "type": "comment",
+    "named": true
+  },
+  {
+    "type": "else",
     "named": true
   },
   {
