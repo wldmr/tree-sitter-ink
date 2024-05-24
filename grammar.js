@@ -289,12 +289,12 @@ module.exports = grammar({
 
     _first_switch_arm: $ => seq(
       $.expr, ':', $._eol,
-      $._then_block
+      optional($._then_block)
     ),
     
     switch_arm: $ => prec.right(seq($._if_line, optional($._then_block))),
 
-    _if_line: $ => seq(mark('-'), choice($.expr, $.else), ':', $._eol),
+    _if_line: $ => seq(mark('-'), choice($.expr, $.else), ':', optional($._eol)),
 
     _then_block: $ => prec.left(repeat1($._content_item_in_conditional)),
 

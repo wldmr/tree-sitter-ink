@@ -22,10 +22,13 @@
 	)
 )
 
+
 ===
 .CCB. Extended if/else
 ===
 {
+	- x == 0:
+		~ y = 0
 	- x > 0:
 		~ y = x - 1
 	- else:
@@ -38,6 +41,9 @@
 			(switch_block
 				(switch_arm
 					(binary (identifier) (number))
+					(code (assignment name: (identifier) value: (number))))
+				(switch_arm
+					(binary (identifier) (number))
 					(code (assignment name: (identifier) value: (binary (identifier) (number)))))
 				(switch_arm
 					(else)
@@ -47,3 +53,27 @@
 	)
 )
 
+
+===
+.CCC. Switch Blocks
+===
+{ x:
+- 0: 	zero
+- 1: 	one
+- 2: 	two
+- else: lots
+}
+---
+(ink
+	(content_block
+		(paragraph
+			(switch_block
+				(switch_arm (identifier))
+				(switch_arm (number) (paragraph (text)))
+				(switch_arm (number) (paragraph (text)))
+				(switch_arm (number) (paragraph (text)))
+				(switch_arm (else) (paragraph (text)))
+			)
+		)
+	)
+)

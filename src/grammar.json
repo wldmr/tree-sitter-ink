@@ -791,8 +791,16 @@
           "name": "_eol"
         },
         {
-          "type": "SYMBOL",
-          "name": "_then_block"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_then_block"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },
@@ -853,8 +861,16 @@
           "value": ":"
         },
         {
-          "type": "SYMBOL",
-          "name": "_eol"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_eol"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },
