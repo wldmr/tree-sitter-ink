@@ -18,11 +18,10 @@
       main: (flow
         (text)))
     (choice
-      condition:
-        (binary
-          (call
-            name: (identifier))
-          (number))
+      condition: (binary
+        (call
+          (identifier))
+        (number))
       main: (flow
         (text)))))
 
@@ -36,29 +35,27 @@
 (ink
   (content_block
     (choice
-      condition:
-        (binary
-          (call
-            name: (identifier)
-            args: (args
-              (divert
-                target: (qualified_name
-                  (identifier)
-                  (identifier)))))
-          (number))
+      condition: (binary
+        (call
+          (identifier)
+          (args
+            (divert
+              target: (qualified_name
+                (identifier)
+                (identifier)))))
+        (number))
       main: (flow
         (text))
       (divert
         target: (identifier)))
     (choice
-      condition:
-        (binary
-          (call
-            name: (identifier)
-            args: (args
-              (divert
-                target: (identifier))))
-          (number))
+      condition: (binary
+        (call
+          (identifier)
+          (args
+            (divert
+              target: (identifier))))
+        (number))
       main: (flow
         (text)))))
 
@@ -97,25 +94,24 @@
 (ink
   (content_block
     (choice
-      condition:
+      condition: (binary
         (binary
           (binary
+            (identifier)
             (binary
               (identifier)
+              (unary
+                (unary
+                  (identifier)))))
+          (number))
+        (binary
+          (binary
+            (identifier)
+            (paren
               (binary
                 (identifier)
-                (unary
-                  (unary
-                    (identifier)))))
-            (number))
-          (binary
-            (binary
-              (identifier)
-              (paren
-                (binary
-                  (identifier)
-                  (identifier))))
-            (unary
-              (number))))
+                (identifier))))
+          (unary
+            (number))))
       main: (flow
         (text)))))

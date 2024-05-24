@@ -6,6 +6,7 @@
 	{ blanket:
 		~ number_of_warm_things++
 	}
+
 ---
 (ink
 	(knot_block
@@ -17,3 +18,49 @@
 					(cond_arm
 						(identifier)
 						(code (postfix (identifier)))))))))
+
+
+===
+.CDB. Knots and stitches can take parameters
+===
+*	[Accuse Hasting]
+		-> accuse("Hastings")
+*	[Accuse Mrs Black]
+		-> accuse("Claudia")
+*	[Accuse myself]
+		-> accuse("myself")
+
+=== accuse(who) ===
+	"I accuse {who}!" Poirot declared.
+	"Really?" Japp replied. "{who == "myself":You did it?|{who}?}"
+	"And why not?" Poirot shot back.
+
+---
+(ink
+	(content_block
+			(choice (flow (text)))
+			(divert (call (identifier) (args (string))))
+			(choice (flow (text)))
+			(divert (call (identifier) (args (string))))
+			(choice (flow (text)))
+			(divert (call (identifier) (args (string))))
+	)
+	(knot_block
+		(knot (identifier) (params (identifier)))
+		(content_block
+			(paragraph
+				(text)
+				(eval (identifier))
+				(text))
+			(paragraph
+				(text)
+				(conditional_text
+					(binary (identifier) (string))
+					(flow (text))
+					(flow (eval (identifier)) (text)))
+				(text))
+			(paragraph
+				(text))
+		)
+	)
+)

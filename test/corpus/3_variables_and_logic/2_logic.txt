@@ -46,6 +46,7 @@
 // Note: The docs use inline logic, but we can't parse that. So we're using code.
 ~ x = INT(3.2)
 ---
+
 (ink
   (content_block
     (comment)
@@ -54,10 +55,9 @@
       (assignment
         name: (identifier)
         value: (call
-          name: (identifier)
-          args: (args (number)))))
-  )
-)
+          (identifier)
+          (args
+            (number)))))))
 
 ===
 .CBC. String Queries
@@ -67,10 +67,22 @@
 ~ return "No, thank you." != "Yes, please."
 ~ return "Yes, please" ? "ease"
 ---
+
 (ink
   (content_block
     (comment)
-    (code (return (binary (string) (string))))
-    (code (return (binary (string) (string))))
-    (code (return (binary (string) (string))))
-))
+    (code
+      (return
+        (binary
+          (string)
+          (string))))
+    (code
+      (return
+        (binary
+          (string)
+          (string))))
+    (code
+      (return
+        (binary
+          (string)
+          (string))))))

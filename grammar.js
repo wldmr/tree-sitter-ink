@@ -59,9 +59,9 @@ function make_expr(named = true) {
     ),
 
     [rule('call')]: $ => prec.left(11, seq(
-      field('name', $[rule('identifier')]),
+      $[rule('identifier')],
       '(',
-      field('args', optional($[rule('args')])),
+      optional($[rule('args')]),
       ')'
     )),
     [rule('args')]: $ => seq(
@@ -94,7 +94,8 @@ function make_expr(named = true) {
     )),
 
     [rule('divert')]: $ => seq(
-      $._divert_mark, field('target', choice($[rule('identifier')], $[rule('qualified_name')])),
+      $._divert_mark,
+      field('target', choice($[rule('identifier')], $[rule('qualified_name')], $[rule('call')])),
     ),
 
   }
@@ -357,6 +358,7 @@ module.exports = grammar({
     knot: $ => prec.right(seq(
       $._knot_mark,
       field('name', $.identifier),
+      optional($._param_list),
       optional($._knot_mark),
       $._eol,
     )),
@@ -373,10 +375,8 @@ module.exports = grammar({
     function_declaration: $ => prec.right(seq(
       $._knot_mark,
       'function',
-      field('name', $.identifier),
-      '(',
-      field('params', optional($.params)),
-      ')',
+      $.identifier,
+      $._param_list,
     )),
 
     code: $ => seq('~', $._code_stmt, $._eol),
@@ -406,6 +406,7 @@ module.exports = grammar({
       $._param,
       repeat(seq(",", $._param))
     ),
+    _param_list: $ => seq('(', optional($.params), ')'),
 
     // Let's just accept any old characters for the path. We don't have to do anything with it …
     include: $ => seq(/INCLUDE\s/, alias(/[^\n]+/, $.path)),
