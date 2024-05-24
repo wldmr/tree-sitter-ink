@@ -383,6 +383,7 @@ module.exports = grammar({
     
     _code_stmt: $ => choice(
       $.assignment,
+      $.temp_var,
       $.expr,
       $.return,
     ),
@@ -392,6 +393,12 @@ module.exports = grammar({
       '=',
       field('value', $.expr)
     ),
+    
+    temp_var: $ => seq(
+      'temp',
+      alias($.assignment, '_assignment'),
+    ),
+
     return: $ => seq('return', $.expr),
 
     _param: $ => choice($.identifier, $.divert),

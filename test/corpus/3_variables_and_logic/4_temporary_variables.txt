@@ -1,0 +1,19 @@
+===
+.CDA. Temporary variables are for scratch calculations
+===
+=== near_north_pole ===
+	~ temp number_of_warm_things = 0
+	{ blanket:
+		~ number_of_warm_things++
+	}
+---
+(ink
+	(knot_block
+		(knot name: (identifier))
+		(content_block
+			(code (temp_var name: (identifier) value: (number)))
+			(paragraph
+				(cond_block
+					(cond_arm
+						(identifier)
+						(code (postfix (identifier)))))))))

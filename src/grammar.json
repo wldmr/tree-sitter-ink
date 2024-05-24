@@ -1478,6 +1478,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "temp_var"
+        },
+        {
+          "type": "SYMBOL",
           "name": "expr"
         },
         {
@@ -1508,6 +1512,24 @@
             "type": "SYMBOL",
             "name": "expr"
           }
+        }
+      ]
+    },
+    "temp_var": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "temp"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "assignment"
+          },
+          "named": false,
+          "value": "_assignment"
         }
       ]
     },
