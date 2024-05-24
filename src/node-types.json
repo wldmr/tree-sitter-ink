@@ -28,7 +28,54 @@
           "named": true
         },
         {
+          "type": "multiline_alternatives",
+          "named": true
+        },
+        {
           "type": "text",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "alt_arm",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "choice",
+          "named": true
+        },
+        {
+          "type": "code",
+          "named": true
+        },
+        {
+          "type": "divert",
+          "named": true
+        },
+        {
+          "type": "include",
+          "named": true
+        },
+        {
+          "type": "paragraph",
+          "named": true
+        },
+        {
+          "type": "tag",
+          "named": true
+        },
+        {
+          "type": "todo_comment",
+          "named": true
+        },
+        {
+          "type": "var",
           "named": true
         }
       ]
@@ -834,6 +881,10 @@
           "named": true
         },
         {
+          "type": "multiline_alternatives",
+          "named": true
+        },
+        {
           "type": "text",
           "named": true
         }
@@ -981,6 +1032,21 @@
         },
         {
           "type": "stitch_block",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "multiline_alternatives",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "alt_arm",
           "named": true
         }
       ]
@@ -1736,6 +1802,10 @@
     "named": true
   },
   {
+    "type": "cycle",
+    "named": false
+  },
+  {
     "type": "else",
     "named": true
   },
@@ -1760,6 +1830,10 @@
     "named": true
   },
   {
+    "type": "once",
+    "named": false
+  },
+  {
     "type": "or",
     "named": false
   },
@@ -1769,6 +1843,14 @@
   },
   {
     "type": "return",
+    "named": false
+  },
+  {
+    "type": "shuffle",
+    "named": false
+  },
+  {
+    "type": "stopping",
     "named": false
   },
   {

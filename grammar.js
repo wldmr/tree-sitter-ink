@@ -235,6 +235,7 @@ module.exports = grammar({
       $.alternatives,
       $.conditional_text,
       $.cond_block,
+      $.multiline_alternatives,
     ),
 
     eval: $ => prec.right(seq('{', $.expr, '}')),
@@ -283,34 +284,39 @@ module.exports = grammar({
     )),
 
     cond_block: $ => prec.right(seq(
-      
       '{',
-      
       choice($._eol, alias($._first_cond_arm, $.cond_arm)),
       repeat($.cond_arm),
-      
       '}',
     )),
     
-    
-
-    
     _first_cond_arm: $ => seq(
       $.expr, ':', $._eol,
-      
       optional($._then_block)
     ),
     
-    
     cond_arm: $ => prec.right(seq($._if_line, optional($._then_block))),
-    
 
     _if_line: $ => seq(mark('-'), choice($.expr, $.else), ':', optional($._eol)),
 
     _then_block: $ => prec.left(repeat1($._content_item_in_conditional)),
-    
 
     else: _ => 'else',
+
+    multiline_alternatives: $ => seq(
+      '{',
+      choice(
+        'stopping',
+        seq('shuffle', optional(choice('once', 'stopping'))),
+        'cycle',
+        'once',
+      ),
+      ':', $._eol,
+      repeat($.alt_arm),
+      '}',
+    ),
+
+    alt_arm: $ => seq(mark('-'), prec.left(repeat($._content_item_in_conditional))),
 
     tag: _ => /#[^\n#]+/,
 
