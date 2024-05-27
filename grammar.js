@@ -173,7 +173,7 @@ module.exports = grammar({
         $.choice,
         $.gather,
         $.include,
-        $.var,
+        $.global,
       ),
       $._eol,
     ),
@@ -188,7 +188,7 @@ module.exports = grammar({
         $.choice,
         // $.gather, // gathers are not allowed
         $.include,
-        $.var,
+        $.global,
       ),
       $._eol,
     ),
@@ -406,8 +406,8 @@ module.exports = grammar({
     // Let's just accept any old characters for the path. We don't have to do anything with it …
     include: $ => seq(/INCLUDE\s/, alias(/[^\n]+/, $.path)),
 
-    var: $ => seq(
-      'VAR',
+    global: $ => seq(
+      choice('VAR', 'CONST'),
       field('name', $.identifier),
       '=',
       field('value', $.expr),

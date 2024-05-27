@@ -181,7 +181,7 @@
             },
             {
               "type": "SYMBOL",
-              "name": "var"
+              "name": "global"
             }
           ]
         },
@@ -230,7 +230,7 @@
             },
             {
               "type": "SYMBOL",
-              "name": "var"
+              "name": "global"
             }
           ]
         },
@@ -1615,12 +1615,21 @@
         }
       ]
     },
-    "var": {
+    "global": {
       "type": "SEQ",
       "members": [
         {
-          "type": "STRING",
-          "value": "VAR"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "VAR"
+            },
+            {
+              "type": "STRING",
+              "value": "CONST"
+            }
+          ]
         },
         {
           "type": "FIELD",

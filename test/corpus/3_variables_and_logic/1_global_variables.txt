@@ -7,15 +7,25 @@ VAR empty_string = ""
 VAR number_of_infected_people = 521
 VAR current_epilogue = -> they_all_die_of_the_plague
 ---
+
 (ink
   (content_block
-    (var name: (identifier) value: (boolean))
-    (var name: (identifier) value: (string))
-    (var name: (identifier) value: (string))
-    (var name: (identifier) value: (number))
-    (var name: (identifier) value: (divert target: (identifier)))
-  )
-)
+    (global
+      name: (identifier)
+      value: (boolean))
+    (global
+      name: (identifier)
+      value: (string))
+    (global
+      name: (identifier)
+      value: (string))
+    (global
+      name: (identifier)
+      value: (number))
+    (global
+      name: (identifier)
+      value: (divert
+        target: (identifier)))))
 
 ===
 .CAB. Printing Variables
@@ -25,16 +35,20 @@ VAR age = 23
 
 My name is Jean Passepartout, but my friend's call me {friendly_name_of_player}. I'm {age} years old.
 ---
+
 (ink
   (content_block
-    (var (identifier) (string))
-    (var (identifier) (number))
+    (global
+      (identifier)
+      (string))
+    (global
+      (identifier)
+      (number))
     (paragraph
       (text)
-      (eval (identifier))
+      (eval
+        (identifier))
       (text)
-      (eval (identifier))
-      (text)
-    )
-  )
-)
+      (eval
+        (identifier))
+      (text))))

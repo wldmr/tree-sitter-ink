@@ -125,6 +125,10 @@
           "named": true
         },
         {
+          "type": "global",
+          "named": true
+        },
+        {
           "type": "include",
           "named": true
         },
@@ -138,10 +142,6 @@
         },
         {
           "type": "todo_comment",
-          "named": true
-        },
-        {
-          "type": "var",
           "named": true
         }
       ]
@@ -654,6 +654,10 @@
           "named": true
         },
         {
+          "type": "global",
+          "named": true
+        },
+        {
           "type": "identifier",
           "named": true
         },
@@ -695,10 +699,6 @@
         },
         {
           "type": "unary",
-          "named": true
-        },
-        {
-          "type": "var",
           "named": true
         }
       ]
@@ -818,6 +818,10 @@
           "named": true
         },
         {
+          "type": "global",
+          "named": true
+        },
+        {
           "type": "include",
           "named": true
         },
@@ -831,10 +835,6 @@
         },
         {
           "type": "todo_comment",
-          "named": true
-        },
-        {
-          "type": "var",
           "named": true
         }
       ]
@@ -990,6 +990,72 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "global",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "binary",
+            "named": true
+          },
+          {
+            "type": "boolean",
+            "named": true
+          },
+          {
+            "type": "call",
+            "named": true
+          },
+          {
+            "type": "divert",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "number",
+            "named": true
+          },
+          {
+            "type": "paren",
+            "named": true
+          },
+          {
+            "type": "postfix",
+            "named": true
+          },
+          {
+            "type": "qualified_name",
+            "named": true
+          },
+          {
+            "type": "string",
+            "named": true
+          },
+          {
+            "type": "unary",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -1630,72 +1696,6 @@
     }
   },
   {
-    "type": "var",
-    "named": true,
-    "fields": {
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      },
-      "value": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "binary",
-            "named": true
-          },
-          {
-            "type": "boolean",
-            "named": true
-          },
-          {
-            "type": "call",
-            "named": true
-          },
-          {
-            "type": "divert",
-            "named": true
-          },
-          {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "number",
-            "named": true
-          },
-          {
-            "type": "paren",
-            "named": true
-          },
-          {
-            "type": "postfix",
-            "named": true
-          },
-          {
-            "type": "qualified_name",
-            "named": true
-          },
-          {
-            "type": "string",
-            "named": true
-          },
-          {
-            "type": "unary",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
     "type": "!",
     "named": false
   },
@@ -1793,6 +1793,10 @@
   },
   {
     "type": "?",
+    "named": false
+  },
+  {
+    "type": "CONST",
     "named": false
   },
   {
