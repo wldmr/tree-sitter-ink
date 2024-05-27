@@ -200,7 +200,7 @@ module.exports = grammar({
     ),
 
     tunnel: $ => choice(
-      $._tunnel_return,
+      seq($._tunnel_return, optional(choice($.identifier, $.call))),
       // one or more diverts with return
       // -> do_this ->
       seq(repeat1($.divert), $._divert_mark),
@@ -400,7 +400,7 @@ module.exports = grammar({
     
     assignment: $ => seq(
       field('name', $.identifier),
-      '=',
+      choice('=', '-=', '+='),
       field('value', $.expr)
     ),
     

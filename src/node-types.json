@@ -1666,7 +1666,15 @@
       "required": false,
       "types": [
         {
+          "type": "call",
+          "named": true
+        },
+        {
           "type": "divert",
+          "named": true
+        },
+        {
+          "type": "identifier",
           "named": true
         }
       ]
@@ -1787,6 +1795,10 @@
     "named": false
   },
   {
+    "type": "+=",
+    "named": false
+  },
+  {
     "type": ",",
     "named": false
   },
@@ -1796,6 +1808,10 @@
   },
   {
     "type": "--",
+    "named": false
+  },
+  {
+    "type": "-=",
     "named": false
   },
   {
