@@ -143,6 +143,10 @@
         {
           "type": "todo_comment",
           "named": true
+        },
+        {
+          "type": "tunnel",
+          "named": true
         }
       ]
     }
@@ -161,6 +165,10 @@
         },
         {
           "type": "flow",
+          "named": true
+        },
+        {
+          "type": "tunnel",
           "named": true
         }
       ]
@@ -546,6 +554,10 @@
         {
           "type": "divert",
           "named": true
+        },
+        {
+          "type": "tunnel",
+          "named": true
         }
       ]
     }
@@ -698,6 +710,10 @@
           "named": true
         },
         {
+          "type": "tunnel",
+          "named": true
+        },
+        {
           "type": "unary",
           "named": true
         }
@@ -785,6 +801,10 @@
         {
           "type": "flow",
           "named": true
+        },
+        {
+          "type": "tunnel",
+          "named": true
         }
       ]
     }
@@ -835,6 +855,10 @@
         },
         {
           "type": "todo_comment",
+          "named": true
+        },
+        {
+          "type": "tunnel",
           "named": true
         }
       ]
@@ -982,11 +1006,19 @@
       }
     },
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": false,
       "types": [
         {
+          "type": "divert",
+          "named": true
+        },
+        {
           "type": "flow",
+          "named": true
+        },
+        {
+          "type": "tunnel",
           "named": true
         }
       ]
@@ -1179,6 +1211,10 @@
         },
         {
           "type": "tag",
+          "named": true
+        },
+        {
+          "type": "tunnel",
           "named": true
         }
       ]
@@ -1620,6 +1656,21 @@
     "type": "todo_comment",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "tunnel",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "divert",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "unary",

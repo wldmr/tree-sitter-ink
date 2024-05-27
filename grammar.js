@@ -130,6 +130,7 @@ module.exports = grammar({
     [$.identifier, $._identifier],
     [$.string, $._string],
     [$._fake_flow],
+    [$.tunnel],
   ],
 
   rules: {
@@ -167,7 +168,7 @@ module.exports = grammar({
       choice(
         $.todo_comment,
         repeat1($.tag),  // IDEA: Group standalone tags with following item?
-        $.divert,
+        $._redirect,
         $.paragraph,
         $.code,
         $.choice,
@@ -182,7 +183,7 @@ module.exports = grammar({
       choice(
         $.todo_comment,
         repeat1($.tag),
-        $.divert,
+        $._redirect,
         $.paragraph,
         $.code,
         $.choice,
@@ -192,6 +193,22 @@ module.exports = grammar({
       ),
       $._eol,
     ),
+
+    _redirect: $ => choice(
+      $.divert,
+      $.tunnel,
+    ),
+
+    tunnel: $ => choice(
+      $._tunnel_return,
+      // one or more diverts with return
+      // -> do_this ->
+      seq(repeat1($.divert), $._divert_mark),
+      // two or more diverts without return
+      // -> do_this -> do_that
+      seq($.divert, repeat1($.divert)),
+    ),
+
 
     text: _ => prec.right(repeat1(
      choice(
@@ -209,7 +226,7 @@ module.exports = grammar({
 
     paragraph: $ => seq(
       alias($.flow, '_flow'),
-      optional($.divert),
+      optional($._redirect),
       repeat($.tag),
     ),
 
@@ -221,9 +238,9 @@ module.exports = grammar({
     ))),
 
     // pretty common pattern:
-    _flow_to_divert: $ => prec.right(seq(
+    _flow_to_redirect: $ => prec.right(seq(
       $.flow,
-      optional($.divert),
+      optional($._redirect),
     )),
 
     glue: _ => '<>',
@@ -241,9 +258,9 @@ module.exports = grammar({
     conditional_text: $ => prec.right(seq(
       '{',
       prec.dynamic(PREC.ink, seq(field('condition', $.expr), ':')),
-      $._flow_to_divert,
+      $._flow_to_redirect,
       '|',
-      optional($._flow_to_divert),
+      optional($._flow_to_redirect),
       '}',
     )),
 
@@ -253,15 +270,15 @@ module.exports = grammar({
         seq(
           // ! can conflict with expressions starting with negation; but in this position, the alternatives marker gets precedence.
           choice('$', '&', '~', mark('!')),
-          optional($._flow_to_divert),
+          optional($._flow_to_redirect),
         ),
         seq(
           optional(alias($._fake_flow, $.flow)),
-          optional($.divert),
+          optional($._redirect),
         ),
       )),
       '|',
-      repeat(choice('|', $._flow_to_divert)),
+      repeat(choice('|', $._flow_to_redirect)),
       '}'
     )),
 
@@ -330,6 +347,7 @@ module.exports = grammar({
       repeat1(prec(PREC.ink, '-')),
       optional($._label_field),
       optional($.flow),
+      optional($._redirect),
     ),
 
     _label_field: $ => prec(PREC.ink, field('label', seq('(', $.identifier, ')'))),
@@ -337,10 +355,10 @@ module.exports = grammar({
     _choice_condition: $ => prec.right(PREC.ink, field('condition', seq('{', $.expr, '}', ))),
 
     _choice_content: $ => choice(
-      seq(field('main', $.flow), optional($.divert)),
-      seq($._compound_choice_content, optional($.divert)),
+      seq(field('main', $.flow), optional($._redirect)),
+      seq($._compound_choice_content, optional($._redirect)),
       // types of fallback choices:
-      $.divert,
+      $._redirect,
       $._divert_mark,
     ),
 
@@ -363,6 +381,7 @@ module.exports = grammar({
 
     _knot_mark: _ => alias(mark(/==+/), 'knot_mark'), // TODO: Be sure to document that we collapse all knot marks to this "literal" (to distinguish it from the comparison operator)
     _divert_mark: _ => mark('->'),
+    _tunnel_return: _ => mark('->->'),
 
     stitch: $ => prec.right(seq(
       mark('='),

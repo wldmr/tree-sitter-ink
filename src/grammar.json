@@ -157,7 +157,7 @@
             },
             {
               "type": "SYMBOL",
-              "name": "divert"
+              "name": "_redirect"
             },
             {
               "type": "SYMBOL",
@@ -210,7 +210,7 @@
             },
             {
               "type": "SYMBOL",
-              "name": "divert"
+              "name": "_redirect"
             },
             {
               "type": "SYMBOL",
@@ -237,6 +237,60 @@
         {
           "type": "SYMBOL",
           "name": "_eol"
+        }
+      ]
+    },
+    "_redirect": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "divert"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "tunnel"
+        }
+      ]
+    },
+    "tunnel": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_tunnel_return"
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "REPEAT1",
+              "content": {
+                "type": "SYMBOL",
+                "name": "divert"
+              }
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_divert_mark"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "divert"
+            },
+            {
+              "type": "REPEAT1",
+              "content": {
+                "type": "SYMBOL",
+                "name": "divert"
+              }
+            }
+          ]
         }
       ]
     },
@@ -333,7 +387,7 @@
           "members": [
             {
               "type": "SYMBOL",
-              "name": "divert"
+              "name": "_redirect"
             },
             {
               "type": "BLANK"
@@ -373,7 +427,7 @@
         }
       }
     },
-    "_flow_to_divert": {
+    "_flow_to_redirect": {
       "type": "PREC_RIGHT",
       "value": 0,
       "content": {
@@ -388,7 +442,7 @@
             "members": [
               {
                 "type": "SYMBOL",
-                "name": "divert"
+                "name": "_redirect"
               },
               {
                 "type": "BLANK"
@@ -481,7 +535,7 @@
           },
           {
             "type": "SYMBOL",
-            "name": "_flow_to_divert"
+            "name": "_flow_to_redirect"
           },
           {
             "type": "STRING",
@@ -492,7 +546,7 @@
             "members": [
               {
                 "type": "SYMBOL",
-                "name": "_flow_to_divert"
+                "name": "_flow_to_redirect"
               },
               {
                 "type": "BLANK"
@@ -558,7 +612,7 @@
                         "members": [
                           {
                             "type": "SYMBOL",
-                            "name": "_flow_to_divert"
+                            "name": "_flow_to_redirect"
                           },
                           {
                             "type": "BLANK"
@@ -592,7 +646,7 @@
                         "members": [
                           {
                             "type": "SYMBOL",
-                            "name": "divert"
+                            "name": "_redirect"
                           },
                           {
                             "type": "BLANK"
@@ -623,7 +677,7 @@
                 },
                 {
                   "type": "SYMBOL",
-                  "name": "_flow_to_divert"
+                  "name": "_flow_to_redirect"
                 }
               ]
             }
@@ -1121,6 +1175,18 @@
               "type": "BLANK"
             }
           ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_redirect"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },
@@ -1193,7 +1259,7 @@
               "members": [
                 {
                   "type": "SYMBOL",
-                  "name": "divert"
+                  "name": "_redirect"
                 },
                 {
                   "type": "BLANK"
@@ -1214,7 +1280,7 @@
               "members": [
                 {
                   "type": "SYMBOL",
-                  "name": "divert"
+                  "name": "_redirect"
                 },
                 {
                   "type": "BLANK"
@@ -1225,7 +1291,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "divert"
+          "name": "_redirect"
         },
         {
           "type": "SYMBOL",
@@ -1383,6 +1449,17 @@
         "content": {
           "type": "STRING",
           "value": "->"
+        }
+      }
+    },
+    "_tunnel_return": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 1,
+        "content": {
+          "type": "STRING",
+          "value": "->->"
         }
       }
     },
@@ -2728,6 +2805,9 @@
     ],
     [
       "_fake_flow"
+    ],
+    [
+      "tunnel"
     ]
   ],
   "precedences": [
