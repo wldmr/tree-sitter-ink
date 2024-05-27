@@ -250,6 +250,10 @@
         {
           "type": "SYMBOL",
           "name": "tunnel"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "thread"
         }
       ]
     },
@@ -320,6 +324,19 @@
         }
       ]
     },
+    "thread": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_thread_mark"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        }
+      ]
+    },
     "text": {
       "type": "PREC_RIGHT",
       "value": 0,
@@ -364,33 +381,6 @@
               },
               "named": false,
               "value": "char"
-            },
-            {
-              "type": "ALIAS",
-              "content": {
-                "type": "PATTERN",
-                "value": "[$!&~]"
-              },
-              "named": false,
-              "value": "[$!&~]"
-            },
-            {
-              "type": "ALIAS",
-              "content": {
-                "type": "PATTERN",
-                "value": "\\/[^\\/*]"
-              },
-              "named": false,
-              "value": "/[^/*]"
-            },
-            {
-              "type": "ALIAS",
-              "content": {
-                "type": "PATTERN",
-                "value": "<[^->]"
-              },
-              "named": false,
-              "value": "<[^->]"
             }
           ]
         }
@@ -1486,6 +1476,17 @@
         "content": {
           "type": "STRING",
           "value": "->->"
+        }
+      }
+    },
+    "_thread_mark": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 1,
+        "content": {
+          "type": "STRING",
+          "value": "<-"
         }
       }
     },

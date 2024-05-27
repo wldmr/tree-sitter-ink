@@ -195,8 +195,9 @@ module.exports = grammar({
     ),
 
     _redirect: $ => choice(
-      $.divert,
+      $.divert,  // diverts are defined as part of the `make_expr` function.
       $.tunnel,
+      $.thread,
     ),
 
     tunnel: $ => choice(
@@ -209,6 +210,7 @@ module.exports = grammar({
       seq($.divert, repeat1($.divert)),
     ),
 
+    thread: $ => seq($._thread_mark, $.identifier),
 
     text: _ => prec.right(repeat1(
      choice(
@@ -217,9 +219,6 @@ module.exports = grammar({
        '<',
        token(prec(-1, alias(/[^\s\{\}\[\]#\-<>/|]+/, 'word'))),
        alias(/\\[\{\}\[\]$!&~\-|]/, '\char'),  // escaped special char
-       alias(/[$!&~]/, '[$!&~]'), // repeat marks and separator can be text, if they're not in a position where a repeat mark is expected
-       alias(/\/[^\/*]/, '/[^/*]'), // not yet a comment
-       alias(/<[^->]/, '<[^->]'), // not a trevid or glue
        // alias(/\\\r?\n/, '\\n'),  // escaped newline
        // alias(/\[|\]/, '[]'),  // outside of choices, square brackets are just text
     ))),
@@ -382,6 +381,7 @@ module.exports = grammar({
     _knot_mark: _ => alias(mark(/==+/), 'knot_mark'), // TODO: Be sure to document that we collapse all knot marks to this "literal" (to distinguish it from the comparison operator)
     _divert_mark: _ => mark('->'),
     _tunnel_return: _ => mark('->->'),
+    _thread_mark: _ => mark('<-'),
 
     stitch: $ => prec.right(seq(
       mark('='),

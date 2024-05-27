@@ -141,6 +141,10 @@
           "named": true
         },
         {
+          "type": "thread",
+          "named": true
+        },
+        {
           "type": "todo_comment",
           "named": true
         },
@@ -165,6 +169,10 @@
         },
         {
           "type": "flow",
+          "named": true
+        },
+        {
+          "type": "thread",
           "named": true
         },
         {
@@ -556,6 +564,10 @@
           "named": true
         },
         {
+          "type": "thread",
+          "named": true
+        },
+        {
           "type": "tunnel",
           "named": true
         }
@@ -706,6 +718,10 @@
           "named": true
         },
         {
+          "type": "thread",
+          "named": true
+        },
+        {
           "type": "todo_comment",
           "named": true
         },
@@ -803,6 +819,10 @@
           "named": true
         },
         {
+          "type": "thread",
+          "named": true
+        },
+        {
           "type": "tunnel",
           "named": true
         }
@@ -851,6 +871,10 @@
         },
         {
           "type": "tag",
+          "named": true
+        },
+        {
+          "type": "thread",
           "named": true
         },
         {
@@ -1015,6 +1039,10 @@
         },
         {
           "type": "flow",
+          "named": true
+        },
+        {
+          "type": "thread",
           "named": true
         },
         {
@@ -1211,6 +1239,10 @@
         },
         {
           "type": "tag",
+          "named": true
+        },
+        {
+          "type": "thread",
           "named": true
         },
         {
@@ -1653,6 +1685,21 @@
     "fields": {}
   },
   {
+    "type": "thread",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "todo_comment",
     "named": true,
     "fields": {}
@@ -1823,10 +1870,6 @@
     "named": false
   },
   {
-    "type": "/[^/*]",
-    "named": false
-  },
-  {
     "type": ":",
     "named": false
   },
@@ -1836,10 +1879,6 @@
   },
   {
     "type": "<=",
-    "named": false
-  },
-  {
-    "type": "<[^->]",
     "named": false
   },
   {
@@ -1876,10 +1915,6 @@
   },
   {
     "type": "[",
-    "named": false
-  },
-  {
-    "type": "[$!&~]",
     "named": false
   },
   {
