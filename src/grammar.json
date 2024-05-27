@@ -146,6 +146,10 @@
           "members": [
             {
               "type": "SYMBOL",
+              "name": "comment"
+            },
+            {
+              "type": "SYMBOL",
               "name": "todo_comment"
             },
             {

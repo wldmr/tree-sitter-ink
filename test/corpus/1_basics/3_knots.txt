@@ -1,8 +1,9 @@
 ===
 .ACA. Knots
 ===
+// vvv Whitespace before and  vvv after knot definitions is fine (note the trailing spaces).
+
        === back_in_london ===    
-// ^^^ Whitespace before and  ^^^ after knot definitions is fine (note the trailing spaces).
 We arrived into London at 9.45pm exactly.
 
 == bottom_knot // only two '='s and no closing mark: fine
@@ -11,10 +12,11 @@ So, more text I guess.
 ---
 
 (ink
+  (content_block
+    (comment))
   (knot_block
     (knot name: (identifier))
     (content_block
-      (comment)
       (paragraph
         (text))))
   (knot_block

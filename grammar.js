@@ -166,6 +166,7 @@ module.exports = grammar({
 
     _content_item: $ => seq(
       choice(
+        $.comment,
         $.todo_comment,
         repeat1($.tag),  // IDEA: Group standalone tags with following item?
         $._redirect,
