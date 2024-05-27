@@ -8,17 +8,23 @@
 	}
 
 ---
-(ink
-	(knot_block
-		(knot name: (identifier))
-		(content_block
-			(code (temp_var name: (identifier) value: (number)))
-			(paragraph
-				(cond_block
-					(cond_arm
-						(identifier)
-						(code (postfix (identifier)))))))))
 
+(ink
+  (knot_block
+    (knot
+      name: (identifier))
+    (content_block
+      (code
+        (temp_var
+          name: (identifier)
+          value: (number)))
+      (paragraph
+        (cond_block
+          (cond_arm
+            (identifier)
+            (code
+              (postfix
+                (identifier)))))))))
 
 ===
 .CDB. Knots and stitches can take parameters
@@ -36,31 +42,102 @@
 	"And why not?" Poirot shot back.
 
 ---
+
 (ink
-	(content_block
-			(choice (flow (text)))
-			(divert (call (identifier) (args (string))))
-			(choice (flow (text)))
-			(divert (call (identifier) (args (string))))
-			(choice (flow (text)))
-			(divert (call (identifier) (args (string))))
-	)
-	(knot_block
-		(knot (identifier) (params (identifier)))
-		(content_block
-			(paragraph
-				(text)
-				(eval (identifier))
-				(text))
-			(paragraph
-				(text)
-				(conditional_text
-					(binary (identifier) (string))
-					(flow (text))
-					(flow (eval (identifier)) (text)))
-				(text))
-			(paragraph
-				(text))
-		)
-	)
-)
+  (content_block
+    (choice
+      (flow
+        (text)))
+    (divert
+      (call
+        (identifier)
+        (args
+          (string))))
+    (choice
+      (flow
+        (text)))
+    (divert
+      (call
+        (identifier)
+        (args
+          (string))))
+    (choice
+      (flow
+        (text)))
+    (divert
+      (call
+        (identifier)
+        (args
+          (string)))))
+  (knot_block
+    (knot
+      (identifier)
+      (params
+        (identifier)))
+    (content_block
+      (paragraph
+        (text)
+        (eval
+          (identifier))
+        (text))
+      (paragraph
+        (text)
+        (conditional_text
+          (binary
+            (identifier)
+            (string))
+          (flow
+            (text))
+          (flow
+            (eval
+              (identifier))
+            (text)))
+        (text))
+      (paragraph
+        (text)))))
+
+===
+.CDC. Sending divert Targets as parameters
+===
+=== sleeping_in_hut ===
+	You lie down and close your eyes.
+	-> generic_sleep (-> waking_in_the_hut)
+
+===	 generic_sleep (-> waking)
+	You sleep perchance to dream etc. etc.
+	-> waking
+
+=== waking_in_the_hut
+	You get back to your feet, ready to continue your journey.
+---
+
+(ink
+  (knot_block
+    (knot
+      (identifier))
+    (content_block
+      (paragraph
+        (text))
+      (divert
+        (call
+          (identifier)
+          (args
+            (divert
+              (identifier)))))))
+  (knot_block
+    (knot
+      (identifier)
+      (params
+        (divert
+          (identifier))))
+    (content_block
+      (paragraph
+        (text))
+      (divert
+        (identifier))))
+  (knot_block
+    (knot
+      (identifier))
+    (content_block
+      (paragraph
+        (text)))))

@@ -19,9 +19,8 @@ We hurried home to Savile Row as fast as we could.
     (content_block
       (paragraph
         (text))
-      (content_block
-        (divert
-          target: (identifier)))))
+      (divert
+        target: (identifier))))
   (knot_block
     (knot
       name: (identifier))
@@ -80,18 +79,16 @@ to Savile Row
       (paragraph
         (text)
         (glue))
-      (content_block
-        (divert
-          target: (identifier)))))
+      (divert
+        target: (identifier))))
   (knot_block
     (knot
       name: (identifier))
     (content_block
       (paragraph
         (text))
-      (content_block
-        (divert
-          target: (identifier)))))
+      (divert
+        target: (identifier))))
   (knot_block
     (knot
       name: (identifier))

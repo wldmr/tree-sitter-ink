@@ -119,9 +119,8 @@ He insisted that we hurried home to Savile Row
     (content_block
       (paragraph
         (text))
-      (content_block
-        (divert
-          (identifier)))))
+      (divert
+        (identifier))))
   (knot_block
     (knot
       (identifier))

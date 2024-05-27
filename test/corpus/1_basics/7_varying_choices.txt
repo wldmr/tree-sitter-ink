@@ -59,10 +59,9 @@
             (text))
           (divert
             target: (identifier)))
-        (content_block
-          (choice)
-          (paragraph
-            (text)))
+        (choice)
+        (paragraph
+          (text))
         (divert
           target: (identifier))))))
 
@@ -123,10 +122,9 @@
           (text))
         (divert
           target: (identifier)))
-      (content_block
-        (choice
-          (divert
-            target: (identifier)))))))
+      (choice
+        (divert
+          target: (identifier))))))
 
 ===
 .AGE. Conditional Choices
@@ -141,7 +139,8 @@
 (ink
   (content_block
     (choice
-      condition: (unary (identifier))
+      condition: (unary
+        (identifier))
       temporary: (flow
         (text))
       (divert
@@ -154,8 +153,8 @@
         target: (identifier)))
     (choice
       condition: (qualified_name
-          (identifier)
-          (identifier))
+        (identifier)
+        (identifier))
       temporary: (flow
         (text))
       (divert
@@ -173,14 +172,16 @@
 (ink
   (content_block
     (choice
-      condition: (unary (identifier))
+      condition: (unary
+        (identifier))
       temporary: (flow
         (text))
       (divert
         target: (identifier)))
     (choice
       condition: (identifier)
-      condition: (unary (identifier))
+      condition: (unary
+        (identifier))
       temporary: (flow
         (text))
       (divert
@@ -227,7 +228,7 @@
         (text)))
     (choice
       condition: (binary
-          (identifier)
-          (number))
+        (identifier)
+        (number))
       temporary: (flow
         (text)))))

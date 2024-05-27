@@ -170,10 +170,15 @@ BlockLevel lookahead_block_start(TSLexer *lexer, Scanner *scanner) {
     uint32_t c = lookahead(lexer);
     while ((c == '*' || c == '+' || c == '-') && (markers < max_markers)) {
       MSG(" %c", c);
-      markers += 1;
       consume(lexer);
-      skip_ws(lexer);
-      c = lookahead(lexer);
+      if (c == '-' && lookahead(lexer) == '>') {
+        MSG(" capped off by a divert ");
+        break;
+      } else {
+        markers += 1;
+        skip_ws(lexer);
+        c = lookahead(lexer);
+      }
     }
 
     if (markers) {
