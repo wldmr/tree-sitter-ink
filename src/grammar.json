@@ -76,17 +76,8 @@
             "name": "_block_start"
           },
           {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "knot"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "function_declaration"
-              }
-            ]
+            "type": "SYMBOL",
+            "name": "knot"
           },
           {
             "type": "CHOICE",
@@ -1318,6 +1309,18 @@
             "name": "_knot_mark"
           },
           {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "function"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
             "type": "FIELD",
             "name": "name",
             "content": {
@@ -1411,31 +1414,6 @@
           {
             "type": "SYMBOL",
             "name": "_eol"
-          }
-        ]
-      }
-    },
-    "function_declaration": {
-      "type": "PREC_RIGHT",
-      "value": 0,
-      "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "SYMBOL",
-            "name": "_knot_mark"
-          },
-          {
-            "type": "STRING",
-            "value": "function"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "identifier"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "_param_list"
           }
         ]
       }

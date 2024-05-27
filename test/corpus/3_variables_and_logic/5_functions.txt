@@ -1,0 +1,41 @@
+===
+.CEA. Defining and calling functions
+===
+=== function say_yes_to_everything ===
+	~ return true
+
+=== function lerp(a, b, k) ===
+	~ return ((b - a) * k) + a
+
+=== and_now_for_some_content ===
+~ x = lerp(2, 8, 0.3)
+
+*	{say_yes_to_everything()} 'Yes.'
+---
+(ink
+	(knot_block
+		(knot (identifier))
+		(content_block
+			(code (return (boolean)))))
+	(knot_block
+		(knot (identifier) (params (identifier) (identifier) (identifier)))
+		(content_block
+			(code
+				(return
+					(binary
+						(paren
+							(binary
+								(paren
+									(binary
+										(identifier)
+										(identifier)))
+								(identifier)))
+						(identifier))))))
+	(knot_block
+		(knot (identifier))
+		(content_block
+			(code (assignment (identifier) (call (identifier) (args (number) (number) (number)))))
+			(content_block
+				(choice
+					(call (identifier)) (flow (text))))))
+)

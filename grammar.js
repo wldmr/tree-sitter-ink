@@ -150,10 +150,7 @@ module.exports = grammar({
 
     knot_block: $ => prec.right(seq(
       $._block_start,
-      choice(
-        $.knot,
-        $.function_declaration,
-      ),
+      $.knot,
       optional($.content_block),
       repeat($.stitch_block),
       $._block_end,
@@ -357,6 +354,7 @@ module.exports = grammar({
 
     knot: $ => prec.right(seq(
       $._knot_mark,
+      optional('function'),
       field('name', $.identifier),
       optional($._param_list),
       optional($._knot_mark),
@@ -370,13 +368,6 @@ module.exports = grammar({
       mark('='),
       field('name', $.identifier),
       $._eol,
-    )),
-
-    function_declaration: $ => prec.right(seq(
-      $._knot_mark,
-      'function',
-      $.identifier,
-      $._param_list,
     )),
 
     code: $ => seq('~', $._code_stmt, $._eol),

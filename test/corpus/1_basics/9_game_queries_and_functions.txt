@@ -69,7 +69,7 @@
 
 (ink
   (knot_block
-    (function_declaration
+    (knot
       (identifier)
       (params
         (divert
