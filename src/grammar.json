@@ -332,8 +332,17 @@
           "name": "_thread_mark"
         },
         {
-          "type": "SYMBOL",
-          "name": "identifier"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "call"
+            }
+          ]
         }
       ]
     },
@@ -1455,7 +1464,18 @@
         }
       },
       "named": false,
-      "value": "knot_mark"
+      "value": "=="
+    },
+    "_stitch_mark": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 1,
+        "content": {
+          "type": "STRING",
+          "value": "="
+        }
+      }
     },
     "_divert_mark": {
       "type": "TOKEN",
@@ -1497,15 +1517,8 @@
         "type": "SEQ",
         "members": [
           {
-            "type": "TOKEN",
-            "content": {
-              "type": "PREC",
-              "value": 1,
-              "content": {
-                "type": "STRING",
-                "value": "="
-              }
-            }
+            "type": "SYMBOL",
+            "name": "_stitch_mark"
           },
           {
             "type": "FIELD",
@@ -1514,6 +1527,18 @@
               "type": "SYMBOL",
               "name": "identifier"
             }
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_param_list"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
           },
           {
             "type": "SYMBOL",

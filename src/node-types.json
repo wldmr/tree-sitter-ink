@@ -1440,6 +1440,16 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "params",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -1692,6 +1702,10 @@
       "multiple": false,
       "required": true,
       "types": [
+        {
+          "type": "call",
+          "named": true
+        },
         {
           "type": "identifier",
           "named": true
@@ -1964,10 +1978,6 @@
   {
     "type": "glue",
     "named": true
-  },
-  {
-    "type": "knot_mark",
-    "named": false
   },
   {
     "type": "not",

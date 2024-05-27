@@ -54,3 +54,50 @@ Before long, we arrived at his house.
 			(paragraph (text))
 			(divert (identifier))))
 )
+
+
+===
+.DBB. Organization of wide choice points
+===
+
+=== the_kitchen
+
+- (top)
+	<- drawers(-> top)
+	<- cupboards(-> top)
+	<- room_exits
+
+= drawers (-> goback)
+	// choices about the drawers...
+	...
+= cupboards(-> goback)
+	// choices about cupboards
+	...
+= room_exits
+	// exits; doesn't need a "return point" as if you leave, you go elsewhere
+	...
+---
+(ink
+	(knot_block
+		(knot (identifier))
+		(content_block
+			(gather (identifier))
+			(thread (call (identifier) (args (divert (identifier)))))
+			(thread (call (identifier) (args (divert (identifier)))))
+			(thread (identifier)))
+		(stitch_block
+			(stitch (identifier) (params (divert (identifier))))
+			(content_block
+				(comment)
+				(paragraph (text))))
+		(stitch_block
+			(stitch (identifier) (params (divert (identifier))))
+			(content_block
+				(comment)
+				(paragraph (text))))
+		(stitch_block
+			(stitch (identifier))
+			(content_block
+				(comment)
+				(paragraph (text))))
+))

@@ -210,7 +210,7 @@ module.exports = grammar({
       seq($.divert, repeat1($.divert)),
     ),
 
-    thread: $ => seq($._thread_mark, $.identifier),
+    thread: $ => seq($._thread_mark, choice($.identifier, $.call)),
 
     text: _ => prec.right(repeat1(
      choice(
@@ -378,14 +378,16 @@ module.exports = grammar({
       $._eol,
     )),
 
-    _knot_mark: _ => alias(mark(/==+/), 'knot_mark'), // TODO: Be sure to document that we collapse all knot marks to this "literal" (to distinguish it from the comparison operator)
+    _knot_mark: _ => alias(mark(/==+/), '=='), // TODO: Be sure to document that we collapse all knot marks to this "literal" (to distinguish it from the comparison operator)
+    _stitch_mark: _ => mark('='),
     _divert_mark: _ => mark('->'),
     _tunnel_return: _ => mark('->->'),
     _thread_mark: _ => mark('<-'),
 
     stitch: $ => prec.right(seq(
-      mark('='),
+      $._stitch_mark,
       field('name', $.identifier),
+      optional($._param_list),
       $._eol,
     )),
 
