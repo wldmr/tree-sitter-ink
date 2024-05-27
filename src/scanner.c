@@ -145,6 +145,11 @@ inline void skip_ws(TSLexer *lexer) {
     skip(lexer);
 }
 
+inline void skip_ws_upto_cr(TSLexer *lexer) {
+  while (lookahead(lexer) <= ' ' && lookahead(lexer) != '\n' && !is_eof(lexer))
+    skip(lexer);
+}
+
 /// Looks ahead to see if a new block could be started here.
 ///
 /// Callers must call scanner->mark_end themselves if necessary; this function does not call it.
@@ -209,8 +214,6 @@ bool tree_sitter_ink_external_scanner_scan(
 ) {
   Scanner *scanner = (Scanner *)payload;
 
-  int32_t lookahead_ = lookahead(lexer);
-  MSG("\nat '%c' (%d).\n", pretty(lookahead_), lookahead_);
   print_valid_symbols(valid_symbols);
 
   // Start of zero length tokens, so we'll mark this spot.
@@ -221,6 +224,10 @@ bool tree_sitter_ink_external_scanner_scan(
     // MSG("Abort like babies!\n"); assert(false);
     // return false;
   }
+
+  skip_ws_upto_cr(lexer);
+  int32_t lookahead_ = lookahead(lexer);
+  MSG("\nat '%c' (%d).\n", pretty(lookahead_), lookahead_);
 
   // first, try to end lines (that's always the innermost 'block')
   if (valid_symbols[END_OF_LINE]) {
