@@ -1513,15 +1513,32 @@
       ]
     },
     "_param": {
-      "type": "CHOICE",
+      "type": "SEQ",
       "members": [
         {
-          "type": "SYMBOL",
-          "name": "identifier"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "ref"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         },
         {
-          "type": "SYMBOL",
-          "name": "divert"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "divert"
+            }
+          ]
         }
       ]
     },
@@ -1542,8 +1559,13 @@
                 "value": ","
               },
               {
-                "type": "SYMBOL",
-                "name": "_param"
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "_param"
+                  }
+                ]
               }
             ]
           }

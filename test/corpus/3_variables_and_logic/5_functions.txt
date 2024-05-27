@@ -39,3 +39,15 @@
 				(choice
 					(call (identifier)) (flow (text))))))
 )
+
+===
+.CEB. Parameters can be passed by reference
+===
+=== function alter(ref x, k) ===
+	~ x = x + k
+---
+(ink
+	(knot_block
+		(knot (identifier) (params (identifier) (identifier)))
+		(content_block
+			(code (assignment (identifier) (binary (identifier) (identifier)))))))

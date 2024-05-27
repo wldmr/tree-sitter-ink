@@ -392,10 +392,14 @@ module.exports = grammar({
 
     return: $ => seq('return', $.expr),
 
-    _param: $ => choice($.identifier, $.divert),
+    _param: $ => seq(
+      optional('ref'),
+      choice($.identifier, $.divert)
+    ),
+
     params: $ => seq(
       $._param,
-      repeat(seq(",", $._param))
+      repeat(seq(",", seq($._param)))
     ),
     _param_list: $ => seq('(', optional($.params), ')'),
 
