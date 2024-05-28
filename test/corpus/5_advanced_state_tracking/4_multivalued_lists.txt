@@ -1,0 +1,13 @@
+===
+.EDA. Brackets around whole term or just the name
+===
+LIST primeNumbers = (two = 2), (three) = 3, (five = 5)
+---
+(ink
+  (content_block
+    (list
+      (identifier)
+      (list_values
+        (lv_init (lv_assign (identifier) (number)))
+        (lv_assign (lv_init (identifier)) (number))
+        (lv_init (lv_assign (identifier) (number)))))))

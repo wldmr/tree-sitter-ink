@@ -43,12 +43,12 @@ LIST primeNumbers = two = 2, three, five = 5
     (list
       (identifier)
       (list_values
-        (list_value_assign (identifier) (number))
-        (list_value_assign (identifier) (number))
-        (list_value_assign (identifier) (number))))
+        (lv_assign (identifier) (number))
+        (lv_assign (identifier) (number))
+        (lv_assign (identifier) (number))))
     (list
       (identifier)
       (list_values
-        (list_value_assign (identifier) (number))
+        (lv_assign (identifier) (number))
         (identifier)
-        (list_value_assign (identifier) (number))))))
+        (lv_assign (identifier) (number))))))

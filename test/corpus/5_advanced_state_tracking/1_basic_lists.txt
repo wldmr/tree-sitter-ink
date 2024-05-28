@@ -9,5 +9,5 @@ LIST kettleState = cold, (boiling), recently_boiled
       name: (identifier)
       values: (list_values
         (identifier)
-        (list_values_init (identifier))
+        (lv_init (identifier))
         (identifier)))))

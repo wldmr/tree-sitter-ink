@@ -446,20 +446,41 @@ module.exports = grammar({
       field('values', $.list_values),
     ),
 
+    // There are multiple ways to define a list value: name, (name) = 1, (name = 1),
+    // but _not_ ((name) = 1), ((name = 1) = 1) and so on.
+    // We want the syntax to be "moduluar", in the sense that `(…)` is an `lv_init` and `name = 1` is an `lv_assign`,
+    // and those should nest according to to where the brackets or the equals sign are.
+    // But since this syntax isn't fully recursive, we define leaf nodes that only take terminals,
+    // and then alias them to the same names, giving the illusion of uniformity.
+    // I know this is confusing, but look at the tests for multivalued lists and it should become clear(er).
     list_values: $ => sepBy1(',', choice(
-      $._list_value,
-      $.list_values_init,
+      $.identifier,
+      $.lv_assign,
+      $.lv_init,
     )),
 
-    _list_value: $ => choice($.identifier, $.list_value_assign),
+    // leaf nodes that only accept terminals
+    _lv_init: $ => seq('(', $.identifier, ')'),
+    _lv_assign: $ => seq($.identifier, '=', $.number),
 
-    list_value_assign: $ => seq(
-      $.identifier,
+    // sort-of recursive definitions that alias the above nodes to look uniform.
+    lv_assign: $ => seq(
+      choice(
+        $.identifier,
+        alias($._lv_init, $.lv_init),
+      ),
       '=',
-      $.number  // technically only integers allowed here, but that's for the compiler to sort out
+      $.number
     ),
 
-    list_values_init: $ => seq('(', sepBy1(',', $._list_value), ')'),
+    lv_init: $ => seq(
+      '(',
+      choice(
+        $.identifier,
+        alias($._lv_assign, $.lv_assign),
+      ),
+      ')'
+    ),
 
     // we create two sets of "expressions": One named for the actual expressions,
     ...make_expr(named = true),

@@ -1253,25 +1253,6 @@
     }
   },
   {
-    "type": "list_value_assign",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "number",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "list_values",
     "named": true,
     "fields": {},
@@ -1284,18 +1265,18 @@
           "named": true
         },
         {
-          "type": "list_value_assign",
+          "type": "lv_assign",
           "named": true
         },
         {
-          "type": "list_values_init",
+          "type": "lv_init",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "list_values_init",
+    "type": "lv_assign",
     "named": true,
     "fields": {},
     "children": {
@@ -1307,7 +1288,30 @@
           "named": true
         },
         {
-          "type": "list_value_assign",
+          "type": "lv_init",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "lv_init",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "lv_assign",
           "named": true
         }
       ]
