@@ -11,3 +11,31 @@ LIST primeNumbers = (two = 2), (three) = 3, (five = 5)
         (lv_init (lv_assign (identifier) (number)))
         (lv_assign (lv_init (identifier)) (number))
         (lv_init (lv_assign (identifier) (number)))))))
+
+
+===
+.EDB. Assigning multiple values
+===
+~ DoctorsInSurgery = (Adams, Bernard)
+~ DoctorsInSurgery = (Adams, Bernard, Eamonn)
+~ DoctorsInSurgery = ()
+---
+(ink
+  (content_block
+    (code
+      (assignment
+        (identifier)
+          (list_values
+            (identifier)
+            (identifier))))
+    (code
+      (assignment
+        (identifier)
+          (list_values
+            (identifier)
+            (identifier)
+            (identifier))))
+    (code
+      (assignment
+        (identifier)
+          (list_values)))))

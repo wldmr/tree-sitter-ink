@@ -38,6 +38,10 @@
             "named": true
           },
           {
+            "type": "list_values",
+            "named": true
+          },
+          {
             "type": "number",
             "named": true
           },
@@ -215,6 +219,10 @@
           "named": true
         },
         {
+          "type": "list_values",
+          "named": true
+        },
+        {
           "type": "number",
           "named": true
         },
@@ -277,6 +285,10 @@
           },
           {
             "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "list_values",
             "named": true
           },
           {
@@ -403,6 +415,10 @@
           "named": true
         },
         {
+          "type": "list_values",
+          "named": true
+        },
+        {
           "type": "number",
           "named": true
         },
@@ -474,6 +490,10 @@
           },
           {
             "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "list_values",
             "named": true
           },
           {
@@ -611,6 +631,10 @@
           "named": true
         },
         {
+          "type": "list_values",
+          "named": true
+        },
+        {
           "type": "number",
           "named": true
         },
@@ -695,6 +719,10 @@
         },
         {
           "type": "list",
+          "named": true
+        },
+        {
+          "type": "list_values",
           "named": true
         },
         {
@@ -785,6 +813,10 @@
           },
           {
             "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "list_values",
             "named": true
           },
           {
@@ -957,6 +989,10 @@
           "named": true
         },
         {
+          "type": "list_values",
+          "named": true
+        },
+        {
           "type": "number",
           "named": true
         },
@@ -1104,6 +1140,10 @@
           },
           {
             "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "list_values",
             "named": true
           },
           {
@@ -1258,7 +1298,7 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "identifier",
@@ -1270,6 +1310,10 @@
         },
         {
           "type": "lv_init",
+          "named": true
+        },
+        {
+          "type": "qualified_name",
           "named": true
         }
       ]
@@ -1412,6 +1456,10 @@
           "named": true
         },
         {
+          "type": "list_values",
+          "named": true
+        },
+        {
           "type": "number",
           "named": true
         },
@@ -1509,6 +1557,10 @@
         },
         {
           "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "list_values",
           "named": true
         },
         {
@@ -1898,6 +1950,10 @@
         },
         {
           "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "list_values",
           "named": true
         },
         {

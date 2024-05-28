@@ -52,6 +52,7 @@ function make_expr(named = true) {
       // compound
       $[rule('call')],
       $[rule('paren')],
+      $[rule('list_values')],
       $[rule('unary')],
       $[rule('postfix')],
       $[rule('binary')],
@@ -65,6 +66,17 @@ function make_expr(named = true) {
       ')'
     )),
     [rule('args')]: $ => sepBy1(',', $[rule('expr')]),
+
+    [rule('list_values')]: $ => seq(
+      '(',
+      optional(sepBy1(',',
+        choice(
+          $[rule('identifier')],
+          $[rule('qualified_name')]
+        ),
+      )),
+      ')',
+    ),
 
     [rule('paren')]: $ => prec.left(10, seq('(', $[rule('expr')], ')')),
     [rule('unary')]: $ => prec.left(9, seq(field('op', choice('not', '!', '-')), $[rule('expr')])),
@@ -128,12 +140,14 @@ module.exports = grammar({
 
   precedences: $ => [
     [$._choice_condition, $.eval],  // since they are syntactically the same, maybe we just treat a condition as an eval?
+    [$._expr, $._list_values],  // How should `(<identifier>)` be interpreted? Doesn't really matter, but we have to choose one.
   ],
 
   conflicts: $ => [
     [$.conditional_text, $._first_cond_arm, $._expr],
     [$.identifier, $._identifier],
     [$.string, $._string],
+    [$.list_values, $._list_values],
     [$._fake_flow],
     [$.tunnel],
   ],
@@ -443,7 +457,10 @@ module.exports = grammar({
       'LIST',
       field('name', $.identifier),
       '=',
-      field('values', $.list_values),
+      // Why alias here? `list_values` is also an expression node; it seems intuitive enough to have them
+      // be named the same, even if their syntaxes are slightly different.
+      // (you can parenthesize values and assign numbers here, which you can't do in expressions)
+      field('values', alias($._lv_defs, $.list_values)),
     ),
 
     // There are multiple ways to define a list value: name, (name) = 1, (name = 1),
@@ -453,7 +470,7 @@ module.exports = grammar({
     // But since this syntax isn't fully recursive, we define leaf nodes that only take terminals,
     // and then alias them to the same names, giving the illusion of uniformity.
     // I know this is confusing, but look at the tests for multivalued lists and it should become clear(er).
-    list_values: $ => sepBy1(',', choice(
+    _lv_defs: $ => sepBy1(',', choice(
       $.identifier,
       $.lv_assign,
       $.lv_init,
