@@ -40,8 +40,8 @@ version-start VERSION:
 
 # Tag the latest commit. VERSION must match the version in package.json.
 version-release VERSION: bench test
-	echo "Current version: {{CURRENT_VERSION}}"
-	test ${{CURRENT_VERSION}} = "{{VERSION}}"
-	echo git tag -a "v${RELEASE_VERSION}" -m "Release Version v${RELEASE_VERSION}"
-	echo git push origin
-	echo git push --tags origin
+	@echo "Current version: {{CURRENT_VERSION}}"
+	test "{{CURRENT_VERSION}}" = "{{VERSION}}"
+	git tag -a "v{{CURRENT_VERSION}}" -m "Release Version v{{CURRENT_VERSION}}"
+	git push origin
+	git push --tags origin
