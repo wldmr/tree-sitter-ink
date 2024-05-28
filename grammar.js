@@ -64,10 +64,7 @@ function make_expr(named = true) {
       optional($[rule('args')]),
       ')'
     )),
-    [rule('args')]: $ => seq(
-      $[rule('expr')],
-      repeat(seq(",", $[rule('expr')]))
-    ),
+    [rule('args')]: $ => sepBy1(',', $[rule('expr')]),
 
     [rule('paren')]: $ => prec.left(10, seq('(', $[rule('expr')], ')')),
     [rule('unary')]: $ => prec.left(9, seq(field('op', choice('not', '!', '-')), $[rule('expr')])),
@@ -99,6 +96,11 @@ function make_expr(named = true) {
     ),
 
   }
+}
+
+/// Separate every two occurrences of `rule` by an occurrence of `sep`. `rule` has to occurr at least once.
+function sepBy1(sep, rule) {
+  return seq(rule, repeat(seq(sep, rule)));
 }
 
 module.exports = grammar({
@@ -176,6 +178,7 @@ module.exports = grammar({
         $.gather,
         $.include,
         $.global,
+        $.list,
       ),
       $._eol,
     ),
@@ -191,6 +194,7 @@ module.exports = grammar({
         // $.gather, // gathers are not allowed
         $.include,
         $.global,
+        $.list,
       ),
       $._eol,
     ),
@@ -419,10 +423,7 @@ module.exports = grammar({
       choice($.identifier, $.divert)
     ),
 
-    params: $ => seq(
-      $._param,
-      repeat(seq(",", seq($._param)))
-    ),
+    params: $ => sepBy1(',', $._param),
     _param_list: $ => seq('(', optional($.params), ')'),
 
     // Let's just accept any old characters for the path. We don't have to do anything with it …
@@ -434,6 +435,20 @@ module.exports = grammar({
       '=',
       field('value', $.expr),
     ),
+
+    list: $ => seq(
+      'LIST',
+      field('name', $.identifier),
+      '=',
+      field('values', $.list_values),
+    ),
+
+    list_values: $ => sepBy1(',', choice(
+      $.identifier,
+      $.list_values_init,
+    )),
+
+    list_values_init: $ => seq('(', sepBy1(',', $.identifier), ')'),
 
     // we create two sets of "expressions": One named for the actual expressions,
     ...make_expr(named = true),

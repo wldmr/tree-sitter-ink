@@ -1,0 +1,13 @@
+===
+.EAA. Define basic lists
+===
+LIST kettleState = cold, (boiling), recently_boiled
+---
+(ink
+  (content_block
+    (list
+      name: (identifier)
+      values: (list_values
+        (identifier)
+        (list_values_init (identifier))
+        (identifier)))))

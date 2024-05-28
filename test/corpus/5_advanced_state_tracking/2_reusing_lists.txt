@@ -1,0 +1,58 @@
+===
+.EBA. Reusing Lists
+===
+LIST heatedWaterStates = cold, boiling, recently_boiled
+VAR kettleState = cold
+VAR potState = cold
+VAR microwaveState = cold
+
+=== cook_with(nameOfThing, ref thingToBoil)
++ 	{thingToBoil == cold} [Turn on {nameOfThing}]
+  	The {nameOfThing} begins to heat up.
+	~ thingToBoil = boiling
+	-> do_cooking.done
+
+=== do_cooking
+<- cook_with("kettle", kettleState)
+<- cook_with("pot", potState)
+<- cook_with("microwave", microwaveState)
+- (done)
+---
+(ink
+  (content_block
+    (list (identifier) (list_values (identifier) (identifier) (identifier)))
+    (global (identifier) (identifier))
+    (global (identifier) (identifier))
+    (global (identifier) (identifier)))
+  (knot_block
+    (knot (identifier) (params (identifier) (identifier)))
+    (content_block
+      (choice
+        (binary (identifier) (identifier))
+        (flow (text) (eval (identifier))))
+      (paragraph (text) (eval (identifier)) (text))
+      (code (assignment (identifier) (identifier)))
+      (divert (qualified_name (identifier) (identifier)))))
+  (knot_block
+    (knot (identifier))
+    (content_block
+      (thread (call (identifier) (args (string) (identifier))))
+      (thread (call (identifier) (args (string) (identifier))))
+      (thread (call (identifier) (args (string) (identifier))))
+      (content_block
+        (gather (identifier))))))
+
+
+===
+.EBB. Lists can share names
+===
+LIST colours = red, green, blue, purple
+LIST moods = mad, happy, blue
+
+VAR status = color.blue
+---
+(ink
+  (content_block
+    (list (identifier) (list_values (identifier) (identifier) (identifier) (identifier)))
+    (list (identifier) (list_values (identifier) (identifier) (identifier)))
+    (global (identifier) (qualified_name (identifier) (identifier)))))

@@ -133,6 +133,10 @@
           "named": true
         },
         {
+          "type": "list",
+          "named": true
+        },
+        {
           "type": "paragraph",
           "named": true
         },
@@ -690,6 +694,10 @@
           "named": true
         },
         {
+          "type": "list",
+          "named": true
+        },
+        {
           "type": "number",
           "named": true
         },
@@ -867,6 +875,10 @@
         },
         {
           "type": "include",
+          "named": true
+        },
+        {
+          "type": "list",
           "named": true
         },
         {
@@ -1209,6 +1221,66 @@
         },
         {
           "type": "stitch_block",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "list",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "values": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "list_values",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "list_values",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "list_values_init",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "list_values_init",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
           "named": true
         }
       ]
@@ -1921,6 +1993,10 @@
   },
   {
     "type": "CONST",
+    "named": false
+  },
+  {
+    "type": "LIST",
     "named": false
   },
   {
