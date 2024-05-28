@@ -332,6 +332,10 @@
             "named": false
           },
           {
+            "type": "!?",
+            "named": false
+          },
+          {
             "type": "&&",
             "named": false
           },
@@ -377,6 +381,14 @@
           },
           {
             "type": "and",
+            "named": false
+          },
+          {
+            "type": "has",
+            "named": false
+          },
+          {
+            "type": "hasnt",
             "named": false
           },
           {
@@ -1662,6 +1674,10 @@
             "named": false
           },
           {
+            "type": "!?",
+            "named": false
+          },
+          {
             "type": "&&",
             "named": false
           },
@@ -1718,6 +1734,14 @@
             "named": false
           },
           {
+            "type": "has",
+            "named": false
+          },
+          {
+            "type": "hasnt",
+            "named": false
+          },
+          {
             "type": "not",
             "named": false
           },
@@ -1741,6 +1765,10 @@
           },
           {
             "type": "!=",
+            "named": false
+          },
+          {
+            "type": "!?",
             "named": false
           },
           {
@@ -1821,6 +1849,14 @@
           },
           {
             "type": "and",
+            "named": false
+          },
+          {
+            "type": "has",
+            "named": false
+          },
+          {
+            "type": "hasnt",
             "named": false
           },
           {
@@ -1992,6 +2028,10 @@
     "named": false
   },
   {
+    "type": "!?",
+    "named": false
+  },
+  {
     "type": "$",
     "named": false
   },
@@ -2154,6 +2194,14 @@
   {
     "type": "glue",
     "named": true
+  },
+  {
+    "type": "has",
+    "named": false
+  },
+  {
+    "type": "hasnt",
+    "named": false
   },
   {
     "type": "not",

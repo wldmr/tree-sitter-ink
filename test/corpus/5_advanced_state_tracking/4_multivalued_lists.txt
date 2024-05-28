@@ -39,3 +39,39 @@ LIST primeNumbers = (two = 2), (three) = 3, (five = 5)
       (assignment
         (identifier)
           (list_values)))))
+
+===
+.EDC. Testing for containment
+===
+{ DoctorsInSurgery ? (Adams, Bernard):
+	Dr Adams and Dr Bernard are having a hushed argument in one corner.
+- DoctorsInSurgery has Eamonn:
+	Dr Eamonn is polishing his glasses.
+- DoctorsInSurgery !? (Adams, Bernard):
+- DoctorsInSurgery hasnt (Adams, Bernard):
+- SomeList ? ():
+- Facts ? (Fogg_is_English, Fogg_is_fairly_odd):
+}
+---
+(ink
+  (content_block
+    (paragraph
+      (cond_block
+        (cond_arm
+          (binary (identifier) (list_values (identifier) (identifier)))
+          (paragraph (text)))
+        (cond_arm
+          (binary (identifier) (identifier))
+          (paragraph (text)))
+        (cond_arm
+          (binary (identifier) (list_values (identifier) (identifier))))
+        (cond_arm
+          (binary (identifier) (list_values (identifier) (identifier))))
+        (cond_arm
+          (binary (identifier) (list_values)))
+        (cond_arm
+          (binary (identifier) (list_values (identifier) (identifier))))
+      )
+    )
+  )
+)

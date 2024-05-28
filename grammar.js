@@ -84,7 +84,7 @@ function make_expr(named = true) {
     [rule('binary')]: $ => choice(
       binop($, 7, '*', '/'),
       binop($, 6, '+', '-'),
-      binop($, 5, '==', '!=', '?', '<=', '>=', '<', '>'),
+      binop($, 5, '==', '!=', '?', '!?', 'has', 'hasnt', '<=', '>=', '<', '>'),
       binop($, 4, 'and', '&&'),
       binop($, 3, 'or', '||'),
     ),

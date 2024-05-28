@@ -2363,6 +2363,18 @@
                     },
                     {
                       "type": "STRING",
+                      "value": "!?"
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "has"
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "hasnt"
+                    },
+                    {
+                      "type": "STRING",
                       "value": "<="
                     },
                     {
@@ -2955,6 +2967,18 @@
                     {
                       "type": "STRING",
                       "value": "?"
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "!?"
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "has"
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "hasnt"
                     },
                     {
                       "type": "STRING",
