@@ -280,8 +280,10 @@ module.exports = grammar({
       '{',
       prec.dynamic(PREC.ink, seq(field('condition', $.expr), ':')),
       $._flow_to_redirect,
-      '|',
-      optional($._flow_to_redirect),
+      optional(seq(
+        '|',
+        optional($._flow_to_redirect)
+      )),
       '}',
     )),
 

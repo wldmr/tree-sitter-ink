@@ -146,3 +146,32 @@ My favourite dinosaurs are {listWithCommas(favouriteDinosaurs, "all extinct")}.
                         (identifier)
                         (call (identifier) (args (identifier))))
                       (identifier)))))))))))
+
+
+===
+.EDE. Pedantic example
+===
+My favourite dinosaur{LIST_COUNT(favouriteDinosaurs) != 1:s} {isAre(favouriteDinosaurs)} {listWithCommas(favouriteDinosaurs, "all extinct")}.
+---
+(ink
+  (content_block
+    (paragraph
+      (text)
+      (conditional_text
+        (binary
+          (call
+            (identifier)
+            (args (identifier)))
+          (number))
+        (flow (text)))
+      (eval
+        (call
+          (identifier)
+          (args (identifier))))
+      (eval
+        (call
+          (identifier)
+          (args
+            (identifier)
+            (string))))
+      (text))))
