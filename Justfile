@@ -1,4 +1,5 @@
 alias gen := generate
+CURRENT_VERSION:=`sed -nr 's/\s*"version"\s*:\s*"(.+?)",\s*/\1/p' package.json`
 
 test *args: generate
 	tree-sitter test {{args}}
@@ -25,3 +26,22 @@ wasm:
 
 playground *args: wasm
 	tree-sitter playground {{args}}
+
+# Set version information (Makefile, etc) to VERSION. Careful: The version string is simply replaced verbatim.
+# Then run tests. If everything is successful, create a "bump version" commit.
+version-start VERSION:
+	echo "Current version: {{CURRENT_VERSION}}"
+	sed -ri 's/^version\s*=\s*".+"$/version = "{{VERSION}}"/' Cargo.toml pyproject.toml
+	sed -ri 's/^VERSION\s*:=\s*.+$/VERSION := {{VERSION}}/' Makefile
+	sed -ri 's/^(\s*)"version"\s*:\s*".+",\s*$/\1"version": "{{VERSION}}",/' package.json
+	just bench
+	just test
+	git commit --all -m "bump version to v{{VERSION}}"
+
+# Tag the latest commit. VERSION must match the version in package.json.
+version-release VERSION: bench test
+	echo "Current version: {{CURRENT_VERSION}}"
+	test ${{CURRENT_VERSION}} = "{{VERSION}}"
+	echo git tag -a "v${RELEASE_VERSION}" -m "Release Version v${RELEASE_VERSION}"
+	echo git push origin
+	echo git push --tags origin
