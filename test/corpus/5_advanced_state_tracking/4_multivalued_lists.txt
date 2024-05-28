@@ -175,3 +175,28 @@ My favourite dinosaur{LIST_COUNT(favouriteDinosaurs) != 1:s} {isAre(favouriteDin
             (identifier)
             (string))))
       (text))))
+
+
+===
+.EDF. Intersecting Lists
+===
+{desiredValues ^ actualValues: The new president has at least one desirable quality.}
+
+{LIST_COUNT(desiredValues ^ actualValues) == 1: Correction, the new president has only one desirable quality. {desiredValues ^ actualValues == self_belief: It's the scary one.}}
+---
+(ink
+  (content_block
+    (paragraph
+      (conditional_text
+        (binary (identifier) (identifier))
+        (flow (text))))
+    (paragraph
+      (conditional_text
+        (binary
+          (call (identifier) (args (binary (identifier) (identifier))))
+          (number))
+        (flow
+          (text)
+          (conditional_text
+            (binary (binary (identifier) (identifier)) (identifier))
+            (flow (text))))))))

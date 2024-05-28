@@ -336,6 +336,10 @@
             "named": false
           },
           {
+            "type": "%",
+            "named": false
+          },
+          {
             "type": "&&",
             "named": false
           },
@@ -380,6 +384,10 @@
             "named": false
           },
           {
+            "type": "^",
+            "named": false
+          },
+          {
             "type": "and",
             "named": false
           },
@@ -389,6 +397,10 @@
           },
           {
             "type": "hasnt",
+            "named": false
+          },
+          {
+            "type": "mod",
             "named": false
           },
           {
@@ -1678,6 +1690,10 @@
             "named": false
           },
           {
+            "type": "%",
+            "named": false
+          },
+          {
             "type": "&&",
             "named": false
           },
@@ -1730,6 +1746,10 @@
             "named": false
           },
           {
+            "type": "^",
+            "named": false
+          },
+          {
             "type": "and",
             "named": false
           },
@@ -1739,6 +1759,10 @@
           },
           {
             "type": "hasnt",
+            "named": false
+          },
+          {
+            "type": "mod",
             "named": false
           },
           {
@@ -1769,6 +1793,10 @@
           },
           {
             "type": "!?",
+            "named": false
+          },
+          {
+            "type": "%",
             "named": false
           },
           {
@@ -1840,6 +1868,10 @@
             "named": false
           },
           {
+            "type": "^",
+            "named": false
+          },
+          {
             "type": "_boolean",
             "named": true
           },
@@ -1857,6 +1889,10 @@
           },
           {
             "type": "hasnt",
+            "named": false
+          },
+          {
+            "type": "mod",
             "named": false
           },
           {
@@ -2036,6 +2072,10 @@
     "named": false
   },
   {
+    "type": "%",
+    "named": false
+  },
+  {
     "type": "&",
     "named": false
   },
@@ -2152,6 +2192,10 @@
     "named": false
   },
   {
+    "type": "^",
+    "named": false
+  },
+  {
     "type": "_boolean",
     "named": true
   },
@@ -2201,6 +2245,10 @@
   },
   {
     "type": "hasnt",
+    "named": false
+  },
+  {
+    "type": "mod",
     "named": false
   },
   {
