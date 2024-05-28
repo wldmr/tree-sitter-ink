@@ -3,6 +3,12 @@ alias gen := generate
 test *args: generate
 	tree-sitter test {{args}}
 
+bench: generate
+	tree-sitter parse examples/**/*.ink --quiet --stat
+
+parse *args: generate
+	tree-sitter parse {{args}}
+
 generate:
 	tree-sitter generate
 
