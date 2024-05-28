@@ -1,0 +1,54 @@
+===
+.ECA. List Values
+===
+LIST volumeLevel = off, quiet, medium, loud, deafening
+VAR lecturersVolume = quiet
+VAR murmurersVolume = quiet
+
+{ lecturersVolume < deafening:
+	~ lecturersVolume++
+
+	{ lecturersVolume > murmurersVolume:
+		~ murmurersVolume++
+		The murmuring gets louder.
+	}
+}
+---
+(ink
+  (content_block
+    (list (identifier) (list_values (identifier) (identifier) (identifier) (identifier) (identifier)))
+    (global (identifier) (identifier))
+    (global (identifier) (identifier))
+    (paragraph
+      (cond_block
+        (cond_arm
+          (binary (identifier) (identifier))
+          (code (postfix (identifier)))
+          (paragraph
+            (cond_block
+              (cond_arm
+                (binary (identifier) (identifier))
+                (code (postfix (identifier)))
+                (paragraph (text))))))))))
+
+
+===
+.ECB. Advanced: Defining your own numerical values
+===
+LIST primeNumbers = two = 2, three = 3, five = 5
+LIST primeNumbers = two = 2, three, five = 5
+---
+(ink
+  (content_block
+    (list
+      (identifier)
+      (list_values
+        (list_value_assign (identifier) (number))
+        (list_value_assign (identifier) (number))
+        (list_value_assign (identifier) (number))))
+    (list
+      (identifier)
+      (list_values
+        (list_value_assign (identifier) (number))
+        (identifier)
+        (list_value_assign (identifier) (number))))))

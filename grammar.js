@@ -80,6 +80,9 @@ function make_expr(named = true) {
     [rule('identifier')]: _ => IDENTIFIER_REGEX,
     [rule('qualified_name')]: $ => seq($[rule('identifier')], token.immediate('.'), $[rule('identifier')]),
 
+    [rule('number')]: _ => /\d+(\.\d+)?/,
+    [rule('boolean')]: _ => choice('false', 'true'),
+
     [rule('string')]: _ => token(seq(
       '"',
       prec.left(repeat(choice(
@@ -444,11 +447,19 @@ module.exports = grammar({
     ),
 
     list_values: $ => sepBy1(',', choice(
-      $.identifier,
+      $._list_value,
       $.list_values_init,
     )),
 
-    list_values_init: $ => seq('(', sepBy1(',', $.identifier), ')'),
+    _list_value: $ => choice($.identifier, $.list_value_assign),
+
+    list_value_assign: $ => seq(
+      $.identifier,
+      '=',
+      $.number  // technically only integers allowed here, but that's for the compiler to sort out
+    ),
+
+    list_values_init: $ => seq('(', sepBy1(',', $._list_value), ')'),
 
     // we create two sets of "expressions": One named for the actual expressions,
     ...make_expr(named = true),

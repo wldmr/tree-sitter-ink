@@ -1839,7 +1839,7 @@
           "members": [
             {
               "type": "SYMBOL",
-              "name": "identifier"
+              "name": "_list_value"
             },
             {
               "type": "SYMBOL",
@@ -1861,7 +1861,7 @@
                 "members": [
                   {
                     "type": "SYMBOL",
-                    "name": "identifier"
+                    "name": "_list_value"
                   },
                   {
                     "type": "SYMBOL",
@@ -1871,6 +1871,36 @@
               }
             ]
           }
+        }
+      ]
+    },
+    "_list_value": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "list_value_assign"
+        }
+      ]
+    },
+    "list_value_assign": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        },
+        {
+          "type": "STRING",
+          "value": "="
+        },
+        {
+          "type": "SYMBOL",
+          "name": "number"
         }
       ]
     },
@@ -1886,7 +1916,7 @@
           "members": [
             {
               "type": "SYMBOL",
-              "name": "identifier"
+              "name": "_list_value"
             },
             {
               "type": "REPEAT",
@@ -1899,7 +1929,7 @@
                   },
                   {
                     "type": "SYMBOL",
-                    "name": "identifier"
+                    "name": "_list_value"
                   }
                 ]
               }
@@ -2339,6 +2369,23 @@
         {
           "type": "SYMBOL",
           "name": "identifier"
+        }
+      ]
+    },
+    "number": {
+      "type": "PATTERN",
+      "value": "\\d+(\\.\\d+)?"
+    },
+    "boolean": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "false"
+        },
+        {
+          "type": "STRING",
+          "value": "true"
         }
       ]
     },
@@ -2849,6 +2896,23 @@
         {
           "type": "SYMBOL",
           "name": "_identifier"
+        }
+      ]
+    },
+    "_number": {
+      "type": "PATTERN",
+      "value": "\\d+(\\.\\d+)?"
+    },
+    "_boolean": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "false"
+        },
+        {
+          "type": "STRING",
+          "value": "true"
         }
       ]
     },
