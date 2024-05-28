@@ -242,6 +242,7 @@ module.exports = grammar({
        '-',
        '>',
        '<',
+       '/',
        token(prec(-1, alias(/[^\s\{\}\[\]#\-<>/|]+/, 'word'))),
        alias(/\\[\{\}\[\]$!&~\-|]/, '\char'),  // escaped special char
        // alias(/\\\r?\n/, '\\n'),  // escaped newline

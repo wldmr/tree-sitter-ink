@@ -379,6 +379,10 @@
               "value": "<"
             },
             {
+              "type": "STRING",
+              "value": "/"
+            },
+            {
               "type": "TOKEN",
               "content": {
                 "type": "PREC",
