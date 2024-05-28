@@ -75,3 +75,74 @@ LIST primeNumbers = (two = 2), (three) = 3, (five = 5)
     )
   )
 )
+
+
+===
+.EDD. Nicer list printing
+===
+
+LIST favouriteDinosaurs = (stegosaurs), brachiosaur, (anklyosaurus), (pleiosaur)
+
+My favourite dinosaurs are {listWithCommas(favouriteDinosaurs, "all extinct")}.
+
+=== function listWithCommas(list, if_empty)
+    {LIST_COUNT(list):
+    - 2:
+        	{LIST_MIN(list)} and {listWithCommas(list - LIST_MIN(list), if_empty)}
+    - 1:
+        	{list}
+    - 0:
+			{if_empty}
+    - else:
+      		{LIST_MIN(list)}, {listWithCommas(list - LIST_MIN(list), if_empty)}
+    }
+---
+(ink
+
+  (content_block
+    (list (identifier) (list_values
+          (lv_init (identifier))
+          (identifier)
+          (lv_init (identifier))
+          (lv_init (identifier))))
+    (paragraph
+      (text)
+      (eval
+        (call (identifier) (args (identifier) (string))))
+      (text)))
+
+  (knot_block
+    (knot (identifier) (params (identifier) (identifier)))
+    (content_block
+      (paragraph
+        (cond_block
+          (cond_arm
+            (call (identifier) (args (identifier))))
+          (cond_arm
+            (number)
+            (paragraph
+              (eval (call (identifier) (args (identifier))))
+              (text)
+              (eval (call
+                    (identifier)
+                    (args
+                      (binary (identifier) (call (identifier) (args (identifier))))
+                      (identifier))))))
+          (cond_arm
+            (number)
+            (paragraph (eval (identifier))))
+          (cond_arm
+            (number)
+            (paragraph (eval (identifier))))
+          (cond_arm
+            (else)
+            (paragraph
+              (eval (call (identifier) (args (identifier))))
+              (text)
+              (eval (call
+                    (identifier)
+                    (args
+                      (binary
+                        (identifier)
+                        (call (identifier) (args (identifier))))
+                      (identifier)))))))))))
