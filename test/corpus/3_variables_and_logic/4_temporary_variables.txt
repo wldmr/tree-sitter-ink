@@ -18,7 +18,7 @@
         (temp_var
           name: (identifier)
           value: (number)))
-      (paragraph
+      (content
         (cond_block
           (cond_arm
             (identifier)
@@ -46,7 +46,7 @@
 (ink
   (content_block
     (choice
-      (flow
+      (content
         (text)))
     (divert
       (call
@@ -54,7 +54,7 @@
         (args
           (string))))
     (choice
-      (flow
+      (content
         (text)))
     (divert
       (call
@@ -62,7 +62,7 @@
         (args
           (string))))
     (choice
-      (flow
+      (content
         (text)))
     (divert
       (call
@@ -75,25 +75,25 @@
       (params
         (identifier)))
     (content_block
-      (paragraph
+      (content
         (text)
         (eval
           (identifier))
         (text))
-      (paragraph
+      (content
         (text)
         (conditional_text
           (binary
             (identifier)
             (string))
-          (flow
+          (content
             (text))
-          (flow
+          (content
             (eval
               (identifier))
             (text)))
         (text))
-      (paragraph
+      (content
         (text)))))
 
 ===
@@ -116,7 +116,7 @@
     (knot
       (identifier))
     (content_block
-      (paragraph
+      (content
         (text))
       (divert
         (call
@@ -131,7 +131,7 @@
         (divert
           (identifier))))
     (content_block
-      (paragraph
+      (content
         (text))
       (divert
         (identifier))))
@@ -139,5 +139,5 @@
     (knot
       (identifier))
     (content_block
-      (paragraph
+      (content
         (text)))))

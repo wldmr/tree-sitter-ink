@@ -7,21 +7,29 @@
 	~ y = x + 1
 }
 ---
-(ink
-	(content_block
-		(paragraph
-			(cond_block
-				(cond_arm
-					(binary (identifier) (number))
-					(code (assignment name: (identifier) value: (binary (identifier) (number)))))
-				(cond_arm
-					(else)
-					(code (assignment name: (identifier) value: (binary (identifier) (number)))))
-			)
-		)
-	)
-)
 
+(ink
+  (content_block
+    (content
+      (cond_block
+        (cond_arm
+          (binary
+            (identifier)
+            (number))
+          (code
+            (assignment
+              name: (identifier)
+              value: (binary
+                (identifier)
+                (number)))))
+        (cond_arm
+          (else)
+          (code
+            (assignment
+              name: (identifier)
+              value: (binary
+                (identifier)
+                (number)))))))))
 
 ===
 .CCB. Extended if/else
@@ -35,24 +43,37 @@
 		~ y = x + 1
 }
 ---
-(ink
-	(content_block
-		(paragraph
-			(cond_block
-				(cond_arm
-					(binary (identifier) (number))
-					(code (assignment name: (identifier) value: (number))))
-				(cond_arm
-					(binary (identifier) (number))
-					(code (assignment name: (identifier) value: (binary (identifier) (number)))))
-				(cond_arm
-					(else)
-					(code (assignment name: (identifier) value: (binary (identifier) (number)))))
-			)
-		)
-	)
-)
 
+(ink
+  (content_block
+    (content
+      (cond_block
+        (cond_arm
+          (binary
+            (identifier)
+            (number))
+          (code
+            (assignment
+              name: (identifier)
+              value: (number))))
+        (cond_arm
+          (binary
+            (identifier)
+            (number))
+          (code
+            (assignment
+              name: (identifier)
+              value: (binary
+                (identifier)
+                (number)))))
+        (cond_arm
+          (else)
+          (code
+            (assignment
+              name: (identifier)
+              value: (binary
+                (identifier)
+                (number)))))))))
 
 ===
 .CCC. Switch Blocks
@@ -64,20 +85,29 @@
 - else: lots
 }
 ---
-(ink
-	(content_block
-		(paragraph
-			(cond_block
-				(cond_arm (identifier))
-				(cond_arm (number) (paragraph (text)))
-				(cond_arm (number) (paragraph (text)))
-				(cond_arm (number) (paragraph (text)))
-				(cond_arm (else) (paragraph (text)))
-			)
-		)
-	)
-)
 
+(ink
+  (content_block
+    (content
+      (cond_block
+        (cond_arm
+          (identifier))
+        (cond_arm
+          (number)
+          (content
+            (text)))
+        (cond_arm
+          (number)
+          (content
+            (text)))
+        (cond_arm
+          (number)
+          (content
+            (text)))
+        (cond_arm
+          (else)
+          (content
+            (text)))))))
 
 ===
 .CCD. Example: Context-Relevant Content
@@ -97,30 +127,39 @@
 			-> dream_about_marmalade
 	}
 ---
-(ink
-	(knot_block
-		(knot (identifier))
-		(content_block
-			(paragraph
-				(cond_block
-					(cond_arm
-						(binary (identifier) (unary (identifier)))
-						(code (postfix (identifier)))
-						(divert (identifier)))
-					(cond_arm
-						(binary (identifier) (unary (identifier)))
-						(code (postfix (identifier)))
-						(divert (identifier)))
-					(cond_arm
-						(else)
-						(comment)
-						(divert (identifier)))
-				)
-			)
-		)
-	)
-)
 
+(ink
+  (knot_block
+    (knot
+      (identifier))
+    (content_block
+      (content
+        (cond_block
+          (cond_arm
+            (binary
+              (identifier)
+              (unary
+                (identifier)))
+            (code
+              (postfix
+                (identifier)))
+            (divert
+              (identifier)))
+          (cond_arm
+            (binary
+              (identifier)
+              (unary
+                (identifier)))
+            (code
+              (postfix
+                (identifier)))
+            (divert
+              (identifier)))
+          (cond_arm
+            (else)
+            (comment)
+            (divert
+              (identifier))))))))
 
 ===
 .CCE. Multiline Blocks (incl. Modified Shuffles)
@@ -165,49 +204,75 @@ At the table, I drew a card. <>
 	- Could I win the hand?
 }
 ---
+
 (ink
-	(content_block
-
-		(comment)
-		(paragraph
-			(multiline_alternatives
-				(alt_arm (paragraph (text)))
-				(alt_arm (paragraph (text)))
-				(alt_arm (paragraph (text)))))
-
-		(comment)
-		(paragraph (text) (glue))
-		(paragraph
-			(multiline_alternatives
-				(alt_arm (paragraph (text)))
-				(alt_arm (paragraph (text)))
-				(alt_arm
-					(paragraph (text))
-					(paragraph (text)))))
-
-		(paragraph
-			(multiline_alternatives
-				(alt_arm (paragraph (text)))
-				(alt_arm (paragraph (text)))))
-
-		(paragraph
-			(multiline_alternatives
-				(alt_arm (paragraph (text)))
-				(alt_arm (paragraph (text)))
-				(alt_arm (paragraph (text)))))
-
-		(comment)
-		(paragraph
-			(multiline_alternatives
-				(alt_arm (paragraph (text)))
-				(alt_arm (paragraph (text)))
-				(alt_arm (paragraph (text)))))
-
-		(comment)
-		(paragraph
-			(multiline_alternatives
-				(alt_arm (paragraph (text)))
-				(alt_arm (paragraph (text)))))
-
-	)
-)
+  (content_block
+    (comment)
+    (content
+      (multiline_alternatives
+        (alt_arm
+          (content
+            (text)))
+        (alt_arm
+          (content
+            (text)))
+        (alt_arm
+          (content
+            (text)))))
+    (comment)
+    (content
+      (text)
+      (glue))
+    (content
+      (multiline_alternatives
+        (alt_arm
+          (content
+            (text)))
+        (alt_arm
+          (content
+            (text)))
+        (alt_arm
+          (content
+            (text))
+          (content
+            (text)))))
+    (content
+      (multiline_alternatives
+        (alt_arm
+          (content
+            (text)))
+        (alt_arm
+          (content
+            (text)))))
+    (content
+      (multiline_alternatives
+        (alt_arm
+          (content
+            (text)))
+        (alt_arm
+          (content
+            (text)))
+        (alt_arm
+          (content
+            (text)))))
+    (comment)
+    (content
+      (multiline_alternatives
+        (alt_arm
+          (content
+            (text)))
+        (alt_arm
+          (content
+            (text)))
+        (alt_arm
+          (content
+            (text)))))
+    (comment)
+    (content
+      (multiline_alternatives
+        (alt_arm
+          (content
+            (text)))
+        (alt_arm
+          (content
+            (text)))))))

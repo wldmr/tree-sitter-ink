@@ -8,13 +8,13 @@ Hello world!
 
 (ink
   (content_block
-    (paragraph
+    (content
       (text))
     (content_block
       (choice
-        main: (flow
+        main: (content
           (text)))
-      (paragraph
+      (content
         (text)))))
 
 ===
@@ -27,17 +27,17 @@ Hello world!
 
 (ink
   (content_block
-    (paragraph
+    (content
       (text))
     (content_block
       (choice
-        main: (flow
+        main: (content
           (text))
-        temporary: (flow
+        temporary: (content
           (text))
-        final: (flow
+        final: (content
           (text)))
-      (paragraph
+      (content
         (text)))))
 
 ===
@@ -54,31 +54,31 @@ Hello world!
 
 (ink
   (content_block
-    (paragraph
+    (content
       (text))
     (content_block
       (choice
-        main: (flow
+        main: (content
           (text))
-        temporary: (flow
+        temporary: (content
           (text))
-        final: (flow
+        final: (content
           (text)))
-      (paragraph
+      (content
         (text))
       (choice
-        main: (flow
+        main: (content
           (text))
-        final: (flow
+        final: (content
           (text)))
-      (paragraph
+      (content
         (text))
       (choice
-        main: (flow
+        main: (content
           (text))
-        temporary: (flow
+        temporary: (content
           (text))
-        final: (flow
+        final: (content
           (text)))
-      (paragraph
+      (content
         (text)))))

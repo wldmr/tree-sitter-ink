@@ -11,19 +11,36 @@
 		* *		"It is perfectly obvious."
 	-	Mrs. Christie lowered her manuscript a moment. The rest of the writing group sat, open-mouthed.
 ---
+
 (ink
-	(content_block
-		(gather (flow (text)))
-		(choice (flow (text)))
-		(paragraph (text))
-		(content_block
-			(choice (flow (text)))
-			(gather (flow (text))))
-		(choice (flow (text)))
-		(paragraph (text))
-		(content_block
-			(choice (flow (text))))
-		(gather (flow (text)))))
+  (content_block
+    (gather
+      (content
+        (text)))
+    (choice
+      (content
+        (text)))
+    (content
+      (text))
+    (content_block
+      (choice
+        (content
+          (text)))
+      (gather
+        (content
+          (text))))
+    (choice
+      (content
+        (text)))
+    (content
+      (text))
+    (content_block
+      (choice
+        (content
+          (text))))
+    (gather
+      (content
+        (text)))))
 
 ===
 .BBB. You can nest as many levels as you like
@@ -37,23 +54,34 @@
 	*	"No, it's past your bed-time."
 -	To a man, the crew began to yawn.
 ---
+
 (ink
-	(content_block
-		(gather (flow (text)))
-		(choice (flow (text)))
-		(content_block
-			(choice (flow (text)))
-			(content_block
-				(choice (flow (text)))
-				(content_block
-					(choice (flow (text)))
-					(content_block
-						(choice (flow (text)))
-					)
-				)
-			)
-		)
-		(choice (flow (text)))
-		(gather (flow (text)))
-	)
-)
+  (content_block
+    (gather
+      (content
+        (text)))
+    (choice
+      (content
+        (text)))
+    (content_block
+      (choice
+        (content
+          (text)))
+      (content_block
+        (choice
+          (content
+            (text)))
+        (content_block
+          (choice
+            (content
+              (text)))
+          (content_block
+            (choice
+              (content
+                (text)))))))
+    (choice
+      (content
+        (text)))
+    (gather
+      (content
+        (text)))))

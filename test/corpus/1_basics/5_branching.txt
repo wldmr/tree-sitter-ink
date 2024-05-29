@@ -19,21 +19,21 @@ You open the gate, and step out onto the path.
     (knot
       name: (identifier))
     (content_block
-      (paragraph
+      (content
         (text))
       (content_block
         (choice
-          temporary: (flow
+          temporary: (content
             (text))
           (divert
             target: (identifier)))
         (choice
-          temporary: (flow
+          temporary: (content
             (text))
           (divert
             target: (identifier)))
         (choice
-          temporary: (flow
+          temporary: (content
             (text))
           (divert
             target: (identifier))))))
@@ -41,9 +41,9 @@ You open the gate, and step out onto the path.
     (knot
       name: (identifier))
     (content_block
-      (paragraph
+      (content
         (text))
-      (paragraph
+      (content
         (text)))))
 
 ===
@@ -81,27 +81,27 @@ He insisted that we hurried home to Savile Row
     (knot
       (identifier))
     (content_block
-      (paragraph
+      (content
         (text))
       (content_block
         (choice
-          (flow
+          (content
             (text))
-          (flow
+          (content
             (text)))
         (divert
           (identifier))
         (choice
-          (flow
+          (content
             (text))
-          (flow
+          (content
             (text)))
-        (paragraph
+        (content
           (text))
         (divert
           (identifier))
         (choice
-          (flow
+          (content
             (text))
           (divert
             (identifier))))))
@@ -109,7 +109,7 @@ He insisted that we hurried home to Savile Row
     (knot
       (identifier))
     (content_block
-      (paragraph
+      (content
         (text)
         (divert
           (identifier)))))
@@ -117,7 +117,7 @@ He insisted that we hurried home to Savile Row
     (knot
       (identifier))
     (content_block
-      (paragraph
+      (content
         (text))
       (divert
         (identifier))))
@@ -125,6 +125,6 @@ He insisted that we hurried home to Savile Row
     (knot
       (identifier))
     (content_block
-      (paragraph
+      (content
         (glue)
         (text)))))

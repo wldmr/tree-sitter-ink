@@ -15,16 +15,17 @@ So, more text I guess.
   (content_block
     (comment))
   (knot_block
-    (knot name: (identifier))
+    (knot
+      name: (identifier))
     (content_block
-      (paragraph
+      (content
         (text))))
   (knot_block
     (knot
       name: (identifier)
       (comment))
     (content_block
-      (paragraph
+      (content
         (text)))))
 
 ===
@@ -41,7 +42,8 @@ Hello world!
     (divert
       target: (identifier)))
   (knot_block
-    (knot name: (identifier))
+    (knot
+      name: (identifier))
     (content_block
-      (paragraph
+      (content
         (text)))))

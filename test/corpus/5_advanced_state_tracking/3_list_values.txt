@@ -14,23 +14,43 @@ VAR murmurersVolume = quiet
 	}
 }
 ---
+
 (ink
   (content_block
-    (list (identifier) (list_values (identifier) (identifier) (identifier) (identifier) (identifier)))
-    (global (identifier) (identifier))
-    (global (identifier) (identifier))
-    (paragraph
+    (list
+      (identifier)
+      (list_values
+        (identifier)
+        (identifier)
+        (identifier)
+        (identifier)
+        (identifier)))
+    (global
+      (identifier)
+      (identifier))
+    (global
+      (identifier)
+      (identifier))
+    (content
       (cond_block
         (cond_arm
-          (binary (identifier) (identifier))
-          (code (postfix (identifier)))
-          (paragraph
+          (binary
+            (identifier)
+            (identifier))
+          (code
+            (postfix
+              (identifier)))
+          (content
             (cond_block
               (cond_arm
-                (binary (identifier) (identifier))
-                (code (postfix (identifier)))
-                (paragraph (text))))))))))
-
+                (binary
+                  (identifier)
+                  (identifier))
+                (code
+                  (postfix
+                    (identifier)))
+                (content
+                  (text))))))))))
 
 ===
 .ECB. Advanced: Defining your own numerical values
@@ -38,17 +58,28 @@ VAR murmurersVolume = quiet
 LIST primeNumbers = two = 2, three = 3, five = 5
 LIST primeNumbers = two = 2, three, five = 5
 ---
+
 (ink
   (content_block
     (list
       (identifier)
       (list_values
-        (lv_assign (identifier) (number))
-        (lv_assign (identifier) (number))
-        (lv_assign (identifier) (number))))
+        (lv_assign
+          (identifier)
+          (number))
+        (lv_assign
+          (identifier)
+          (number))
+        (lv_assign
+          (identifier)
+          (number))))
     (list
       (identifier)
       (list_values
-        (lv_assign (identifier) (number))
+        (lv_assign
+          (identifier)
+          (number))
         (identifier)
-        (lv_assign (identifier) (number))))))
+        (lv_assign
+          (identifier)
+          (number))))))

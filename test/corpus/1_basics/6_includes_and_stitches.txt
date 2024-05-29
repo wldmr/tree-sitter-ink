@@ -21,25 +21,25 @@
       (stitch
         name: (identifier))
       (content_block
-        (paragraph
+        (content
           (text))))
     (stitch_block
       (stitch
         name: (identifier))
       (content_block
-        (paragraph
+        (content
           (text))))
     (stitch_block
       (stitch
         name: (identifier))
       (content_block
-        (paragraph
+        (content
           (text))))
     (stitch_block
       (stitch
         name: (identifier))
       (content_block
-        (paragraph
+        (content
           (text))))))
 
 ===
@@ -55,14 +55,14 @@
 (ink
   (content_block
     (choice
-      temporary: (flow
+      temporary: (content
         (text)))
     (divert
       target: (qualified_name
         (identifier)
         (identifier)))
     (choice
-      temporary: (flow
+      temporary: (content
         (text)))
     (divert
       target: (qualified_name
@@ -103,9 +103,9 @@ INC is a common suffix for a company
       (path))
     (include
       (path))
-    (paragraph
+    (content
       (text))
-    (paragraph
+    (content
       (text))
-    (paragraph
+    (content
       (text))))

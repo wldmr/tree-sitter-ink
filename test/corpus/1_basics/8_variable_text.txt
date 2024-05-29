@@ -8,26 +8,26 @@ The radio hissed into life. {"Three!"|"Two!"|"One!"|There was the white noise ra
 
 (ink
   (content_block
-    (paragraph
+    (content
       (text)
       (alternatives
-        (flow
+        (content
           (text))
-        (flow
+        (content
           (text))
-        (flow
+        (content
           (text))
-        (flow
+        (content
           (text))
-        (flow
+        (content
           (text))))
-    (paragraph
+    (content
       (alternatives
-        (flow
+        (content
           (text))
-        (flow
+        (content
           (text))
-        (flow
+        (content
           (text))))))
 
 ===
@@ -38,22 +38,22 @@ It was {&Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday} today.
 
 (ink
   (content_block
-    (paragraph
+    (content
       (text)
       (alternatives
-        (flow
+        (content
           (text))
-        (flow
+        (content
           (text))
-        (flow
+        (content
           (text))
-        (flow
+        (content
           (text))
-        (flow
+        (content
           (text))
-        (flow
+        (content
           (text))
-        (flow
+        (content
           (text)))
       (text))))
 
@@ -65,16 +65,16 @@ He told me a joke. {!I laughed politely.|I smiled.|I grimaced.|I promised myself
 
 (ink
   (content_block
-    (paragraph
+    (content
       (text)
       (alternatives
-        (flow
+        (content
           (text))
-        (flow
+        (content
           (text))
-        (flow
+        (content
           (text))
-        (flow
+        (content
           (text))))))
 
 ===
@@ -85,12 +85,12 @@ I tossed the coin. {~Heads|Tails}.
 
 (ink
   (content_block
-    (paragraph
+    (content
       (text)
       (alternatives
-        (flow
+        (content
           (text))
-        (flow
+        (content
           (text)))
       (text))))
 
@@ -102,13 +102,13 @@ I took a step forward. {!||||Then the lights went out. -> eek}
 
 (ink
   (content_block
-    (paragraph
+    (content
       (text)
       (alternatives
-        (flow
-          (text))
-        (divert
-          target: (identifier))))))
+        (content
+          (text)
+          (divert
+            target: (identifier)))))))
 
 ===
 .AHF. Alternatives Can Be Nested
@@ -118,27 +118,27 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
 
 (ink
   (content_block
-    (paragraph
+    (content
       (text)
       (alternatives
-        (flow
+        (content
           (alternatives
-            (flow
+            (content
               (text)))
           (text))
-        (flow
+        (content
           (text)))
       (alternatives
-        (flow
+        (content
           (text))
-        (flow
+        (content
           (text)
           (alternatives
-            (flow
+            (content
               (text))
-            (flow
+            (content
               (text))
-            (flow
+            (content
               (text)))))
       (text))))
 
@@ -151,19 +151,19 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
 (ink
   (content_block
     (choice
-      main: (flow
+      main: (content
         (text)
         (alternatives
-          (flow
+          (content
             (text))
-          (flow
+          (content
             (text))
-          (flow
+          (content
             (text))
-          (flow
+          (content
             (text)))
         (text))
-      final: (flow
+      final: (content
         (text)))))
 
 ===
@@ -175,13 +175,13 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
 (ink
   (content_block
     (choice
-      main: (flow
+      main: (content
         (alternatives
-          (flow
+          (content
             (text))
-          (flow
+          (content
             (text))
-          (flow
+          (content
             (text)))))))
 
 ===
@@ -190,23 +190,25 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
 {met_blofeld: "I saw him. Only for a moment. His real name was {met_blofeld.learned_his_name: Franz|kept a secret}." | "I missed him. Was he particularly evil?" }
 
 ---
+
 (ink
   (content_block
-    (paragraph
+    (content
       (conditional_text
         condition: (identifier)
-        (flow
+        (content
           (text)
           (conditional_text
-            condition: (qualified_name (identifier) (identifier))
-            (flow
+            condition: (qualified_name
+              (identifier)
+              (identifier))
+            (content
               (text))
-            (flow
-             (text)))
+            (content
+              (text)))
           (text))
-        (flow
+        (content
           (text))))))
-
 
 ===
 .AHJa. Inline Logic syntax: Minimal distinguishing examples
@@ -215,16 +217,24 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
 {sequence|}  // a pipe means it's an alternative
 {condition:this|}  // a colon and then a pipe means it _might_ be conditional text (but note next test)
 ---
+
 (ink
   (content_block
-    (paragraph (eval (identifier)))
+    (content
+      (eval
+        (identifier)))
     (comment)
-    (paragraph (alternatives (flow (text))))
+    (content
+      (alternatives
+        (content
+          (text))))
     (comment)
-    (paragraph (conditional_text (identifier) (flow (text))))
-    (comment)
-  )
-)
+    (content
+      (conditional_text
+        (identifier)
+        (content
+          (text))))
+    (comment)))
 
 ===
 .AHJb. Distinguishing between expression and text
@@ -232,14 +242,22 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
 {this or that:result|}  // there is a valid expression before the colon
 {this is that:result|}  // `is` is not an operator, therefore the whole run is treated as text
 ---
+
 (ink
   (content_block
-    (paragraph (conditional_text (binary (identifier) (identifier)) (flow (text))))
+    (content
+      (conditional_text
+        (binary
+          (identifier)
+          (identifier))
+        (content
+          (text))))
     (comment)
-    (paragraph (alternatives (flow (text))))
-    (comment)
-  )
-)
+    (content
+      (alternatives
+        (content
+          (text))))
+    (comment)))
 
 ===
 .AHJc. Paranthesized expressions directly after opening brace _must_ be balanced (even if there is no colon)
@@ -248,13 +266,16 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
 {(a + b)|}
 /* To be clear: This is how the ink compiler works as well. */
 ---
+
 (ink
   (content_block
-    (paragraph
+    (content
       (alternatives
-        (flow (text (MISSING ")")))))
-    (paragraph
+        (content
+          (text
+            (MISSING ")")))))
+    (content
       (alternatives
-        (flow (text))))
-    (comment))
-)
+        (content
+          (text))))
+    (comment)))

@@ -138,7 +138,6 @@ module.exports = grammar({
 
   inline: $ => [
     $.expr,
-    // $.flow,  // maybe?
   ],
 
   precedences: $ => [
@@ -151,8 +150,9 @@ module.exports = grammar({
     [$.identifier, $._identifier],
     [$.string, $._string],
     [$.list_values, $._list_values],
-    [$._fake_flow],
+    [$._fake_content],
     [$.tunnel],
+    [$._redirect, $.tunnel],
   ],
 
   rules: {
@@ -192,7 +192,7 @@ module.exports = grammar({
         $.todo_comment,
         repeat1($.tag),  // IDEA: Group standalone tags with following item?
         $._redirect,
-        $.paragraph,
+        $.content,
         $.code,
         $.choice,
         $.gather,
@@ -208,7 +208,7 @@ module.exports = grammar({
         $.todo_comment,
         repeat1($.tag),
         $._redirect,
-        $.paragraph,
+        $.content,
         $.code,
         $.choice,
         // $.gather, // gathers are not allowed
@@ -249,22 +249,13 @@ module.exports = grammar({
        // alias(/\[|\]/, '[]'),  // outside of choices, square brackets are just text
     ))),
 
-    paragraph: $ => seq(
-      alias($.flow, '_flow'),
-      optional($._redirect),
+    content: $ => prec.right(seq(
+      repeat1(choice(
+        $.glue,
+        $._logic,
+        $.text,
+      )),
       repeat($.tag),
-    ),
-
-    // TODO: I think flow means something else in Ink; I think the Ink parser calls this 'Content'. Maybe call it text_content?
-    flow: $ => prec.right(repeat1(choice(
-      $.glue,
-      $._logic,
-      $.text,
-    ))),
-
-    // pretty common pattern:
-    _flow_to_redirect: $ => prec.right(seq(
-      $.flow,
       optional($._redirect),
     )),
 
@@ -283,10 +274,10 @@ module.exports = grammar({
     conditional_text: $ => prec.right(seq(
       '{',
       prec.dynamic(PREC.ink, seq(field('condition', $.expr), ':')),
-      $._flow_to_redirect,
+      $.content,
       optional(seq(
         '|',
-        optional($._flow_to_redirect)
+        optional($.content)
       )),
       '}',
     )),
@@ -297,19 +288,19 @@ module.exports = grammar({
         seq(
           // ! can conflict with expressions starting with negation; but in this position, the alternatives marker gets precedence.
           choice('$', '&', '~', mark('!')),
-          optional($._flow_to_redirect),
+          optional($.content),
         ),
         seq(
-          optional(alias($._fake_flow, $.flow)),
+          optional(alias($._fake_content, $.content)),
           optional($._redirect),
         ),
       )),
       '|',
-      repeat(choice('|', $._flow_to_redirect)),
+      repeat(choice('|', $.content)),
       '}'
     )),
 
-    _fake_flow: $ => prec.right(seq(
+    _fake_content: $ => prec.right(seq(
       choice(
         alias(seq(
           prec.dynamic(PREC.text, $._expr), optional(':'),  // the part causing the conflict with conditional text
@@ -373,7 +364,7 @@ module.exports = grammar({
     gather: $ => seq(
       repeat1(prec(PREC.ink, '-')),
       optional($._label_field),
-      optional($.flow),
+      optional($.content),
       optional($._redirect),
     ),
 
@@ -382,7 +373,7 @@ module.exports = grammar({
     _choice_condition: $ => prec.right(PREC.ink, field('condition', seq('{', $.expr, '}', ))),
 
     _choice_content: $ => choice(
-      seq(field('main', $.flow), optional($._redirect)),
+      seq(field('main', $.content), optional($._redirect)),
       seq($._compound_choice_content, optional($._redirect)),
       // types of fallback choices:
       $._redirect,
@@ -390,12 +381,12 @@ module.exports = grammar({
     ),
 
     _compound_choice_content: $ => prec.right(seq(
-      field('main', optional($.flow)),
+      field('main', optional($.content)),
       '[',
-      field('temporary', optional($.flow)),
+      field('temporary', optional($.content)),
       ']',
-      field('final', optional($.flow),
-    ))),
+      field('final', optional($.content))
+    )),
 
     knot: $ => prec.right(seq(
       $._knot_mark,

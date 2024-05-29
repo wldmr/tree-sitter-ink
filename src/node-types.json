@@ -70,45 +70,6 @@
     }
   },
   {
-    "type": "_flow",
-    "named": false,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "alternatives",
-          "named": true
-        },
-        {
-          "type": "cond_block",
-          "named": true
-        },
-        {
-          "type": "conditional_text",
-          "named": true
-        },
-        {
-          "type": "eval",
-          "named": true
-        },
-        {
-          "type": "glue",
-          "named": true
-        },
-        {
-          "type": "multiline_alternatives",
-          "named": true
-        },
-        {
-          "type": "text",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "alt_arm",
     "named": true,
     "fields": {},
@@ -125,6 +86,10 @@
           "named": true
         },
         {
+          "type": "content",
+          "named": true
+        },
+        {
           "type": "divert",
           "named": true
         },
@@ -138,10 +103,6 @@
         },
         {
           "type": "list",
-          "named": true
-        },
-        {
-          "type": "paragraph",
           "named": true
         },
         {
@@ -172,11 +133,11 @@
       "required": false,
       "types": [
         {
-          "type": "divert",
+          "type": "content",
           "named": true
         },
         {
-          "type": "flow",
+          "type": "divert",
           "named": true
         },
         {
@@ -559,7 +520,7 @@
         "required": false,
         "types": [
           {
-            "type": "flow",
+            "type": "content",
             "named": true
           }
         ]
@@ -587,7 +548,7 @@
         "required": false,
         "types": [
           {
-            "type": "flow",
+            "type": "content",
             "named": true
           }
         ]
@@ -597,7 +558,7 @@
         "required": false,
         "types": [
           {
-            "type": "flow",
+            "type": "content",
             "named": true
           }
         ]
@@ -722,6 +683,10 @@
           "named": true
         },
         {
+          "type": "content",
+          "named": true
+        },
+        {
           "type": "divert",
           "named": true
         },
@@ -751,10 +716,6 @@
         },
         {
           "type": "number",
-          "named": true
-        },
-        {
-          "type": "paragraph",
           "named": true
         },
         {
@@ -875,11 +836,54 @@
       "required": true,
       "types": [
         {
+          "type": "content",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "content",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "alternatives",
+          "named": true
+        },
+        {
+          "type": "cond_block",
+          "named": true
+        },
+        {
+          "type": "conditional_text",
+          "named": true
+        },
+        {
           "type": "divert",
           "named": true
         },
         {
-          "type": "flow",
+          "type": "eval",
+          "named": true
+        },
+        {
+          "type": "glue",
+          "named": true
+        },
+        {
+          "type": "multiline_alternatives",
+          "named": true
+        },
+        {
+          "type": "tag",
+          "named": true
+        },
+        {
+          "type": "text",
           "named": true
         },
         {
@@ -914,6 +918,10 @@
           "named": true
         },
         {
+          "type": "content",
+          "named": true
+        },
+        {
           "type": "content_block",
           "named": true
         },
@@ -935,10 +943,6 @@
         },
         {
           "type": "list",
-          "named": true
-        },
-        {
-          "type": "paragraph",
           "named": true
         },
         {
@@ -1044,45 +1048,6 @@
     }
   },
   {
-    "type": "flow",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "alternatives",
-          "named": true
-        },
-        {
-          "type": "cond_block",
-          "named": true
-        },
-        {
-          "type": "conditional_text",
-          "named": true
-        },
-        {
-          "type": "eval",
-          "named": true
-        },
-        {
-          "type": "glue",
-          "named": true
-        },
-        {
-          "type": "multiline_alternatives",
-          "named": true
-        },
-        {
-          "type": "text",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "gather",
     "named": true,
     "fields": {
@@ -1110,11 +1075,11 @@
       "required": false,
       "types": [
         {
-          "type": "divert",
+          "type": "content",
           "named": true
         },
         {
-          "type": "flow",
+          "type": "divert",
           "named": true
         },
         {
@@ -1404,33 +1369,6 @@
     "type": "number",
     "named": true,
     "fields": {}
-  },
-  {
-    "type": "paragraph",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "divert",
-          "named": true
-        },
-        {
-          "type": "tag",
-          "named": true
-        },
-        {
-          "type": "thread",
-          "named": true
-        },
-        {
-          "type": "tunnel",
-          "named": true
-        }
-      ]
-    }
   },
   {
     "type": "params",

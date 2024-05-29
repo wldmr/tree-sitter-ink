@@ -3,15 +3,24 @@
 ===
 LIST primeNumbers = (two = 2), (three) = 3, (five = 5)
 ---
+
 (ink
   (content_block
     (list
       (identifier)
       (list_values
-        (lv_init (lv_assign (identifier) (number)))
-        (lv_assign (lv_init (identifier)) (number))
-        (lv_init (lv_assign (identifier) (number)))))))
-
+        (lv_init
+          (lv_assign
+            (identifier)
+            (number)))
+        (lv_assign
+          (lv_init
+            (identifier))
+          (number))
+        (lv_init
+          (lv_assign
+            (identifier)
+            (number)))))))
 
 ===
 .EDB. Assigning multiple values
@@ -20,25 +29,26 @@ LIST primeNumbers = (two = 2), (three) = 3, (five = 5)
 ~ DoctorsInSurgery = (Adams, Bernard, Eamonn)
 ~ DoctorsInSurgery = ()
 ---
+
 (ink
   (content_block
     (code
       (assignment
         (identifier)
-          (list_values
-            (identifier)
-            (identifier))))
+        (list_values
+          (identifier)
+          (identifier))))
     (code
       (assignment
         (identifier)
-          (list_values
-            (identifier)
-            (identifier)
-            (identifier))))
+        (list_values
+          (identifier)
+          (identifier)
+          (identifier))))
     (code
       (assignment
         (identifier)
-          (list_values)))))
+        (list_values)))))
 
 ===
 .EDC. Testing for containment
@@ -53,29 +63,47 @@ LIST primeNumbers = (two = 2), (three) = 3, (five = 5)
 - Facts ? (Fogg_is_English, Fogg_is_fairly_odd):
 }
 ---
+
 (ink
   (content_block
-    (paragraph
+    (content
       (cond_block
         (cond_arm
-          (binary (identifier) (list_values (identifier) (identifier)))
-          (paragraph (text)))
+          (binary
+            (identifier)
+            (list_values
+              (identifier)
+              (identifier)))
+          (content
+            (text)))
         (cond_arm
-          (binary (identifier) (identifier))
-          (paragraph (text)))
+          (binary
+            (identifier)
+            (identifier))
+          (content
+            (text)))
         (cond_arm
-          (binary (identifier) (list_values (identifier) (identifier))))
+          (binary
+            (identifier)
+            (list_values
+              (identifier)
+              (identifier))))
         (cond_arm
-          (binary (identifier) (list_values (identifier) (identifier))))
+          (binary
+            (identifier)
+            (list_values
+              (identifier)
+              (identifier))))
         (cond_arm
-          (binary (identifier) (list_values)))
+          (binary
+            (identifier)
+            (list_values)))
         (cond_arm
-          (binary (identifier) (list_values (identifier) (identifier))))
-      )
-    )
-  )
-)
-
+          (binary
+            (identifier)
+            (list_values
+              (identifier)
+              (identifier))))))))
 
 ===
 .EDD. Nicer list printing
@@ -97,77 +125,117 @@ My favourite dinosaurs are {listWithCommas(favouriteDinosaurs, "all extinct")}.
       		{LIST_MIN(list)}, {listWithCommas(list - LIST_MIN(list), if_empty)}
     }
 ---
-(ink
 
+(ink
   (content_block
-    (list (identifier) (list_values
-          (lv_init (identifier))
-          (identifier)
-          (lv_init (identifier))
-          (lv_init (identifier))))
-    (paragraph
+    (list
+      (identifier)
+      (list_values
+        (lv_init
+          (identifier))
+        (identifier)
+        (lv_init
+          (identifier))
+        (lv_init
+          (identifier))))
+    (content
       (text)
       (eval
-        (call (identifier) (args (identifier) (string))))
+        (call
+          (identifier)
+          (args
+            (identifier)
+            (string))))
       (text)))
-
   (knot_block
-    (knot (identifier) (params (identifier) (identifier)))
+    (knot
+      (identifier)
+      (params
+        (identifier)
+        (identifier)))
     (content_block
-      (paragraph
+      (content
         (cond_block
           (cond_arm
-            (call (identifier) (args (identifier))))
+            (call
+              (identifier)
+              (args
+                (identifier))))
           (cond_arm
             (number)
-            (paragraph
-              (eval (call (identifier) (args (identifier))))
+            (content
+              (eval
+                (call
+                  (identifier)
+                  (args
+                    (identifier))))
               (text)
-              (eval (call
-                    (identifier)
-                    (args
-                      (binary (identifier) (call (identifier) (args (identifier))))
-                      (identifier))))))
+              (eval
+                (call
+                  (identifier)
+                  (args
+                    (binary
+                      (identifier)
+                      (call
+                        (identifier)
+                        (args
+                          (identifier))))
+                    (identifier))))))
           (cond_arm
             (number)
-            (paragraph (eval (identifier))))
+            (content
+              (eval
+                (identifier))))
           (cond_arm
             (number)
-            (paragraph (eval (identifier))))
+            (content
+              (eval
+                (identifier))))
           (cond_arm
             (else)
-            (paragraph
-              (eval (call (identifier) (args (identifier))))
+            (content
+              (eval
+                (call
+                  (identifier)
+                  (args
+                    (identifier))))
               (text)
-              (eval (call
-                    (identifier)
-                    (args
-                      (binary
+              (eval
+                (call
+                  (identifier)
+                  (args
+                    (binary
+                      (identifier)
+                      (call
                         (identifier)
-                        (call (identifier) (args (identifier))))
-                      (identifier)))))))))))
-
+                        (args
+                          (identifier))))
+                    (identifier)))))))))))
 
 ===
 .EDE. Pedantic example
 ===
 My favourite dinosaur{LIST_COUNT(favouriteDinosaurs) != 1:s} {isAre(favouriteDinosaurs)} {listWithCommas(favouriteDinosaurs, "all extinct")}.
 ---
+
 (ink
   (content_block
-    (paragraph
+    (content
       (text)
       (conditional_text
         (binary
           (call
             (identifier)
-            (args (identifier)))
+            (args
+              (identifier)))
           (number))
-        (flow (text)))
+        (content
+          (text)))
       (eval
         (call
           (identifier)
-          (args (identifier))))
+          (args
+            (identifier))))
       (eval
         (call
           (identifier)
@@ -176,7 +244,6 @@ My favourite dinosaur{LIST_COUNT(favouriteDinosaurs) != 1:s} {isAre(favouriteDin
             (string))))
       (text))))
 
-
 ===
 .EDF. Intersecting Lists
 ===
@@ -184,19 +251,33 @@ My favourite dinosaur{LIST_COUNT(favouriteDinosaurs) != 1:s} {isAre(favouriteDin
 
 {LIST_COUNT(desiredValues ^ actualValues) == 1: Correction, the new president has only one desirable quality. {desiredValues ^ actualValues == self_belief: It's the scary one.}}
 ---
+
 (ink
   (content_block
-    (paragraph
-      (conditional_text
-        (binary (identifier) (identifier))
-        (flow (text))))
-    (paragraph
+    (content
       (conditional_text
         (binary
-          (call (identifier) (args (binary (identifier) (identifier))))
+          (identifier)
+          (identifier))
+        (content
+          (text))))
+    (content
+      (conditional_text
+        (binary
+          (call
+            (identifier)
+            (args
+              (binary
+                (identifier)
+                (identifier))))
           (number))
-        (flow
+        (content
           (text)
           (conditional_text
-            (binary (binary (identifier) (identifier)) (identifier))
-            (flow (text))))))))
+            (binary
+              (binary
+                (identifier)
+                (identifier))
+              (identifier))
+            (content
+              (text))))))))

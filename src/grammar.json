@@ -165,7 +165,7 @@
             },
             {
               "type": "SYMBOL",
-              "name": "paragraph"
+              "name": "content"
             },
             {
               "type": "SYMBOL",
@@ -222,7 +222,7 @@
             },
             {
               "type": "SYMBOL",
-              "name": "paragraph"
+              "name": "content"
             },
             {
               "type": "SYMBOL",
@@ -411,72 +411,38 @@
         }
       }
     },
-    "paragraph": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "SYMBOL",
-            "name": "flow"
-          },
-          "named": false,
-          "value": "_flow"
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "_redirect"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        },
-        {
-          "type": "REPEAT",
-          "content": {
-            "type": "SYMBOL",
-            "name": "tag"
-          }
-        }
-      ]
-    },
-    "flow": {
-      "type": "PREC_RIGHT",
-      "value": 0,
-      "content": {
-        "type": "REPEAT1",
-        "content": {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "glue"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "_logic"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "text"
-            }
-          ]
-        }
-      }
-    },
-    "_flow_to_redirect": {
+    "content": {
       "type": "PREC_RIGHT",
       "value": 0,
       "content": {
         "type": "SEQ",
         "members": [
           {
-            "type": "SYMBOL",
-            "name": "flow"
+            "type": "REPEAT1",
+            "content": {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "glue"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "_logic"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "text"
+                }
+              ]
+            }
+          },
+          {
+            "type": "REPEAT",
+            "content": {
+              "type": "SYMBOL",
+              "name": "tag"
+            }
           },
           {
             "type": "CHOICE",
@@ -576,7 +542,7 @@
           },
           {
             "type": "SYMBOL",
-            "name": "_flow_to_redirect"
+            "name": "content"
           },
           {
             "type": "CHOICE",
@@ -593,7 +559,7 @@
                     "members": [
                       {
                         "type": "SYMBOL",
-                        "name": "_flow_to_redirect"
+                        "name": "content"
                       },
                       {
                         "type": "BLANK"
@@ -666,7 +632,7 @@
                         "members": [
                           {
                             "type": "SYMBOL",
-                            "name": "_flow_to_redirect"
+                            "name": "content"
                           },
                           {
                             "type": "BLANK"
@@ -685,10 +651,10 @@
                             "type": "ALIAS",
                             "content": {
                               "type": "SYMBOL",
-                              "name": "_fake_flow"
+                              "name": "_fake_content"
                             },
                             "named": true,
-                            "value": "flow"
+                            "value": "content"
                           },
                           {
                             "type": "BLANK"
@@ -731,7 +697,7 @@
                 },
                 {
                   "type": "SYMBOL",
-                  "name": "_flow_to_redirect"
+                  "name": "content"
                 }
               ]
             }
@@ -743,7 +709,7 @@
         ]
       }
     },
-    "_fake_flow": {
+    "_fake_content": {
       "type": "PREC_RIGHT",
       "value": 0,
       "content": {
@@ -1223,7 +1189,7 @@
           "members": [
             {
               "type": "SYMBOL",
-              "name": "flow"
+              "name": "content"
             },
             {
               "type": "BLANK"
@@ -1305,7 +1271,7 @@
               "name": "main",
               "content": {
                 "type": "SYMBOL",
-                "name": "flow"
+                "name": "content"
               }
             },
             {
@@ -1367,7 +1333,7 @@
               "members": [
                 {
                   "type": "SYMBOL",
-                  "name": "flow"
+                  "name": "content"
                 },
                 {
                   "type": "BLANK"
@@ -1387,7 +1353,7 @@
               "members": [
                 {
                   "type": "SYMBOL",
-                  "name": "flow"
+                  "name": "content"
                 },
                 {
                   "type": "BLANK"
@@ -1407,7 +1373,7 @@
               "members": [
                 {
                   "type": "SYMBOL",
-                  "name": "flow"
+                  "name": "content"
                 },
                 {
                   "type": "BLANK"
@@ -3452,9 +3418,13 @@
       "_list_values"
     ],
     [
-      "_fake_flow"
+      "_fake_content"
     ],
     [
+      "tunnel"
+    ],
+    [
+      "_redirect",
       "tunnel"
     ]
   ],

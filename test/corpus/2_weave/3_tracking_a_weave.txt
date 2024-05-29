@@ -16,27 +16,42 @@ The guard frowns at you.
 
 * 	'Hmm?'[] you reply.
 ---
+
 (ink
   (content_block
-    (gather label: (identifier)))
+    (gather
+      label: (identifier)))
   (knot_block
-    (knot name: (identifier))
+    (knot
+      name: (identifier))
     (content_block
-      (paragraph (text))
+      (content
+        (text))
       (content_block
-        (choice label: (identifier) temporary: (flow (text)))
-        (paragraph (text))
         (choice
           label: (identifier)
-          main: (flow (text))
-          temporary: (flow (text))
-          final: (flow (text)))
-        (gather (flow (text)))
+          temporary: (content
+            (text)))
+        (content
+          (text))
+        (choice
+          label: (identifier)
+          main: (content
+            (text))
+          temporary: (content
+            (text))
+          final: (content
+            (text)))
+        (gather
+          (content
+            (text)))
         (choice
           condition: (identifier)
-          main: (flow (text)))
+          main: (content
+            (text)))
         (comment)
         (choice
-          main: (flow (text))
-          final: (flow (text))) ) ) ) )
-
+          main: (content
+            (text))
+          final: (content
+            (text)))))))

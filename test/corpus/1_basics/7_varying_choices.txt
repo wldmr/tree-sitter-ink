@@ -14,7 +14,7 @@
       (divert
         target: (identifier)))
     (choice)
-    (paragraph
+    (content
       (text)
       (divert
         target: (identifier)))))
@@ -38,29 +38,29 @@
     (knot
       name: (identifier))
     (content_block
-      (paragraph
+      (content
         (text))
       (content_block
         (choice
-          main: (flow
+          main: (content
             (text))
-          temporary: (flow
+          temporary: (content
             (text))
-          final: (flow
-            (text))
-          (divert
-            target: (identifier)))
+          final: (content
+            (text)
+            (divert
+              target: (identifier))))
         (choice
-          main: (flow
+          main: (content
             (text))
-          temporary: (flow
+          temporary: (content
             (text))
-          final: (flow
-            (text))
-          (divert
-            target: (identifier)))
+          final: (content
+            (text)
+            (divert
+              target: (identifier))))
         (choice)
-        (paragraph
+        (content
           (text))
         (divert
           target: (identifier))))))
@@ -83,16 +83,16 @@
       name: (identifier))
     (content_block
       (choice
-        temporary: (flow
+        temporary: (content
           (text)))
-      (paragraph
+      (content
         (text)
         (divert
           target: (identifier)))
       (choice
-        temporary: (flow
+        temporary: (content
           (text)))
-      (paragraph
+      (content
         (text))
       (divert
         target: (identifier)))))
@@ -113,12 +113,12 @@
       name: (identifier))
     (content_block
       (choice
-        temporary: (flow
+        temporary: (content
           (text))
         (divert
           target: (identifier)))
       (choice
-        temporary: (flow
+        temporary: (content
           (text))
         (divert
           target: (identifier)))
@@ -141,13 +141,13 @@
     (choice
       condition: (unary
         (identifier))
-      temporary: (flow
+      temporary: (content
         (text))
       (divert
         target: (identifier)))
     (choice
       condition: (identifier)
-      temporary: (flow
+      temporary: (content
         (text))
       (divert
         target: (identifier)))
@@ -155,7 +155,7 @@
       condition: (qualified_name
         (identifier)
         (identifier))
-      temporary: (flow
+      temporary: (content
         (text))
       (divert
         target: (identifier)))))
@@ -174,7 +174,7 @@
     (choice
       condition: (unary
         (identifier))
-      temporary: (flow
+      temporary: (content
         (text))
       (divert
         target: (identifier)))
@@ -182,7 +182,7 @@
       condition: (identifier)
       condition: (unary
         (identifier))
-      temporary: (flow
+      temporary: (content
         (text))
       (divert
         target: (identifier)))))
@@ -207,7 +207,7 @@
           (binary
             (identifier)
             (identifier))))
-      temporary: (flow
+      temporary: (content
         (text))
       (divert
         target: (identifier)))))
@@ -224,11 +224,11 @@
   (content_block
     (choice
       condition: (identifier)
-      temporary: (flow
+      temporary: (content
         (text)))
     (choice
       condition: (binary
         (identifier)
         (number))
-      temporary: (flow
+      temporary: (content
         (text)))))

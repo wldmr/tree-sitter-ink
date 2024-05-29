@@ -6,7 +6,7 @@ Hello, world!
 
 (ink
   (content_block
-    (paragraph
+    (content
       (text))))
 
 ==============
@@ -25,9 +25,11 @@ Hello, world!
 
 (ink
   (content_block
-    (paragraph (text))
+    (content
+      (text))
     (comment)
-    (paragraph (text))
+    (content
+      (text))
     (comment)))
 
 =================================
@@ -40,10 +42,10 @@ Hello, world!
 
 (ink
   (content_block
-    (paragraph
+    (content
       (text))
     (comment)
-    (paragraph
+    (content
       (text
         (comment)))))
 
@@ -59,7 +61,7 @@ And?
 (ink
   (content_block
     (todo_comment)
-    (paragraph
+    (content
       (text))))
 
 =================================
@@ -73,7 +75,7 @@ He remembered that he was allowed to write TODO: anywhere else on the line.
 (ink
   (content_block
     (todo_comment)
-    (paragraph
+    (content
       (text))))
 
 ==========
@@ -87,11 +89,11 @@ Some more text. # and a tag
 
 (ink
   (content_block
-    (paragraph
+    (content
       (text)
       (tag))
     (tag)
     (tag)
-    (paragraph
+    (content
       (text)
       (tag))))

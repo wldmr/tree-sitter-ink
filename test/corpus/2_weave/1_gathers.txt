@@ -11,29 +11,40 @@
 
 - With that Monsieur Fogg left the room.
 ---
-(ink
-	(content_block
-		(paragraph (text))
-		(content_block
-				(choice
-					(flow (text))
-					(flow (text))
-					(flow (text)))
-				(paragraph (text))
-				(choice
-					(flow (text))
-					(flow (text)))
-				(paragraph (text))
-				(choice
-					(flow (text))
-					(flow (text))
-					(flow (text)))
-				(paragraph (text))
-			(gather (flow (text)))
-		)
-	)
-)
 
+(ink
+  (content_block
+    (content
+      (text))
+    (content_block
+      (choice
+        (content
+          (text))
+        (content
+          (text))
+        (content
+          (text)))
+      (content
+        (text))
+      (choice
+        (content
+          (text))
+        (content
+          (text)))
+      (content
+        (text))
+      (choice
+        (content
+          (text))
+        (content
+          (text))
+        (content
+          (text)))
+      (content
+        (text))
+      (gather
+        (content
+          (text))))))
 
 ===
 .BAB. Options and Gathers form chains of content
@@ -54,29 +65,44 @@ I ran through the forest, the dogs snapping at my heels.
 
 -	The road was empty. Mackie was nowhere to be seen.
 ---
+
 (ink
-	(knot_block
-		(knot (identifier))
-		(content_block
-			(paragraph (text))
-			(content_block
-				(choice
-					(flow (text))
-					(flow (text) (glue)))
-				(choice
-					(flow (text))
-					(flow (text) (glue)))
-				(choice
-					(flow (text) (glue)))
-				(gather (flow (text)))
-				(choice
-					(flow (text))
-					(flow (text)))
-				(choice
-					(flow (text))
-					(flow (text)))
-				(gather (flow (text)))
-			)
-		)
-	)
-)
+  (knot_block
+    (knot
+      (identifier))
+    (content_block
+      (content
+        (text))
+      (content_block
+        (choice
+          (content
+            (text))
+          (content
+            (text)
+            (glue)))
+        (choice
+          (content
+            (text))
+          (content
+            (text)
+            (glue)))
+        (choice
+          (content
+            (text)
+            (glue)))
+        (gather
+          (content
+            (text)))
+        (choice
+          (content
+            (text))
+          (content
+            (text)))
+        (choice
+          (content
+            (text))
+          (content
+            (text)))
+        (gather
+          (content
+            (text)))))))

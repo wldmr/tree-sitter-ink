@@ -12,33 +12,53 @@
 
 *	{say_yes_to_everything()} 'Yes.'
 ---
+
 (ink
-	(knot_block
-		(knot (identifier))
-		(content_block
-			(code (return (boolean)))))
-	(knot_block
-		(knot (identifier) (params (identifier) (identifier) (identifier)))
-		(content_block
-			(code
-				(return
-					(binary
-						(paren
-							(binary
-								(paren
-									(binary
-										(identifier)
-										(identifier)))
-								(identifier)))
-						(identifier))))))
-	(knot_block
-		(knot (identifier))
-		(content_block
-			(code (assignment (identifier) (call (identifier) (args (number) (number) (number)))))
-			(content_block
-				(choice
-					(call (identifier)) (flow (text))))))
-)
+  (knot_block
+    (knot
+      (identifier))
+    (content_block
+      (code
+        (return
+          (boolean)))))
+  (knot_block
+    (knot
+      (identifier)
+      (params
+        (identifier)
+        (identifier)
+        (identifier)))
+    (content_block
+      (code
+        (return
+          (binary
+            (paren
+              (binary
+                (paren
+                  (binary
+                    (identifier)
+                    (identifier)))
+                (identifier)))
+            (identifier))))))
+  (knot_block
+    (knot
+      (identifier))
+    (content_block
+      (code
+        (assignment
+          (identifier)
+          (call
+            (identifier)
+            (args
+              (number)
+              (number)
+              (number)))))
+      (content_block
+        (choice
+          (call
+            (identifier))
+          (content
+            (text)))))))
 
 ===
 .CEB. Parameters can be passed by reference
@@ -46,8 +66,18 @@
 === function alter(ref x, k) ===
 	~ x = x + k
 ---
+
 (ink
-	(knot_block
-		(knot (identifier) (params (identifier) (identifier)))
-		(content_block
-			(code (assignment (identifier) (binary (identifier) (identifier)))))))
+  (knot_block
+    (knot
+      (identifier)
+      (params
+        (identifier)
+        (identifier)))
+    (content_block
+      (code
+        (assignment
+          (identifier)
+          (binary
+            (identifier)
+            (identifier)))))))

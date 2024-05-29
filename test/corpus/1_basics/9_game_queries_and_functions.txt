@@ -11,18 +11,18 @@
   (content_block
     (choice
       condition: (boolean)
-      main: (flow
+      main: (content
         (text)))
     (choice
       condition: (boolean)
-      main: (flow
+      main: (content
         (text)))
     (choice
       condition: (binary
         (call
           (identifier))
         (number))
-      main: (flow
+      main: (content
         (text)))))
 
 ===
@@ -44,10 +44,10 @@
                 (identifier)
                 (identifier)))))
         (number))
-      main: (flow
-        (text))
-      (divert
-        target: (identifier)))
+      main: (content
+        (text)
+        (divert
+          target: (identifier))))
     (choice
       condition: (binary
         (call
@@ -56,7 +56,7 @@
             (divert
               target: (identifier))))
         (number))
-      main: (flow
+      main: (content
         (text)))))
 
 ===
@@ -113,5 +113,5 @@
                 (identifier))))
           (unary
             (number))))
-      main: (flow
+      main: (content
         (text)))))

@@ -13,19 +13,34 @@ VAR current_chief_suspect = HASTINGS
 	}
 	Current Suspect: {current_chief_suspect}
 ---
+
 (ink
-	(content_block
-		(global (identifier) (string))
-		(global (identifier) (string))
-		(global (identifier) (string))
-		(global (identifier) (identifier)))
-	(knot_block
-		(knot (identifier))
-		(content_block
-			(paragraph
-				(cond_block
-					(cond_arm
-						(identifier)
-						(code (assignment (identifier) (identifier))))))
-			(paragraph (text) (eval (identifier)))))
-)
+  (content_block
+    (global
+      (identifier)
+      (string))
+    (global
+      (identifier)
+      (string))
+    (global
+      (identifier)
+      (string))
+    (global
+      (identifier)
+      (identifier)))
+  (knot_block
+    (knot
+      (identifier))
+    (content_block
+      (content
+        (cond_block
+          (cond_arm
+            (identifier)
+            (code
+              (assignment
+                (identifier)
+                (identifier))))))
+      (content
+        (text)
+        (eval
+          (identifier))))))

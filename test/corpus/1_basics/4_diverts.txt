@@ -17,7 +17,7 @@ We hurried home to Savile Row as fast as we could.
     (knot
       name: (identifier))
     (content_block
-      (paragraph
+      (content
         (text))
       (divert
         target: (identifier))))
@@ -25,7 +25,7 @@ We hurried home to Savile Row as fast as we could.
     (knot
       name: (identifier))
     (content_block
-      (paragraph
+      (content
         (text))
       (comment))))
 
@@ -45,7 +45,7 @@ as fast as we could.
     (knot
       name: (identifier))
     (content_block
-      (paragraph
+      (content
         (text)
         (divert
           target: (identifier)))))
@@ -53,7 +53,7 @@ as fast as we could.
     (knot
       name: (identifier))
     (content_block
-      (paragraph
+      (content
         (text)))))
 
 ===
@@ -76,7 +76,7 @@ to Savile Row
     (knot
       name: (identifier))
     (content_block
-      (paragraph
+      (content
         (text)
         (glue))
       (divert
@@ -85,7 +85,7 @@ to Savile Row
     (knot
       name: (identifier))
     (content_block
-      (paragraph
+      (content
         (text))
       (divert
         target: (identifier))))
@@ -93,7 +93,7 @@ to Savile Row
     (knot
       name: (identifier))
     (content_block
-      (paragraph
+      (content
         (glue)
         (text)))))
 
@@ -115,7 +115,7 @@ We hurried home <> -> to_savile_row
     (knot
       name: (identifier))
     (content_block
-      (paragraph
+      (content
         (text)
         (glue)
         (divert
@@ -124,7 +124,7 @@ We hurried home <> -> to_savile_row
     (knot
       name: (identifier))
     (content_block
-      (paragraph
+      (content
         (glue)
         (text)
         (divert
@@ -133,7 +133,7 @@ We hurried home <> -> to_savile_row
     (knot
       name: (identifier))
     (content_block
-      (paragraph
+      (content
         (glue)
         (text)))))
 
@@ -145,7 +145,7 @@ When we <> came home, <> <> <> we went to sleep.
 
 (ink
   (content_block
-    (paragraph
+    (content
       (text)
       (glue)
       (text)
@@ -166,7 +166,7 @@ We hurried home to Savile Road sevent-\<> no wait, it was a number <\<>-> what_n
 
 (ink
   (content_block
-    (paragraph
+    (content
       (text)
       (glue)
       (text)
@@ -177,5 +177,5 @@ We hurried home to Savile Road sevent-\<> no wait, it was a number <\<>-> what_n
     (knot
       name: (identifier))
     (content_block
-      (paragraph
+      (content
         (text)))))
