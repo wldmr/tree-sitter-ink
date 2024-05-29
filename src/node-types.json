@@ -94,6 +94,10 @@
           "named": true
         },
         {
+          "type": "external",
+          "named": true
+        },
+        {
           "type": "global",
           "named": true
         },
@@ -695,6 +699,10 @@
           "named": true
         },
         {
+          "type": "external",
+          "named": true
+        },
+        {
           "type": "global",
           "named": true
         },
@@ -930,6 +938,10 @@
           "named": true
         },
         {
+          "type": "external",
+          "named": true
+        },
+        {
           "type": "gather",
           "named": true
         },
@@ -1042,6 +1054,25 @@
         },
         {
           "type": "unary",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "external",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "params",
           "named": true
         }
       ]
@@ -1614,7 +1645,7 @@
   },
   {
     "type": "text",
-    "named": true,
+    "named": false,
     "fields": {
       "op": {
         "multiple": true,
@@ -2112,6 +2143,10 @@
   },
   {
     "type": "CONST",
+    "named": false
+  },
+  {
+    "type": "EXTERNAL",
     "named": false
   },
   {

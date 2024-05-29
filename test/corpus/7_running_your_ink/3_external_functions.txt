@@ -1,0 +1,8 @@
+===
+.IAA. External functions
+===
+EXTERNAL playSound(soundName)
+---
+(ink
+  (content_block
+    (external (identifier) (params (identifier)))))

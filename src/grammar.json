@@ -185,6 +185,10 @@
             },
             {
               "type": "SYMBOL",
+              "name": "external"
+            },
+            {
+              "type": "SYMBOL",
               "name": "global"
             },
             {
@@ -235,6 +239,10 @@
             {
               "type": "SYMBOL",
               "name": "include"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "external"
             },
             {
               "type": "SYMBOL",
@@ -1758,6 +1766,23 @@
           },
           "named": true,
           "value": "path"
+        }
+      ]
+    },
+    "external": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "EXTERNAL"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_param_list"
         }
       ]
     },
