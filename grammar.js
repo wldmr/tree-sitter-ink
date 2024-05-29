@@ -353,7 +353,11 @@ module.exports = grammar({
 
     alt_arm: $ => seq(mark('-'), prec.left(repeat($._content_item_in_conditional))),
 
-    tag: $ => seq('#', alias($.text, 'text')),
+    tag: $ => prec.left(seq('#', repeat(choice(
+      $.text,
+      $.glue,
+      $._logic,
+    )))),
 
     choice: $ => seq(
       repeat1(prec(PREC.ink, choice('*', '+'))), // yes, this technically allows mixing * and + on the same 'choice', but it's simpler and probably leads to the structure the user intends.
@@ -374,13 +378,13 @@ module.exports = grammar({
 
     _choice_condition: $ => prec.right(PREC.ink, field('condition', seq('{', $.expr, '}', ))),
 
-    _choice_content: $ => choice(
+    _choice_content: $ => prec.right(choice(
       seq(field('main', $.content), optional($._redirect)),
       seq($._compound_choice_content, optional($._redirect)),
       // types of fallback choices:
       $._redirect,
       $._divert_mark,
-    ),
+    )),
 
     _compound_choice_content: $ => prec.right(seq(
       field('main', optional($.content)),

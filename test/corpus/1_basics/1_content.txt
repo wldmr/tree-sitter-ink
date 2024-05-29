@@ -91,9 +91,13 @@ Some more text. # and a tag
   (content_block
     (content
       (text)
-      (tag))
-    (tag)
-    (tag)
+      (tag
+        (text)))
+    (tag
+      (text))
+    (tag
+      (text))
     (content
       (text)
-      (tag))))
+      (tag
+        (text)))))

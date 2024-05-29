@@ -1,0 +1,77 @@
+===
+.HAA. Advanced: Tags are dynamic
+===
+{character}: Hello there! #{character}_greeting.jpg 
+
+I open the door. #suspense_music{RANDOM(1, 4)}.mp3 
+---
+(ink
+  (content_block
+    (content
+      (eval (identifier))
+      (text)
+      (tag (eval (identifier)) (text)))
+    (content
+      (text)
+      (tag
+        (text)
+        (eval
+          (call
+            (identifier)
+            (args (number) (number))))
+        (text)))))
+
+
+===
+.HAB. Dynamic tags can contain inline logic (conditional text, alternatives, ...)
+===
+I push the door. # door_{door ? locked:thump|creak}.mp3 # suspense_music_{~1|2|3}.mp3
+---
+(ink
+  (content_block
+    (content
+      (text)
+      (tag (text)
+           (conditional_text
+             (binary (identifier) (identifier))
+             (content (text)) (content (text)))
+           (text))
+      (tag (text)
+           (alternatives (content (text)) (content (text)) (content (text)))
+           (text))
+)))
+
+===
+.HAC. Dynamic tags can contain multiline logic (conditional text, alternatives, ...)
+===
+// actually it can't but it's just simpler to parse _one_ set of rules.
+I push the door. # door_{door ? locked:
+        <>thump<>
+- else: <>creak<>
+}.mp3 # suspense_music_{shuffle:
+- 1
+- 2
+- 3
+}.mp3
+---
+(ink
+  (content_block
+    (comment)
+    (content
+      (text)
+      (tag (text)
+           (cond_block
+             (cond_arm
+               (binary (identifier) (identifier))
+               (content (glue) (text) (glue)))
+             (cond_arm
+               (else)
+               (content (glue) (text) (glue))))
+           (text))
+      (tag (text)
+           (multiline_alternatives
+             (alt_arm (content (text)))
+             (alt_arm (content (text)))
+             (alt_arm (content (text))))
+           (text))
+)))

@@ -10,17 +10,22 @@
     (choice
       main: (content
         (text)
-        (tag)))
+        (tag
+          (text))))
     (choice
       main: (content
         (text)
-        (tag)
-        (tag))
+        (tag
+          (text))
+        (tag
+          (text)))
       temporary: (content
         (text)
-        (tag))
+        (tag
+          (text)))
       final: (content
         (text)
-        (tag)
+        (tag
+          (text))
         (divert
           target: (identifier))))))
