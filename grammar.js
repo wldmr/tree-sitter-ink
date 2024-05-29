@@ -241,14 +241,10 @@ module.exports = grammar({
 
     text: _ => prec.right(repeat1(
      choice(
-       '-',
-       '>',
-       '<',
-       '/',
+       '-', '<', '>', '/', '[', ']',
        token(prec(-1, alias(/[^\s\{\}\[\]#\-<>/|]+/, 'word'))),
        alias(/\\[\{\}\[\]$!&~\-|]/, '\char'),  // escaped special char
        // alias(/\\\r?\n/, '\\n'),  // escaped newline
-       // alias(/\[|\]/, '[]'),  // outside of choices, square brackets are just text
     ))),
 
     content: $ => prec.right(seq(
@@ -386,13 +382,13 @@ module.exports = grammar({
       $._divert_mark,
     )),
 
-    _compound_choice_content: $ => prec.right(seq(
+    _compound_choice_content: $ => seq(
       field('main', optional($.content)),
-      '[',
+      mark('['),
       field('temporary', optional($.content)),
-      ']',
+      mark(']'),
       field('final', optional($.content))
-    )),
+    ),
 
     knot: $ => prec.right(seq(
       $._knot_mark,

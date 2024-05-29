@@ -41,6 +41,16 @@ Hello world!
         (text)))))
 
 ===
+.ABBa. Corner Case: Outside of choices, square brackets are just text
+===
+Hello [World]
+---
+(ink
+  (content_block
+    (content (text))))
+
+
+===
 .ABC. Multiple choices
 ===
 "What's that?" my master asked.
@@ -82,3 +92,4 @@ Hello world!
           (text)))
       (content
         (text)))))
+
