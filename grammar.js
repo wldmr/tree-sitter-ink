@@ -351,7 +351,7 @@ module.exports = grammar({
 
     alt_arm: $ => seq(mark('-'), prec.left(repeat($._content_item_in_conditional))),
 
-    tag: _ => /#[^\n#]+/,
+    tag: $ => seq('#', alias($.text, 'text')),
 
     choice: $ => seq(
       repeat1(prec(PREC.ink, choice('*', '+'))), // yes, this technically allows mixing * and + on the same 'choice', but it's simpler and probably leads to the structure the user intends.

@@ -1603,6 +1603,11 @@
     "fields": {}
   },
   {
+    "type": "tag",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "temp_var",
     "named": true,
     "fields": {}
@@ -2006,6 +2011,10 @@
     "named": false
   },
   {
+    "type": "#",
+    "named": false
+  },
+  {
     "type": "$",
     "named": false
   },
@@ -2220,10 +2229,6 @@
   {
     "type": "stopping",
     "named": false
-  },
-  {
-    "type": "tag",
-    "named": true
   },
   {
     "type": "temp",

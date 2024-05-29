@@ -1,0 +1,26 @@
+===
+.GAA. Tags in choices
+===
++ Simple choice # tag
++ Start of choice text # tag # both [Choice only text # choice only tag] This is after the choice is taken # post choice tag -> divert
+---
+
+(ink
+  (content_block
+    (choice
+      main: (content
+        (text)
+        (tag)))
+    (choice
+      main: (content
+        (text)
+        (tag)
+        (tag))
+      temporary: (content
+        (text)
+        (tag))
+      final: (content
+        (text)
+        (tag)
+        (divert
+          target: (identifier))))))

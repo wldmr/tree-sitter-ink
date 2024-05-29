@@ -1061,8 +1061,22 @@
       ]
     },
     "tag": {
-      "type": "PATTERN",
-      "value": "#[^\\n#]+"
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "#"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "text"
+          },
+          "named": false,
+          "value": "text"
+        }
+      ]
     },
     "choice": {
       "type": "SEQ",
