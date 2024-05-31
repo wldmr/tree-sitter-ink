@@ -44,8 +44,8 @@ function make_expr(named = true) {
       // terminals
       $[rule('identifier')],
       $[rule('qualified_name')],
-      alias(/\d+(\.\d+)?/, $[rule('number')]),
-      alias(choice('false', 'true'), $[rule('boolean')]),
+      $[rule('number')],
+      $[rule('boolean')],
       $[rule('string')],
       $[rule('divert')],
 
@@ -146,8 +146,9 @@ module.exports = grammar({
   ],
 
   conflicts: $ => [
-    [$.conditional_text, $._first_cond_arm, $._expr],
     [$.identifier, $._identifier],
+    [$.number, $._number],
+    [$.boolean, $._boolean],
     [$.string, $._string],
     [$.list_values, $._list_values],
     [$._fake_content],

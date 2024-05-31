@@ -2054,31 +2054,12 @@
           "name": "qualified_name"
         },
         {
-          "type": "ALIAS",
-          "content": {
-            "type": "PATTERN",
-            "value": "\\d+(\\.\\d+)?"
-          },
-          "named": true,
-          "value": "number"
+          "type": "SYMBOL",
+          "name": "number"
         },
         {
-          "type": "ALIAS",
-          "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "STRING",
-                "value": "false"
-              },
-              {
-                "type": "STRING",
-                "value": "true"
-              }
-            ]
-          },
-          "named": true,
-          "value": "boolean"
+          "type": "SYMBOL",
+          "name": "boolean"
         },
         {
           "type": "SYMBOL",
@@ -2751,31 +2732,12 @@
           "name": "_qualified_name"
         },
         {
-          "type": "ALIAS",
-          "content": {
-            "type": "PATTERN",
-            "value": "\\d+(\\.\\d+)?"
-          },
-          "named": true,
-          "value": "_number"
+          "type": "SYMBOL",
+          "name": "_number"
         },
         {
-          "type": "ALIAS",
-          "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "STRING",
-                "value": "false"
-              },
-              {
-                "type": "STRING",
-                "value": "true"
-              }
-            ]
-          },
-          "named": true,
-          "value": "_boolean"
+          "type": "SYMBOL",
+          "name": "_boolean"
         },
         {
           "type": "SYMBOL",
@@ -3477,13 +3439,16 @@
   ],
   "conflicts": [
     [
-      "conditional_text",
-      "_first_cond_arm",
-      "_expr"
-    ],
-    [
       "identifier",
       "_identifier"
+    ],
+    [
+      "number",
+      "_number"
+    ],
+    [
+      "boolean",
+      "_boolean"
     ],
     [
       "string",

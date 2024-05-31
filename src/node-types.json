@@ -435,6 +435,11 @@
     }
   },
   {
+    "type": "boolean",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "call",
     "named": true,
     "fields": {},
@@ -1880,15 +1885,11 @@
             "named": false
           },
           {
-            "type": "_boolean",
-            "named": true
-          },
-          {
-            "type": "_number",
-            "named": true
-          },
-          {
             "type": "and",
+            "named": false
+          },
+          {
+            "type": "false",
             "named": false
           },
           {
@@ -1912,25 +1913,15 @@
             "named": false
           },
           {
+            "type": "true",
+            "named": false
+          },
+          {
             "type": "||",
             "named": false
           }
         ]
       }
-    },
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "_boolean",
-          "named": true
-        },
-        {
-          "type": "_number",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -2212,20 +2203,8 @@
     "named": false
   },
   {
-    "type": "_boolean",
-    "named": true
-  },
-  {
-    "type": "_number",
-    "named": true
-  },
-  {
     "type": "and",
     "named": false
-  },
-  {
-    "type": "boolean",
-    "named": true
   },
   {
     "type": "char",
