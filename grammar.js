@@ -1,4 +1,5 @@
-const mark = rule => token(prec(1, rule));
+let mark = rule => token(prec(1, rule));
+let keyword = str => alias(RegExp(str + '\\s'), str);
 
 // The Ink docs get very specific about which Unicode they allow.
 // But just saying Letters and Numbers is so much simpler. This should be fine.
@@ -401,10 +402,10 @@ module.exports = grammar({
     )),
 
     _knot_mark: _ => alias(mark(/==+/), '=='), // TODO: Be sure to document that we collapse all knot marks to this "literal" (to distinguish it from the comparison operator)
-    _stitch_mark: _ => mark('='),
-    _divert_mark: _ => mark('->'),
-    _tunnel_return: _ => mark('->->'),
-    _thread_mark: _ => mark('<-'),
+    _stitch_mark: _ => alias(mark('='), '='),
+    _divert_mark: _ => alias(mark('->'), '->'),
+    _tunnel_return: _ => alias(mark('->->'), '->->'),
+    _thread_mark: _ => alias(mark('<-'), '<-'),
 
     stitch: $ => prec.right(seq(
       $._stitch_mark,
@@ -429,7 +430,7 @@ module.exports = grammar({
     ),
     
     temp_var: $ => seq(
-      'temp',
+      keyword('temp'),
       alias($.assignment, '_assignment'),
     ),
 
@@ -444,19 +445,19 @@ module.exports = grammar({
     _param_list: $ => seq('(', optional($.params), ')'),
 
     // Let's just accept any old characters for the path. We don't have to do anything with it …
-    include: $ => seq(/INCLUDE\s/, alias(/[^\n]+/, $.path)),
+    include: $ => seq(keyword('INCLUDE'), alias(/[^\n]+/, $.path)),
 
-    external: $ => seq('EXTERNAL', $.identifier, $._param_list),
+    external: $ => seq(keyword('EXTERNAL'), $.identifier, $._param_list),
 
     global: $ => seq(
-      choice('VAR', 'CONST'),
+      choice(keyword('VAR'), keyword('CONST')),
       field('name', $.identifier),
       '=',
       field('value', $.expr),
     ),
 
     list: $ => seq(
-      'LIST',
+      keyword('LIST'),
       field('name', $.identifier),
       '=',
       // Why alias here? `list_values` is also an expression node; it seems intuitive enough to have them

@@ -1521,48 +1521,68 @@
       "value": "=="
     },
     "_stitch_mark": {
-      "type": "TOKEN",
+      "type": "ALIAS",
       "content": {
-        "type": "PREC",
-        "value": 1,
+        "type": "TOKEN",
         "content": {
-          "type": "STRING",
-          "value": "="
+          "type": "PREC",
+          "value": 1,
+          "content": {
+            "type": "STRING",
+            "value": "="
+          }
         }
-      }
+      },
+      "named": false,
+      "value": "="
     },
     "_divert_mark": {
-      "type": "TOKEN",
+      "type": "ALIAS",
       "content": {
-        "type": "PREC",
-        "value": 1,
+        "type": "TOKEN",
         "content": {
-          "type": "STRING",
-          "value": "->"
+          "type": "PREC",
+          "value": 1,
+          "content": {
+            "type": "STRING",
+            "value": "->"
+          }
         }
-      }
+      },
+      "named": false,
+      "value": "->"
     },
     "_tunnel_return": {
-      "type": "TOKEN",
+      "type": "ALIAS",
       "content": {
-        "type": "PREC",
-        "value": 1,
+        "type": "TOKEN",
         "content": {
-          "type": "STRING",
-          "value": "->->"
+          "type": "PREC",
+          "value": 1,
+          "content": {
+            "type": "STRING",
+            "value": "->->"
+          }
         }
-      }
+      },
+      "named": false,
+      "value": "->->"
     },
     "_thread_mark": {
-      "type": "TOKEN",
+      "type": "ALIAS",
       "content": {
-        "type": "PREC",
-        "value": 1,
+        "type": "TOKEN",
         "content": {
-          "type": "STRING",
-          "value": "<-"
+          "type": "PREC",
+          "value": 1,
+          "content": {
+            "type": "STRING",
+            "value": "<-"
+          }
         }
-      }
+      },
+      "named": false,
+      "value": "<-"
     },
     "stitch": {
       "type": "PREC_RIGHT",
@@ -1681,7 +1701,12 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "STRING",
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "temp\\s"
+          },
+          "named": false,
           "value": "temp"
         },
         {
@@ -1792,8 +1817,13 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "PATTERN",
-          "value": "INCLUDE\\s"
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "INCLUDE\\s"
+          },
+          "named": false,
+          "value": "INCLUDE"
         },
         {
           "type": "ALIAS",
@@ -1810,7 +1840,12 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "STRING",
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "EXTERNAL\\s"
+          },
+          "named": false,
           "value": "EXTERNAL"
         },
         {
@@ -1830,11 +1865,21 @@
           "type": "CHOICE",
           "members": [
             {
-              "type": "STRING",
+              "type": "ALIAS",
+              "content": {
+                "type": "PATTERN",
+                "value": "VAR\\s"
+              },
+              "named": false,
               "value": "VAR"
             },
             {
-              "type": "STRING",
+              "type": "ALIAS",
+              "content": {
+                "type": "PATTERN",
+                "value": "CONST\\s"
+              },
+              "named": false,
               "value": "CONST"
             }
           ]
@@ -1865,7 +1910,12 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "STRING",
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "LIST\\s"
+          },
+          "named": false,
           "value": "LIST"
         },
         {

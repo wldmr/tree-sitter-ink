@@ -1849,6 +1849,10 @@
             "named": false
           },
           {
+            "type": "->",
+            "named": false
+          },
+          {
             "type": ".",
             "named": false
           },
@@ -2127,6 +2131,14 @@
     "named": false
   },
   {
+    "type": "->",
+    "named": false
+  },
+  {
+    "type": "->->",
+    "named": false
+  },
+  {
     "type": ".",
     "named": false
   },
@@ -2140,6 +2152,10 @@
   },
   {
     "type": "<",
+    "named": false
+  },
+  {
+    "type": "<-",
     "named": false
   },
   {
@@ -2172,6 +2188,10 @@
   },
   {
     "type": "EXTERNAL",
+    "named": false
+  },
+  {
+    "type": "INCLUDE",
     "named": false
   },
   {
