@@ -61,7 +61,7 @@ function make_expr(named = true) {
     ),
 
     [rule('call')]: $ => prec.left(11, seq(
-      $[rule('identifier')],
+      choice($[rule('identifier')], $[rule('qualified_name')]),
       '(',
       optional($[rule('args')]),
       ')'

@@ -132,3 +132,21 @@
       (identifier))
     (content_block
       (text))))
+
+===
+.CDCa. Corner case: Fully qualified divert targets
+===
+-> knot.stitch(-> knot2.stitch)
+---
+(ink
+  (content_block
+    (divert
+      (call
+        (qualified_name
+          (identifier)
+          (identifier))
+        (args
+          (divert
+            (qualified_name
+              (identifier)
+              (identifier))))))))
