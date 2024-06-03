@@ -30,8 +30,7 @@ Before long, we arrived at his house.
     (knot
       (identifier))
     (content_block
-      (content
-        (text))
+      (text)
       (thread
         (identifier))
       (thread
@@ -40,23 +39,16 @@ Before long, we arrived at his house.
     (knot
       (identifier))
     (content_block
-      (content
-        (text))
+      (text)
       (content_block
         (choice
-          (content
-            (text))
-          (content
-            (text)))
-        (content
+          (text)
           (text))
+        (text)
         (choice
-          (content
-            (text))
-          (content
-            (text)))
-        (content
+          (text)
           (text))
+        (text)
         (gather
           (divert
             (identifier))))))
@@ -64,20 +56,17 @@ Before long, we arrived at his house.
     (knot
       (identifier))
     (content_block
-      (content
-        (text))
+      (text)
       (content_block
         (choice
-          (content
-            (text)))
+          (text))
         (divert
           (identifier)))))
   (knot_block
     (knot
       (identifier))
     (content_block
-      (content
-        (text))
+      (text)
       (divert
         (identifier)))))
 
@@ -132,8 +121,7 @@ Before long, we arrived at his house.
             (identifier))))
       (content_block
         (comment)
-        (content
-          (text))))
+        (text)))
     (stitch_block
       (stitch
         (identifier)
@@ -142,12 +130,10 @@ Before long, we arrived at his house.
             (identifier))))
       (content_block
         (comment)
-        (content
-          (text))))
+        (text)))
     (stitch_block
       (stitch
         (identifier))
       (content_block
         (comment)
-        (content
-          (text))))))
+        (text)))))

@@ -18,15 +18,13 @@ So, more text I guess.
     (knot
       name: (identifier))
     (content_block
-      (content
-        (text))))
+      (text)))
   (knot_block
     (knot
       name: (identifier)
       (comment))
     (content_block
-      (content
-        (text)))))
+      (text))))
 
 ===
 .ACB. Simplest Knotty Script
@@ -45,5 +43,4 @@ Hello world!
     (knot
       name: (identifier))
     (content_block
-      (content
-        (text)))))
+      (text))))

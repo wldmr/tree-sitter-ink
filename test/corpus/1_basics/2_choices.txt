@@ -8,14 +8,11 @@ Hello world!
 
 (ink
   (content_block
-    (content
-      (text))
+    (text)
     (content_block
       (choice
-        main: (content
-          (text)))
-      (content
-        (text)))))
+        main: (text))
+      (text))))
 
 ===
 .ABB. Suppressing Choice Text
@@ -27,28 +24,23 @@ Hello world!
 
 (ink
   (content_block
-    (content
-      (text))
+    (text)
     (content_block
       (choice
-        main: (content
-          (text))
-        temporary: (content
-          (text))
-        final: (content
-          (text)))
-      (content
-        (text)))))
+        main: (text)
+        temporary: (text)
+        final: (text))
+      (text))))
 
 ===
 .ABBa. Corner Case: Outside of choices, square brackets are just text
 ===
 Hello [World]
 ---
+
 (ink
   (content_block
-    (content (text))))
-
+    (text)))
 
 ===
 .ABC. Multiple choices
@@ -64,32 +56,19 @@ Hello [World]
 
 (ink
   (content_block
-    (content
-      (text))
+    (text)
     (content_block
       (choice
-        main: (content
-          (text))
-        temporary: (content
-          (text))
-        final: (content
-          (text)))
-      (content
-        (text))
+        main: (text)
+        temporary: (text)
+        final: (text))
+      (text)
       (choice
-        main: (content
-          (text))
-        final: (content
-          (text)))
-      (content
-        (text))
+        main: (text)
+        final: (text))
+      (text)
       (choice
-        main: (content
-          (text))
-        temporary: (content
-          (text))
-        final: (content
-          (text)))
-      (content
-        (text)))))
-
+        main: (text)
+        temporary: (text)
+        final: (text))
+      (text))))

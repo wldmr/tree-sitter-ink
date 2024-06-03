@@ -66,44 +66,41 @@ LIST primeNumbers = (two = 2), (three) = 3, (five = 5)
 
 (ink
   (content_block
-    (content
-      (cond_block
-        (cond_arm
-          (binary
+    (cond_block
+      (cond_arm
+        (binary
+          (identifier)
+          (list_values
             (identifier)
-            (list_values
-              (identifier)
-              (identifier)))
-          (content
-            (text)))
-        (cond_arm
-          (binary
+            (identifier)))
+        (text))
+      (cond_arm
+        (binary
+          (identifier)
+          (identifier))
+        (text))
+      (cond_arm
+        (binary
+          (identifier)
+          (list_values
             (identifier)
-            (identifier))
-          (content
-            (text)))
-        (cond_arm
-          (binary
+            (identifier))))
+      (cond_arm
+        (binary
+          (identifier)
+          (list_values
             (identifier)
-            (list_values
-              (identifier)
-              (identifier))))
-        (cond_arm
-          (binary
+            (identifier))))
+      (cond_arm
+        (binary
+          (identifier)
+          (list_values)))
+      (cond_arm
+        (binary
+          (identifier)
+          (list_values
             (identifier)
-            (list_values
-              (identifier)
-              (identifier))))
-        (cond_arm
-          (binary
-            (identifier)
-            (list_values)))
-        (cond_arm
-          (binary
-            (identifier)
-            (list_values
-              (identifier)
-              (identifier))))))))
+            (identifier)))))))
 
 ===
 .EDD. Nicer list printing
@@ -154,63 +151,58 @@ My favourite dinosaurs are {listWithCommas(favouriteDinosaurs, "all extinct")}.
         (identifier)
         (identifier)))
     (content_block
-      (content
-        (cond_block
-          (cond_arm
-            (call
-              (identifier)
-              (args
-                (identifier))))
-          (cond_arm
-            (number)
-            (content
-              (eval
-                (call
-                  (identifier)
-                  (args
-                    (identifier))))
-              (text)
-              (eval
-                (call
-                  (identifier)
-                  (args
-                    (binary
+      (cond_block
+        (cond_arm
+          (call
+            (identifier)
+            (args
+              (identifier))))
+        (cond_arm
+          (number)
+          (content
+            (eval
+              (call
+                (identifier)
+                (args
+                  (identifier))))
+            (text)
+            (eval
+              (call
+                (identifier)
+                (args
+                  (binary
+                    (identifier)
+                    (call
                       (identifier)
-                      (call
-                        (identifier)
-                        (args
-                          (identifier))))
-                    (identifier))))))
-          (cond_arm
-            (number)
-            (content
-              (eval
-                (identifier))))
-          (cond_arm
-            (number)
-            (content
-              (eval
-                (identifier))))
-          (cond_arm
-            (else)
-            (content
-              (eval
-                (call
-                  (identifier)
-                  (args
-                    (identifier))))
-              (text)
-              (eval
-                (call
-                  (identifier)
-                  (args
-                    (binary
+                      (args
+                        (identifier))))
+                  (identifier))))))
+        (cond_arm
+          (number)
+          (eval (identifier)))
+        (cond_arm
+          (number)
+          (eval (identifier)))
+        (cond_arm
+          (else)
+          (content
+            (eval
+              (call
+                (identifier)
+                (args
+                  (identifier))))
+            (text)
+            (eval
+              (call
+                (identifier)
+                (args
+                  (binary
+                    (identifier)
+                    (call
                       (identifier)
-                      (call
-                        (identifier)
-                        (args
-                          (identifier))))
-                    (identifier)))))))))))
+                      (args
+                        (identifier))))
+                  (identifier))))))))))
 
 ===
 .EDE. Pedantic example
@@ -229,8 +221,7 @@ My favourite dinosaur{LIST_COUNT(favouriteDinosaurs) != 1:s} {isAre(favouriteDin
             (args
               (identifier)))
           (number))
-        (content
-          (text)))
+        (text))
       (eval
         (call
           (identifier)
@@ -254,30 +245,26 @@ My favourite dinosaur{LIST_COUNT(favouriteDinosaurs) != 1:s} {isAre(favouriteDin
 
 (ink
   (content_block
-    (content
-      (conditional_text
-        (binary
+    (conditional_text
+      (binary
+        (identifier)
+        (identifier))
+      (text))
+    (conditional_text
+      (binary
+        (call
           (identifier)
-          (identifier))
-        (content
-          (text))))
-    (content
-      (conditional_text
-        (binary
-          (call
-            (identifier)
-            (args
-              (binary
-                (identifier)
-                (identifier))))
-          (number))
-        (content
-          (text)
-          (conditional_text
+          (args
             (binary
-              (binary
-                (identifier)
-                (identifier))
+              (identifier)
+              (identifier))))
+        (number))
+      (content
+        (text)
+        (conditional_text
+          (binary
+            (binary
+              (identifier)
               (identifier))
-            (content
-              (text))))))))
+            (identifier))
+          (text))))))

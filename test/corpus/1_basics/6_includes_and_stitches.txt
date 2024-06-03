@@ -21,26 +21,22 @@
       (stitch
         name: (identifier))
       (content_block
-        (content
-          (text))))
+        (text)))
     (stitch_block
       (stitch
         name: (identifier))
       (content_block
-        (content
-          (text))))
+        (text)))
     (stitch_block
       (stitch
         name: (identifier))
       (content_block
-        (content
-          (text))))
+        (text)))
     (stitch_block
       (stitch
         name: (identifier))
       (content_block
-        (content
-          (text))))))
+        (text)))))
 
 ===
 .AFB. Stitches have unique names
@@ -55,15 +51,13 @@
 (ink
   (content_block
     (choice
-      temporary: (content
-        (text)))
+      temporary: (text))
     (divert
       target: (qualified_name
         (identifier)
         (identifier)))
     (choice
-      temporary: (content
-        (text)))
+      temporary: (text))
     (divert
       target: (qualified_name
         (identifier)
@@ -103,9 +97,6 @@ INC is a common suffix for a company
       (path))
     (include
       (path))
-    (content
-      (text))
-    (content
-      (text))
-    (content
-      (text))))
+    (text)
+    (text)
+    (text)))

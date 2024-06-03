@@ -144,6 +144,8 @@ module.exports = grammar({
   precedences: $ => [
     [$._choice_condition, $.eval],  // since they are syntactically the same, maybe we just treat a condition as an eval?
     [$._expr, $._list_values],  // How should `(<identifier>)` be interpreted? Doesn't really matter, but we have to choose one.
+    [$._choice_content, $._content],
+    [$.gather, $._content],
   ],
 
   conflicts: $ => [
@@ -152,9 +154,9 @@ module.exports = grammar({
     [$.boolean, $._boolean],
     [$.string, $._string],
     [$.list_values, $._list_values],
-    [$._fake_content],
     [$.tunnel],
     [$._redirect, $.tunnel],
+    [$._content, $.content],
   ],
 
   rules: {
@@ -192,9 +194,7 @@ module.exports = grammar({
       choice(
         $.comment,
         $.todo_comment,
-        repeat1($.tag),  // IDEA: Group standalone tags with following item?
-        $._redirect,
-        $.content,
+        $._content,
         $.code,
         $.choice,
         $.gather,
@@ -209,9 +209,7 @@ module.exports = grammar({
     _content_item_in_conditional: $ => seq(
       choice(
         $.todo_comment,
-        repeat1($.tag),
-        $._redirect,
-        $.content,
+        $._content,
         $.code,
         $.choice,
         // $.gather, // gathers are not allowed
@@ -249,14 +247,29 @@ module.exports = grammar({
        // alias(/\\\r?\n/, '\\n'),  // escaped newline
     ))),
 
-    content: $ => prec.right(seq(
-      repeat1(choice(
-        $.glue,
-        $._logic,
-        $.text,
-      )),
-      repeat($.tag),
-      optional($._redirect),
+    _content: $ => choice(
+      $.glue,
+      $._logic,
+      $.text,
+      $.tag,
+      $._redirect,
+      $.content,
+    ),
+
+    content: $ => prec.right(choice(
+      seq(
+        repeat1(choice(
+          $.glue,
+          $._logic,
+          $.text,
+        )),
+        repeat($.tag),
+        optional($._redirect),
+      ),
+      seq(
+        repeat1($.tag),
+        optional($._redirect),
+      ),
     )),
 
     glue: _ => '<>',
@@ -274,10 +287,10 @@ module.exports = grammar({
     conditional_text: $ => prec.right(seq(
       '{',
       prec.dynamic(PREC.ink, seq(field('condition', $.expr), ':')),
-      $.content,
+      $._content,
       optional(seq(
         '|',
-        optional($.content)
+        optional($._content)
       )),
       '}',
     )),
@@ -288,32 +301,31 @@ module.exports = grammar({
         seq(
           // ! can conflict with expressions starting with negation; but in this position, the alternatives marker gets precedence.
           choice('$', '&', '~', mark('!')),
-          optional($.content),
+          optional($._content),
         ),
-        seq(
-          optional(alias($._fake_content, $.content)),
-          optional($._redirect),
-        ),
+        optional($._fake_content),
       )),
       '|',
-      repeat(choice('|', $.content)),
+      repeat(choice('|', $._content)),
       '}'
     )),
 
     _fake_content: $ => prec.right(seq(
       choice(
-        alias(seq(
-          prec.dynamic(PREC.text, $._expr), optional(':'),  // the part causing the conflict with conditional text
-          optional(alias($.text, 'textrest')),
-        ), $.text),
+        alias($._maybe_expr_text, $.text),
         $._logic,
         $.glue,
       ),
-      prec.right(repeat(choice(
+      repeat(choice(
         $.glue,
         $._logic,
         $.text,
-      ))),
+      )),
+    )),
+
+    _maybe_expr_text: $ => prec.right(seq(
+      prec.dynamic(PREC.text, $._expr), optional(':'),  // the part causing the conflict with conditional text
+      optional(alias($.text, 'textrest')),
     )),
 
     cond_block: $ => prec.right(seq(
@@ -368,7 +380,7 @@ module.exports = grammar({
     gather: $ => seq(
       repeat1(prec(PREC.ink, '-')),
       optional($._label_field),
-      optional($.content),
+      optional($._content),
       optional($._redirect),
     ),
 
@@ -377,20 +389,19 @@ module.exports = grammar({
     _choice_condition: $ => prec.right(PREC.ink, field('condition', seq('{', $.expr, '}', ))),
 
     _choice_content: $ => prec.right(choice(
-      seq(field('main', $.content), optional($._redirect)),
-      seq($._compound_choice_content, optional($._redirect)),
-      // types of fallback choices:
-      $._redirect,
+      field('main', $._content),
+      $._compound_choice_content,
+      // empty fallback choice:
       $._divert_mark,
     )),
 
-    _compound_choice_content: $ => seq(
-      field('main', optional($.content)),
+    _compound_choice_content: $ => prec.right(seq(
+      field('main', optional($._content)),
       mark('['),
-      field('temporary', optional($.content)),
+      field('temporary', optional($._content)),
       mark(']'),
-      field('final', optional($.content))
-    ),
+      field('final', optional($._content))
+    )),
 
     knot: $ => prec.right(seq(
       $._knot_mark,

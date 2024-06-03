@@ -78,11 +78,23 @@
       "required": false,
       "types": [
         {
+          "type": "alternatives",
+          "named": true
+        },
+        {
           "type": "choice",
           "named": true
         },
         {
           "type": "code",
+          "named": true
+        },
+        {
+          "type": "cond_block",
+          "named": true
+        },
+        {
+          "type": "conditional_text",
           "named": true
         },
         {
@@ -94,11 +106,19 @@
           "named": true
         },
         {
+          "type": "eval",
+          "named": true
+        },
+        {
           "type": "external",
           "named": true
         },
         {
           "type": "global",
+          "named": true
+        },
+        {
+          "type": "glue",
           "named": true
         },
         {
@@ -110,7 +130,15 @@
           "named": true
         },
         {
+          "type": "multiline_alternatives",
+          "named": true
+        },
+        {
           "type": "tag",
+          "named": true
+        },
+        {
+          "type": "text",
           "named": true
         },
         {
@@ -137,11 +165,43 @@
       "required": false,
       "types": [
         {
+          "type": "alternatives",
+          "named": true
+        },
+        {
+          "type": "cond_block",
+          "named": true
+        },
+        {
+          "type": "conditional_text",
+          "named": true
+        },
+        {
           "type": "content",
           "named": true
         },
         {
           "type": "divert",
+          "named": true
+        },
+        {
+          "type": "eval",
+          "named": true
+        },
+        {
+          "type": "glue",
+          "named": true
+        },
+        {
+          "type": "multiline_alternatives",
+          "named": true
+        },
+        {
+          "type": "tag",
+          "named": true
+        },
+        {
+          "type": "text",
           "named": true
         },
         {
@@ -529,7 +589,51 @@
         "required": false,
         "types": [
           {
+            "type": "alternatives",
+            "named": true
+          },
+          {
+            "type": "cond_block",
+            "named": true
+          },
+          {
+            "type": "conditional_text",
+            "named": true
+          },
+          {
             "type": "content",
+            "named": true
+          },
+          {
+            "type": "divert",
+            "named": true
+          },
+          {
+            "type": "eval",
+            "named": true
+          },
+          {
+            "type": "glue",
+            "named": true
+          },
+          {
+            "type": "multiline_alternatives",
+            "named": true
+          },
+          {
+            "type": "tag",
+            "named": true
+          },
+          {
+            "type": "text",
+            "named": true
+          },
+          {
+            "type": "thread",
+            "named": true
+          },
+          {
+            "type": "tunnel",
             "named": true
           }
         ]
@@ -557,7 +661,51 @@
         "required": false,
         "types": [
           {
+            "type": "alternatives",
+            "named": true
+          },
+          {
+            "type": "cond_block",
+            "named": true
+          },
+          {
+            "type": "conditional_text",
+            "named": true
+          },
+          {
             "type": "content",
+            "named": true
+          },
+          {
+            "type": "divert",
+            "named": true
+          },
+          {
+            "type": "eval",
+            "named": true
+          },
+          {
+            "type": "glue",
+            "named": true
+          },
+          {
+            "type": "multiline_alternatives",
+            "named": true
+          },
+          {
+            "type": "tag",
+            "named": true
+          },
+          {
+            "type": "text",
+            "named": true
+          },
+          {
+            "type": "thread",
+            "named": true
+          },
+          {
+            "type": "tunnel",
             "named": true
           }
         ]
@@ -567,29 +715,55 @@
         "required": false,
         "types": [
           {
+            "type": "alternatives",
+            "named": true
+          },
+          {
+            "type": "cond_block",
+            "named": true
+          },
+          {
+            "type": "conditional_text",
+            "named": true
+          },
+          {
             "type": "content",
+            "named": true
+          },
+          {
+            "type": "divert",
+            "named": true
+          },
+          {
+            "type": "eval",
+            "named": true
+          },
+          {
+            "type": "glue",
+            "named": true
+          },
+          {
+            "type": "multiline_alternatives",
+            "named": true
+          },
+          {
+            "type": "tag",
+            "named": true
+          },
+          {
+            "type": "text",
+            "named": true
+          },
+          {
+            "type": "thread",
+            "named": true
+          },
+          {
+            "type": "tunnel",
             "named": true
           }
         ]
       }
-    },
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "divert",
-          "named": true
-        },
-        {
-          "type": "thread",
-          "named": true
-        },
-        {
-          "type": "tunnel",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -672,6 +846,10 @@
       "required": true,
       "types": [
         {
+          "type": "alternatives",
+          "named": true
+        },
+        {
           "type": "binary",
           "named": true
         },
@@ -692,6 +870,14 @@
           "named": true
         },
         {
+          "type": "cond_block",
+          "named": true
+        },
+        {
+          "type": "conditional_text",
+          "named": true
+        },
+        {
           "type": "content",
           "named": true
         },
@@ -704,11 +890,19 @@
           "named": true
         },
         {
+          "type": "eval",
+          "named": true
+        },
+        {
           "type": "external",
           "named": true
         },
         {
           "type": "global",
+          "named": true
+        },
+        {
+          "type": "glue",
           "named": true
         },
         {
@@ -725,6 +919,10 @@
         },
         {
           "type": "list_values",
+          "named": true
+        },
+        {
+          "type": "multiline_alternatives",
           "named": true
         },
         {
@@ -749,6 +947,10 @@
         },
         {
           "type": "tag",
+          "named": true
+        },
+        {
+          "type": "text",
           "named": true
         },
         {
@@ -849,7 +1051,51 @@
       "required": true,
       "types": [
         {
+          "type": "alternatives",
+          "named": true
+        },
+        {
+          "type": "cond_block",
+          "named": true
+        },
+        {
+          "type": "conditional_text",
+          "named": true
+        },
+        {
           "type": "content",
+          "named": true
+        },
+        {
+          "type": "divert",
+          "named": true
+        },
+        {
+          "type": "eval",
+          "named": true
+        },
+        {
+          "type": "glue",
+          "named": true
+        },
+        {
+          "type": "multiline_alternatives",
+          "named": true
+        },
+        {
+          "type": "tag",
+          "named": true
+        },
+        {
+          "type": "text",
+          "named": true
+        },
+        {
+          "type": "thread",
+          "named": true
+        },
+        {
+          "type": "tunnel",
           "named": true
         }
       ]
@@ -919,6 +1165,10 @@
       "required": true,
       "types": [
         {
+          "type": "alternatives",
+          "named": true
+        },
+        {
           "type": "choice",
           "named": true
         },
@@ -928,6 +1178,14 @@
         },
         {
           "type": "comment",
+          "named": true
+        },
+        {
+          "type": "cond_block",
+          "named": true
+        },
+        {
+          "type": "conditional_text",
           "named": true
         },
         {
@@ -943,6 +1201,10 @@
           "named": true
         },
         {
+          "type": "eval",
+          "named": true
+        },
+        {
           "type": "external",
           "named": true
         },
@@ -955,6 +1217,10 @@
           "named": true
         },
         {
+          "type": "glue",
+          "named": true
+        },
+        {
           "type": "include",
           "named": true
         },
@@ -963,7 +1229,15 @@
           "named": true
         },
         {
+          "type": "multiline_alternatives",
+          "named": true
+        },
+        {
           "type": "tag",
+          "named": true
+        },
+        {
+          "type": "text",
           "named": true
         },
         {
@@ -1111,11 +1385,43 @@
       "required": false,
       "types": [
         {
+          "type": "alternatives",
+          "named": true
+        },
+        {
+          "type": "cond_block",
+          "named": true
+        },
+        {
+          "type": "conditional_text",
+          "named": true
+        },
+        {
           "type": "content",
           "named": true
         },
         {
           "type": "divert",
+          "named": true
+        },
+        {
+          "type": "eval",
+          "named": true
+        },
+        {
+          "type": "glue",
+          "named": true
+        },
+        {
+          "type": "multiline_alternatives",
+          "named": true
+        },
+        {
+          "type": "tag",
+          "named": true
+        },
+        {
+          "type": "text",
           "named": true
         },
         {

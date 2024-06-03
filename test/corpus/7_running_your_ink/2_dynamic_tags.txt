@@ -5,12 +5,17 @@
 
 I open the door. #suspense_music{RANDOM(1, 4)}.mp3 
 ---
+
 (ink
   (content_block
     (content
-      (eval (identifier))
+      (eval
+        (identifier))
       (text)
-      (tag (eval (identifier)) (text)))
+      (tag
+        (eval
+          (identifier))
+        (text)))
     (content
       (text)
       (tag
@@ -18,28 +23,37 @@ I open the door. #suspense_music{RANDOM(1, 4)}.mp3
         (eval
           (call
             (identifier)
-            (args (number) (number))))
+            (args
+              (number)
+              (number))))
         (text)))))
-
 
 ===
 .HAB. Dynamic tags can contain inline logic (conditional text, alternatives, ...)
 ===
 I push the door. # door_{door ? locked:thump|creak}.mp3 # suspense_music_{~1|2|3}.mp3
 ---
+
 (ink
   (content_block
     (content
       (text)
-      (tag (text)
-           (conditional_text
-             (binary (identifier) (identifier))
-             (content (text)) (content (text)))
-           (text))
-      (tag (text)
-           (alternatives (content (text)) (content (text)) (content (text)))
-           (text))
-)))
+      (tag
+        (text)
+        (conditional_text
+          (binary
+            (identifier)
+            (identifier))
+          (text)
+          (text))
+        (text))
+      (tag
+        (text)
+        (alternatives
+          (text)
+          (text)
+          (text))
+        (text)))))
 
 ===
 .HAC. Dynamic tags can contain multiline logic (conditional text, alternatives, ...)
@@ -54,24 +68,37 @@ I push the door. # door_{door ? locked:
 - 3
 }.mp3
 ---
+
 (ink
   (content_block
     (comment)
     (content
       (text)
-      (tag (text)
-           (cond_block
-             (cond_arm
-               (binary (identifier) (identifier))
-               (content (glue) (text) (glue)))
-             (cond_arm
-               (else)
-               (content (glue) (text) (glue))))
-           (text))
-      (tag (text)
-           (multiline_alternatives
-             (alt_arm (content (text)))
-             (alt_arm (content (text)))
-             (alt_arm (content (text))))
-           (text))
-)))
+      (tag
+        (text)
+        (cond_block
+          (cond_arm
+            (binary
+              (identifier)
+              (identifier))
+            (content
+              (glue)
+              (text)
+              (glue)))
+          (cond_arm
+            (else)
+            (content
+              (glue)
+              (text)
+              (glue))))
+        (text))
+      (tag
+        (text)
+        (multiline_alternatives
+          (alt_arm
+            (text))
+          (alt_arm
+            (text))
+          (alt_arm
+            (text)))
+        (text)))))

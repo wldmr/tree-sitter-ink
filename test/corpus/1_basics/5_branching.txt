@@ -19,32 +19,26 @@ You open the gate, and step out onto the path.
     (knot
       name: (identifier))
     (content_block
-      (content
-        (text))
+      (text)
       (content_block
         (choice
-          temporary: (content
-            (text))
-          (divert
+          temporary: (text)
+          final: (divert
             target: (identifier)))
         (choice
-          temporary: (content
-            (text))
-          (divert
+          temporary: (text)
+          final: (divert
             target: (identifier)))
         (choice
-          temporary: (content
-            (text))
-          (divert
+          temporary: (text)
+          final: (divert
             target: (identifier))))))
   (knot_block
     (knot
       name: (identifier))
     (content_block
-      (content
-        (text))
-      (content
-        (text)))))
+      (text)
+      (text))))
 
 ===
 .AEB. Branching and joining
@@ -81,28 +75,21 @@ He insisted that we hurried home to Savile Row
     (knot
       (identifier))
     (content_block
-      (content
-        (text))
+      (text)
       (content_block
         (choice
-          (content
-            (text))
-          (content
-            (text)))
-        (divert
-          (identifier))
-        (choice
-          (content
-            (text))
-          (content
-            (text)))
-        (content
+          (text)
           (text))
         (divert
           (identifier))
         (choice
-          (content
-            (text))
+          (text)
+          (text))
+        (text)
+        (divert
+          (identifier))
+        (choice
+          (text)
           (divert
             (identifier))))))
   (knot_block
@@ -117,8 +104,7 @@ He insisted that we hurried home to Savile Row
     (knot
       (identifier))
     (content_block
-      (content
-        (text))
+      (text)
       (divert
         (identifier))))
   (knot_block

@@ -14,37 +14,24 @@
 
 (ink
   (content_block
-    (content
-      (text))
+    (text)
     (content_block
       (choice
-        (content
-          (text))
-        (content
-          (text))
-        (content
-          (text)))
-      (content
+        (text)
+        (text)
         (text))
+      (text)
       (choice
-        (content
-          (text))
-        (content
-          (text)))
-      (content
+        (text)
         (text))
+      (text)
       (choice
-        (content
-          (text))
-        (content
-          (text))
-        (content
-          (text)))
-      (content
+        (text)
+        (text)
         (text))
+      (text)
       (gather
-        (content
-          (text))))))
+        (text)))))
 
 ===
 .BAB. Options and Gathers form chains of content
@@ -71,18 +58,15 @@ I ran through the forest, the dogs snapping at my heels.
     (knot
       (identifier))
     (content_block
-      (content
-        (text))
+      (text)
       (content_block
         (choice
-          (content
-            (text))
+          (text)
           (content
             (text)
             (glue)))
         (choice
-          (content
-            (text))
+          (text)
           (content
             (text)
             (glue)))
@@ -91,18 +75,12 @@ I ran through the forest, the dogs snapping at my heels.
             (text)
             (glue)))
         (gather
-          (content
-            (text)))
+          (text))
         (choice
-          (content
-            (text))
-          (content
-            (text)))
+          (text)
+          (text))
         (choice
-          (content
-            (text))
-          (content
-            (text)))
+          (text)
+          (text))
         (gather
-          (content
-            (text)))))))
+          (text))))))

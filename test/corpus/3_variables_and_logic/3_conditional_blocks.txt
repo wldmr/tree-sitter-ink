@@ -10,26 +10,25 @@
 
 (ink
   (content_block
-    (content
-      (cond_block
-        (cond_arm
-          (binary
-            (identifier)
-            (number))
-          (code
-            (assignment
-              name: (identifier)
-              value: (binary
-                (identifier)
-                (number)))))
-        (cond_arm
-          (else)
-          (code
-            (assignment
-              name: (identifier)
-              value: (binary
-                (identifier)
-                (number)))))))))
+    (cond_block
+      (cond_arm
+        (binary
+          (identifier)
+          (number))
+        (code
+          (assignment
+            name: (identifier)
+            value: (binary
+              (identifier)
+              (number)))))
+      (cond_arm
+        (else)
+        (code
+          (assignment
+            name: (identifier)
+            value: (binary
+              (identifier)
+              (number))))))))
 
 ===
 .CCB. Extended if/else
@@ -46,34 +45,33 @@
 
 (ink
   (content_block
-    (content
-      (cond_block
-        (cond_arm
-          (binary
-            (identifier)
-            (number))
-          (code
-            (assignment
-              name: (identifier)
-              value: (number))))
-        (cond_arm
-          (binary
-            (identifier)
-            (number))
-          (code
-            (assignment
-              name: (identifier)
-              value: (binary
-                (identifier)
-                (number)))))
-        (cond_arm
-          (else)
-          (code
-            (assignment
-              name: (identifier)
-              value: (binary
-                (identifier)
-                (number)))))))))
+    (cond_block
+      (cond_arm
+        (binary
+          (identifier)
+          (number))
+        (code
+          (assignment
+            name: (identifier)
+            value: (number))))
+      (cond_arm
+        (binary
+          (identifier)
+          (number))
+        (code
+          (assignment
+            name: (identifier)
+            value: (binary
+              (identifier)
+              (number)))))
+      (cond_arm
+        (else)
+        (code
+          (assignment
+            name: (identifier)
+            value: (binary
+              (identifier)
+              (number))))))))
 
 ===
 .CCC. Switch Blocks
@@ -88,26 +86,21 @@
 
 (ink
   (content_block
-    (content
-      (cond_block
-        (cond_arm
-          (identifier))
-        (cond_arm
-          (number)
-          (content
-            (text)))
-        (cond_arm
-          (number)
-          (content
-            (text)))
-        (cond_arm
-          (number)
-          (content
-            (text)))
-        (cond_arm
-          (else)
-          (content
-            (text)))))))
+    (cond_block
+      (cond_arm
+        (identifier))
+      (cond_arm
+        (number)
+        (text))
+      (cond_arm
+        (number)
+        (text))
+      (cond_arm
+        (number)
+        (text))
+      (cond_arm
+        (else)
+        (text)))))
 
 ===
 .CCD. Example: Context-Relevant Content
@@ -133,33 +126,32 @@
     (knot
       (identifier))
     (content_block
-      (content
-        (cond_block
-          (cond_arm
-            (binary
-              (identifier)
-              (unary
-                (identifier)))
-            (code
-              (postfix
-                (identifier)))
-            (divert
+      (cond_block
+        (cond_arm
+          (binary
+            (identifier)
+            (unary
               (identifier)))
-          (cond_arm
-            (binary
-              (identifier)
-              (unary
-                (identifier)))
-            (code
-              (postfix
-                (identifier)))
-            (divert
+          (code
+            (postfix
               (identifier)))
-          (cond_arm
-            (else)
-            (comment)
-            (divert
-              (identifier))))))))
+          (divert
+            (identifier)))
+        (cond_arm
+          (binary
+            (identifier)
+            (unary
+              (identifier)))
+          (code
+            (postfix
+              (identifier)))
+          (divert
+            (identifier)))
+        (cond_arm
+          (else)
+          (comment)
+          (divert
+            (identifier)))))))
 
 ===
 .CCE. Multiline Blocks (incl. Modified Shuffles)
@@ -208,71 +200,33 @@ At the table, I drew a card. <>
 (ink
   (content_block
     (comment)
-    (content
-      (multiline_alternatives
-        (alt_arm
-          (content
-            (text)))
-        (alt_arm
-          (content
-            (text)))
-        (alt_arm
-          (content
-            (text)))))
+    (multiline_alternatives
+      (alt_arm (text))
+      (alt_arm (text))
+      (alt_arm (text)))
     (comment)
     (content
       (text)
       (glue))
-    (content
-      (multiline_alternatives
-        (alt_arm
-          (content
-            (text)))
-        (alt_arm
-          (content
-            (text)))
-        (alt_arm
-          (content
-            (text))
-          (content
-            (text)))))
-    (content
-      (multiline_alternatives
-        (alt_arm
-          (content
-            (text)))
-        (alt_arm
-          (content
-            (text)))))
-    (content
-      (multiline_alternatives
-        (alt_arm
-          (content
-            (text)))
-        (alt_arm
-          (content
-            (text)))
-        (alt_arm
-          (content
-            (text)))))
+    (multiline_alternatives
+      (alt_arm (text))
+      (alt_arm (text))
+      (alt_arm
+        (text)
+        (text)))
+    (multiline_alternatives
+      (alt_arm (text))
+      (alt_arm (text)))
+    (multiline_alternatives
+      (alt_arm (text))
+      (alt_arm (text))
+      (alt_arm (text)))
     (comment)
-    (content
-      (multiline_alternatives
-        (alt_arm
-          (content
-            (text)))
-        (alt_arm
-          (content
-            (text)))
-        (alt_arm
-          (content
-            (text)))))
+    (multiline_alternatives
+      (alt_arm (text))
+      (alt_arm (text))
+      (alt_arm (text)))
     (comment)
-    (content
-      (multiline_alternatives
-        (alt_arm
-          (content
-            (text)))
-        (alt_arm
-          (content
-            (text)))))))
+    (multiline_alternatives
+      (alt_arm (text))
+      (alt_arm (text)))))

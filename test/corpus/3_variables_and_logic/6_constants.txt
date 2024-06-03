@@ -32,14 +32,13 @@ VAR current_chief_suspect = HASTINGS
     (knot
       (identifier))
     (content_block
-      (content
-        (cond_block
-          (cond_arm
-            (identifier)
-            (code
-              (assignment
-                (identifier)
-                (identifier))))))
+      (cond_block
+        (cond_arm
+          (identifier)
+          (code
+            (assignment
+              (identifier)
+              (identifier)))))
       (content
         (text)
         (eval

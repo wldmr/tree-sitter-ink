@@ -6,8 +6,7 @@ Hello, world!
 
 (ink
   (content_block
-    (content
-      (text))))
+    (text)))
 
 ==============
 .AAB. Comments
@@ -25,11 +24,9 @@ Hello, world!
 
 (ink
   (content_block
-    (content
-      (text))
+    (text)
     (comment)
-    (content
-      (text))
+    (text)
     (comment)))
 
 =================================
@@ -42,12 +39,10 @@ Hello, world!
 
 (ink
   (content_block
-    (content
-      (text))
+    (text)
     (comment)
-    (content
-      (text
-        (comment)))))
+    (text
+      (comment))))
 
 ===================
 .AAD. TODO Comments
@@ -61,8 +56,7 @@ And?
 (ink
   (content_block
     (todo_comment)
-    (content
-      (text))))
+    (text)))
 
 =================================
 .AADa. TODO Comments corner cases
@@ -75,8 +69,7 @@ He remembered that he was allowed to write TODO: anywhere else on the line.
 (ink
   (content_block
     (todo_comment)
-    (content
-      (text))))
+    (text)))
 
 ==========
 .AAE. Tags
@@ -93,10 +86,11 @@ Some more text. # and a tag
       (text)
       (tag
         (text)))
-    (tag
-      (text))
-    (tag
-      (text))
+    (content
+      (tag
+        (text))
+      (tag
+        (text)))
     (content
       (text)
       (tag

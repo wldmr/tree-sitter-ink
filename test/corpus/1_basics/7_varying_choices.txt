@@ -11,7 +11,7 @@
 (ink
   (content_block
     (choice
-      (divert
+      main: (divert
         target: (identifier)))
     (choice)
     (content
@@ -38,30 +38,24 @@
     (knot
       name: (identifier))
     (content_block
-      (content
-        (text))
+      (text)
       (content_block
         (choice
-          main: (content
-            (text))
-          temporary: (content
-            (text))
+          main: (text)
+          temporary: (text)
           final: (content
             (text)
             (divert
               target: (identifier))))
         (choice
-          main: (content
-            (text))
-          temporary: (content
-            (text))
+          main: (text)
+          temporary: (text)
           final: (content
             (text)
             (divert
               target: (identifier))))
         (choice)
-        (content
-          (text))
+        (text)
         (divert
           target: (identifier))))))
 
@@ -83,17 +77,14 @@
       name: (identifier))
     (content_block
       (choice
-        temporary: (content
-          (text)))
+        temporary: (text))
       (content
         (text)
         (divert
           target: (identifier)))
       (choice
-        temporary: (content
-          (text)))
-      (content
-        (text))
+        temporary: (text))
+      (text)
       (divert
         target: (identifier)))))
 
@@ -113,17 +104,15 @@
       name: (identifier))
     (content_block
       (choice
-        temporary: (content
-          (text))
-        (divert
+        temporary: (text)
+        final: (divert
           target: (identifier)))
       (choice
-        temporary: (content
-          (text))
-        (divert
+        temporary: (text)
+        final: (divert
           target: (identifier)))
       (choice
-        (divert
+        main: (divert
           target: (identifier))))))
 
 ===
@@ -141,23 +130,20 @@
     (choice
       condition: (unary
         (identifier))
-      temporary: (content
-        (text))
-      (divert
+      temporary: (text)
+      final: (divert
         target: (identifier)))
     (choice
       condition: (identifier)
-      temporary: (content
-        (text))
-      (divert
+      temporary: (text)
+      final: (divert
         target: (identifier)))
     (choice
       condition: (qualified_name
         (identifier)
         (identifier))
-      temporary: (content
-        (text))
-      (divert
+      temporary: (text)
+      final: (divert
         target: (identifier)))))
 
 ===
@@ -174,17 +160,15 @@
     (choice
       condition: (unary
         (identifier))
-      temporary: (content
-        (text))
-      (divert
+      temporary: (text)
+      final: (divert
         target: (identifier)))
     (choice
       condition: (identifier)
       condition: (unary
         (identifier))
-      temporary: (content
-        (text))
-      (divert
+      temporary: (text)
+      final: (divert
         target: (identifier)))))
 
 ===
@@ -207,9 +191,8 @@
           (binary
             (identifier)
             (identifier))))
-      temporary: (content
-        (text))
-      (divert
+      temporary: (text)
+      final: (divert
         target: (identifier)))))
 
 ===
@@ -224,11 +207,9 @@
   (content_block
     (choice
       condition: (identifier)
-      temporary: (content
-        (text)))
+      temporary: (text))
     (choice
       condition: (binary
         (identifier)
         (number))
-      temporary: (content
-        (text)))))
+      temporary: (text))))

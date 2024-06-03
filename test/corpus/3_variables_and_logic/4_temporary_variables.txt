@@ -18,13 +18,12 @@
         (temp_var
           name: (identifier)
           value: (number)))
-      (content
-        (cond_block
-          (cond_arm
-            (identifier)
-            (code
-              (postfix
-                (identifier)))))))))
+      (cond_block
+        (cond_arm
+          (identifier)
+          (code
+            (postfix
+              (identifier))))))))
 
 ===
 .CDB. Knots and stitches can take parameters
@@ -46,24 +45,21 @@
 (ink
   (content_block
     (choice
-      (content
-        (text)))
+      (text))
     (divert
       (call
         (identifier)
         (args
           (string))))
     (choice
-      (content
-        (text)))
+      (text))
     (divert
       (call
         (identifier)
         (args
           (string))))
     (choice
-      (content
-        (text)))
+      (text))
     (divert
       (call
         (identifier)
@@ -86,15 +82,13 @@
           (binary
             (identifier)
             (string))
-          (content
-            (text))
+          (text)
           (content
             (eval
               (identifier))
             (text)))
         (text))
-      (content
-        (text)))))
+      (text))))
 
 ===
 .CDC. Sending divert Targets as parameters
@@ -116,8 +110,7 @@
     (knot
       (identifier))
     (content_block
-      (content
-        (text))
+      (text)
       (divert
         (call
           (identifier)
@@ -131,13 +124,11 @@
         (divert
           (identifier))))
     (content_block
-      (content
-        (text))
+      (text)
       (divert
         (identifier))))
   (knot_block
     (knot
       (identifier))
     (content_block
-      (content
-        (text)))))
+      (text))))
