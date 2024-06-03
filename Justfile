@@ -10,6 +10,9 @@ bench: generate
 parse *args: generate
 	tree-sitter parse {{args}}
 
+highlight:
+	tree-sitter highlight --html --check "test/highlight/showcase.ink" > highlight.html
+
 generate:
 	tree-sitter generate
 
