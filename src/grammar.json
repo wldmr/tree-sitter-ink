@@ -3490,8 +3490,33 @@
       ]
     },
     "comment": {
-      "type": "PATTERN",
-      "value": "\\/\\/[^\\n]*|\\/\\*(.|\\r?\\n)*?\\*\\/"
+      "type": "TOKEN",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "PATTERN",
+            "value": "\\/\\/[^\\n]*"
+          },
+          {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "/*"
+              },
+              {
+                "type": "PATTERN",
+                "value": "[^*]*\\*+([^/*][^*]*\\*+)*"
+              },
+              {
+                "type": "STRING",
+                "value": "/"
+              }
+            ]
+          }
+        ]
+      }
     },
     "todo_comment": {
       "type": "SEQ",

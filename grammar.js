@@ -524,7 +524,14 @@ module.exports = grammar({
     // and one anonymous, to be able to trigger the GLR conflict between text and the starting expression of conditional text.
     ...make_expr(named = false),
 
-    comment: _ => /\/\/[^\n]*|\/\*(.|\r?\n)*?\*\//,
+    comment: _ => token(choice(
+      /\/\/[^\n]*/,
+      seq(
+        '/*',
+        /[^*]*\*+([^/*][^*]*\*+)*/,
+        '/'
+      ),
+    )),
 
     todo_comment: _ => seq(
       mark('TODO'),

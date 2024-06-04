@@ -21,10 +21,27 @@ Hello, world!
 	... or an unlimited block of text
  */
 ---
-
 (ink
   (content_block
     (text)
+    (comment)
+    (text)
+    (comment)))
+
+========================================================================================================================
+.AABa. Gotcha: Minimal munch for comments (there was a bug where multiline comments would swallow all text between them)
+========================================================================================================================
+/*
+Comment1
+ */
+
+Stuff
+
+/*Comment the second
+*/
+---
+(ink
+  (content_block
     (comment)
     (text)
     (comment)))
