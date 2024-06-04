@@ -61,9 +61,9 @@ function make_expr(named = true) {
     ),
 
     [rule('call')]: $ => prec.left(11, seq(
-      choice($[rule('identifier')], $[rule('qualified_name')]),
+      field('name', choice($[rule('identifier')], $[rule('qualified_name')])),
       '(',
-      optional($[rule('args')]),
+      field('args', optional($[rule('args')])),
       ')'
     )),
     [rule('args')]: $ => sepBy1(',', $[rule('expr')]),
@@ -237,7 +237,7 @@ module.exports = grammar({
       seq($.divert, repeat1($.divert)),
     ),
 
-    thread: $ => seq($._thread_mark, choice($.identifier, $.call)),
+    thread: $ => seq($._thread_mark, field('target', choice($.identifier, $.call))),
 
     text: _ => prec.right(repeat1(
      choice(
@@ -455,12 +455,16 @@ module.exports = grammar({
     ),
 
     params: $ => sepBy1(',', $._param),
-    _param_list: $ => seq('(', optional($.params), ')'),
+    _param_list: $ => seq('(', field('params', optional($.params)), ')'),
 
     // Let's just accept any old characters for the path. We don't have to do anything with it …
     include: $ => seq(keyword('INCLUDE'), alias(/[^\n]+/, $.path)),
 
-    external: $ => seq(keyword('EXTERNAL'), $.identifier, $._param_list),
+    external: $ => seq(
+      keyword('EXTERNAL'),
+      field('name', $.identifier),
+      $._param_list,
+    ),
 
     global: $ => seq(
       choice(keyword('VAR'), keyword('CONST')),

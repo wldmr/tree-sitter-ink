@@ -55,8 +55,8 @@
       (assignment
         name: (identifier)
         value: (call
-          (identifier)
-          (args
+          name: (identifier)
+          args: (args
             (number)))))))
 
 ===

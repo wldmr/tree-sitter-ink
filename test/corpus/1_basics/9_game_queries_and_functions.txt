@@ -18,7 +18,7 @@
     (choice
       condition: (binary
         (call
-          (identifier))
+          name: (identifier))
         (number))
       main: (text))))
 
@@ -34,8 +34,8 @@
     (choice
       condition: (binary
         (call
-          (identifier)
-          (args
+          name: (identifier)
+          args: (args
             (divert
               target: (qualified_name
                 (identifier)
@@ -48,8 +48,8 @@
     (choice
       condition: (binary
         (call
-          (identifier)
-          (args
+          name: (identifier)
+          args: (args
             (divert
               target: (identifier))))
         (number))

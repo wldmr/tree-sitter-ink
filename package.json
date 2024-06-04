@@ -45,7 +45,8 @@
       "scope": "source.ink",
       "file-types": ["ink"],
       "injection-regex": "^ink$",
-      "highlights": "queries/highlights.scm"
+      "highlights": "queries/highlights.scm",
+      "tags": "queries/tags.scm"
     }
   ]
 }
