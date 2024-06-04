@@ -1,6 +1,6 @@
 {
   "name": "treesitter-ink",
-  "version": "0.2.0-alpha",
+  "version": "0.3.0-alpha",
   "description": "A tree-sitter grammar for Inkle's Ink programming language",
   "main": "index.js",
   "types": "bindings/node",
