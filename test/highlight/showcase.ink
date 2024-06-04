@@ -111,6 +111,9 @@ TODO: implement external function
 ~ some_list += value
 // ^ variable  ^ variable
 //          ^ operator
+~ temp unused = (one, two)
+// ^ keyword      ^ constructor
+//     ^ variable
 ~ return some_list
 // ^ keyword ^ variable
 

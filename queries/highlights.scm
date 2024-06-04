@@ -9,7 +9,7 @@
 (return "return" @keyword)
 (global ["VAR" "CONST"] @keyword
         "=" @operator)
-(temp_var "temp" @keyword)
+(temp "temp" @keyword)
 (include "INCLUDE" @keyword
          (path) @string.special)
 (external "EXTERNAL" @keyword

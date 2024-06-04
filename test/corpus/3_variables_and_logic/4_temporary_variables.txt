@@ -15,7 +15,7 @@
       name: (identifier))
     (content_block
       (code
-        (temp_var
+        (temp
           name: (identifier)
           value: (number)))
       (cond_block
@@ -138,6 +138,7 @@
 ===
 -> knot.stitch(-> knot2.stitch)
 ---
+
 (ink
   (content_block
     (divert

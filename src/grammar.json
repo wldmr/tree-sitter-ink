@@ -1631,7 +1631,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "temp_var"
+          "name": "temp"
         },
         {
           "type": "SYMBOL",
@@ -1681,7 +1681,7 @@
         }
       ]
     },
-    "temp_var": {
+    "temp": {
       "type": "SEQ",
       "members": [
         {
@@ -1694,13 +1694,24 @@
           "value": "temp"
         },
         {
-          "type": "ALIAS",
+          "type": "FIELD",
+          "name": "name",
           "content": {
             "type": "SYMBOL",
-            "name": "assignment"
-          },
-          "named": false,
-          "value": "_assignment"
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "="
+        },
+        {
+          "type": "FIELD",
+          "name": "value",
+          "content": {
+            "type": "SYMBOL",
+            "name": "expr"
+          }
         }
       ]
     },
