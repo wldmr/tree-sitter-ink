@@ -2,6 +2,7 @@
 
 (identifier) @variable
 (qualified_name "." @punctuation.delimiter)
+(string) @string
 
 (number) @number
 (boolean) @boolean
@@ -9,7 +10,8 @@
 (return "return" @keyword)
 (global ["VAR" "CONST"] @keyword
         "=" @operator)
-(temp "temp" @keyword)
+(temp "temp" @keyword
+      name: (identifier) @variable.member) ; not really, but temp vars are the closest thing to members that ink has
 (include "INCLUDE" @keyword
          (path) @string.special)
 (external "EXTERNAL" @keyword
@@ -65,13 +67,12 @@
 
 (choice ["*" "+"] @markup.list)
 (choice label: (identifier) @markup.link.url)
-(choice temporary: (_) @markup.italic)
 
 (gather "-" @markup.list.unnumbered)
 (gather label: (identifier) @markup.link.url)
 
 (params "ref" @keyword)
-(params (_) @variable.parameter)
+(params (identifier) @variable.parameter)
 
 (cond_arm "-" @keyword)
 (alt_arm "-" @keyword)
@@ -88,19 +89,16 @@
 
 (glue) @keyword
 
-(divert "->" @markup.link)
+["->" "->->" "<-"] @markup.link
+
 (divert (identifier)+ @markup.link.url)
+(params (divert (identifier) @variable.parameter)) ; exception to normal divert coloring: parameters should be distinguishable
 (divert (call (identifier) @markup.link.url))
 (divert (call (qualified_name (identifier) @markup.link.url)))
 (divert (identifier) @constant.builtin
         (#any-of? @constant.builtin "END" "DONE"))
 
-(thread "<-" @markup.link)
 (thread [(identifier) (call)] @markup.link.url)
-
-; free-standing tunnel marks; they don't come with identifiers
-(tunnel "->" @markup.link)
-(tunnel "->->" @markup.link)
 
 (call (identifier) @function.builtin
       (#any-of? @function.builtin

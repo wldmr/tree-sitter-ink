@@ -79,8 +79,7 @@ I was outside, and I {some_bool == true:liked|hated} it.
 // <- markup.heading
 //  ^ markup.link.url
 //       ^ markup.link
-//         ^ variable.parameter
-//             ^ markup.link.url
+//             ^ variable.parameter
 
 This stitch has <>{Things:
 - one: one
@@ -96,6 +95,7 @@ bad
 }<>, actually.
 
 -> and_then
+// ^ variable.parameter (due to locals query)
 
 EXTERNAL invert_then_add(ref some_list, value)
 // <- keyword            ^ keyword
@@ -109,11 +109,16 @@ TODO: implement external function
 // <- keyword
 // ^ function.builtin
 ~ some_list += value
-// ^ variable  ^ variable
+// ^ variable.parameter (due to locals query)
+//             ^ variable.parameter (due to locals query)
 //          ^ operator
-~ temp unused = (one, two)
-// ^ keyword      ^ constructor
-//     ^ variable
+~ temp internal = (one, two)
+// ^ keyword       ^ constructor
+//     ^ variable.member
+~ internal++
+// ^ variable.member (due to locals query)
+~ some_bool = false;
+// ^ variable
 ~ return some_list
 // ^ keyword ^ variable
 
