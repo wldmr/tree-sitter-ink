@@ -112,3 +112,19 @@ Some more text. # and a tag
       (text)
       (tag
         (text)))))
+
+
+==========================
+.AAEa. Tags can be escaped
+==========================
+A line of normal game-text. # colour it blue
+A line of normal game-text. \# colour it blue
+---
+
+(ink
+  (content_block
+    (content
+      (text)
+      (tag
+        (text)))
+    (text)))

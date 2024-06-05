@@ -37,10 +37,19 @@ Hello world!
 ===
 Hello [World]
 ---
-
 (ink
   (content_block
     (text)))
+
+===
+.ABBb. Corner Case: Within choices, square brackets can be escaped to become text
+===
+* Hello \[World\]
+---
+(ink
+  (content_block
+    (choice
+      (text))))
 
 ===
 .ABC. Multiple choices

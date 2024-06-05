@@ -241,10 +241,13 @@ module.exports = grammar({
 
     text: _ => prec.right(repeat1(
      choice(
-       '-', '<', '>', '/', '[', ']',
-       token(prec(-1, alias(/[^\s\{\}\[\]#\-<>/|]+/, 'word'))),
-       alias(/\\[\{\}\[\]$!&~\-|]/, '\char'),  // escaped special char
-       // alias(/\\\r?\n/, '\\n'),  // escaped newline
+       '-', '<', '>', '/',  // individual divert, thread or comment characters
+       '[', ']', // square brackets outside of choices are fine
+       // escaped special chars:
+       '\\[', '\\]',
+       '\\{', '\\}',
+       '\\|', '\\#',
+       alias(token(prec(-1, /[^\s\{\}\[\]#\-<>/|\\]+/)), 'word'),
     ))),
 
     _content: $ => choice(

@@ -151,9 +151,9 @@ When we <> came home, <> <> <> we went to sleep.
       (text))))
 
 ===
-.ADDc. Sometimes the scanner needs help using backslashes
+.ADDc. Syntax Stress Test: Confusing sequences of symbols
 ===
-We hurried home to Savile Road sevent-\<> no wait, it was a number <\<>-> what_number
+We hurried home to Savile Road sevent-<> no wait, it was a number <<>-> what_number
 
 === what_number ===
 20
