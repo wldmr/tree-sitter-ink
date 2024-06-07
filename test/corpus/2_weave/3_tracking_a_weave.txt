@@ -19,29 +19,34 @@ The guard frowns at you.
 
 (ink
   (content_block
-    (gather
-      label: (identifier)))
+    (gather_block
+      (gather
+        label: (identifier))))
   (knot_block
     (knot
       name: (identifier))
     (content_block
       (text)
-      (content_block
+      (choice_block
         (choice
           label: (identifier)
           temporary: (text))
-        (text)
+        (text))
+      (choice_block
         (choice
           label: (identifier)
           main: (text)
           temporary: (text)
-          final: (text))
+          final: (text)))
+      (gather_block
         (gather
-          (text))
+          (text)))
+      (choice_block
         (choice
           condition: (identifier)
           main: (text))
-        (comment)
+        (comment))
+      (choice_block
         (choice
           main: (text)
           final: (text))))))

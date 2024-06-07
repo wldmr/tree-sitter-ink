@@ -27,6 +27,7 @@ The radio hissed into life. {"Three!"|"Two!"|"One!"|There was the white noise ra
 \{One\|Three\}
 {One|Two\|or so|Three}
 ---
+
 (ink
   (content_block
     (text)
@@ -136,16 +137,17 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
 
 (ink
   (content_block
-    (choice
-      main: (content
-        (text)
-        (alternatives
+    (choice_block
+      (choice
+        main: (content
           (text)
-          (text)
-          (text)
+          (alternatives
+            (text)
+            (text)
+            (text)
+            (text))
           (text))
-        (text))
-      final: (text))))
+        final: (text)))))
 
 ===
 .AHH. Alternatives Starting Choice Text
@@ -155,11 +157,12 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
 
 (ink
   (content_block
-    (choice
-      main: (alternatives
-        (text)
-        (text)
-        (text)))))
+    (choice_block
+      (choice
+        main: (alternatives
+          (text)
+          (text)
+          (text))))))
 
 ===
 .AHI. Conditional Text

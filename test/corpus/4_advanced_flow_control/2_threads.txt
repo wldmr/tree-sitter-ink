@@ -40,15 +40,17 @@ Before long, we arrived at his house.
       (identifier))
     (content_block
       (text)
-      (content_block
+      (choice_block
         (choice
           (text)
           (text))
-        (text)
+        (text))
+      (choice_block
         (choice
           (text)
           (text))
-        (text)
+        (text))
+      (gather_block
         (gather
           (divert
             (identifier))))))
@@ -57,7 +59,7 @@ Before long, we arrived at his house.
       (identifier))
     (content_block
       (text)
-      (content_block
+      (choice_block
         (choice
           (text))
         (divert
@@ -97,22 +99,23 @@ Before long, we arrived at his house.
     (knot
       (identifier))
     (content_block
-      (gather
-        (identifier))
-      (thread
-        (call
-          (identifier)
-          (args
-            (divert
-              (identifier)))))
-      (thread
-        (call
-          (identifier)
-          (args
-            (divert
-              (identifier)))))
-      (thread
-        (identifier)))
+      (gather_block
+        (gather
+          (identifier))
+        (thread
+          (call
+            (identifier)
+            (args
+              (divert
+                (identifier)))))
+        (thread
+          (call
+            (identifier)
+            (args
+              (divert
+                (identifier)))))
+        (thread
+          (identifier))))
     (stitch_block
       (stitch
         (identifier)

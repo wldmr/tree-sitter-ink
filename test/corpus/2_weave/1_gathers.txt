@@ -15,21 +15,24 @@
 (ink
   (content_block
     (text)
-    (content_block
+    (choice_block
       (choice
         (text)
         (text)
         (text))
-      (text)
+      (text))
+    (choice_block
       (choice
         (text)
         (text))
-      (text)
+      (text))
+    (choice_block
       (choice
         (text)
         (text)
         (text))
-      (text)
+      (text))
+    (gather_block
       (gather
         (text)))))
 
@@ -59,28 +62,34 @@ I ran through the forest, the dogs snapping at my heels.
       (identifier))
     (content_block
       (text)
-      (content_block
+      (choice_block
         (choice
           (text)
           (content
             (text)
-            (glue)))
+            (glue))))
+      (choice_block
         (choice
           (text)
           (content
             (text)
-            (glue)))
+            (glue))))
+      (choice_block
         (choice
           (content
             (text)
-            (glue)))
+            (glue))))
+      (gather_block
         (gather
-          (text))
+          (text)))
+      (choice_block
         (choice
           (text)
-          (text))
+          (text)))
+      (choice_block
         (choice
           (text)
-          (text))
+          (text)))
+      (gather_block
         (gather
           (text))))))

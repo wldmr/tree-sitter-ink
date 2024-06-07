@@ -33,7 +33,7 @@
         (identifier))
       (content_block
         (text)
-        (content_block
+        (choice_block
           (choice
             (text))
           (tunnel
@@ -53,14 +53,16 @@
       (identifier))
     (content_block
       (text)
-      (content_block
+      (choice_block
         (choice
           (text))
         (tunnel
           (divert
-            (identifier)))
+            (identifier))))
+      (choice_block
         (choice
-          (text))
+          (text)))
+      (gather_block
         (gather
           (tunnel)))))
   (knot_block

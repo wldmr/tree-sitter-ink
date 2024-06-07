@@ -44,27 +44,30 @@
 
 (ink
   (content_block
-    (choice
-      (text))
-    (divert
-      (call
-        (identifier)
-        (args
-          (string))))
-    (choice
-      (text))
-    (divert
-      (call
-        (identifier)
-        (args
-          (string))))
-    (choice
-      (text))
-    (divert
-      (call
-        (identifier)
-        (args
-          (string)))))
+    (choice_block
+      (choice
+        (text))
+      (divert
+        (call
+          (identifier)
+          (args
+            (string)))))
+    (choice_block
+      (choice
+        (text))
+      (divert
+        (call
+          (identifier)
+          (args
+            (string)))))
+    (choice_block
+      (choice
+        (text))
+      (divert
+        (call
+          (identifier)
+          (args
+            (string))))))
   (knot_block
     (knot
       (identifier)

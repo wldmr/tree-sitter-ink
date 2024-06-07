@@ -53,7 +53,7 @@
               (number)
               (number)
               (number)))))
-      (content_block
+      (choice_block
         (choice
           (call
             (identifier))

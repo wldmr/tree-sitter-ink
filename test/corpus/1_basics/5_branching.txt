@@ -20,15 +20,17 @@ You open the gate, and step out onto the path.
       name: (identifier))
     (content_block
       (text)
-      (content_block
+      (choice_block
         (choice
           temporary: (text)
           final: (divert
-            target: (identifier)))
+            target: (identifier))))
+      (choice_block
         (choice
           temporary: (text)
           final: (divert
-            target: (identifier)))
+            target: (identifier))))
+      (choice_block
         (choice
           temporary: (text)
           final: (divert
@@ -76,18 +78,20 @@ He insisted that we hurried home to Savile Row
       (identifier))
     (content_block
       (text)
-      (content_block
+      (choice_block
         (choice
           (text)
           (text))
         (divert
-          (identifier))
+          (identifier)))
+      (choice_block
         (choice
           (text)
           (text))
         (text)
         (divert
-          (identifier))
+          (identifier)))
+      (choice_block
         (choice
           (text)
           (divert
