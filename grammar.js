@@ -94,7 +94,10 @@ function make_expr(named = true) {
     ),
 
     [rule('identifier')]: _ => IDENTIFIER_REGEX,
-    [rule('qualified_name')]: $ => seq($[rule('identifier')], token.immediate('.'), $[rule('identifier')]),
+    [rule('qualified_name')]: $ => seq(
+      $[rule('identifier')], '.', $[rule('identifier')],
+      optional(seq('.', $[rule('identifier')])) // third level: -> knot.stitch.label
+    ),
 
     [rule('number')]: _ => /\d+(\.\d+)?/,
     [rule('boolean')]: _ => choice('false', 'true'),
