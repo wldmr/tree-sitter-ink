@@ -50,18 +50,20 @@
 
 (ink
   (content_block
-    (choice
-      temporary: (text))
-    (divert
-      target: (qualified_name
-        (identifier)
-        (identifier)))
-    (choice
-      temporary: (text))
-    (divert
-      target: (qualified_name
-        (identifier)
-        (identifier)))))
+    (choice_block
+      (choice
+        temporary: (text))
+      (divert
+        target: (qualified_name
+          (identifier)
+          (identifier))))
+    (choice_block
+      (choice
+        temporary: (text))
+      (divert
+        target: (qualified_name
+          (identifier)
+          (identifier))))))
 
 ===
 .AFC. Script files can be combined

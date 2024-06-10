@@ -1,11 +1,15 @@
 #include "tree_sitter/parser.h"
 #include "tree_sitter/alloc.h"
 #include "tree_sitter/array.h"
+#include <stdint.h>
+#include <stdio.h>
 
 typedef enum {
   END_OF_LINE,
-  BLOCK_START,
-  BLOCK_END,
+  CHOICE_BLOCK_START,
+  CHOICE_BLOCK_END,
+  GATHER_BLOCK_START,
+  GATHER_BLOCK_END,
   ERROR,
 } Token;
 
@@ -25,21 +29,27 @@ inline void print_valid_symbols(const bool *valid_symbols) {
     MSG("======================================== ERROR =========================================\n");
   else
     MSG("========================================================================================\n");
-  MSG(" %s END_OF_LINE  \t", valid_symbols[END_OF_LINE]   ? "*" : "-");
-  MSG(" %s BLOCK_START  \t", valid_symbols[BLOCK_START]    ? "*" : "-");
-  MSG(" %s BLOCK_END    \n", valid_symbols[BLOCK_END]      ? "*" : "-");
+  MSG(" %s END_OF_LINE        \n", valid_symbols[END_OF_LINE]        ? "*" : "-");
+  MSG(" %s CHOICE_BLOCK_START \t", valid_symbols[CHOICE_BLOCK_START] ? "*" : "-");
+  MSG(" %s CHOICE_BLOCK_END   \n", valid_symbols[CHOICE_BLOCK_END]   ? "*" : "-");
+  MSG(" %s GATHER_BLOCK_START \t", valid_symbols[GATHER_BLOCK_START] ? "*" : "-");
+  MSG(" %s GATHER_BLOCK_END   \n", valid_symbols[GATHER_BLOCK_END]   ? "*" : "-");
   MSG("------------------\n");
 }
 
+typedef enum { NONE, CONTENT, CHOICE, GATHER } BlockType;
+
+// Typedef for numeric block level; juuust in case we want to change the amount of nesting we allow.
+// To future self … CAUTION: This needs to be serialized to a string of bytes,
+// so account for that when changing it to something larger.
 typedef uint8_t BlockLevel;
-const BlockLevel BL_NONE = 0;
-/// Special value meaning 'same as previous block'
-const BlockLevel BL_UNSPECIFIED = 1;
-const BlockLevel BL_KNOT = 2;
-const BlockLevel BL_STITCH = 3;
-/// CONTENT can nest arbitrarily, so this is just the lowest number for content.
-const BlockLevel BL_CONTENT = 4;
-const BlockLevel BL_MAX = UINT8_MAX;
+const BlockLevel BLOCK_LEVEL_MIN = 0;
+const BlockLevel BLOCK_LEVEL_MAX = UINT8_MAX;
+
+typedef struct BlockInfo {
+  BlockType type;
+  uint8_t level;
+} BlockInfo;
 
 typedef struct {
   Array(BlockLevel) blocks;
@@ -88,8 +98,8 @@ unsigned tree_sitter_ink_external_scanner_serialize(void *payload, char *buffer)
   }
 
   if (size >= TREE_SITTER_SERIALIZATION_BUFFER_SIZE) {
-    // MSG("WARN: Bumped up against tree sitter serialization limit (%d)! We may have lost data!\n",
-           // TREE_SITTER_SERIALIZATION_BUFFER_SIZE);
+    printf("WARN: Bumped up against tree sitter serialization limit (%d)! We may have lost data!\n",
+           TREE_SITTER_SERIALIZATION_BUFFER_SIZE);
   }
   // MSG("Serializing %d bytes of state\n", size);
   return size;
@@ -107,12 +117,12 @@ void tree_sitter_ink_external_scanner_deserialize(void *payload, const char *buf
     uint32_t size = 0;
     while (size < length)
       array_push(&scanner->blocks, buffer[size++]);
-    // MSG("Deserialized %d bytes of state.\n", size);
   }
+  // MSG("Deserialized %d bytes of state.\n", size);
 
   // Make sure the thing is never empty so we never have to check.
   if (scanner->blocks.size == 0)
-    array_push(&scanner->blocks, BL_NONE);
+    array_push(&scanner->blocks, BLOCK_LEVEL_MIN);
 }
 
 
@@ -150,60 +160,74 @@ inline void skip_ws_upto_cr(TSLexer *lexer) {
     skip(lexer);
 }
 
+inline bool start_block(TSLexer *lexer, Scanner *scanner, Token token, BlockLevel level) {
+  lexer->result_symbol = token;
+  array_push(&scanner->blocks, level);
+  return true; // Just so this can be called inline.
+}
+
+inline bool end_block(TSLexer *lexer, Scanner *scanner, Token token) {
+  lexer->result_symbol = token;
+  array_pop(&scanner->blocks);
+  return true; // Just so this can be called inline.
+}
+
 /// Looks ahead to see if a new block could be started here.
 ///
-/// Callers must call scanner->mark_end themselves if necessary; this function does not call it.
+/// Callers must call scanner->mark_end themselves if necessary; this function does not mark anything.
 ///
-/// At EOF, return BL_NONE.
-/// If next non-whitespaces gives no indication, return BL_UNSPECIFIED.
+/// At ==, =, or EOF, return BL_NONE.
 ///
 /// Mutates lexer, does not mutate scanner.
-BlockLevel lookahead_block_start(TSLexer *lexer, Scanner *scanner) {
+BlockInfo lookahead_block_start(TSLexer *lexer, Scanner *scanner) {
   MSG("Looking ahead for block start marker\n");
 
   skip_ws(lexer);
 
-  if (lookahead(lexer) == '\0' && is_eof(lexer)) {
-    MSG("Next block: %d, because EOF.\n", BL_NONE);
-    return BL_NONE;
+  BlockInfo block = {.type = NONE, .level = 0};
+
+  if (lookahead(lexer) == '=' || is_eof(lexer)) {
+    MSG("Next block: None.\n");
+    return block;
   }
 
-  if (lookahead(lexer) != '=') {
-    MSG("Next block is content. Level indicators");
-    static const BlockLevel max_markers = BL_MAX - BL_CONTENT;
-    uint8_t markers = 0;
-    uint32_t c = lookahead(lexer);
-    while ((c == '*' || c == '+' || c == '-') && (markers < max_markers)) {
-      MSG(" %c", c);
-      consume(lexer);
-      if (c == '-' && lookahead(lexer) == '>') {
-        MSG(" capped off by a divert ");
-        break;
-      } else {
-        markers += 1;
-        skip_ws(lexer);
-        c = lookahead(lexer);
-      }
-    }
-
-    if (markers) {
-      MSG(" -> Content at level %d.\n", BL_CONTENT + markers);
-      return BL_CONTENT + markers;
+  MSG("Next block is flow. Level indicators: ");
+  BlockLevel markers = 0;
+  uint32_t c = lookahead(lexer);
+  uint32_t first_marker = 0;
+  while ((c == '*' || c == '+' || (c == '-')) && (markers < BLOCK_LEVEL_MAX)) {
+    MSG("%c ", c);
+    consume(lexer);
+    if (c == '-' && lookahead(lexer) == '>') {
+      MSG("capped off by a divert ");
+      break;
     } else {
-      MSG(" none -> Level unspecified.\n");
-      return BL_UNSPECIFIED;
+      markers += 1;
+      if (first_marker == 0) first_marker = c;
+      skip_ws(lexer);
+      c = lookahead(lexer);
     }
   }
+  if (markers == 0) { MSG("none"); }
 
-  // We've seen one '='; now determine whether we'll start a stitch or a knot.
-  consume(lexer);
-  if (lookahead(lexer) == '=') {
-    MSG("Next block: %d.\n", BL_KNOT);
-    return BL_KNOT;
-  } else {
-    MSG("Next block: %d.\n", BL_STITCH);
-    return BL_STITCH;
+  block.level = markers;
+
+  switch (first_marker) {
+  case '-':
+    block.type = GATHER;
+    break;
+  case '*':
+  case '+':
+    block.type = CHOICE;
+    break;
+  default:
+    block.type = CONTENT;
+    break;
   }
+
+  MSG("\n");
+
+  return block;
 }
 
 
@@ -244,37 +268,49 @@ bool tree_sitter_ink_external_scanner_scan(
     }
   }
 
-  if (valid_symbols[BLOCK_START] || valid_symbols[BLOCK_END]) {
+  if (valid_symbols[GATHER_BLOCK_START] || valid_symbols[GATHER_BLOCK_END]
+   || valid_symbols[CHOICE_BLOCK_START] || valid_symbols[CHOICE_BLOCK_END]) {
     MSG("Checking for Block delimiters.\n");
 
-    mark_end(lexer);  // Block tokens are zero width.
+    mark_end(lexer);  // In case we skipped some whitespace before.
 
-    BlockLevel current_block = *array_back(&scanner->blocks);
-    BlockLevel next_block = lookahead_block_start(lexer, scanner);
+    BlockLevel current_block_level = *array_back(&scanner->blocks);
+    BlockInfo next_block = lookahead_block_start(lexer, scanner);
 
-    // We mustn't add BL_UNSPECIFIED to the blocks array.
-    if (next_block == BL_UNSPECIFIED) {
-      next_block = (current_block >= BL_CONTENT) ? current_block : BL_CONTENT;
-      MSG("Next block is BL_UNSPECFIED: Corrected to %d.\n", next_block);
+    if (next_block.type == NONE) {
+      MSG("Blocks can only end here.\n");
+      if (valid_symbols[CHOICE_BLOCK_END]) {
+        return end_block(lexer, scanner, CHOICE_BLOCK_END);
+      } else if (valid_symbols[GATHER_BLOCK_END]) {
+        return end_block(lexer, scanner, GATHER_BLOCK_END);
+      } else {
+        return false; // Weird. Error recovery next?
+      }
     }
 
-    MSG("Current %d -> Next %d: ", current_block, next_block);
-    if (next_block > current_block) {
-      MSG("Start block.\n");
-      lexer->result_symbol = BLOCK_START;
-      array_push(&scanner->blocks, next_block);
-      return valid_symbols[BLOCK_START];
-    } else if (current_block >= BL_CONTENT && next_block == current_block) {
-      MSG("Content blocks of same level. Nothing to do.\n");
-    } else if (next_block <= current_block) {
-      MSG("End block.\n");
-      lexer->result_symbol = BLOCK_END;
-      array_pop(&scanner->blocks);
-      return valid_symbols[BLOCK_END];
+    if (next_block.type == CONTENT) {
+      MSG("Next up is just content, the block remains the same.\n");
+      return false;
+    }
+
+    MSG("Current %d -> Next %d|%d: ", current_block_level, next_block.type, next_block.level);
+    if (next_block.level > current_block_level) {
+      MSG("Next block is deeper. Start block.\n");
+      if (next_block.type == CHOICE && valid_symbols[CHOICE_BLOCK_START]) {
+        return start_block(lexer, scanner, CHOICE_BLOCK_START, next_block.level);
+      } else if (next_block.type == GATHER && valid_symbols[GATHER_BLOCK_START]) {
+        return start_block(lexer, scanner, GATHER_BLOCK_START, next_block.level);
+      }
     } else {
-      MSG("Staying at same level.\n");
+      MSG("Next block same or shallower. End block.\n");
+      if (valid_symbols[CHOICE_BLOCK_END]) {
+        return end_block(lexer, scanner, CHOICE_BLOCK_END);
+      } else if (valid_symbols[GATHER_BLOCK_END]) {
+        return end_block(lexer, scanner, GATHER_BLOCK_END);
+      } else {
+        return false; // Weird. Error recovery next?
+      }
     }
-
   }
 
   MSG("*** FALLTHROUGH! ***\n");

@@ -9,7 +9,7 @@ Hello world!
 (ink
   (content_block
     (text)
-    (content_block
+    (choice_block
       (choice
         main: (text))
       (text))))
@@ -25,7 +25,7 @@ Hello world!
 (ink
   (content_block
     (text)
-    (content_block
+    (choice_block
       (choice
         main: (text)
         temporary: (text)
@@ -48,8 +48,9 @@ Hello [World]
 ---
 (ink
   (content_block
-    (choice
-      (text))))
+    (choice_block
+      (choice
+        (text)))))
 
 ===
 .ABC. Multiple choices
@@ -66,16 +67,18 @@ Hello [World]
 (ink
   (content_block
     (text)
-    (content_block
+    (choice_block
       (choice
         main: (text)
         temporary: (text)
         final: (text))
-      (text)
+      (text))
+    (choice_block
       (choice
         main: (text)
         final: (text))
-      (text)
+      (text))
+    (choice_block
       (choice
         main: (text)
         temporary: (text)

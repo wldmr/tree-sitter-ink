@@ -7,25 +7,27 @@
 
 (ink
   (content_block
-    (choice
-      main: (content
-        (text)
-        (tag
-          (text))))
-    (choice
-      main: (content
-        (text)
-        (tag
-          (text))
-        (tag
-          (text)))
-      temporary: (content
-        (text)
-        (tag
-          (text)))
-      final: (content
-        (text)
-        (tag
-          (text))
-        (divert
-          target: (identifier))))))
+    (choice_block
+      (choice
+        main: (content
+          (text)
+          (tag
+            (text)))))
+    (choice_block
+      (choice
+        main: (content
+          (text)
+          (tag
+            (text))
+          (tag
+            (text)))
+        temporary: (content
+          (text)
+          (tag
+            (text)))
+        final: (content
+          (text)
+          (tag
+            (text))
+          (divert
+            target: (identifier)))))))

@@ -10,14 +10,16 @@
 
 (ink
   (content_block
-    (choice
-      main: (divert
-        target: (identifier)))
-    (choice)
-    (content
-      (text)
-      (divert
-        target: (identifier)))))
+    (choice_block
+      (choice
+        main: (divert
+          target: (identifier))))
+    (choice_block
+      (choice)
+      (content
+        (text)
+        (divert
+          target: (identifier))))))
 
 ===
 .AGB. Fallback Choices extended example
@@ -39,21 +41,23 @@
       name: (identifier))
     (content_block
       (text)
-      (content_block
+      (choice_block
         (choice
           main: (text)
           temporary: (text)
           final: (content
             (text)
             (divert
-              target: (identifier))))
+              target: (identifier)))))
+      (choice_block
         (choice
           main: (text)
           temporary: (text)
           final: (content
             (text)
             (divert
-              target: (identifier))))
+              target: (identifier)))))
+      (choice_block
         (choice)
         (text)
         (divert
@@ -76,17 +80,19 @@
     (knot
       name: (identifier))
     (content_block
-      (choice
-        temporary: (text))
-      (content
+      (choice_block
+        (choice
+          temporary: (text))
+        (content
+          (text)
+          (divert
+            target: (identifier))))
+      (choice_block
+        (choice
+          temporary: (text))
         (text)
         (divert
-          target: (identifier)))
-      (choice
-        temporary: (text))
-      (text)
-      (divert
-        target: (identifier)))))
+          target: (identifier))))))
 
 ===
 .AGD. Sticky Fallback Choices
@@ -103,17 +109,20 @@
     (knot
       name: (identifier))
     (content_block
-      (choice
-        temporary: (text)
-        final: (divert
-          target: (identifier)))
-      (choice
-        temporary: (text)
-        final: (divert
-          target: (identifier)))
-      (choice
-        main: (divert
-          target: (identifier))))))
+      (choice_block
+        (choice
+          temporary: (text)
+          final: (divert
+            target: (identifier))))
+      (choice_block
+        (choice
+          temporary: (text)
+          final: (divert
+            target: (identifier))))
+      (choice_block
+        (choice
+          main: (divert
+            target: (identifier)))))))
 
 ===
 .AGE. Conditional Choices
@@ -127,24 +136,27 @@
 
 (ink
   (content_block
-    (choice
-      condition: (unary
-        (identifier))
-      temporary: (text)
-      final: (divert
-        target: (identifier)))
-    (choice
-      condition: (identifier)
-      temporary: (text)
-      final: (divert
-        target: (identifier)))
-    (choice
-      condition: (qualified_name
-        (identifier)
-        (identifier))
-      temporary: (text)
-      final: (divert
-        target: (identifier)))))
+    (choice_block
+      (choice
+        condition: (unary
+          (identifier))
+        temporary: (text)
+        final: (divert
+          target: (identifier))))
+    (choice_block
+      (choice
+        condition: (identifier)
+        temporary: (text)
+        final: (divert
+          target: (identifier))))
+    (choice_block
+      (choice
+        condition: (qualified_name
+          (identifier)
+          (identifier))
+        temporary: (text)
+        final: (divert
+          target: (identifier))))))
 
 ===
 .AGF. Advanced Conditional Choices: Multiple Choices
@@ -157,19 +169,21 @@
 
 (ink
   (content_block
-    (choice
-      condition: (unary
-        (identifier))
-      temporary: (text)
-      final: (divert
-        target: (identifier)))
-    (choice
-      condition: (identifier)
-      condition: (unary
-        (identifier))
-      temporary: (text)
-      final: (divert
-        target: (identifier)))))
+    (choice_block
+      (choice
+        condition: (unary
+          (identifier))
+        temporary: (text)
+        final: (divert
+          target: (identifier))))
+    (choice_block
+      (choice
+        condition: (identifier)
+        condition: (unary
+          (identifier))
+        temporary: (text)
+        final: (divert
+          target: (identifier))))))
 
 ===
 .AGG. Logical Operators (and parentheses)
@@ -180,20 +194,21 @@
 
 (ink
   (content_block
-    (choice
-      condition: (binary
-        (unary
+    (choice_block
+      (choice
+        condition: (binary
+          (unary
+            (paren
+              (binary
+                (identifier)
+                (identifier))))
           (paren
             (binary
               (identifier)
               (identifier))))
-        (paren
-          (binary
-            (identifier)
-            (identifier))))
-      temporary: (text)
-      final: (divert
-        target: (identifier)))))
+        temporary: (text)
+        final: (divert
+          target: (identifier))))))
 
 ===
 .AGH. Knot/stitch labels are actually read counts
@@ -205,11 +220,13 @@
 
 (ink
   (content_block
-    (choice
-      condition: (identifier)
-      temporary: (text))
-    (choice
-      condition: (binary
-        (identifier)
-        (number))
-      temporary: (text))))
+    (choice_block
+      (choice
+        condition: (identifier)
+        temporary: (text)))
+    (choice_block
+      (choice
+        condition: (binary
+          (identifier)
+          (number))
+        temporary: (text)))))

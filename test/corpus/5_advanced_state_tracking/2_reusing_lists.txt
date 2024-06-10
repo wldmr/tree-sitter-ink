@@ -43,27 +43,28 @@ VAR microwaveState = cold
         (identifier)
         (identifier)))
     (content_block
-      (choice
-        (binary
-          (identifier)
-          (identifier))
+      (choice_block
+        (choice
+          (binary
+            (identifier)
+            (identifier))
+          (content
+            (text)
+            (eval
+              (identifier))))
         (content
           (text)
           (eval
-            (identifier))))
-      (content
-        (text)
-        (eval
-          (identifier))
-        (text))
-      (code
-        (assignment
-          (identifier)
-          (identifier)))
-      (divert
-        (qualified_name
-          (identifier)
-          (identifier)))))
+            (identifier))
+          (text))
+        (code
+          (assignment
+            (identifier)
+            (identifier)))
+        (divert
+          (qualified_name
+            (identifier)
+            (identifier))))))
   (knot_block
     (knot
       (identifier))
@@ -86,7 +87,7 @@ VAR microwaveState = cold
           (args
             (string)
             (identifier))))
-      (content_block
+      (gather_block
         (gather
           (identifier))))))
 

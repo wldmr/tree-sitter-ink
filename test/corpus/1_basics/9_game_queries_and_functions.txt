@@ -9,18 +9,21 @@
 
 (ink
   (content_block
-    (choice
-      condition: (boolean)
-      main: (text))
-    (choice
-      condition: (boolean)
-      main: (text))
-    (choice
-      condition: (binary
-        (call
-          name: (identifier))
-        (number))
-      main: (text))))
+    (choice_block
+      (choice
+        condition: (boolean)
+        main: (text)))
+    (choice_block
+      (choice
+        condition: (boolean)
+        main: (text)))
+    (choice_block
+      (choice
+        condition: (binary
+          (call
+            name: (identifier))
+          (number))
+        main: (text)))))
 
 ===
 .AIB. TURNS_SINCE
@@ -31,29 +34,31 @@
 
 (ink
   (content_block
-    (choice
-      condition: (binary
-        (call
-          name: (identifier)
-          args: (args
-            (divert
-              target: (qualified_name
-                (identifier)
-                (identifier)))))
-        (number))
-      main: (content
-        (text)
-        (divert
-          target: (identifier))))
-    (choice
-      condition: (binary
-        (call
-          name: (identifier)
-          args: (args
-            (divert
-              target: (identifier))))
-        (number))
-      main: (text))))
+    (choice_block
+      (choice
+        condition: (binary
+          (call
+            name: (identifier)
+            args: (args
+              (divert
+                target: (qualified_name
+                  (identifier)
+                  (identifier)))))
+          (number))
+        main: (content
+          (text)
+          (divert
+            target: (identifier)))))
+    (choice_block
+      (choice
+        condition: (binary
+          (call
+            name: (identifier)
+            args: (args
+              (divert
+                target: (identifier))))
+          (number))
+        main: (text)))))
 
 ===
 .AIC. came_from
@@ -89,24 +94,25 @@
 
 (ink
   (content_block
-    (choice
-      condition: (binary
-        (binary
+    (choice_block
+      (choice
+        condition: (binary
           (binary
-            (identifier)
             (binary
               (identifier)
-              (unary
-                (unary
-                  (identifier)))))
-          (number))
-        (binary
-          (binary
-            (identifier)
-            (paren
               (binary
                 (identifier)
-                (identifier))))
-          (unary
-            (number))))
-      main: (text))))
+                (unary
+                  (unary
+                    (identifier)))))
+            (number))
+          (binary
+            (binary
+              (identifier)
+              (paren
+                (binary
+                  (identifier)
+                  (identifier))))
+            (unary
+              (number))))
+        main: (text)))))

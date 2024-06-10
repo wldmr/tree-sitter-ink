@@ -130,8 +130,10 @@ module.exports = grammar({
 
   externals: $ => [
     $._eol,
-    $._block_start,
-    $._block_end,
+    $._choice_block_start,
+    $._choice_block_end,
+    $._gather_block_start,
+    $._gather_block_end,
     $._error_sentinel,
   ],
 
@@ -169,28 +171,54 @@ module.exports = grammar({
       repeat($.knot_block),
     ),
 
-    content_block: $ => prec.right(seq(
-      $._block_start,
+    content_block: $ => choice(
+      // either: at least one content item followed by choices/gathers
+      seq(
+        repeat1($._content_item),
+        repeat(choice(
+          $.choice_block,
+          $.gather_block,
+        ))
+      ),
+      // or: at least one choice/gather
       repeat1(choice(
-        $._content_item,
-        $.content_block,
-      )),
-      $._block_end,
-    )),
+        $.choice_block,
+        $.gather_block,
+    ))),
 
     knot_block: $ => prec.right(seq(
-      $._block_start,
       $.knot,
       optional($.content_block),
       repeat($.stitch_block),
-      $._block_end,
     )),
 
     stitch_block: $ => prec.right(seq(
-      $._block_start,
       $.stitch,
       optional($.content_block),
-      $._block_end,
+    )),
+
+    choice_block: $ => prec.right(seq(
+      $._choice_block_start,
+      $.choice,
+      $._eol,
+      repeat($._content_item),
+      $._choice_block_end,
+    )),
+
+    _choice_block_in_conditional: $ => prec.right(seq(
+      $._choice_block_start,
+      $.choice,
+      $._eol,
+      repeat($._content_item_in_conditional),
+      $._choice_block_end,
+    )),
+
+    gather_block: $ => prec.right(seq(
+      $._gather_block_start,
+      $.gather,
+      $._eol,
+      repeat($._content_item),
+      $._gather_block_end,
     )),
 
     _content_item: $ => seq(
@@ -199,8 +227,8 @@ module.exports = grammar({
         $.todo_comment,
         $._content,
         $.code,
-        $.choice,
-        $.gather,
+        $.choice_block,
+        $.gather_block,
         $.include,
         $.external,
         $.global,
@@ -214,8 +242,8 @@ module.exports = grammar({
         $.todo_comment,
         $._content,
         $.code,
-        $.choice,
-        // $.gather, // gathers are not allowed
+        alias($._choice_block_in_conditional, $.choice_block),
+        // gathers are not allowed here, which is why we do all this _in_conditional business
         $.include,
         $.external,
         $.global,
@@ -223,6 +251,8 @@ module.exports = grammar({
       ),
       $._eol,
     ),
+
+
 
     _redirect: $ => choice(
       $.divert,  // diverts are defined as part of the `make_expr` function.
@@ -383,12 +413,12 @@ module.exports = grammar({
       $._choice_content
     ),
 
-    gather: $ => seq(
+    gather: $ => prec.right(seq(
       repeat1(prec(PREC.ink, '-')),
       optional($._label_field),
       optional($._content),
       optional($._redirect),
-    ),
+    )),
 
     _label_field: $ => prec(PREC.ink, field('label', seq('(', $.identifier, ')'))),
 

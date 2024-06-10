@@ -12,7 +12,7 @@
           "named": true
         },
         {
-          "type": "choice",
+          "type": "choice_block",
           "named": true
         },
         {
@@ -708,6 +708,105 @@
     }
   },
   {
+    "type": "choice_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "alternatives",
+          "named": true
+        },
+        {
+          "type": "choice",
+          "named": true
+        },
+        {
+          "type": "choice_block",
+          "named": true
+        },
+        {
+          "type": "code",
+          "named": true
+        },
+        {
+          "type": "comment",
+          "named": true
+        },
+        {
+          "type": "cond_block",
+          "named": true
+        },
+        {
+          "type": "conditional_text",
+          "named": true
+        },
+        {
+          "type": "content",
+          "named": true
+        },
+        {
+          "type": "divert",
+          "named": true
+        },
+        {
+          "type": "eval",
+          "named": true
+        },
+        {
+          "type": "external",
+          "named": true
+        },
+        {
+          "type": "gather_block",
+          "named": true
+        },
+        {
+          "type": "global",
+          "named": true
+        },
+        {
+          "type": "glue",
+          "named": true
+        },
+        {
+          "type": "include",
+          "named": true
+        },
+        {
+          "type": "list",
+          "named": true
+        },
+        {
+          "type": "multiline_alternatives",
+          "named": true
+        },
+        {
+          "type": "tag",
+          "named": true
+        },
+        {
+          "type": "text",
+          "named": true
+        },
+        {
+          "type": "thread",
+          "named": true
+        },
+        {
+          "type": "todo_comment",
+          "named": true
+        },
+        {
+          "type": "tunnel",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "code",
     "named": true,
     "fields": {},
@@ -803,7 +902,7 @@
           "named": true
         },
         {
-          "type": "choice",
+          "type": "choice_block",
           "named": true
         },
         {
@@ -1110,7 +1209,7 @@
           "named": true
         },
         {
-          "type": "choice",
+          "type": "choice_block",
           "named": true
         },
         {
@@ -1134,10 +1233,6 @@
           "named": true
         },
         {
-          "type": "content_block",
-          "named": true
-        },
-        {
           "type": "divert",
           "named": true
         },
@@ -1150,7 +1245,7 @@
           "named": true
         },
         {
-          "type": "gather",
+          "type": "gather_block",
           "named": true
         },
         {
@@ -1374,6 +1469,105 @@
         },
         {
           "type": "thread",
+          "named": true
+        },
+        {
+          "type": "tunnel",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "gather_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "alternatives",
+          "named": true
+        },
+        {
+          "type": "choice_block",
+          "named": true
+        },
+        {
+          "type": "code",
+          "named": true
+        },
+        {
+          "type": "comment",
+          "named": true
+        },
+        {
+          "type": "cond_block",
+          "named": true
+        },
+        {
+          "type": "conditional_text",
+          "named": true
+        },
+        {
+          "type": "content",
+          "named": true
+        },
+        {
+          "type": "divert",
+          "named": true
+        },
+        {
+          "type": "eval",
+          "named": true
+        },
+        {
+          "type": "external",
+          "named": true
+        },
+        {
+          "type": "gather",
+          "named": true
+        },
+        {
+          "type": "gather_block",
+          "named": true
+        },
+        {
+          "type": "global",
+          "named": true
+        },
+        {
+          "type": "glue",
+          "named": true
+        },
+        {
+          "type": "include",
+          "named": true
+        },
+        {
+          "type": "list",
+          "named": true
+        },
+        {
+          "type": "multiline_alternatives",
+          "named": true
+        },
+        {
+          "type": "tag",
+          "named": true
+        },
+        {
+          "type": "text",
+          "named": true
+        },
+        {
+          "type": "thread",
+          "named": true
+        },
+        {
+          "type": "todo_comment",
           "named": true
         },
         {
