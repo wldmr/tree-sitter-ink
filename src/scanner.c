@@ -13,7 +13,7 @@ typedef enum {
   ERROR,
 } Token;
 
-#define DEBUG 1
+#define DEBUG 0
 // From this badass: https://stackoverflow.com/a/1644898
 // and this https://www.reddit.com/r/C_Programming/comments/jq8zsq/gblfq5y/ for the ## __VA_ARGS bit
 #define DBG(fmt, ...) \
@@ -37,21 +37,22 @@ inline void print_valid_symbols(const bool *valid_symbols) {
   MSG("------------------\n");
 }
 
-typedef enum { NONE, CONTENT, CHOICE, GATHER, } BlockType;
+typedef enum { NONE, CONTENT, CHOICE, GATHER } BlockType;
 
 // Typedef for numeric block level; juuust in case we want to change the amount of nesting we allow.
-// To future self … CAUTION: This needs to be serialized to a string of bytes, so account for that when changing this to something larger.
-typedef uint8_t BL;
-const BL BL_MIN = 0;
-const BL BL_MAX = UINT8_MAX;
+// To future self … CAUTION: This needs to be serialized to a string of bytes,
+// so account for that when changing it to something larger.
+typedef uint8_t BlockLevel;
+const BlockLevel BLOCK_LEVEL_MIN = 0;
+const BlockLevel BLOCK_LEVEL_MAX = UINT8_MAX;
 
-typedef struct BlockLevel {
+typedef struct BlockInfo {
   BlockType type;
   uint8_t level;
-} BlockLevel;
+} BlockInfo;
 
 typedef struct {
-  Array(BL) blocks;
+  Array(BlockLevel) blocks;
 } Scanner;
 
 
@@ -97,8 +98,8 @@ unsigned tree_sitter_ink_external_scanner_serialize(void *payload, char *buffer)
   }
 
   if (size >= TREE_SITTER_SERIALIZATION_BUFFER_SIZE) {
-    // MSG("WARN: Bumped up against tree sitter serialization limit (%d)! We may have lost data!\n",
-           // TREE_SITTER_SERIALIZATION_BUFFER_SIZE);
+    printf("WARN: Bumped up against tree sitter serialization limit (%d)! We may have lost data!\n",
+           TREE_SITTER_SERIALIZATION_BUFFER_SIZE);
   }
   // MSG("Serializing %d bytes of state\n", size);
   return size;
@@ -121,7 +122,7 @@ void tree_sitter_ink_external_scanner_deserialize(void *payload, const char *buf
 
   // Make sure the thing is never empty so we never have to check.
   if (scanner->blocks.size == 0)
-    array_push(&scanner->blocks, BL_MIN);
+    array_push(&scanner->blocks, BLOCK_LEVEL_MIN);
 }
 
 
@@ -159,6 +160,18 @@ inline void skip_ws_upto_cr(TSLexer *lexer) {
     skip(lexer);
 }
 
+inline bool start_block(TSLexer *lexer, Scanner *scanner, Token token, BlockLevel level) {
+  lexer->result_symbol = token;
+  array_push(&scanner->blocks, level);
+  return true; // Just so this can be called inline.
+}
+
+inline bool end_block(TSLexer *lexer, Scanner *scanner, Token token) {
+  lexer->result_symbol = token;
+  array_pop(&scanner->blocks);
+  return true; // Just so this can be called inline.
+}
+
 /// Looks ahead to see if a new block could be started here.
 ///
 /// Callers must call scanner->mark_end themselves if necessary; this function does not mark anything.
@@ -166,23 +179,23 @@ inline void skip_ws_upto_cr(TSLexer *lexer) {
 /// At ==, =, or EOF, return BL_NONE.
 ///
 /// Mutates lexer, does not mutate scanner.
-BlockLevel lookahead_block_start(TSLexer *lexer, Scanner *scanner) {
+BlockInfo lookahead_block_start(TSLexer *lexer, Scanner *scanner) {
   MSG("Looking ahead for block start marker\n");
 
   skip_ws(lexer);
 
-  BlockLevel blocklevel = {.type = NONE, .level = 0};
+  BlockInfo block = {.type = NONE, .level = 0};
 
   if (lookahead(lexer) == '=' || is_eof(lexer)) {
     MSG("Next block: None.\n");
-    return blocklevel;
+    return block;
   }
 
   MSG("Next block is flow. Level indicators: ");
-  BL markers = 0;
+  BlockLevel markers = 0;
   uint32_t c = lookahead(lexer);
   uint32_t first_marker = 0;
-  while ((c == '*' || c == '+' || (c == '-')) && (markers < BL_MAX)) {
+  while ((c == '*' || c == '+' || (c == '-')) && (markers < BLOCK_LEVEL_MAX)) {
     MSG("%c ", c);
     consume(lexer);
     if (c == '-' && lookahead(lexer) == '>') {
@@ -197,21 +210,24 @@ BlockLevel lookahead_block_start(TSLexer *lexer, Scanner *scanner) {
   }
   if (markers == 0) { MSG("none"); }
 
-  blocklevel.level = markers;
+  block.level = markers;
 
   switch (first_marker) {
   case '-':
-    blocklevel.type = GATHER; break;
+    block.type = GATHER;
+    break;
   case '*':
   case '+':
-    blocklevel.type = CHOICE; break;
+    block.type = CHOICE;
+    break;
   default:
-    blocklevel.type = CONTENT; break;
+    block.type = CONTENT;
+    break;
   }
 
   MSG("\n");
 
-  return blocklevel;
+  return block;
 }
 
 
@@ -252,31 +268,24 @@ bool tree_sitter_ink_external_scanner_scan(
     }
   }
 
-  bool gathers_allowed = valid_symbols[GATHER_BLOCK_START] || valid_symbols[GATHER_BLOCK_END];
-  bool choices_allowed = valid_symbols[CHOICE_BLOCK_START] || valid_symbols[CHOICE_BLOCK_END];
-
-  if (choices_allowed || gathers_allowed) {
+  if (valid_symbols[GATHER_BLOCK_START] || valid_symbols[GATHER_BLOCK_END]
+   || valid_symbols[CHOICE_BLOCK_START] || valid_symbols[CHOICE_BLOCK_END]) {
     MSG("Checking for Block delimiters.\n");
 
-    mark_end(lexer);  // Block tokens are zero width.
+    mark_end(lexer);  // In case we skipped some whitespace before.
 
-    BL current_block_level = *array_back(&scanner->blocks);
-    BlockLevel next_block = lookahead_block_start(lexer, scanner);
+    BlockLevel current_block_level = *array_back(&scanner->blocks);
+    BlockInfo next_block = lookahead_block_start(lexer, scanner);
 
     if (next_block.type == NONE) {
       MSG("Blocks can only end here.\n");
       if (valid_symbols[CHOICE_BLOCK_END]) {
-        lexer->result_symbol = CHOICE_BLOCK_END;
-        array_pop(&scanner->blocks);
-        return true;
+        return end_block(lexer, scanner, CHOICE_BLOCK_END);
       } else if (valid_symbols[GATHER_BLOCK_END]) {
-        lexer->result_symbol = GATHER_BLOCK_END;
-        array_pop(&scanner->blocks);
-        return true;
+        return end_block(lexer, scanner, GATHER_BLOCK_END);
       } else {
         return false; // Weird. Error recovery next?
       }
-
     }
 
     if (next_block.type == CONTENT) {
@@ -288,26 +297,16 @@ bool tree_sitter_ink_external_scanner_scan(
     if (next_block.level > current_block_level) {
       MSG("Next block is deeper. Start block.\n");
       if (next_block.type == CHOICE && valid_symbols[CHOICE_BLOCK_START]) {
-        lexer->result_symbol = CHOICE_BLOCK_START;
-        array_push(&scanner->blocks, next_block.level);
-        return true;
+        return start_block(lexer, scanner, CHOICE_BLOCK_START, next_block.level);
       } else if (next_block.type == GATHER && valid_symbols[GATHER_BLOCK_START]) {
-        lexer->result_symbol = GATHER_BLOCK_START;
-        array_push(&scanner->blocks, next_block.level);
-        return true;
-      } else {
-        return false; // Weird. Error recovery next?
+        return start_block(lexer, scanner, GATHER_BLOCK_START, next_block.level);
       }
     } else {
       MSG("Next block same or shallower. End block.\n");
       if (valid_symbols[CHOICE_BLOCK_END]) {
-        lexer->result_symbol = CHOICE_BLOCK_END;
-        array_pop(&scanner->blocks);
-        return true;
+        return end_block(lexer, scanner, CHOICE_BLOCK_END);
       } else if (valid_symbols[GATHER_BLOCK_END]) {
-        lexer->result_symbol = GATHER_BLOCK_END;
-        array_pop(&scanner->blocks);
-        return true;
+        return end_block(lexer, scanner, GATHER_BLOCK_END);
       } else {
         return false; // Weird. Error recovery next?
       }
