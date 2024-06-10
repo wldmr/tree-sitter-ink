@@ -183,10 +183,10 @@ BlockLevel lookahead_block_start(TSLexer *lexer, Scanner *scanner) {
   uint32_t c = lookahead(lexer);
   uint32_t first_marker = 0;
   while ((c == '*' || c == '+' || (c == '-')) && (markers < BL_MAX)) {
-    MSG(" %c", c);
+    MSG("%c ", c);
     consume(lexer);
     if (c == '-' && lookahead(lexer) == '>') {
-      MSG(" capped off by a divert ");
+      MSG("capped off by a divert ");
       break;
     } else {
       markers += 1;
@@ -195,7 +195,7 @@ BlockLevel lookahead_block_start(TSLexer *lexer, Scanner *scanner) {
       c = lookahead(lexer);
     }
   }
-  if (markers == 0) MSG("none");
+  if (markers == 0) { MSG("none"); }
 
   blocklevel.level = markers;
 
@@ -267,9 +267,11 @@ bool tree_sitter_ink_external_scanner_scan(
       MSG("Blocks can only end here.\n");
       if (valid_symbols[CHOICE_BLOCK_END]) {
         lexer->result_symbol = CHOICE_BLOCK_END;
+        array_pop(&scanner->blocks);
         return true;
       } else if (valid_symbols[GATHER_BLOCK_END]) {
-        lexer->result_symbol = CHOICE_BLOCK_END;
+        lexer->result_symbol = GATHER_BLOCK_END;
+        array_pop(&scanner->blocks);
         return true;
       } else {
         return false; // Weird. Error recovery next?
