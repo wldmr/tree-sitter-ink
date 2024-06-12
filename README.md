@@ -1,6 +1,8 @@
 # Tree-Sitter-Ink: 
 
 This is a [Tree-sitter] grammar for the [Ink] interactive fiction scripting language.
+It supports all syntax up to version 1.1.1. (1.2 incoming, see issue
+[#3](https://github.com/wldmr/tree-sitter-ink/issues/3)).
 
 [Tree-sitter]: https://tree-sitter.github.io/tree-sitter/
 [Ink]: https://www.inklestudios.com/ink/
