@@ -1,4 +1,4 @@
-VERSION := 1.0.0-beta
+VERSION := 24.06.12
 
 LANGUAGE_NAME := tree-sitter-ink
 
