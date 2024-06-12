@@ -235,10 +235,10 @@
       }
     },
     "_content_item": {
-      "type": "SEQ",
+      "type": "CHOICE",
       "members": [
         {
-          "type": "CHOICE",
+          "type": "SEQ",
           "members": [
             {
               "type": "SYMBOL",
@@ -246,53 +246,12 @@
             },
             {
               "type": "SYMBOL",
-              "name": "todo_comment"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "_content"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "code"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "choice_block"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "gather_block"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "include"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "external"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "global"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "list"
+              "name": "_eol"
             }
           ]
         },
         {
-          "type": "SYMBOL",
-          "name": "_eol"
-        }
-      ]
-    },
-    "_content_item_in_conditional": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "CHOICE",
+          "type": "SEQ",
           "members": [
             {
               "type": "SYMBOL",
@@ -300,42 +259,200 @@
             },
             {
               "type": "SYMBOL",
+              "name": "_eol"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
               "name": "_content"
             },
+            {
+              "type": "SYMBOL",
+              "name": "_eol"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
             {
               "type": "SYMBOL",
               "name": "code"
             },
             {
-              "type": "ALIAS",
-              "content": {
-                "type": "SYMBOL",
-                "name": "_choice_block_in_conditional"
-              },
-              "named": true,
-              "value": "choice_block"
-            },
+              "type": "SYMBOL",
+              "name": "_eol"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
             {
               "type": "SYMBOL",
               "name": "include"
             },
             {
               "type": "SYMBOL",
+              "name": "_eol"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
               "name": "external"
             },
+            {
+              "type": "SYMBOL",
+              "name": "_eol"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
             {
               "type": "SYMBOL",
               "name": "global"
             },
             {
               "type": "SYMBOL",
+              "name": "_eol"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
               "name": "list"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_eol"
             }
           ]
         },
         {
           "type": "SYMBOL",
-          "name": "_eol"
+          "name": "choice_block"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "gather_block"
+        }
+      ]
+    },
+    "_content_item_in_conditional": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "todo_comment"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_eol"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_content"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_eol"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "code"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_eol"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "include"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_eol"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "external"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_eol"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "global"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_eol"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "list"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_eol"
+            }
+          ]
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_choice_block_in_conditional"
+          },
+          "named": true,
+          "value": "choice_block"
         }
       ]
     },
@@ -3740,6 +3857,10 @@
     [
       "_content",
       "content"
+    ],
+    [
+      "_content_item",
+      "content_block"
     ]
   ],
   "precedences": [

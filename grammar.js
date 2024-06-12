@@ -162,6 +162,7 @@ module.exports = grammar({
     [$.tunnel],
     [$._redirect, $.tunnel],
     [$._content, $.content],
+    [$._content_item, $.content_block],
   ],
 
   rules: {
@@ -221,35 +222,32 @@ module.exports = grammar({
       $._gather_block_end,
     )),
 
-    _content_item: $ => seq(
-      choice(
-        $.comment,
-        $.todo_comment,
-        $._content,
-        $.code,
-        $.choice_block,
-        $.gather_block,
-        $.include,
-        $.external,
-        $.global,
-        $.list,
-      ),
-      $._eol,
+    _content_item: $ => choice(
+      seq($.comment, $._eol),
+      seq($.todo_comment, $._eol),
+      seq($._content, $._eol),
+      seq($.code, $._eol),
+      seq($.include, $._eol),
+      seq($.external, $._eol),
+      seq($.global, $._eol),
+      seq($.list, $._eol),
+      // These handle line breaks on their own:
+      $.choice_block,
+      $.gather_block,
     ),
 
-    _content_item_in_conditional: $ => seq(
-      choice(
-        $.todo_comment,
-        $._content,
-        $.code,
-        alias($._choice_block_in_conditional, $.choice_block),
-        // gathers are not allowed here, which is why we do all this _in_conditional business
-        $.include,
-        $.external,
-        $.global,
-        $.list,
-      ),
-      $._eol,
+    _content_item_in_conditional: $ => choice(
+      seq($.todo_comment, $._eol),
+      seq($._content, $._eol),
+      seq($.code, $._eol),
+      seq($.include, $._eol),
+      seq($.external, $._eol),
+      seq($.global, $._eol),
+      seq($.list, $._eol),
+      // These handle line breaks on their own:
+      alias($._choice_block_in_conditional, $.choice_block),
+      // Gathers are not allowed here, which is why we do all this _in_conditional business
+      // and also why we have to distinguish between choice and gather blocks.
     ),
 
 

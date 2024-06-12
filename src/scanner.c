@@ -176,7 +176,7 @@ inline bool end_block(TSLexer *lexer, Scanner *scanner, Token token) {
 ///
 /// Callers must call scanner->mark_end themselves if necessary; this function does not mark anything.
 ///
-/// At ==, =, or EOF, return BL_NONE.
+/// At ==, =, or EOF, BlockType is NONE.
 ///
 /// Mutates lexer, does not mutate scanner.
 BlockInfo lookahead_block_start(TSLexer *lexer, Scanner *scanner) {
@@ -191,7 +191,6 @@ BlockInfo lookahead_block_start(TSLexer *lexer, Scanner *scanner) {
     return block;
   }
 
-  MSG("Next block is flow. Level indicators: ");
   BlockLevel markers = 0;
   uint32_t c = lookahead(lexer);
   uint32_t first_marker = 0;
@@ -208,7 +207,8 @@ BlockInfo lookahead_block_start(TSLexer *lexer, Scanner *scanner) {
       c = lookahead(lexer);
     }
   }
-  if (markers == 0) { MSG("none"); }
+
+  MSG("Next block is flow. Level indicators: %d\n", markers);
 
   block.level = markers;
 
@@ -224,8 +224,6 @@ BlockInfo lookahead_block_start(TSLexer *lexer, Scanner *scanner) {
     block.type = CONTENT;
     break;
   }
-
-  MSG("\n");
 
   return block;
 }
@@ -251,7 +249,7 @@ bool tree_sitter_ink_external_scanner_scan(
 
   skip_ws_upto_cr(lexer);
   int32_t lookahead_ = lookahead(lexer);
-  MSG("\nat '%c' (%d).\n", pretty(lookahead_), lookahead_);
+  MSG("at '%c' (%d).\n", pretty(lookahead_), lookahead_);
 
   // first, try to end lines (that's always the innermost 'block')
   if (valid_symbols[END_OF_LINE]) {
@@ -272,7 +270,9 @@ bool tree_sitter_ink_external_scanner_scan(
    || valid_symbols[CHOICE_BLOCK_START] || valid_symbols[CHOICE_BLOCK_END]) {
     MSG("Checking for Block delimiters.\n");
 
-    mark_end(lexer);  // In case we skipped some whitespace before.
+    // Blocks should start at the and end directly at the mark, so we eat all whitespace leading up to it.
+    skip_ws(lexer);
+    mark_end(lexer);
 
     BlockLevel current_block_level = *array_back(&scanner->blocks);
     BlockInfo next_block = lookahead_block_start(lexer, scanner);
@@ -316,4 +316,3 @@ bool tree_sitter_ink_external_scanner_scan(
   MSG("*** FALLTHROUGH! ***\n");
   return false;
 }
-
