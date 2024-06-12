@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "tree-sitter-ink"
 description = "Ink grammar for tree-sitter"
-version = "0.3.0-alpha"
+version = "1.0.0-beta"
 keywords = ["incremental", "parsing", "tree-sitter", "ink"]
 classifiers = [
   "Intended Audience :: Developers",
