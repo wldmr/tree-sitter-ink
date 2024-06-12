@@ -1,5 +1,13 @@
 alias gen := generate
-CURRENT_VERSION:=`sed -nr 's/\s*"version"\s*:\s*"(.+?)",\s*/\1/p' package.json`
+
+# Current version as given in package.json
+current-version:=`sed -nr 's/\s*"version"\s*:\s*"(.+?)",\s*/\1/p' package.json`
+
+# Current version as given in package.json
+version-suffix:=""
+
+# What the next version would be if released now. Adds version-suffix if given.
+next-version:=`date +%y.%m.%d` + if version-suffix != "" { "-"+version-suffix} else {""}
 
 test *args: generate
 	tree-sitter test {{args}}
@@ -32,23 +40,22 @@ playground *args: wasm
 
 # Show version currently being worked on
 version-show:
-	@echo "Current version: {{CURRENT_VERSION}}"
+	@echo "Current version is:    {{current-version}}"
+	@echo "Next version would be: {{next-version}}"
 
-# Set version information (Makefile, etc) to VERSION. Careful: The version string is simply replaced verbatim.
-# Then run tests. If everything is successful, create a "bump version" commit.
-version-start VERSION:
-	@echo "Current version: {{CURRENT_VERSION}}"
-	sed -ri 's/^version\s*=\s*".+"$/version = "{{VERSION}}"/' Cargo.toml pyproject.toml
-	sed -ri 's/^VERSION\s*:=\s*.+$/VERSION := {{VERSION}}/' Makefile
-	sed -ri 's/^(\s*)"version"\s*:\s*".+",\s*$/\1"version": "{{VERSION}}",/' package.json
-	git commit --all -m "bump version to v{{VERSION}}"
+# Set version information (Makefile, etc) to current CalVer. Careful: The version string is simply replaced verbatim.
+[confirm("This will release version {{next-version}}. Are you sure?")]
+version-release: bench test
+	@echo "Releasing version: {{next-version}} (previous: {{current-version}})"
 
-# Tag the latest commit. VERSION must match the version in package.json.
-version-release VERSION: bench test
-	@echo "Current version: {{CURRENT_VERSION}}"
-	test "{{CURRENT_VERSION}}" = "{{VERSION}}"
-	just bench
-	just test
-	git tag -a "v{{CURRENT_VERSION}}" -m "Release Version v{{CURRENT_VERSION}}"
-	git push origin
-	git push --tags origin
+	git diff --exit-code  # Abort if there are uncommited changes
+
+	sed -ri 's/^version\s*=\s*".+"$/version = "{{next-version}}"/' Cargo.toml pyproject.toml
+	sed -ri 's/^VERSION\s*:=\s*.+$/VERSION := {{next-version}}/' Makefile
+	sed -ri 's/^(\s*)"version"\s*:\s*".+",\s*$/\1"version": "{{next-version}}",/' package.json
+
+	git commit --all -m "Release Version {{next-version}}"
+	git tag -a "v{{next-version}}" -m "Release Version {{next-version}}"
+	git tag --force latest
+
+	git push origin main "v{{next-version}}" +latest
