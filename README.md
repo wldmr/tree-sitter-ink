@@ -1,14 +1,13 @@
 # Tree-Sitter-Ink: 
 
 This is a [Tree-sitter] grammar for the [Ink] interactive fiction scripting language.
-It supports all syntax up to version 1.1.1. (1.2 incoming, see issue
-[#3](https://github.com/wldmr/tree-sitter-ink/issues/3)).
+It supports all syntax up to version 1.2.0.
 
 [Tree-sitter]: https://tree-sitter.github.io/tree-sitter/
 [Ink]: https://www.inklestudios.com/ink/
 
 > [!CAUTION]
-> It's still early days. Things are likely to behave in strange, unintuitive ways.
+> It's still early days. Things are likely to behave in strange, unintuitive ways. Or be plain buggy.
 > Please get in touch (by filing an issue, or by starting a discussion) so we can iron out the kinks.
 
 ```ink

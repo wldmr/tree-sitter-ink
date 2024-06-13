@@ -60,3 +60,20 @@ The guard frowns at you.
             (text))
           final: (content
             (text)))))))
+
+===
+.BCAa. v1.2.0: Choices can have a line break after the label (i.e. next line still belongs to the choice)
+===
+* 	(greet)
+    [Greet him]
+	'Greetings.'
+---
+(ink
+  (content_block
+    (choice_block
+      (choice
+        (identifier)
+        (content
+          (text)))
+      (content
+        (text)))))
