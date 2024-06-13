@@ -7,7 +7,7 @@ file-types = ["ink"]
 comment-tokens = "//"
 block-comment-tokens.start = "/*"
 block-comment-tokens.end = "*/"
-indent.unit = "  "
+indent.unit = " "
 indent.tab-width = 2
 soft-wrap.enable = true
 
