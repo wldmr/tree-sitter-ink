@@ -149,8 +149,8 @@ module.exports = grammar({
   precedences: $ => [
     [$._choice_condition, $.eval],  // since they are syntactically the same, maybe we just treat a condition as an eval?
     [$._expr, $._list_values],  // How should `(<identifier>)` be interpreted? Doesn't really matter, but we have to choose one.
-    [$._choice_content, $._content],
-    [$.gather, $._content],
+    [$._choice_content, $.content],
+    [$.gather, $.content],
   ],
 
   conflicts: $ => [
@@ -161,7 +161,6 @@ module.exports = grammar({
     [$.list_values, $._list_values],
     [$.tunnel],
     [$._redirect, $.tunnel],
-    [$._content, $.content],
     [$._content_item, $.content_block],
   ],
 
@@ -225,7 +224,7 @@ module.exports = grammar({
     _content_item: $ => choice(
       seq($.comment, $._eol),
       seq($.todo_comment, $._eol),
-      seq($._content, $._eol),
+      seq($.content, $._eol),
       seq($.code, $._eol),
       seq($.include, $._eol),
       seq($.external, $._eol),
@@ -238,7 +237,7 @@ module.exports = grammar({
 
     _content_item_in_conditional: $ => choice(
       seq($.todo_comment, $._eol),
-      seq($._content, $._eol),
+      seq($.content, $._eol),
       seq($.code, $._eol),
       seq($.include, $._eol),
       seq($.external, $._eol),
@@ -281,15 +280,6 @@ module.exports = grammar({
        alias(token(prec(-1, /[^\s\{\}\[\]#\-<>/|\\]+/)), 'word'),
     ))),
 
-    _content: $ => choice(
-      $.glue,
-      $._logic,
-      $.text,
-      $.tag,
-      $._redirect,
-      $.content,
-    ),
-
     content: $ => prec.right(choice(
       seq(
         repeat1(choice(
@@ -304,6 +294,7 @@ module.exports = grammar({
         repeat1($.tag),
         optional($._redirect),
       ),
+      $._redirect,
     )),
 
     glue: _ => '<>',
@@ -321,10 +312,10 @@ module.exports = grammar({
     conditional_text: $ => prec.right(seq(
       '{',
       prec.dynamic(PREC.ink, seq(field('condition', $.expr), ':')),
-      $._content,
+      $.content,
       optional(seq(
         '|',
-        optional($._content)
+        optional($.content)
       )),
       '}',
     )),
@@ -335,12 +326,12 @@ module.exports = grammar({
         seq(
           // ! can conflict with expressions starting with negation; but in this position, the alternatives marker gets precedence.
           choice('$', '&', '~', mark('!')),
-          optional($._content),
+          optional($.content),
         ),
         optional($._fake_content),
       )),
       '|',
-      repeat(choice('|', $._content)),
+      repeat(choice('|', $.content)),
       '}'
     )),
 
@@ -414,7 +405,7 @@ module.exports = grammar({
     gather: $ => prec.right(seq(
       repeat1(prec(PREC.ink, '-')),
       optional($._label_field),
-      optional($._content),
+      optional($.content),
       optional($._redirect),
     )),
 
@@ -423,18 +414,18 @@ module.exports = grammar({
     _choice_condition: $ => prec.right(PREC.ink, field('condition', seq('{', $.expr, '}', ))),
 
     _choice_content: $ => prec.right(choice(
-      field('main', $._content),
+      field('main', $.content),
       $._compound_choice_content,
       // empty fallback choice:
       $._divert_mark,
     )),
 
     _compound_choice_content: $ => prec.right(seq(
-      field('main', optional($._content)),
+      field('main', optional($.content)),
       mark('['),
-      field('temporary', optional($._content)),
+      field('temporary', optional($.content)),
       mark(']'),
-      field('final', optional($._content))
+      field('final', optional($.content))
     )),
 
     knot: $ => prec.right(seq(

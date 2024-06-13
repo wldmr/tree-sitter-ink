@@ -17,14 +17,17 @@ We hurried home to Savile Row as fast as we could.
     (knot
       name: (identifier))
     (content_block
-      (text)
-      (divert
-        target: (identifier))))
+      (content
+        (text))
+      (content
+        (divert
+          target: (identifier)))))
   (knot_block
     (knot
       name: (identifier))
     (content_block
-      (text)
+      (content
+        (text))
       (comment))))
 
 ===
@@ -51,7 +54,8 @@ as fast as we could.
     (knot
       name: (identifier))
     (content_block
-      (text))))
+      (content
+        (text)))))
 
 ===
 .ADC. Glue
@@ -76,15 +80,18 @@ to Savile Row
       (content
         (text)
         (glue))
-      (divert
-        target: (identifier))))
+      (content
+        (divert
+          target: (identifier)))))
   (knot_block
     (knot
       name: (identifier))
     (content_block
-      (text)
-      (divert
-        target: (identifier))))
+      (content
+        (text))
+      (content
+        (divert
+          target: (identifier)))))
   (knot_block
     (knot
       name: (identifier))
@@ -173,4 +180,5 @@ We hurried home to Savile Road sevent-<> no wait, it was a number <<>-> what_num
     (knot
       name: (identifier))
     (content_block
-      (text))))
+      (content
+        (text)))))

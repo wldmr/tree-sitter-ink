@@ -57,7 +57,8 @@
         (choice
           (call
             (identifier))
-          (text))))))
+          (content
+            (text)))))))
 
 ===
 .CEB. Parameters can be passed by reference

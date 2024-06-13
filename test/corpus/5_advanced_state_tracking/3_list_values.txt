@@ -31,23 +31,26 @@ VAR murmurersVolume = quiet
     (global
       (identifier)
       (identifier))
-    (cond_block
-      (cond_arm
-        (binary
-          (identifier)
-          (identifier))
-        (code
-          (postfix
-            (identifier)))
-        (cond_block
-          (cond_arm
-            (binary
-              (identifier)
-              (identifier))
-            (code
-              (postfix
-                (identifier)))
-            (text)))))))
+    (content
+      (cond_block
+        (cond_arm
+          (binary
+            (identifier)
+            (identifier))
+          (code
+            (postfix
+              (identifier)))
+          (content
+            (cond_block
+              (cond_arm
+                (binary
+                  (identifier)
+                  (identifier))
+                (code
+                  (postfix
+                    (identifier)))
+                (content
+                  (text))))))))))
 
 ===
 .ECB. Advanced: Defining your own numerical values

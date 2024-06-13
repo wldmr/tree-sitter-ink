@@ -16,27 +16,36 @@
   (content_block
     (gather_block
       (gather
-        (text)))
+        (content
+          (text))))
     (choice_block
       (choice
+        (content
+          (text)))
+      (content
         (text))
-      (text)
       (choice_block
         (choice
-          (text)))
+          (content
+            (text))))
       (gather_block
         (gather
-          (text))))
+          (content
+            (text)))))
     (choice_block
       (choice
+        (content
+          (text)))
+      (content
         (text))
-      (text)
       (choice_block
         (choice
-          (text))))
+          (content
+            (text)))))
     (gather_block
       (gather
-        (text)))))
+        (content
+          (text))))))
 
 ===
 .BBB. You can nest as many levels as you like
@@ -55,25 +64,33 @@
   (content_block
     (gather_block
       (gather
-        (text)))
+        (content
+          (text))))
     (choice_block
       (choice
-        (text))
+        (content
+          (text)))
       (choice_block
         (choice
-          (text))
+          (content
+            (text)))
         (choice_block
           (choice
-            (text))
+            (content
+              (text)))
           (choice_block
             (choice
-              (text))
+              (content
+                (text)))
             (choice_block
               (choice
-                (text)))))))
+                (content
+                  (text))))))))
     (choice_block
       (choice
-        (text)))
+        (content
+          (text))))
     (gather_block
       (gather
-        (text)))))
+        (content
+          (text))))))

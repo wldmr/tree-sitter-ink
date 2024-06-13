@@ -18,12 +18,13 @@
         (temp
           name: (identifier)
           value: (number)))
-      (cond_block
-        (cond_arm
-          (identifier)
-          (code
-            (postfix
-              (identifier))))))))
+      (content
+        (cond_block
+          (cond_arm
+            (identifier)
+            (code
+              (postfix
+                (identifier)))))))))
 
 ===
 .CDB. Knots and stitches can take parameters
@@ -46,28 +47,34 @@
   (content_block
     (choice_block
       (choice
-        (text))
-      (divert
-        (call
-          (identifier)
-          (args
-            (string)))))
+        (content
+          (text)))
+      (content
+        (divert
+          (call
+            (identifier)
+            (args
+              (string))))))
     (choice_block
       (choice
-        (text))
-      (divert
-        (call
-          (identifier)
-          (args
-            (string)))))
+        (content
+          (text)))
+      (content
+        (divert
+          (call
+            (identifier)
+            (args
+              (string))))))
     (choice_block
       (choice
-        (text))
-      (divert
-        (call
-          (identifier)
-          (args
-            (string))))))
+        (content
+          (text)))
+      (content
+        (divert
+          (call
+            (identifier)
+            (args
+              (string)))))))
   (knot_block
     (knot
       (identifier)
@@ -85,13 +92,15 @@
           (binary
             (identifier)
             (string))
-          (text)
+          (content
+            (text))
           (content
             (eval
               (identifier))
             (text)))
         (text))
-      (text))))
+      (content
+        (text)))))
 
 ===
 .CDC. Sending divert Targets as parameters
@@ -113,13 +122,15 @@
     (knot
       (identifier))
     (content_block
-      (text)
-      (divert
-        (call
-          (identifier)
-          (args
-            (divert
-              (identifier)))))))
+      (content
+        (text))
+      (content
+        (divert
+          (call
+            (identifier)
+            (args
+              (divert
+                (identifier))))))))
   (knot_block
     (knot
       (identifier)
@@ -127,14 +138,17 @@
         (divert
           (identifier))))
     (content_block
-      (text)
-      (divert
-        (identifier))))
+      (content
+        (text))
+      (content
+        (divert
+          (identifier)))))
   (knot_block
     (knot
       (identifier))
     (content_block
-      (text))))
+      (content
+        (text)))))
 
 ===
 .CDCa. Corner case: Fully qualified divert targets
@@ -144,13 +158,14 @@
 
 (ink
   (content_block
-    (divert
-      (call
-        (qualified_name
-          (identifier)
-          (identifier))
-        (args
-          (divert
-            (qualified_name
-              (identifier)
-              (identifier))))))))
+    (content
+      (divert
+        (call
+          (qualified_name
+            (identifier)
+            (identifier))
+          (args
+            (divert
+              (qualified_name
+                (identifier)
+                (identifier)))))))))

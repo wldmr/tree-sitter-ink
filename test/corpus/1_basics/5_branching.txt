@@ -19,28 +19,37 @@ You open the gate, and step out onto the path.
     (knot
       name: (identifier))
     (content_block
-      (text)
+      (content
+        (text))
       (choice_block
         (choice
-          temporary: (text)
-          final: (divert
-            target: (identifier))))
+          temporary: (content
+            (text))
+          final: (content
+            (divert
+              target: (identifier)))))
       (choice_block
         (choice
-          temporary: (text)
-          final: (divert
-            target: (identifier))))
+          temporary: (content
+            (text))
+          final: (content
+            (divert
+              target: (identifier)))))
       (choice_block
         (choice
-          temporary: (text)
-          final: (divert
-            target: (identifier))))))
+          temporary: (content
+            (text))
+          final: (content
+            (divert
+              target: (identifier)))))))
   (knot_block
     (knot
       name: (identifier))
     (content_block
-      (text)
-      (text))))
+      (content
+        (text))
+      (content
+        (text)))))
 
 ===
 .AEB. Branching and joining
@@ -77,25 +86,35 @@ He insisted that we hurried home to Savile Row
     (knot
       (identifier))
     (content_block
-      (text)
+      (content
+        (text))
       (choice_block
         (choice
-          (text)
-          (text))
-        (divert
-          (identifier)))
-      (choice_block
-        (choice
-          (text)
-          (text))
-        (text)
-        (divert
-          (identifier)))
-      (choice_block
-        (choice
-          (text)
+          (content
+            (text))
+          (content
+            (text)))
+        (content
           (divert
-            (identifier))))))
+            (identifier))))
+      (choice_block
+        (choice
+          (content
+            (text))
+          (content
+            (text)))
+        (content
+          (text))
+        (content
+          (divert
+            (identifier))))
+      (choice_block
+        (choice
+          (content
+            (text))
+          (content
+            (divert
+              (identifier)))))))
   (knot_block
     (knot
       (identifier))
@@ -108,9 +127,11 @@ He insisted that we hurried home to Savile Row
     (knot
       (identifier))
     (content_block
-      (text)
-      (divert
-        (identifier))))
+      (content
+        (text))
+      (content
+        (divert
+          (identifier)))))
   (knot_block
     (knot
       (identifier))

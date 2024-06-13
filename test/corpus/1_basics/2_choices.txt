@@ -8,11 +8,14 @@ Hello world!
 
 (ink
   (content_block
-    (text)
+    (content
+      (text))
     (choice_block
       (choice
-        main: (text))
-      (text))))
+        main: (content
+          (text)))
+      (content
+        (text)))))
 
 ===
 .ABB. Suppressing Choice Text
@@ -24,33 +27,42 @@ Hello world!
 
 (ink
   (content_block
-    (text)
+    (content
+      (text))
     (choice_block
       (choice
-        main: (text)
-        temporary: (text)
-        final: (text))
-      (text))))
+        main: (content
+          (text))
+        temporary: (content
+          (text))
+        final: (content
+          (text)))
+      (content
+        (text)))))
 
 ===
 .ABBa. Corner Case: Outside of choices, square brackets are just text
 ===
 Hello [World]
 ---
+
 (ink
   (content_block
-    (text)))
+    (content
+      (text))))
 
 ===
 .ABBb. Corner Case: Within choices, square brackets can be escaped to become text
 ===
 * Hello \[World\]
 ---
+
 (ink
   (content_block
     (choice_block
       (choice
-        (text)))))
+        (content
+          (text))))))
 
 ===
 .ABC. Multiple choices
@@ -66,21 +78,33 @@ Hello [World]
 
 (ink
   (content_block
-    (text)
-    (choice_block
-      (choice
-        main: (text)
-        temporary: (text)
-        final: (text))
+    (content
       (text))
     (choice_block
       (choice
-        main: (text)
-        final: (text))
-      (text))
+        main: (content
+          (text))
+        temporary: (content
+          (text))
+        final: (content
+          (text)))
+      (content
+        (text)))
     (choice_block
       (choice
-        main: (text)
-        temporary: (text)
-        final: (text))
-      (text))))
+        main: (content
+          (text))
+        final: (content
+          (text)))
+      (content
+        (text)))
+    (choice_block
+      (choice
+        main: (content
+          (text))
+        temporary: (content
+          (text))
+        final: (content
+          (text)))
+      (content
+        (text)))))

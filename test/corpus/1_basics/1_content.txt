@@ -6,7 +6,8 @@ Hello, world!
 
 (ink
   (content_block
-    (text)))
+    (content
+      (text))))
 
 ==============
 .AAB. Comments
@@ -21,11 +22,14 @@ Hello, world!
 	... or an unlimited block of text
  */
 ---
+
 (ink
   (content_block
-    (text)
+    (content
+      (text))
     (comment)
-    (text)
+    (content
+      (text))
     (comment)))
 
 ========================================================================================================================
@@ -40,10 +44,12 @@ Stuff
 /*Comment the second
 */
 ---
+
 (ink
   (content_block
     (comment)
-    (text)
+    (content
+      (text))
     (comment)))
 
 =================================
@@ -56,10 +62,12 @@ Stuff
 
 (ink
   (content_block
-    (text)
+    (content
+      (text))
     (comment)
-    (text
-      (comment))))
+    (content
+      (text
+        (comment)))))
 
 ===================
 .AAD. TODO Comments
@@ -73,7 +81,8 @@ And?
 (ink
   (content_block
     (todo_comment)
-    (text)))
+    (content
+      (text))))
 
 =================================
 .AADa. TODO Comments corner cases
@@ -86,7 +95,8 @@ He remembered that he was allowed to write TODO: anywhere else on the line.
 (ink
   (content_block
     (todo_comment)
-    (text)))
+    (content
+      (text))))
 
 ==========
 .AAE. Tags
@@ -113,7 +123,6 @@ Some more text. # and a tag
       (tag
         (text)))))
 
-
 ==========================
 .AAEa. Tags can be escaped
 ==========================
@@ -127,4 +136,5 @@ A line of normal game-text. \# colour it blue
       (text)
       (tag
         (text)))
-    (text)))
+    (content
+      (text))))

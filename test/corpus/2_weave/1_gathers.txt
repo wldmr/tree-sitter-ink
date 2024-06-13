@@ -14,27 +14,40 @@
 
 (ink
   (content_block
-    (text)
-    (choice_block
-      (choice
-        (text)
-        (text)
-        (text))
+    (content
       (text))
     (choice_block
       (choice
-        (text)
-        (text))
-      (text))
+        (content
+          (text))
+        (content
+          (text))
+        (content
+          (text)))
+      (content
+        (text)))
     (choice_block
       (choice
-        (text)
-        (text)
-        (text))
-      (text))
+        (content
+          (text))
+        (content
+          (text)))
+      (content
+        (text)))
+    (choice_block
+      (choice
+        (content
+          (text))
+        (content
+          (text))
+        (content
+          (text)))
+      (content
+        (text)))
     (gather_block
       (gather
-        (text)))))
+        (content
+          (text))))))
 
 ===
 .BAB. Options and Gathers form chains of content
@@ -61,16 +74,19 @@ I ran through the forest, the dogs snapping at my heels.
     (knot
       (identifier))
     (content_block
-      (text)
+      (content
+        (text))
       (choice_block
         (choice
-          (text)
+          (content
+            (text))
           (content
             (text)
             (glue))))
       (choice_block
         (choice
-          (text)
+          (content
+            (text))
           (content
             (text)
             (glue))))
@@ -81,15 +97,21 @@ I ran through the forest, the dogs snapping at my heels.
             (glue))))
       (gather_block
         (gather
-          (text)))
+          (content
+            (text))))
       (choice_block
         (choice
-          (text)
-          (text)))
+          (content
+            (text))
+          (content
+            (text))))
       (choice_block
         (choice
-          (text)
-          (text)))
+          (content
+            (text))
+          (content
+            (text))))
       (gather_block
         (gather
-          (text))))))
+          (content
+            (text)))))))

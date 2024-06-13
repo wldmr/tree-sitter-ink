@@ -30,26 +30,36 @@ Before long, we arrived at his house.
     (knot
       (identifier))
     (content_block
-      (text)
-      (thread
-        (identifier))
-      (thread
-        (identifier))))
+      (content
+        (text))
+      (content
+        (thread
+          (identifier)))
+      (content
+        (thread
+          (identifier)))))
   (knot_block
     (knot
       (identifier))
     (content_block
-      (text)
-      (choice_block
-        (choice
-          (text)
-          (text))
+      (content
         (text))
       (choice_block
         (choice
-          (text)
-          (text))
-        (text))
+          (content
+            (text))
+          (content
+            (text)))
+        (content
+          (text)))
+      (choice_block
+        (choice
+          (content
+            (text))
+          (content
+            (text)))
+        (content
+          (text)))
       (gather_block
         (gather
           (divert
@@ -58,19 +68,24 @@ Before long, we arrived at his house.
     (knot
       (identifier))
     (content_block
-      (text)
+      (content
+        (text))
       (choice_block
         (choice
-          (text))
-        (divert
-          (identifier)))))
+          (content
+            (text)))
+        (content
+          (divert
+            (identifier))))))
   (knot_block
     (knot
       (identifier))
     (content_block
-      (text)
-      (divert
-        (identifier)))))
+      (content
+        (text))
+      (content
+        (divert
+          (identifier))))))
 
 ===
 .DBB. Organization of wide choice points
@@ -102,20 +117,23 @@ Before long, we arrived at his house.
       (gather_block
         (gather
           (identifier))
-        (thread
-          (call
-            (identifier)
-            (args
-              (divert
-                (identifier)))))
-        (thread
-          (call
-            (identifier)
-            (args
-              (divert
-                (identifier)))))
-        (thread
-          (identifier))))
+        (content
+          (thread
+            (call
+              (identifier)
+              (args
+                (divert
+                  (identifier))))))
+        (content
+          (thread
+            (call
+              (identifier)
+              (args
+                (divert
+                  (identifier))))))
+        (content
+          (thread
+            (identifier)))))
     (stitch_block
       (stitch
         (identifier)
@@ -124,7 +142,8 @@ Before long, we arrived at his house.
             (identifier))))
       (content_block
         (comment)
-        (text)))
+        (content
+          (text))))
     (stitch_block
       (stitch
         (identifier)
@@ -133,10 +152,12 @@ Before long, we arrived at his house.
             (identifier))))
       (content_block
         (comment)
-        (text)))
+        (content
+          (text))))
     (stitch_block
       (stitch
         (identifier))
       (content_block
         (comment)
-        (text)))))
+        (content
+          (text))))))

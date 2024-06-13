@@ -61,32 +61,36 @@ VAR microwaveState = cold
           (assignment
             (identifier)
             (identifier)))
-        (divert
-          (qualified_name
-            (identifier)
-            (identifier))))))
+        (content
+          (divert
+            (qualified_name
+              (identifier)
+              (identifier)))))))
   (knot_block
     (knot
       (identifier))
     (content_block
-      (thread
-        (call
-          (identifier)
-          (args
-            (string)
-            (identifier))))
-      (thread
-        (call
-          (identifier)
-          (args
-            (string)
-            (identifier))))
-      (thread
-        (call
-          (identifier)
-          (args
-            (string)
-            (identifier))))
+      (content
+        (thread
+          (call
+            (identifier)
+            (args
+              (string)
+              (identifier)))))
+      (content
+        (thread
+          (call
+            (identifier)
+            (args
+              (string)
+              (identifier)))))
+      (content
+        (thread
+          (call
+            (identifier)
+            (args
+              (string)
+              (identifier)))))
       (gather_block
         (gather
           (identifier))))))

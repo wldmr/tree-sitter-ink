@@ -21,22 +21,26 @@
       (stitch
         name: (identifier))
       (content_block
-        (text)))
+        (content
+          (text))))
     (stitch_block
       (stitch
         name: (identifier))
       (content_block
-        (text)))
+        (content
+          (text))))
     (stitch_block
       (stitch
         name: (identifier))
       (content_block
-        (text)))
+        (content
+          (text))))
     (stitch_block
       (stitch
         name: (identifier))
       (content_block
-        (text)))))
+        (content
+          (text))))))
 
 ===
 .AFB. Stitches have unique names
@@ -52,18 +56,22 @@
   (content_block
     (choice_block
       (choice
-        temporary: (text))
-      (divert
-        target: (qualified_name
-          (identifier)
-          (identifier))))
+        temporary: (content
+          (text)))
+      (content
+        (divert
+          target: (qualified_name
+            (identifier)
+            (identifier)))))
     (choice_block
       (choice
-        temporary: (text))
-      (divert
-        target: (qualified_name
-          (identifier)
-          (identifier))))))
+        temporary: (content
+          (text)))
+      (content
+        (divert
+          target: (qualified_name
+            (identifier)
+            (identifier)))))))
 
 ===
 .AFC. Script files can be combined
@@ -99,6 +107,9 @@ INC is a common suffix for a company
       (path))
     (include
       (path))
-    (text)
-    (text)
-    (text)))
+    (content
+      (text))
+    (content
+      (text))
+    (content
+      (text))))

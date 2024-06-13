@@ -44,15 +44,20 @@ I push the door. # door_{door ? locked:thump|creak}.mp3 # suspense_music_{~1|2|3
           (binary
             (identifier)
             (identifier))
-          (text)
-          (text))
+          (content
+            (text))
+          (content
+            (text)))
         (text))
       (tag
         (text)
         (alternatives
-          (text)
-          (text)
-          (text))
+          (content
+            (text))
+          (content
+            (text))
+          (content
+            (text)))
         (text)))))
 
 ===
@@ -96,9 +101,12 @@ I push the door. # door_{door ? locked:
         (text)
         (multiline_alternatives
           (alt_arm
-            (text))
+            (content
+              (text)))
           (alt_arm
-            (text))
+            (content
+              (text)))
           (alt_arm
-            (text)))
+            (content
+              (text))))
         (text)))))

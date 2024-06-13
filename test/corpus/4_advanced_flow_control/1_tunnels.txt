@@ -32,36 +32,44 @@
       (stitch
         (identifier))
       (content_block
-        (text)
+        (content
+          (text))
         (choice_block
           (choice
-            (text))
-          (tunnel
-            (divert
-              (identifier))
-            (divert
-              (identifier))
-            (divert
-              (identifier))))))
+            (content
+              (text)))
+          (content
+            (tunnel
+              (divert
+                (identifier))
+              (divert
+                (identifier))
+              (divert
+                (identifier)))))))
     (stitch_block
       (stitch
         (identifier))
       (content_block
-        (text))))
+        (content
+          (text)))))
   (knot_block
     (knot
       (identifier))
     (content_block
-      (text)
+      (content
+        (text))
       (choice_block
         (choice
-          (text))
-        (tunnel
-          (divert
-            (identifier))))
+          (content
+            (text)))
+        (content
+          (tunnel
+            (divert
+              (identifier)))))
       (choice_block
         (choice
-          (text)))
+          (content
+            (text))))
       (gather_block
         (gather
           (tunnel)))))
@@ -69,15 +77,20 @@
     (knot
       (identifier))
     (content_block
-      (text)
-      (tunnel
-        (divert
-          (identifier)))
-      (text)
-      (tunnel
-        (divert
-          (identifier)))
-      (tunnel))))
+      (content
+        (text))
+      (content
+        (tunnel
+          (divert
+            (identifier))))
+      (content
+        (text))
+      (content
+        (tunnel
+          (divert
+            (identifier))))
+      (content
+        (tunnel)))))
 
 ===
 .DAB. Advanced: Tunnels can return elsewhere
@@ -101,13 +114,15 @@ Suddenly, there is a white light all around you. Fingers lift an eyepiece from y
     (knot
       (identifier))
     (content_block
-      (tunnel
-        (divert
-          (call
-            (identifier)
-            (args
-              (number)))))
-      (text)))
+      (content
+        (tunnel
+          (divert
+            (call
+              (identifier)
+              (args
+                (number))))))
+      (content
+        (text))))
   (knot_block
     (knot
       (identifier)
@@ -118,15 +133,18 @@ Suddenly, there is a white light all around you. Fingers lift an eyepiece from y
         (assignment
           (identifier)
           (identifier)))
-      (cond_block
-        (cond_arm
-          (binary
-            (identifier)
-            (number))
-          (tunnel
-            (identifier))))))
+      (content
+        (cond_block
+          (cond_arm
+            (binary
+              (identifier)
+              (number))
+            (content
+              (tunnel
+                (identifier))))))))
   (knot_block
     (knot
       (identifier))
     (content_block
-      (text))))
+      (content
+        (text)))))

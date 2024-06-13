@@ -12,18 +12,21 @@
     (choice_block
       (choice
         condition: (boolean)
-        main: (text)))
+        main: (content
+          (text))))
     (choice_block
       (choice
         condition: (boolean)
-        main: (text)))
+        main: (content
+          (text))))
     (choice_block
       (choice
         condition: (binary
           (call
             name: (identifier))
           (number))
-        main: (text)))))
+        main: (content
+          (text))))))
 
 ===
 .AIB. TURNS_SINCE
@@ -58,7 +61,8 @@
               (divert
                 target: (identifier))))
           (number))
-        main: (text)))))
+        main: (content
+          (text))))))
 
 ===
 .AIC. came_from
@@ -115,4 +119,5 @@
                   (identifier))))
             (unary
               (number))))
-        main: (text)))))
+        main: (content
+          (text))))))

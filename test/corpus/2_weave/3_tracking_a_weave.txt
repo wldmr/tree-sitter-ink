@@ -26,27 +26,37 @@ The guard frowns at you.
     (knot
       name: (identifier))
     (content_block
-      (text)
-      (choice_block
-        (choice
-          label: (identifier)
-          temporary: (text))
+      (content
         (text))
       (choice_block
         (choice
           label: (identifier)
-          main: (text)
-          temporary: (text)
-          final: (text)))
-      (gather_block
-        (gather
+          temporary: (content
+            (text)))
+        (content
           (text)))
       (choice_block
         (choice
+          label: (identifier)
+          main: (content
+            (text))
+          temporary: (content
+            (text))
+          final: (content
+            (text))))
+      (gather_block
+        (gather
+          (content
+            (text))))
+      (choice_block
+        (choice
           condition: (identifier)
-          main: (text))
+          main: (content
+            (text)))
         (comment))
       (choice_block
         (choice
-          main: (text)
-          final: (text))))))
+          main: (content
+            (text))
+          final: (content
+            (text)))))))
