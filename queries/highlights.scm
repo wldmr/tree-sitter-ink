@@ -51,7 +51,9 @@
 (assignment ["=" "+=" "-="] @operator)
 ["=" "+=" "-="] @operator
 
-["[" "]" "{" "}" "(" ")"] @punctuation.bracket
+(choice ["[" "]" "(" ")"] @punctuation.bracket)  ; Need to specifiy choice here, because the grammar does always tokenize these brackets (for all text), but we don't want to highlight them outside of choices.
+(gather ["(" ")"] @punctuation.bracket)
+["{" "}"] @punctuation.bracket ; Curlies are never just text, no need to qualify
 
 ["," "|" ":"] @punctuation.delimiter
 
@@ -120,4 +122,5 @@
 (multiline_alternatives ["shuffle" "stopping" "cycle" "once"] @keyword)
 (alternatives ["&" "$" "~" "!"] @keyword)
 
-(tag "#" @punctuation.delimiter) @attribute; after expr stuff so that evals get highlighted
+(tag "#" @punctuation.delimiter (content)* @embedded) @attribute; after expr stuff so that evals get highlighted
+(content) @embedded

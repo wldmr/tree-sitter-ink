@@ -7,7 +7,8 @@
 // ^ reference.address
 
 - (in_house) The house was dirty{period()}
-// ^ definition.address          ^ reference.function
+// ^ definition.address
+//                               ^ reference.function
 
 -> knot.stitch(-> END)
 // ^ reference.address

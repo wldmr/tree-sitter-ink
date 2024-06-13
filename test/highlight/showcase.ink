@@ -7,19 +7,24 @@ INCLUDE some/other/file.ink
 
 LIST Things = (one), two, (three = 3)
 // <- keyword
-//   ^ type ^ operator
-//              ^constructor ^constructor
+//   ^ type
+//          ^ operator
+//              ^constructor
 //                    ^constructor
+//                           ^constructor
 //                               ^ operator
 //                                 ^ number
 
 VAR some_bool = true
 // <- keyword ^ operator
-//  ^ variable    ^ boolean
+//            ^ operator
+//  ^ variable
+//                ^ boolean
 CONST pi = 3.1  // good enough
-// <- keyword   ^comment
+// <- keyword
 //    ^ variable
 //          ^ number
+//              ^comment
 
 === knot ===
 // <- markup.heading
@@ -30,9 +35,10 @@ CONST pi = 3.1  // good enough
 //      ^ attribute
 
 I was outside, and I {some_bool == true:liked|hated} it.
-//                   ^ punctuation.bracket         ^ punctuation.bracket
+//                   ^ punctuation.bracket
 //                                     ^ punctuation.delimiter
 //                                           ^ punctuation.delimiter
+//                                                 ^ punctuation.bracket
 
 * I went [inside.], into the house and breathed a sigh of relief. # play: sigh{knot % 3}.mp3
 // <- markup.list
@@ -43,7 +49,9 @@ I was outside, and I {some_bool == true:liked|hated} it.
 //                                                                              ^ variable
 //                                                                                  ^ operator
 //                                                                                    ^ number
-* I went [to the guarden.# scary # imanintrovertlol] _around_ the garden and into the house.
+* I went [to the guarden.# scary # imanintrovertlol] _around_ the [garden] and into the house.
+//       ^ punctuation.bracket
+//                                                                ^ embedded (only the first square bracket in a choice is recognized)
 * * I did some chores
     <- chores
 * * I lay on my {&lazy|stupid|fat} derrière.
@@ -54,7 +62,8 @@ I was outside, and I {some_bool == true:liked|hated} it.
 - (in_house) The house was <>
 // ^markup.link.url        ^ keyword
 {shuffle stopping:
-// ^ keyword ^keyword
+// ^ keyword
+//           ^keyword
 //               ^punctuation.delimiter
 - calming
 // <- keyword
@@ -98,12 +107,16 @@ bad
 // ^ variable.parameter (due to locals query)
 
 EXTERNAL invert_then_add(ref some_list, value)
-// <- keyword            ^ keyword
-//       ^ function          ^ varable.parameter
+// <- keyword
+//                           ^ variable.parameter
+//                       ^ keyword
+//       ^ function
 TODO: implement external function
-// <- keyword  ^ comment
+// <- keyword
+//             ^ comment
 === function invert_then_add(ref some_list, value)
-// <- markup.heading ^ function
+// <- markup.heading
+//                   ^ function
 //  ^ keyword
 ~ LIST_INVERT(some_list)
 // <- keyword
@@ -113,14 +126,16 @@ TODO: implement external function
 //             ^ variable.parameter (due to locals query)
 //          ^ operator
 ~ temp internal = (one, two)
-// ^ keyword       ^ constructor
+// ^ keyword
+//                 ^ constructor
 //     ^ variable.member
 ~ internal++
 // ^ variable.member (due to locals query)
 ~ some_bool = false;
 // ^ variable
 ~ return some_list
-// ^ keyword ^ variable
+// ^ keyword
+//           ^ variable.parameter
 
 === chores ===
 I cleaned the soap, aired out the trash and folded the stove.
