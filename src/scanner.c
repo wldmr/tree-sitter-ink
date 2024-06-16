@@ -1,6 +1,7 @@
 #include "tree_sitter/parser.h"
 #include "tree_sitter/alloc.h"
 #include "tree_sitter/array.h"
+#include <stdint.h>
 
 typedef enum {
   END_OF_LINE,
@@ -50,6 +51,7 @@ typedef struct BlockInfo {
 } BlockInfo;
 
 typedef struct {
+  uint8_t next_block;
   Array(BlockLevel) blocks;
 } Scanner;
 
@@ -90,6 +92,8 @@ unsigned tree_sitter_ink_external_scanner_serialize(void *payload, char *buffer)
   Scanner *scanner = (Scanner *)payload;
   uint32_t size = 0;
 
+  buffer[size++] = (char) scanner->next_block;
+
   for (uint32_t i = 0; i < scanner->blocks.size && size <= TREE_SITTER_SERIALIZATION_BUFFER_SIZE; i++) {
     buffer[size] = (char) *array_get(&scanner->blocks, i);
     size++;
@@ -108,12 +112,16 @@ void tree_sitter_ink_external_scanner_deserialize(void *payload, const char *buf
   Scanner *scanner = (Scanner *)payload;
 
   // reset all members as per suggestion in the docs
+  scanner->next_block = 0;
   array_delete(&scanner->blocks);
 
   // init from buffer, if present and required
   // MSG("Deserializing %d bytes of state.\n", length);
   if (buffer != NULL && length > 0) {
     uint32_t size = 0;
+
+    scanner->next_block = (uint8_t) buffer[size++];
+
     while (size < length)
       array_push(&scanner->blocks, buffer[size++]);
   }
