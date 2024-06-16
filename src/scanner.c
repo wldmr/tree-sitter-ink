@@ -191,7 +191,9 @@ inline void skip_ws_upto_cr(TSLexer *lexer) {
 bool start_block(TSLexer *lexer, Scanner *scanner, Token token, BlockLevel level) {
   lexer->result_symbol = token;
   array_push(&scanner->blocks, level);
-  scanner->next_block = BLOCK_INFO_INIT;  // Is this necessary?
+  // We're leaving scanner->next_block in a dirty state here, because after the block has started, there's no next block.
+  // But that will rectify itself at the next newline, before which this state shouldn't be checked anymore.
+  // What could go wrong?
   return true; // Just so this can be called inline.
 }
 
@@ -208,6 +210,11 @@ bool end_block(TSLexer *lexer, Scanner *scanner, Token token) {
 /// At ==, =, or EOF, BlockType is NONE.
 ///
 /// Mutates lexer, does not mutate scanner.
+///
+/// CAUTION: This can (and will) report a gather start marker when it encounters a condition in a conditional block
+/// (i.e. `- some_expression:`). We can't really distinguish that here without more complicated parsing.
+/// That's why it is important to cross-reference the result with the valid symbols at that position (i.e.
+/// can a gather even start here?).
 BlockInfo lookahead_block_start(TSLexer *lexer, Scanner *scanner) {
   MSG("Looking ahead for block start marker\n");
 
@@ -308,24 +315,16 @@ bool tree_sitter_ink_external_scanner_scan(
    || valid_symbols[CHOICE_BLOCK_START] || valid_symbols[CHOICE_BLOCK_END]) {
     MSG("Checking for Block delimiters.\n");
 
-    if (lookahead_ == '\n') {
-      skip(lexer);
-      mark_end(lexer);
-    }
-    
-
     BlockLevel current_block_level = *array_back(&scanner->blocks);
     BlockInfo next_block = scanner->next_block;
 
     if (next_block.type == NONE) {
       MSG("Blocks can only end here.\n");
-      if (valid_symbols[CHOICE_BLOCK_END]) {
-        return end_block(lexer, scanner, CHOICE_BLOCK_END);
-      } else if (valid_symbols[GATHER_BLOCK_END]) {
-        return end_block(lexer, scanner, GATHER_BLOCK_END);
-      } else {
-        return false; // Weird. Error recovery next?
-      }
+      return valid_symbols[CHOICE_BLOCK_END]
+                 ? end_block(lexer, scanner, CHOICE_BLOCK_END)
+             : valid_symbols[GATHER_BLOCK_END]
+                 ? end_block(lexer, scanner, GATHER_BLOCK_END)
+                 : false;
     }
 
     if (next_block.type == CONTENT) {
@@ -333,9 +332,18 @@ bool tree_sitter_ink_external_scanner_scan(
       return false;
     }
 
+    if (lookahead_ == '\n') {
+      MSG("Eating newline so that all blocks start and end at column 0.\n");
+      skip(lexer);
+      mark_end(lexer);
+    }
+
     MSG("Current %d -> Next %d|%d: ", current_block_level, next_block.type, next_block.level);
     if (next_block.level > current_block_level) {
       MSG("Next block is deeper. Start block.\n");
+      if (!valid_symbols[ERROR]) {
+        assert(valid_symbols[CHOICE_BLOCK_START] || valid_symbols[GATHER_BLOCK_START]);
+      }
       if (next_block.type == CHOICE && valid_symbols[CHOICE_BLOCK_START]) {
         return start_block(lexer, scanner, CHOICE_BLOCK_START, next_block.level);
       } else if (next_block.type == GATHER && valid_symbols[GATHER_BLOCK_START]) {
@@ -348,7 +356,7 @@ bool tree_sitter_ink_external_scanner_scan(
       } else if (valid_symbols[GATHER_BLOCK_END]) {
         return end_block(lexer, scanner, GATHER_BLOCK_END);
       } else {
-        return false; // Weird. Error recovery next?
+        return false; // Weird. Error recovery next
       }
     }
   }
