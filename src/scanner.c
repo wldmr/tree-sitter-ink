@@ -1,8 +1,6 @@
 #include "tree_sitter/parser.h"
 #include "tree_sitter/alloc.h"
 #include "tree_sitter/array.h"
-#include <stdint.h>
-#include <stdio.h>
 
 typedef enum {
   END_OF_LINE,
@@ -239,9 +237,6 @@ bool tree_sitter_ink_external_scanner_scan(
 
   print_valid_symbols(valid_symbols);
 
-  // Start of zero length tokens, so we'll mark this spot.
-  mark_end(lexer);
-
   if (valid_symbols[ERROR]) {
     MSG("In error recovery.\n");
     // MSG("Abort like babies!\n"); assert(false);
@@ -249,6 +244,8 @@ bool tree_sitter_ink_external_scanner_scan(
   }
 
   skip_ws_upto_cr(lexer);
+  mark_end(lexer);
+
   int32_t lookahead_ = lookahead(lexer);
   MSG("at '%c' (%d).\n", pretty(lookahead_), lookahead_);
 
@@ -257,7 +254,6 @@ bool tree_sitter_ink_external_scanner_scan(
     MSG("Checking for EO[L|F]\n");
     if (lookahead_ == '\n') {
       MSG("  at EOL\n");
-      skip(lexer);
       lexer->result_symbol = END_OF_LINE;
       return true;
     } else if (is_eof(lexer)) {
@@ -271,9 +267,11 @@ bool tree_sitter_ink_external_scanner_scan(
    || valid_symbols[CHOICE_BLOCK_START] || valid_symbols[CHOICE_BLOCK_END]) {
     MSG("Checking for Block delimiters.\n");
 
-    // Blocks should start at the and end directly at the mark, so we eat all whitespace leading up to it.
-    skip_ws(lexer);
-    mark_end(lexer);
+    if (lookahead_ == '\n') {
+      skip(lexer);
+      mark_end(lexer);
+    }
+    
 
     BlockLevel current_block_level = *array_back(&scanner->blocks);
     BlockInfo next_block = lookahead_block_start(lexer, scanner);
