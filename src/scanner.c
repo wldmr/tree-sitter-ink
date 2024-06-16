@@ -5,6 +5,7 @@
 
 typedef enum {
   END_OF_LINE,
+  START_OF_FILE,
   CHOICE_BLOCK_START,
   CHOICE_BLOCK_END,
   GATHER_BLOCK_START,
@@ -50,10 +51,27 @@ typedef struct BlockInfo {
   uint8_t level;
 } BlockInfo;
 
+#define BLOCK_INFO_INIT (BlockInfo) {.type = NONE, .level = 0}
+
 typedef struct {
-  uint8_t next_block;
+  BlockInfo next_block;
   Array(BlockLevel) blocks;
 } Scanner;
+
+inline void print_scanner_state(Scanner *scanner) {
+  MSG("Scanner: next_block=");
+  switch(scanner->next_block.type) {
+  case NONE: MSG("NONE"); break;
+  case CONTENT: MSG("CONTENT"); break;
+  case CHOICE: MSG("CHOICE"); break;
+  case GATHER: MSG("GATHER"); break;
+  default: assert(false); // Unhandled Enum value == Bug
+  }
+  MSG("|%d; Levels: ", scanner->next_block.level);
+  for (int i = 0; i < scanner->blocks.size; i++)
+    MSG("%d", *array_get(&scanner->blocks, i));
+  MSG("\n");
+}
 
 
 ////////////////////
@@ -92,7 +110,8 @@ unsigned tree_sitter_ink_external_scanner_serialize(void *payload, char *buffer)
   Scanner *scanner = (Scanner *)payload;
   uint32_t size = 0;
 
-  buffer[size++] = (char) scanner->next_block;
+  buffer[size++] = (char) scanner->next_block.type;
+  buffer[size++] = (char) scanner->next_block.level;
 
   for (uint32_t i = 0; i < scanner->blocks.size && size <= TREE_SITTER_SERIALIZATION_BUFFER_SIZE; i++) {
     buffer[size] = (char) *array_get(&scanner->blocks, i);
@@ -112,7 +131,7 @@ void tree_sitter_ink_external_scanner_deserialize(void *payload, const char *buf
   Scanner *scanner = (Scanner *)payload;
 
   // reset all members as per suggestion in the docs
-  scanner->next_block = 0;
+  scanner->next_block = BLOCK_INFO_INIT;
   array_delete(&scanner->blocks);
 
   // init from buffer, if present and required
@@ -120,7 +139,9 @@ void tree_sitter_ink_external_scanner_deserialize(void *payload, const char *buf
   if (buffer != NULL && length > 0) {
     uint32_t size = 0;
 
-    scanner->next_block = (uint8_t) buffer[size++];
+    const BlockType type = (BlockType) buffer[size++];
+    const BlockLevel level = (BlockLevel)buffer[size++];
+    scanner->next_block = (BlockInfo) {.type = type, .level = level };
 
     while (size < length)
       array_push(&scanner->blocks, buffer[size++]);
@@ -170,6 +191,7 @@ inline void skip_ws_upto_cr(TSLexer *lexer) {
 bool start_block(TSLexer *lexer, Scanner *scanner, Token token, BlockLevel level) {
   lexer->result_symbol = token;
   array_push(&scanner->blocks, level);
+  scanner->next_block = BLOCK_INFO_INIT;  // Is this necessary?
   return true; // Just so this can be called inline.
 }
 
@@ -191,7 +213,7 @@ BlockInfo lookahead_block_start(TSLexer *lexer, Scanner *scanner) {
 
   skip_ws(lexer);
 
-  BlockInfo block = {.type = NONE, .level = 0};
+  BlockInfo block = BLOCK_INFO_INIT;
 
   if (lookahead(lexer) == '=' || is_eof(lexer)) {
     MSG("Next block: None.\n");
@@ -244,6 +266,7 @@ bool tree_sitter_ink_external_scanner_scan(
   Scanner *scanner = (Scanner *)payload;
 
   print_valid_symbols(valid_symbols);
+  print_scanner_state(scanner);
 
   if (valid_symbols[ERROR]) {
     MSG("In error recovery.\n");
@@ -257,15 +280,25 @@ bool tree_sitter_ink_external_scanner_scan(
   int32_t lookahead_ = lookahead(lexer);
   MSG("at '%c' (%d).\n", pretty(lookahead_), lookahead_);
 
+  if (valid_symbols[START_OF_FILE] && !valid_symbols[ERROR]) {
+    MSG("At Start of file; determine first block marker, if any.\n");
+    scanner->next_block = lookahead_block_start(lexer, scanner);
+    lexer->result_symbol = START_OF_FILE;
+    return true;
+  }
+
   // first, try to end lines (that's always the innermost 'block')
   if (valid_symbols[END_OF_LINE]) {
     MSG("Checking for EO[L|F]\n");
     if (lookahead_ == '\n') {
       MSG("  at EOL\n");
+      // Linebreak means the next line could start a new block.
+      scanner->next_block = lookahead_block_start(lexer, scanner);
       lexer->result_symbol = END_OF_LINE;
       return true;
     } else if (is_eof(lexer)) {
       MSG("  at EOF\n");
+      scanner->next_block = BLOCK_INFO_INIT;
       lexer->result_symbol = END_OF_LINE;
       return true;
     }
@@ -282,7 +315,7 @@ bool tree_sitter_ink_external_scanner_scan(
     
 
     BlockLevel current_block_level = *array_back(&scanner->blocks);
-    BlockInfo next_block = lookahead_block_start(lexer, scanner);
+    BlockInfo next_block = scanner->next_block;
 
     if (next_block.type == NONE) {
       MSG("Blocks can only end here.\n");
