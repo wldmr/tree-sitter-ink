@@ -98,6 +98,7 @@ unsigned tree_sitter_ink_external_scanner_serialize(void *payload, char *buffer)
   }
 
   if (size >= TREE_SITTER_SERIALIZATION_BUFFER_SIZE) {
+    // printf needs to be commented out to be compiled for wasm (i.e. to use the playground).
     printf("WARN: Bumped up against tree sitter serialization limit (%d)! We may have lost data!\n",
            TREE_SITTER_SERIALIZATION_BUFFER_SIZE);
   }
@@ -160,13 +161,13 @@ inline void skip_ws_upto_cr(TSLexer *lexer) {
     skip(lexer);
 }
 
-inline bool start_block(TSLexer *lexer, Scanner *scanner, Token token, BlockLevel level) {
+bool start_block(TSLexer *lexer, Scanner *scanner, Token token, BlockLevel level) {
   lexer->result_symbol = token;
   array_push(&scanner->blocks, level);
   return true; // Just so this can be called inline.
 }
 
-inline bool end_block(TSLexer *lexer, Scanner *scanner, Token token) {
+bool end_block(TSLexer *lexer, Scanner *scanner, Token token) {
   lexer->result_symbol = token;
   array_pop(&scanner->blocks);
   return true; // Just so this can be called inline.
