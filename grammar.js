@@ -130,6 +130,7 @@ module.exports = grammar({
 
   externals: $ => [
     $._eol,
+    $._start_of_file,
     $._choice_block_start,
     $._choice_block_end,
     $._gather_block_start,
@@ -138,7 +139,7 @@ module.exports = grammar({
   ],
 
   extras: $ => [
-    /\s+/,
+    /\s/, // only a _single_ character, so that the external scanner gets called for each individual space character.
     $.comment,
   ],
 
@@ -166,6 +167,7 @@ module.exports = grammar({
 
   rules: {
     ink: $ => seq(
+      $._start_of_file,
       optional($.content_block),
       repeat($.stitch_block), // Evidently we can define orphan stitches. OK …
       repeat($.knot_block),

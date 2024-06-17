@@ -2,10 +2,12 @@
 #include "tree_sitter/alloc.h"
 #include "tree_sitter/array.h"
 #include <stdint.h>
-#include <stdio.h>
 
 typedef enum {
   END_OF_LINE,
+  // We use END_OF_LINE to look ahead to (and store) the next block start marker.
+  // But the first line doesn't start with an EOL (not in general at least), so we use this special token instead.
+  START_OF_FILE, 
   CHOICE_BLOCK_START,
   CHOICE_BLOCK_END,
   GATHER_BLOCK_START,
@@ -48,12 +50,30 @@ const BlockLevel BLOCK_LEVEL_MAX = UINT8_MAX;
 
 typedef struct BlockInfo {
   BlockType type;
-  uint8_t level;
+  BlockLevel level;
 } BlockInfo;
 
+#define BLOCK_INFO_INIT (BlockInfo) {.type = NONE, .level = BLOCK_LEVEL_MIN}
+
 typedef struct {
+  BlockInfo next_block;
   Array(BlockLevel) blocks;
 } Scanner;
+
+inline void print_scanner_state(Scanner *scanner) {
+  MSG("Scanner: next_block=");
+  switch(scanner->next_block.type) {
+  case NONE: MSG("NONE"); break;
+  case CONTENT: MSG("CONTENT"); break;
+  case CHOICE: MSG("CHOICE"); break;
+  case GATHER: MSG("GATHER"); break;
+  default: assert(false); // Unhandled Enum value == Bug
+  }
+  MSG("|%d; Levels: ", scanner->next_block.level);
+  for (int i = 0; i < scanner->blocks.size; i++)
+    MSG("%d", *array_get(&scanner->blocks, i));
+  MSG("\n");
+}
 
 
 ////////////////////
@@ -92,12 +112,16 @@ unsigned tree_sitter_ink_external_scanner_serialize(void *payload, char *buffer)
   Scanner *scanner = (Scanner *)payload;
   uint32_t size = 0;
 
+  buffer[size++] = (char) scanner->next_block.type;
+  buffer[size++] = (char) scanner->next_block.level;
+
   for (uint32_t i = 0; i < scanner->blocks.size && size <= TREE_SITTER_SERIALIZATION_BUFFER_SIZE; i++) {
     buffer[size] = (char) *array_get(&scanner->blocks, i);
     size++;
   }
 
   if (size >= TREE_SITTER_SERIALIZATION_BUFFER_SIZE) {
+    // printf needs to be commented out to be compiled for wasm (i.e. to use the playground).
     printf("WARN: Bumped up against tree sitter serialization limit (%d)! We may have lost data!\n",
            TREE_SITTER_SERIALIZATION_BUFFER_SIZE);
   }
@@ -109,12 +133,18 @@ void tree_sitter_ink_external_scanner_deserialize(void *payload, const char *buf
   Scanner *scanner = (Scanner *)payload;
 
   // reset all members as per suggestion in the docs
+  scanner->next_block = BLOCK_INFO_INIT;
   array_delete(&scanner->blocks);
 
   // init from buffer, if present and required
   // MSG("Deserializing %d bytes of state.\n", length);
   if (buffer != NULL && length > 0) {
     uint32_t size = 0;
+
+    const BlockType type = (BlockType) buffer[size++];
+    const BlockLevel level = (BlockLevel) buffer[size++];
+    scanner->next_block = (BlockInfo) {.type = type, .level = level };
+
     while (size < length)
       array_push(&scanner->blocks, buffer[size++]);
   }
@@ -160,13 +190,33 @@ inline void skip_ws_upto_cr(TSLexer *lexer) {
     skip(lexer);
 }
 
-inline bool start_block(TSLexer *lexer, Scanner *scanner, Token token, BlockLevel level) {
+/// Set `token` as the lexer result and add `level` to the `scanner` block hierarchy.
+///
+/// Advances the `lexer` by one if at a carriage return, because we want all blocks to start and end at column 0.
+/// That way, selecting blocks always grabs complete lines.
+bool start_block(TSLexer *lexer, Scanner *scanner, Token token, BlockLevel level) {
+  if (lookahead(lexer) == '\n') {
+    MSG("Eating newline so that all blocks start at column 0.\n");
+    skip(lexer);
+    mark_end(lexer);
+  }
   lexer->result_symbol = token;
   array_push(&scanner->blocks, level);
+  // We're leaving scanner->next_block in a dirty state here, because after the block has started, there's no next block.
+  // But that will rectify itself at the next newline, before which this state shouldn't be checked anymore.
+  // What could go wrong?
   return true; // Just so this can be called inline.
 }
 
-inline bool end_block(TSLexer *lexer, Scanner *scanner, Token token) {
+/// Set `token` as the lexer result and pop/discard the topmest element from the `scanner`'s block hierarchy.
+///
+/// Advances the lexer by one if at a carriage return (like `start_block()`).
+bool end_block(TSLexer *lexer, Scanner *scanner, Token token) {
+  if (lookahead(lexer) == '\n') {
+    MSG("Eating newline so that all end at column 0.\n");
+    skip(lexer);
+    mark_end(lexer);
+  }
   lexer->result_symbol = token;
   array_pop(&scanner->blocks);
   return true; // Just so this can be called inline.
@@ -179,12 +229,17 @@ inline bool end_block(TSLexer *lexer, Scanner *scanner, Token token) {
 /// At ==, =, or EOF, BlockType is NONE.
 ///
 /// Mutates lexer, does not mutate scanner.
+///
+/// CAUTION: This can (and will) report a gather start marker when it encounters a condition in a conditional block
+/// (i.e. `- some_expression:`). We can't really distinguish that here without more complicated parsing.
+/// That's why it is important to cross-reference the result with the valid symbols at that position (i.e.
+/// can a gather even start here?).
 BlockInfo lookahead_block_start(TSLexer *lexer, Scanner *scanner) {
   MSG("Looking ahead for block start marker\n");
 
   skip_ws(lexer);
 
-  BlockInfo block = {.type = NONE, .level = 0};
+  BlockInfo block = BLOCK_INFO_INIT;
 
   if (lookahead(lexer) == '=' || is_eof(lexer)) {
     MSG("Next block: None.\n");
@@ -237,30 +292,37 @@ bool tree_sitter_ink_external_scanner_scan(
   Scanner *scanner = (Scanner *)payload;
 
   print_valid_symbols(valid_symbols);
-
-  // Start of zero length tokens, so we'll mark this spot.
-  mark_end(lexer);
+  print_scanner_state(scanner);
 
   if (valid_symbols[ERROR]) {
-    MSG("In error recovery.\n");
     // MSG("Abort like babies!\n"); assert(false);
-    // return false;
+    return false;
   }
 
-  skip_ws_upto_cr(lexer);
-  int32_t lookahead_ = lookahead(lexer);
-  MSG("at '%c' (%d).\n", pretty(lookahead_), lookahead_);
+  // Must mark our starting place so that we don't advance the position when doing a lookahead.
+  mark_end(lexer);
+  MSG("at '%c' (%d).\n", pretty(lookahead(lexer)), lookahead(lexer));
+
+  if (valid_symbols[START_OF_FILE] && !valid_symbols[ERROR]) {
+    MSG("At Start of file; determine first block marker, if any.\n");
+    scanner->next_block = lookahead_block_start(lexer, scanner);
+    lexer->result_symbol = START_OF_FILE;
+    return true;
+  }
 
   // first, try to end lines (that's always the innermost 'block')
   if (valid_symbols[END_OF_LINE]) {
     MSG("Checking for EO[L|F]\n");
-    if (lookahead_ == '\n') {
+    skip_ws_upto_cr(lexer);
+    if (lookahead(lexer) == '\n') {
       MSG("  at EOL\n");
-      skip(lexer);
+      // Linebreak means the next line could start a new block.
+      scanner->next_block = lookahead_block_start(lexer, scanner);
       lexer->result_symbol = END_OF_LINE;
       return true;
     } else if (is_eof(lexer)) {
       MSG("  at EOF\n");
+      scanner->next_block = BLOCK_INFO_INIT;
       lexer->result_symbol = END_OF_LINE;
       return true;
     }
@@ -270,22 +332,16 @@ bool tree_sitter_ink_external_scanner_scan(
    || valid_symbols[CHOICE_BLOCK_START] || valid_symbols[CHOICE_BLOCK_END]) {
     MSG("Checking for Block delimiters.\n");
 
-    // Blocks should start at the and end directly at the mark, so we eat all whitespace leading up to it.
-    skip_ws(lexer);
-    mark_end(lexer);
-
     BlockLevel current_block_level = *array_back(&scanner->blocks);
-    BlockInfo next_block = lookahead_block_start(lexer, scanner);
+    BlockInfo next_block = scanner->next_block;
 
     if (next_block.type == NONE) {
       MSG("Blocks can only end here.\n");
-      if (valid_symbols[CHOICE_BLOCK_END]) {
-        return end_block(lexer, scanner, CHOICE_BLOCK_END);
-      } else if (valid_symbols[GATHER_BLOCK_END]) {
-        return end_block(lexer, scanner, GATHER_BLOCK_END);
-      } else {
-        return false; // Weird. Error recovery next?
-      }
+      return valid_symbols[CHOICE_BLOCK_END]
+                 ? end_block(lexer, scanner, CHOICE_BLOCK_END)
+             : valid_symbols[GATHER_BLOCK_END]
+                 ? end_block(lexer, scanner, GATHER_BLOCK_END)
+                 : false;
     }
 
     if (next_block.type == CONTENT) {
@@ -308,7 +364,7 @@ bool tree_sitter_ink_external_scanner_scan(
       } else if (valid_symbols[GATHER_BLOCK_END]) {
         return end_block(lexer, scanner, GATHER_BLOCK_END);
       } else {
-        return false; // Weird. Error recovery next?
+        return false; // Weird. Error recovery next
       }
     }
   }
