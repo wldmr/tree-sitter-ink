@@ -40,7 +40,7 @@
 (unary "-" @operator)
 (unary "not" @keyword.operator)
 
-["=" "+=" "-="] @operator
+(assignment ["=" "+=" "-="]) @operator
 
 (choice ["[" "]" "(" ")"] @punctuation.bracket)  ; Need to specifiy choice here, because the grammar does always tokenize these brackets (for all text), but we don't want to highlight them outside of choices.
 (gather ["(" ")"] @punctuation.bracket)
@@ -50,19 +50,19 @@
 
 (call (identifier) @function)
 
-(knot "==" @markup.heading)
-(knot (identifier) @markup.link.url)
+(knot "==" @markup.heading.1)
+(knot (identifier) @label)
 (knot "function" @keyword.function
       (identifier) @function)
 
-(stitch "=" @markup.heading)
-(stitch (identifier) @markup.link.url)
+(stitch "=" @markup.heading.2)
+(stitch (identifier) @label)
 
 (choice ["*" "+"] @markup.list)
-(choice label: (identifier) @markup.link.url)
+(choice label: (identifier) @label)
 
 (gather "-" @markup.list.unnumbered)
-(gather label: (identifier) @markup.link.url)
+(gather label: (identifier) @label)
 
 (params "ref" @keyword)
 (params (identifier) @variable.parameter)
@@ -82,17 +82,17 @@
 
 (glue) @keyword
 
-["->" "->->" "<-"] @markup.link
+["->" "->->" "<-"] @keyword.control
 
 (params (divert (identifier) @variable.parameter)) ; exception to normal divert coloring: parameters should be distinguishable
 (divert (identifier) @constant.builtin
         (#any-of? @constant.builtin "END" "DONE"))
 
-(divert (identifier)+ @markup.link.url)
-(divert (call (identifier) @markup.link.url))
-(divert (call (qualified_name (identifier) @markup.link.url)))
+(divert (identifier)+ @label)
+(divert (call (identifier) @label))
+(divert (call (qualified_name (identifier) @label)))
 
-(thread [(identifier) (call)] @markup.link.url)
+(thread [(identifier) (call)] @label)
 
 (call (identifier) @function.builtin
       (#any-of? @function.builtin
