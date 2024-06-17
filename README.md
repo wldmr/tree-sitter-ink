@@ -1,4 +1,4 @@
-# Tree-Sitter-Ink: 
+# Tree-Sitter-Ink
 
 This is a [Tree-sitter] grammar for the [Ink] interactive fiction scripting language.
 It supports all syntax up to version 1.2.0.
