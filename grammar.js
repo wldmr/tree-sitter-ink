@@ -139,7 +139,7 @@ module.exports = grammar({
   ],
 
   extras: $ => [
-    /\s+/,
+    /\s/, // only a _single_ character, so that the external scanner gets called for each individual space character.
     $.comment,
   ],
 

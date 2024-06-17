@@ -5,7 +5,9 @@
 
 typedef enum {
   END_OF_LINE,
-  START_OF_FILE,
+  // We use END_OF_LINE to look ahead to (and store) the next block start marker.
+  // But the first line doesn't start with an EOL (not in general at least), so we use this special token instead.
+  START_OF_FILE, 
   CHOICE_BLOCK_START,
   CHOICE_BLOCK_END,
   GATHER_BLOCK_START,
@@ -48,10 +50,10 @@ const BlockLevel BLOCK_LEVEL_MAX = UINT8_MAX;
 
 typedef struct BlockInfo {
   BlockType type;
-  uint8_t level;
+  BlockLevel level;
 } BlockInfo;
 
-#define BLOCK_INFO_INIT (BlockInfo) {.type = NONE, .level = 0}
+#define BLOCK_INFO_INIT (BlockInfo) {.type = NONE, .level = BLOCK_LEVEL_MIN}
 
 typedef struct {
   BlockInfo next_block;
@@ -140,7 +142,7 @@ void tree_sitter_ink_external_scanner_deserialize(void *payload, const char *buf
     uint32_t size = 0;
 
     const BlockType type = (BlockType) buffer[size++];
-    const BlockLevel level = (BlockLevel)buffer[size++];
+    const BlockLevel level = (BlockLevel) buffer[size++];
     scanner->next_block = (BlockInfo) {.type = type, .level = level };
 
     while (size < length)
@@ -188,7 +190,16 @@ inline void skip_ws_upto_cr(TSLexer *lexer) {
     skip(lexer);
 }
 
+/// Set `token` as the lexer result and add `level` to the `scanner` block hierarchy.
+///
+/// Advances the `lexer` by one if at a carriage return, because we want all blocks to start and end at column 0.
+/// That way, selecting blocks always grabs complete lines.
 bool start_block(TSLexer *lexer, Scanner *scanner, Token token, BlockLevel level) {
+  if (lookahead(lexer) == '\n') {
+    MSG("Eating newline so that all blocks start at column 0.\n");
+    skip(lexer);
+    mark_end(lexer);
+  }
   lexer->result_symbol = token;
   array_push(&scanner->blocks, level);
   // We're leaving scanner->next_block in a dirty state here, because after the block has started, there's no next block.
@@ -197,7 +208,15 @@ bool start_block(TSLexer *lexer, Scanner *scanner, Token token, BlockLevel level
   return true; // Just so this can be called inline.
 }
 
+/// Set `token` as the lexer result and pop/discard the topmest element from the `scanner`'s block hierarchy.
+///
+/// Advances the lexer by one if at a carriage return (like `start_block()`).
 bool end_block(TSLexer *lexer, Scanner *scanner, Token token) {
+  if (lookahead(lexer) == '\n') {
+    MSG("Eating newline so that all end at column 0.\n");
+    skip(lexer);
+    mark_end(lexer);
+  }
   lexer->result_symbol = token;
   array_pop(&scanner->blocks);
   return true; // Just so this can be called inline.
@@ -276,16 +295,13 @@ bool tree_sitter_ink_external_scanner_scan(
   print_scanner_state(scanner);
 
   if (valid_symbols[ERROR]) {
-    MSG("In error recovery.\n");
     // MSG("Abort like babies!\n"); assert(false);
-    // return false;
+    return false;
   }
 
-  skip_ws_upto_cr(lexer);
+  // Must mark our starting place so that we don't advance the position when doing a lookahead.
   mark_end(lexer);
-
-  int32_t lookahead_ = lookahead(lexer);
-  MSG("at '%c' (%d).\n", pretty(lookahead_), lookahead_);
+  MSG("at '%c' (%d).\n", pretty(lookahead(lexer)), lookahead(lexer));
 
   if (valid_symbols[START_OF_FILE] && !valid_symbols[ERROR]) {
     MSG("At Start of file; determine first block marker, if any.\n");
@@ -297,7 +313,8 @@ bool tree_sitter_ink_external_scanner_scan(
   // first, try to end lines (that's always the innermost 'block')
   if (valid_symbols[END_OF_LINE]) {
     MSG("Checking for EO[L|F]\n");
-    if (lookahead_ == '\n') {
+    skip_ws_upto_cr(lexer);
+    if (lookahead(lexer) == '\n') {
       MSG("  at EOL\n");
       // Linebreak means the next line could start a new block.
       scanner->next_block = lookahead_block_start(lexer, scanner);
@@ -332,18 +349,9 @@ bool tree_sitter_ink_external_scanner_scan(
       return false;
     }
 
-    if (lookahead_ == '\n') {
-      MSG("Eating newline so that all blocks start and end at column 0.\n");
-      skip(lexer);
-      mark_end(lexer);
-    }
-
     MSG("Current %d -> Next %d|%d: ", current_block_level, next_block.type, next_block.level);
     if (next_block.level > current_block_level) {
       MSG("Next block is deeper. Start block.\n");
-      if (!valid_symbols[ERROR]) {
-        assert(valid_symbols[CHOICE_BLOCK_START] || valid_symbols[GATHER_BLOCK_START]);
-      }
       if (next_block.type == CHOICE && valid_symbols[CHOICE_BLOCK_START]) {
         return start_block(lexer, scanner, CHOICE_BLOCK_START, next_block.level);
       } else if (next_block.type == GATHER && valid_symbols[GATHER_BLOCK_START]) {
