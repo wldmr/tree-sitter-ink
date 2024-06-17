@@ -18,8 +18,8 @@ bench: generate
 parse *args: generate
 	tree-sitter parse {{args}}
 
-highlight:
-	tree-sitter highlight --html --check "test/highlight/showcase.ink" > highlight.html
+highlight file="test/highlight/showcase.ink":
+	tree-sitter highlight --html --check {{file}} > highlight.html
 
 generate:
 	tree-sitter generate
