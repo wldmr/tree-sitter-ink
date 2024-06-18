@@ -1,4 +1,4 @@
-VERSION := 24.06.17
+VERSION := 24.6.18
 
 LANGUAGE_NAME := tree-sitter-ink
 
