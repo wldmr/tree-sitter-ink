@@ -26,7 +26,7 @@ typedef enum {
 #define MSG(fmt, ...) \
         do { if (DEBUG) fprintf(stderr, fmt, ## __VA_ARGS__); } while (0)
 
-inline void print_valid_symbols(const bool *valid_symbols) {
+void print_valid_symbols(const bool *valid_symbols) {
   if (valid_symbols[ERROR])
     MSG("======================================== ERROR =========================================\n");
   else
@@ -60,7 +60,7 @@ typedef struct {
   Array(BlockLevel) blocks;
 } Scanner;
 
-inline void print_scanner_state(Scanner *scanner) {
+void print_scanner_state(Scanner *scanner) {
   MSG("Scanner: next_block=");
   switch(scanner->next_block.type) {
   case NONE: MSG("NONE"); break;
@@ -70,7 +70,7 @@ inline void print_scanner_state(Scanner *scanner) {
   default: assert(false); // Unhandled Enum value == Bug
   }
   MSG("|%d; Levels: ", scanner->next_block.level);
-  for (int i = 0; i < scanner->blocks.size; i++)
+  for (uint32_t i = 0; i < scanner->blocks.size; i++)
     MSG("%d", *array_get(&scanner->blocks, i));
   MSG("\n");
 }
@@ -80,27 +80,27 @@ inline void print_scanner_state(Scanner *scanner) {
 // Lexing Helpers //
 ////////////////////
 
-static inline void mark_end(TSLexer *lexer) {
+void mark_end(TSLexer *lexer) {
   lexer->mark_end(lexer);
 }
 
-static inline void consume(TSLexer *lexer) {
+void consume(TSLexer *lexer) {
   lexer->advance(lexer, false);
 }
 
-static inline void skip(TSLexer *lexer) {
+void skip(TSLexer *lexer) {
   lexer->advance(lexer, true);
 }
 
-static inline bool is_eof(TSLexer *lexer) {
+bool is_eof(TSLexer *lexer) {
   return lexer->eof(lexer);
 }
 
-static inline int32_t lookahead(TSLexer *lexer) {
+int32_t lookahead(TSLexer *lexer) {
   return lexer->lookahead;
 }
 
-static inline bool is_at_line_start(TSLexer *lexer) {
+bool is_at_line_start(TSLexer *lexer) {
   return lexer->get_column(lexer) == 0;
 }
 
@@ -168,7 +168,7 @@ void tree_sitter_ink_external_scanner_destroy(void *payload) {
   ts_free(scanner);
 }
 
-inline char pretty(char c) {
+char pretty(char c) {
   switch (c) {
     case '\n':
     case '\t':
@@ -180,12 +180,12 @@ inline char pretty(char c) {
   }
 }
 
-inline void skip_ws(TSLexer *lexer) {
+void skip_ws(TSLexer *lexer) {
   while (lookahead(lexer) <= ' ' && !is_eof(lexer))
     skip(lexer);
 }
 
-inline void skip_ws_upto_cr(TSLexer *lexer) {
+void skip_ws_upto_cr(TSLexer *lexer) {
   while (lookahead(lexer) <= ' ' && lookahead(lexer) != '\n' && !is_eof(lexer))
     skip(lexer);
 }
@@ -218,7 +218,7 @@ bool end_block(TSLexer *lexer, Scanner *scanner, Token token) {
     mark_end(lexer);
   }
   lexer->result_symbol = token;
-  array_pop(&scanner->blocks);
+  (void) array_pop(&scanner->blocks);  // cast to void to shut up warnings about unused values.
   return true; // Just so this can be called inline.
 }
 
@@ -228,13 +228,13 @@ bool end_block(TSLexer *lexer, Scanner *scanner, Token token) {
 ///
 /// At ==, =, or EOF, BlockType is NONE.
 ///
-/// Mutates lexer, does not mutate scanner.
+/// Mutates lexer, obviously.
 ///
 /// CAUTION: This can (and will) report a gather start marker when it encounters a condition in a conditional block
 /// (i.e. `- some_expression:`). We can't really distinguish that here without more complicated parsing.
 /// That's why it is important to cross-reference the result with the valid symbols at that position (i.e.
 /// can a gather even start here?).
-BlockInfo lookahead_block_start(TSLexer *lexer, Scanner *scanner) {
+BlockInfo lookahead_block_start(TSLexer *lexer) {
   MSG("Looking ahead for block start marker\n");
 
   skip_ws(lexer);
@@ -305,7 +305,7 @@ bool tree_sitter_ink_external_scanner_scan(
 
   if (valid_symbols[START_OF_FILE] && !valid_symbols[ERROR]) {
     MSG("At Start of file; determine first block marker, if any.\n");
-    scanner->next_block = lookahead_block_start(lexer, scanner);
+    scanner->next_block = lookahead_block_start(lexer);
     lexer->result_symbol = START_OF_FILE;
     return true;
   }
@@ -317,7 +317,7 @@ bool tree_sitter_ink_external_scanner_scan(
     if (lookahead(lexer) == '\n') {
       MSG("  at EOL\n");
       // Linebreak means the next line could start a new block.
-      scanner->next_block = lookahead_block_start(lexer, scanner);
+      scanner->next_block = lookahead_block_start(lexer);
       lexer->result_symbol = END_OF_LINE;
       return true;
     } else if (is_eof(lexer)) {
