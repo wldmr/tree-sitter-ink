@@ -7,7 +7,7 @@ current-version:=`sed -nr 's/\s*"version"\s*:\s*"(.+?)",\s*/\1/p' package.json`
 version-suffix:=""
 
 # What the next version would be if released now. Adds version-suffix if given.
-next-version:=`date +%y.%m.%d` + if version-suffix != "" { "-"+version-suffix} else {""}
+next-version:=`date +%-y.%-m.%-d` + if version-suffix != "" { "-"+version-suffix} else {""}
 
 test *args: generate
 	tree-sitter test {{args}}
