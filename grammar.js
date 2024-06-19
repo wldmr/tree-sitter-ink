@@ -15,7 +15,9 @@ PREC = {
 /** Create an object with grammar rules corresponding to expressions.
 
 Depending on value for `named`, create a tree of named nodes ($.expr,
-$.identifier, etc), or anonymous nodes ($._expr, $._identifier).
+$.identifier, etc), or anonymous nodes ($._anon_expr, $._anon_identifier).
+(The extra `anon` is added because downstream tools may ignore the leading
+underscore and then complain that there are name clashes)
 
 The reason for this is that logic blocks (`{…}`) are ambiguous:
 Sometimes they start with an expression (conditional blocks),
@@ -31,7 +33,7 @@ clearer when you see how it is used. Still, I nearly lost my mind writing
 this grammar, so be warned.
 */
 function make_expr(named = true) {
-  let rule = str => named ? str : '_' + str;
+  let rule = str => named ? str : '_anon_' + str;
 
   let binop = ($, precedence, ...operators) => prec.left(precedence, seq(
     $[rule('expr')],
@@ -149,17 +151,17 @@ module.exports = grammar({
 
   precedences: $ => [
     [$._choice_condition, $.eval],  // since they are syntactically the same, maybe we just treat a condition as an eval?
-    [$._expr, $._list_values],  // How should `(<identifier>)` be interpreted? Doesn't really matter, but we have to choose one.
+    [$._anon_expr, $._anon_list_values],  // How should `(<identifier>)` be interpreted? Doesn't really matter, but we have to choose one.
     [$._choice_content, $.content],
     [$.gather, $.content],
   ],
 
   conflicts: $ => [
-    [$.identifier, $._identifier],
-    [$.number, $._number],
-    [$.boolean, $._boolean],
-    [$.string, $._string],
-    [$.list_values, $._list_values],
+    [$.identifier, $._anon_identifier],
+    [$.number, $._anon_number],
+    [$.boolean, $._anon_boolean],
+    [$.string, $._anon_string],
+    [$.list_values, $._anon_list_values],
     [$.tunnel],
     [$._redirect, $.tunnel],
     [$._content_item, $.content_block],
@@ -351,7 +353,7 @@ module.exports = grammar({
     )),
 
     _maybe_expr_text: $ => prec.right(seq(
-      prec.dynamic(PREC.text, $._expr), optional(':'),  // the part causing the conflict with conditional text
+      prec.dynamic(PREC.text, $._anon_expr), optional(':'),  // the part causing the conflict with conditional text
       optional(alias($.text, 'textrest')),
     )),
 
