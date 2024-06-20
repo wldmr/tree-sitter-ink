@@ -8,19 +8,16 @@ LIST primeNumbers = (two = 2), (three) = 3, (five = 5)
   (content_block
     (list
       (identifier)
-      (list_values
-        (lv_init
-          (lv_assign
-            (identifier)
-            (number)))
-        (lv_assign
-          (lv_init
-            (identifier))
+      (list_value_defs
+        (list_value_def
+          (identifier)
           (number))
-        (lv_init
-          (lv_assign
-            (identifier)
-            (number)))))))
+        (list_value_def
+          (identifier)
+          (number))
+        (list_value_def
+          (identifier)
+          (number))))))
 
 ===
 .EDB. Assigning multiple values
@@ -130,13 +127,14 @@ My favourite dinosaurs are {listWithCommas(favouriteDinosaurs, "all extinct")}.
   (content_block
     (list
       (identifier)
-      (list_values
-        (lv_init
+      (list_value_defs
+        (list_value_def
           (identifier))
-        (identifier)
-        (lv_init
+        (list_value_def
           (identifier))
-        (lv_init
+        (list_value_def
+          (identifier))
+        (list_value_def
           (identifier))))
     (content
       (text)

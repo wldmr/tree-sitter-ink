@@ -8,8 +8,10 @@ LIST kettleState = cold, (boiling), recently_boiled
   (content_block
     (list
       name: (identifier)
-      values: (list_values
-        name: (identifier)
-        (lv_init
+      values: (list_value_defs
+        (list_value_def
           name: (identifier))
-        name: (identifier)))))
+        (list_value_def
+          name: (identifier))
+        (list_value_def
+          name: (identifier))))))

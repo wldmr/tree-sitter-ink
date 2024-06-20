@@ -19,12 +19,17 @@ VAR murmurersVolume = quiet
   (content_block
     (list
       (identifier)
-      (list_values
-        (identifier)
-        (identifier)
-        (identifier)
-        (identifier)
-        (identifier)))
+      (list_value_defs
+        (list_value_def
+          (identifier))
+        (list_value_def
+          (identifier))
+        (list_value_def
+          (identifier))
+        (list_value_def
+          (identifier))
+        (list_value_def
+          (identifier))))
     (global
       (identifier)
       (identifier))
@@ -63,23 +68,24 @@ LIST primeNumbers = two = 2, three, five = 5
   (content_block
     (list
       (identifier)
-      (list_values
-        (lv_assign
+      (list_value_defs
+        (list_value_def
           (identifier)
           (number))
-        (lv_assign
+        (list_value_def
           (identifier)
           (number))
-        (lv_assign
+        (list_value_def
           (identifier)
           (number))))
     (list
       (identifier)
-      (list_values
-        (lv_assign
+      (list_value_defs
+        (list_value_def
           (identifier)
           (number))
-        (identifier)
-        (lv_assign
+        (list_value_def
+          (identifier))
+        (list_value_def
           (identifier)
           (number))))))

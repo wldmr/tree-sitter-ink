@@ -78,16 +78,19 @@
 
 (cond_arm "-" @keyword)
 (alt_arm "-" @keyword)
-(else) @variable.builtin
+(else) @constant.builtin
 
 (list "LIST" @keyword
       (identifier) @type
       "=" @operator)
 
+(list_value_def (identifier) @constructor)
+
 (list_values (identifier) @constructor) ; constructor in the Haskell sense: value constructors for sum types (i.e. enum values)
-(lv_init (identifier) @constructor)  ; same for parenthized names
-(lv_assign (identifier) @constructor ; dito for assigments
-           "=" @operator)
+(list_values
+      (qualified_name
+            . (identifier) @type
+            (identifier) @constructor))
 
 (glue) @keyword
 

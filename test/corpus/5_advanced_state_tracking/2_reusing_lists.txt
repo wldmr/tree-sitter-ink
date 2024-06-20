@@ -23,10 +23,13 @@ VAR microwaveState = cold
   (content_block
     (list
       (identifier)
-      (list_values
-        (identifier)
-        (identifier)
-        (identifier)))
+      (list_value_defs
+        (list_value_def
+          (identifier))
+        (list_value_def
+          (identifier))
+        (list_value_def
+          (identifier))))
     (global
       (identifier)
       (identifier))
@@ -108,17 +111,24 @@ VAR status = color.blue
   (content_block
     (list
       (identifier)
-      (list_values
-        (identifier)
-        (identifier)
-        (identifier)
-        (identifier)))
+      (list_value_defs
+        (list_value_def
+          (identifier))
+        (list_value_def
+          (identifier))
+        (list_value_def
+          (identifier))
+        (list_value_def
+          (identifier))))
     (list
       (identifier)
-      (list_values
-        (identifier)
-        (identifier)
-        (identifier)))
+      (list_value_defs
+        (list_value_def
+          (identifier))
+        (list_value_def
+          (identifier))
+        (list_value_def
+          (identifier))))
     (global
       (identifier)
       (qualified_name

@@ -1423,7 +1423,7 @@
         "required": true,
         "types": [
           {
-            "type": "list_values",
+            "type": "list_value_defs",
             "named": true
           }
         ]
@@ -1431,50 +1431,12 @@
     }
   },
   {
-    "type": "list_values",
-    "named": true,
-    "fields": {
-      "name": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "lv_assign",
-          "named": true
-        },
-        {
-          "type": "lv_init",
-          "named": true
-        },
-        {
-          "type": "qualified_name",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "lv_assign",
+    "type": "list_value_def",
     "named": true,
     "fields": {
       "name": {
         "multiple": false,
-        "required": false,
+        "required": true,
         "types": [
           {
             "type": "identifier",
@@ -1484,7 +1446,7 @@
       },
       "op": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "=",
@@ -1492,9 +1454,23 @@
           }
         ]
       },
+      "paren": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          }
+        ]
+      },
       "value": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "number",
@@ -1502,39 +1478,37 @@
           }
         ]
       }
-    },
+    }
+  },
+  {
+    "type": "list_value_defs",
+    "named": true,
+    "fields": {},
     "children": {
-      "multiple": false,
-      "required": false,
+      "multiple": true,
+      "required": true,
       "types": [
         {
-          "type": "lv_init",
+          "type": "list_value_def",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "lv_init",
+    "type": "list_values",
     "named": true,
-    "fields": {
-      "name": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      }
-    },
+    "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": false,
       "types": [
         {
-          "type": "lv_assign",
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "qualified_name",
           "named": true
         }
       ]

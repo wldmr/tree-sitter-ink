@@ -511,50 +511,37 @@ module.exports = grammar({
       keyword('LIST'),
       field('name', $.identifier),
       field('op', '='),
-      // Why alias here? `list_values` is also an expression node; it seems intuitive enough to have them
-      // be named the same, even if their syntaxes are slightly different.
-      // (you can parenthesize values and assign numbers here, which you can't do in expressions)
-      field('values', alias($._lv_defs, $.list_values)),
+      field('values', $.list_value_defs),
     ),
 
-    // There are multiple ways to define a list value: name, (name) = 1, (name = 1),
-    // but _not_ ((name) = 1), ((name = 1) = 1) and so on.
-    // We want the syntax to be "moduluar", in the sense that `(…)` is an `lv_init` and `name = 1` is an `lv_assign`,
-    // and those should nest according to to where the brackets or the equals sign are.
-    // But since this syntax isn't fully recursive, we define leaf nodes that only take terminals,
-    // and then alias them to the same names, giving the illusion of uniformity.
-    // I know this is confusing, but look at the tests for multivalued lists and it should become clear(er).
-    _lv_defs: $ => sepBy1(',', choice(
+    list_value_defs: $ => sepBy1(',', $.list_value_def),
+
+    list_value_def: $ => choice(
       field('name', $.identifier),
-      $.lv_assign,
-      $.lv_init,
-    )),
-
-    // leaf nodes that only accept terminals
-    _lv_init: $ => seq('(', field('name', $.identifier), ')'),
-    _lv_assign: $ => seq(
-      field('name', $.identifier),
-      field('op', '='),
-      field('value', $.number)
-    ),
-
-    // sort-of recursive definitions that alias the above nodes to look uniform.
-    lv_assign: $ => seq(
-      choice(
+      seq(
         field('name', $.identifier),
-        alias($._lv_init, $.lv_init),
+        field('op', '='),
+        field('value', $.number),
       ),
-      field('op', '='),
-      field('value', $.number)
-    ),
-
-    lv_init: $ => seq(
-      '(',
-      choice(
+      seq(
+        field('paren', '('),
         field('name', $.identifier),
-        alias($._lv_assign, $.lv_assign),
+        field('paren', ')'),
       ),
-      ')'
+      seq(
+        field('paren', '('),
+        field('name', $.identifier),
+        field('op', '='),
+        field('value', $.number),
+        field('paren', ')'),
+      ),
+      seq(
+        field('paren', '('),
+        field('name', $.identifier),
+        field('paren', ')'),
+        field('op', '='),
+        field('value', $.number),
+      ),
     ),
 
     // we create two sets of "expressions": One named for the actual expressions,
