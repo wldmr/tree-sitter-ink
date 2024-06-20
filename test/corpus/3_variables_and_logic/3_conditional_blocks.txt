@@ -13,7 +13,7 @@
     (content
       (cond_block
         (cond_arm
-          (binary
+          condition: (binary
             (identifier)
             (number))
           (code
@@ -23,7 +23,7 @@
                 (identifier)
                 (number)))))
         (cond_arm
-          (else)
+          condition: (else)
           (code
             (assignment
               name: (identifier)
@@ -49,7 +49,7 @@
     (content
       (cond_block
         (cond_arm
-          (binary
+          condition: (binary
             (identifier)
             (number))
           (code
@@ -57,7 +57,7 @@
               name: (identifier)
               value: (number))))
         (cond_arm
-          (binary
+          condition: (binary
             (identifier)
             (number))
           (code
@@ -67,7 +67,7 @@
                 (identifier)
                 (number)))))
         (cond_arm
-          (else)
+          condition: (else)
           (code
             (assignment
               name: (identifier)

@@ -262,7 +262,7 @@ module.exports = grammar({
     ),
 
     tunnel: $ => choice(
-      seq($._tunnel_return, optional(choice($.identifier, $.call))),
+      seq($._tunnel_return, field('target', optional(choice($.identifier, $.call)))),
       // one or more diverts with return
       // -> do_this ->
       seq(repeat1($.divert), $._divert_mark),
@@ -365,13 +365,18 @@ module.exports = grammar({
     )),
     
     _first_cond_arm: $ => seq(
-      $.expr, ':', $._eol,
+      field('condition', $.expr), ':', $._eol,
       optional($._then_block)
     ),
     
     cond_arm: $ => prec.right(seq($._if_line, optional($._then_block))),
 
-    _if_line: $ => seq(mark('-'), choice($.expr, $.else), ':', optional($._eol)),
+    _if_line: $ => seq(
+      mark('-'),
+      field('condition', choice($.expr, $.else)),
+      ':',
+      optional($._eol)
+    ),
 
     _then_block: $ => prec.left(repeat1($._content_item_in_conditional)),
 
@@ -379,12 +384,12 @@ module.exports = grammar({
 
     multiline_alternatives: $ => seq(
       '{',
-      choice(
+      field('type', choice(
         'stopping',
         seq('shuffle', optional(choice('once', 'stopping'))),
         'cycle',
         'once',
-      ),
+      )),
       ':', $._eol,
       repeat($.alt_arm),
       '}',
@@ -433,11 +438,11 @@ module.exports = grammar({
     )),
 
     knot: $ => prec.right(seq(
-      $._knot_mark,
-      optional('function'),
+      field("start_mark", $._knot_mark),
+      field('function', optional('function')),
       field('name', $.identifier),
-      optional($._param_list),
-      optional($._knot_mark),
+      field('params', optional($._param_list)),
+      field("end_mark", optional($._knot_mark)),
       $._eol,
     )),
 
@@ -448,9 +453,9 @@ module.exports = grammar({
     _thread_mark: _ => alias(mark('<-'), '<-'),
 
     stitch: $ => prec.right(seq(
-      $._stitch_mark,
+      field('start_mark', $._stitch_mark),
       field('name', $.identifier),
-      optional($._param_list),
+      field('params', optional($._param_list)),
       $._eol,
     )),
 
@@ -465,26 +470,26 @@ module.exports = grammar({
     
     assignment: $ => seq(
       field('name', $.identifier),
-      choice('=', '-=', '+='),
+      field('op', choice('=', '-=', '+=')),
       field('value', $.expr)
     ),
     
     temp: $ => seq(
       keyword('temp'),
       field('name', $.identifier),
-      "=",
+      field('op', "="),
       field('value', $.expr)
     ),
 
     return: $ => seq('return', $.expr),
 
     _param: $ => seq(
-      optional('ref'),
+      field('ref', optional('ref')),
       choice($.identifier, $.divert)
     ),
 
     params: $ => sepBy1(',', $._param),
-    _param_list: $ => seq('(', field('params', optional($.params)), ')'),
+    _param_list: $ => seq('(', optional($.params), ')'),
 
     // Let's just accept any old characters for the path. We don't have to do anything with it …
     include: $ => seq(keyword('INCLUDE'), alias(/[^\n]+/, $.path)),
@@ -492,20 +497,20 @@ module.exports = grammar({
     external: $ => seq(
       keyword('EXTERNAL'),
       field('name', $.identifier),
-      $._param_list,
+      field('params', $._param_list),
     ),
 
     global: $ => seq(
-      choice(keyword('VAR'), keyword('CONST')),
+      field('type', choice(keyword('VAR'), keyword('CONST'))),
       field('name', $.identifier),
-      '=',
+      field('op', '='),
       field('value', $.expr),
     ),
 
     list: $ => seq(
       keyword('LIST'),
       field('name', $.identifier),
-      '=',
+      field('op', '='),
       // Why alias here? `list_values` is also an expression node; it seems intuitive enough to have them
       // be named the same, even if their syntaxes are slightly different.
       // (you can parenthesize values and assign numbers here, which you can't do in expressions)
@@ -520,29 +525,33 @@ module.exports = grammar({
     // and then alias them to the same names, giving the illusion of uniformity.
     // I know this is confusing, but look at the tests for multivalued lists and it should become clear(er).
     _lv_defs: $ => sepBy1(',', choice(
-      $.identifier,
+      field('name', $.identifier),
       $.lv_assign,
       $.lv_init,
     )),
 
     // leaf nodes that only accept terminals
-    _lv_init: $ => seq('(', $.identifier, ')'),
-    _lv_assign: $ => seq($.identifier, '=', $.number),
+    _lv_init: $ => seq('(', field('name', $.identifier), ')'),
+    _lv_assign: $ => seq(
+      field('name', $.identifier),
+      field('op', '='),
+      field('value', $.number)
+    ),
 
     // sort-of recursive definitions that alias the above nodes to look uniform.
     lv_assign: $ => seq(
       choice(
-        $.identifier,
+        field('name', $.identifier),
         alias($._lv_init, $.lv_init),
       ),
-      '=',
-      $.number
+      field('op', '='),
+      field('value', $.number)
     ),
 
     lv_init: $ => seq(
       '(',
       choice(
-        $.identifier,
+        field('name', $.identifier),
         alias($._lv_assign, $.lv_assign),
       ),
       ')'
@@ -565,7 +574,7 @@ module.exports = grammar({
     todo_comment: _ => seq(
       mark('TODO'),
       ':',
-      /[^\n]*/,
+      field('text', /[^\n]*/),
     ),
 
   },
