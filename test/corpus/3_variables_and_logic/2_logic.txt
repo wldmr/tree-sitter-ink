@@ -20,24 +20,24 @@
         (assignment
           name: (identifier)
           value: (binary
-            (binary
-              (paren
+            left: (binary
+              left: (paren
                 (binary
-                  (identifier)
-                  (identifier)))
-              (paren
+                  left: (identifier)
+                  right: (identifier)))
+              right: (paren
                 (binary
-                  (identifier)
-                  (identifier))))
-            (identifier))))
+                  left: (identifier)
+                  right: (identifier))))
+            right: (identifier))))
       (code
         (assignment
           name: (identifier)
           value: (binary
-            (binary
-              (number)
-              (identifier))
-            (identifier)))))))
+            left: (binary
+              left: (number)
+              right: (identifier))
+            right: (identifier)))))))
 
 ===
 .CBB. Mathematics

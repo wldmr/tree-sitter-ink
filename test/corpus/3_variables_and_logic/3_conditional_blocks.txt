@@ -14,22 +14,22 @@
       (cond_block
         (cond_arm
           condition: (binary
-            (identifier)
-            (number))
+            left: (identifier)
+            right: (number))
           (code
             (assignment
               name: (identifier)
               value: (binary
-                (identifier)
-                (number)))))
+                left: (identifier)
+                right: (number)))))
         (cond_arm
           condition: (else)
           (code
             (assignment
               name: (identifier)
               value: (binary
-                (identifier)
-                (number)))))))))
+                left: (identifier)
+                right: (number)))))))))
 
 ===
 .CCB. Extended if/else
@@ -50,30 +50,30 @@
       (cond_block
         (cond_arm
           condition: (binary
-            (identifier)
-            (number))
+            left: (identifier)
+            right: (number))
           (code
             (assignment
               name: (identifier)
               value: (number))))
         (cond_arm
           condition: (binary
-            (identifier)
-            (number))
+            left: (identifier)
+            right: (number))
           (code
             (assignment
               name: (identifier)
               value: (binary
-                (identifier)
-                (number)))))
+                left: (identifier)
+                right: (number)))))
         (cond_arm
           condition: (else)
           (code
             (assignment
               name: (identifier)
               value: (binary
-                (identifier)
-                (number)))))))))
+                left: (identifier)
+                right: (number)))))))))
 
 ===
 .CCC. Switch Blocks

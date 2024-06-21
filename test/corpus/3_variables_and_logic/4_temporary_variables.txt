@@ -24,7 +24,7 @@
             condition: (identifier)
             (code
               (postfix
-                (identifier)))))))))
+                left: (identifier)))))))))
 
 ===
 .CDB. Knots and stitches can take parameters

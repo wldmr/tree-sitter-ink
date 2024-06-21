@@ -22,9 +22,9 @@
     (choice_block
       (choice
         condition: (binary
-          (call
+          left: (call
             name: (identifier))
-          (number))
+          right: (number))
         main: (content
           (text))))))
 
@@ -40,14 +40,14 @@
     (choice_block
       (choice
         condition: (binary
-          (call
+          left: (call
             name: (identifier)
             args: (args
               (divert
                 target: (qualified_name
                   (identifier)
                   (identifier)))))
-          (number))
+          right: (number))
         main: (content
           (text)
           (divert
@@ -55,12 +55,12 @@
     (choice_block
       (choice
         condition: (binary
-          (call
+          left: (call
             name: (identifier)
             args: (args
               (divert
                 target: (identifier))))
-          (number))
+          right: (number))
         main: (content
           (text))))))
 
@@ -101,23 +101,23 @@
     (choice_block
       (choice
         condition: (binary
-          (binary
-            (binary
-              (identifier)
-              (binary
-                (identifier)
-                (unary
-                  (unary
-                    (identifier)))))
-            (number))
-          (binary
-            (binary
-              (identifier)
-              (paren
+          left: (binary
+            left: (binary
+              left: (identifier)
+              right: (binary
+                left: (identifier)
+                right: (unary
+                  right: (unary
+                    right: (identifier)))))
+            right: (number))
+          right: (binary
+            left: (binary
+              left: (identifier)
+              right: (paren
                 (binary
-                  (identifier)
-                  (identifier))))
-            (unary
-              (number))))
+                  left: (identifier)
+                  right: (identifier))))
+            right: (unary
+              right: (number))))
         main: (content
           (text))))))

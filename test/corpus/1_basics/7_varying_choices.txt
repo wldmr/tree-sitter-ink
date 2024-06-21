@@ -156,7 +156,7 @@
     (choice_block
       (choice
         condition: (unary
-          (identifier))
+          right: (identifier))
         temporary: (content
           (text))
         final: (content
@@ -195,7 +195,7 @@
     (choice_block
       (choice
         condition: (unary
-          (identifier))
+          right: (identifier))
         temporary: (content
           (text))
         final: (content
@@ -205,7 +205,7 @@
       (choice
         condition: (identifier)
         condition: (unary
-          (identifier))
+          right: (identifier))
         temporary: (content
           (text))
         final: (content
@@ -224,15 +224,15 @@
     (choice_block
       (choice
         condition: (binary
-          (unary
-            (paren
+          left: (unary
+            right: (paren
               (binary
-                (identifier)
-                (identifier))))
-          (paren
+                left: (identifier)
+                right: (identifier))))
+          right: (paren
             (binary
-              (identifier)
-              (identifier))))
+              left: (identifier)
+              right: (identifier))))
         temporary: (content
           (text))
         final: (content
@@ -257,7 +257,7 @@
     (choice_block
       (choice
         condition: (binary
-          (identifier)
-          (number))
+          left: (identifier)
+          right: (number))
         temporary: (content
           (text))))))

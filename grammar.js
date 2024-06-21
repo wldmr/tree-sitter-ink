@@ -36,9 +36,9 @@ function make_expr(named = true) {
   let rule = str => named ? str : '_anon_' + str;
 
   let binop = ($, precedence, ...operators) => prec.left(precedence, seq(
-    $[rule('expr')],
+    field('left', $[rule('expr')]),
     field('op', choice(...operators)),
-    $[rule('expr')])
+    field('right', $[rule('expr')]))
   );
 
   return {
@@ -82,8 +82,14 @@ function make_expr(named = true) {
     ),
 
     [rule('paren')]: $ => prec.left(15, seq('(', $[rule('expr')], ')')),
-    [rule('unary')]: $ => prec.left(14, seq(field('op', choice('not', '!', '-')), $[rule('expr')])),
-    [rule('postfix')]: $ => prec.left(13, seq($[rule('identifier')], field('op', choice('--', '++')))),
+    [rule('unary')]: $ => prec.left(14, seq(
+      field('op', choice('not', '!', '-')),
+      field('right', $[rule('expr')])
+    )),
+    [rule('postfix')]: $ => prec.left(13, seq(
+      field('left', $[rule('identifier')]),
+      field('op', choice('--', '++'))
+    )),
     [rule('binary')]: $ => choice(
       binop($, 8, '%', 'mod'),
       binop($, 7, '/'),
