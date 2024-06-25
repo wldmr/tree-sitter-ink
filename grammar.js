@@ -147,7 +147,8 @@ module.exports = grammar({
   ],
 
   extras: $ => [
-    /\s/, // only a _single_ character, so that the external scanner gets called for each individual space character.
+    /[ \t\r]+/, // we count carriage return as a non-linebreak, because that's the correct way of interpreting it. ╭∩╮(ಠ_ಠ)╭∩╮
+    /[\n\v\f]/,
     $.comment,
   ],
 
