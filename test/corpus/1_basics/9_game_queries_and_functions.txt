@@ -11,20 +11,26 @@
   (content_block
     (choice_block
       (choice
-        condition: (boolean)
+        (choice_marks)
+        condition: (condition
+          (boolean))
         main: (content
           (text))))
     (choice_block
       (choice
-        condition: (boolean)
+        (choice_marks)
+        condition: (condition
+          (boolean))
         main: (content
           (text))))
     (choice_block
       (choice
-        condition: (binary
-          left: (call
-            name: (identifier))
-          right: (number))
+        (choice_marks)
+        condition: (condition
+          (binary
+            left: (call
+              name: (identifier))
+            right: (number)))
         main: (content
           (text))))))
 
@@ -39,28 +45,32 @@
   (content_block
     (choice_block
       (choice
-        condition: (binary
-          left: (call
-            name: (identifier)
-            args: (args
-              (divert
-                target: (qualified_name
-                  (identifier)
-                  (identifier)))))
-          right: (number))
+        (choice_marks)
+        condition: (condition
+          (binary
+            left: (call
+              name: (identifier)
+              args: (args
+                (divert
+                  target: (qualified_name
+                    (identifier)
+                    (identifier)))))
+            right: (number)))
         main: (content
           (text)
           (divert
             target: (identifier)))))
     (choice_block
       (choice
-        condition: (binary
-          left: (call
-            name: (identifier)
-            args: (args
-              (divert
-                target: (identifier))))
-          right: (number))
+        (choice_marks)
+        condition: (condition
+          (binary
+            left: (call
+              name: (identifier)
+              args: (args
+                (divert
+                  target: (identifier))))
+            right: (number)))
         main: (content
           (text))))))
 
@@ -100,24 +110,26 @@
   (content_block
     (choice_block
       (choice
-        condition: (binary
-          left: (binary
+        (choice_marks)
+        condition: (condition
+          (binary
             left: (binary
-              left: (identifier)
-              right: (binary
+              left: (binary
                 left: (identifier)
-                right: (unary
-                  right: (unary
-                    right: (identifier)))))
-            right: (number))
-          right: (binary
-            left: (binary
-              left: (identifier)
-              right: (paren
-                (binary
+                right: (binary
                   left: (identifier)
-                  right: (identifier))))
-            right: (unary
-              right: (number))))
+                  right: (unary
+                    right: (unary
+                      right: (identifier)))))
+              right: (number))
+            right: (binary
+              left: (binary
+                left: (identifier)
+                right: (paren
+                  (binary
+                    left: (identifier)
+                    right: (identifier))))
+              right: (unary
+                right: (number)))))
         main: (content
           (text))))))

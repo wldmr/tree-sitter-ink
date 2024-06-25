@@ -16,34 +16,41 @@
   (content_block
     (gather_block
       (gather
+        (gather_marks)
         (content
           (text))))
     (choice_block
       (choice
+        (choice_marks)
         (content
           (text)))
       (content
         (text))
       (choice_block
         (choice
+          (choice_marks)
           (content
             (text))))
       (gather_block
         (gather
+          (gather_marks)
           (content
             (text)))))
     (choice_block
       (choice
+        (choice_marks)
         (content
           (text)))
       (content
         (text))
       (choice_block
         (choice
+          (choice_marks)
           (content
             (text)))))
     (gather_block
       (gather
+        (gather_marks)
         (content
           (text))))))
 
@@ -64,33 +71,41 @@
   (content_block
     (gather_block
       (gather
+        (gather_marks)
         (content
           (text))))
     (choice_block
       (choice
+        (choice_marks)
         (content
           (text)))
       (choice_block
         (choice
+          (choice_marks)
           (content
             (text)))
         (choice_block
           (choice
+            (choice_marks)
             (content
               (text)))
           (choice_block
             (choice
+              (choice_marks)
               (content
                 (text)))
             (choice_block
               (choice
+                (choice_marks)
                 (content
                   (text))))))))
     (choice_block
       (choice
+        (choice_marks)
         (content
           (text))))
     (gather_block
       (gather
+        (gather_marks)
         (content
           (text))))))

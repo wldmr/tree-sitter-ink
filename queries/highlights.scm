@@ -51,8 +51,8 @@
 (assignment ["=" "+=" "-="] @operator)
 ["=" "+=" "-="] @operator
 
-(choice ["[" "]" "(" ")"] @punctuation.bracket)  ; Need to specifiy choice here, because the grammar does always tokenize these brackets (for all text), but we don't want to highlight them outside of choices.
-(gather ["(" ")"] @punctuation.bracket)
+(choice ["[" "]"] @punctuation.bracket)  ; Need to specifiy choice here, because the grammar does always tokenize these brackets (for all text), but we don't want to highlight them outside of choices.
+(label ["(" ")"] @punctuation.bracket)
 ["{" "}"] @punctuation.bracket ; Curlies are never just text, no need to qualify
 
 ["," "|" ":"] @punctuation.delimiter
@@ -67,11 +67,10 @@
 (stitch "=" @markup.heading)
 (stitch (identifier) @markup.link.url)
 
-(choice ["*" "+"] @markup.list)
-(choice label: (identifier) @markup.link.url)
+(choice_marks ["*" "+"] @markup.list)
+(label (identifier) @markup.link.url)
 
-(gather "-" @markup.list.unnumbered)
-(gather label: (identifier) @markup.link.url)
+(gather_marks "-" @markup.list.unnumbered)
 
 (params "ref" @keyword)
 (params (identifier) @variable.parameter)

@@ -18,6 +18,7 @@
       (text))
     (choice_block
       (choice
+        (choice_marks)
         (content
           (text))
         (content
@@ -28,6 +29,7 @@
         (text)))
     (choice_block
       (choice
+        (choice_marks)
         (content
           (text))
         (content
@@ -36,6 +38,7 @@
         (text)))
     (choice_block
       (choice
+        (choice_marks)
         (content
           (text))
         (content
@@ -46,6 +49,7 @@
         (text)))
     (gather_block
       (gather
+        (gather_marks)
         (content
           (text))))))
 
@@ -78,6 +82,7 @@ I ran through the forest, the dogs snapping at my heels.
         (text))
       (choice_block
         (choice
+          (choice_marks)
           (content
             (text))
           (content
@@ -85,6 +90,7 @@ I ran through the forest, the dogs snapping at my heels.
             (glue))))
       (choice_block
         (choice
+          (choice_marks)
           (content
             (text))
           (content
@@ -92,26 +98,31 @@ I ran through the forest, the dogs snapping at my heels.
             (glue))))
       (choice_block
         (choice
+          (choice_marks)
           (content
             (text)
             (glue))))
       (gather_block
         (gather
+          (gather_marks)
           (content
             (text))))
       (choice_block
         (choice
+          (choice_marks)
           (content
             (text))
           (content
             (text))))
       (choice_block
         (choice
+          (choice_marks)
           (content
             (text))
           (content
             (text))))
       (gather_block
         (gather
+          (gather_marks)
           (content
             (text)))))))

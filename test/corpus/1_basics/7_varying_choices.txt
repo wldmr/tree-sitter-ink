@@ -12,11 +12,13 @@
   (content_block
     (choice_block
       (choice
+        (choice_marks)
         main: (content
           (divert
             target: (identifier)))))
     (choice_block
-      (choice)
+      (choice
+        (choice_marks))
       (content
         (text)
         (divert
@@ -45,6 +47,7 @@
         (text))
       (choice_block
         (choice
+          (choice_marks)
           main: (content
             (text))
           temporary: (content
@@ -55,6 +58,7 @@
               target: (identifier)))))
       (choice_block
         (choice
+          (choice_marks)
           main: (content
             (text))
           temporary: (content
@@ -64,7 +68,8 @@
             (divert
               target: (identifier)))))
       (choice_block
-        (choice)
+        (choice
+          (choice_marks))
         (content
           (text))
         (content
@@ -90,6 +95,7 @@
     (content_block
       (choice_block
         (choice
+          (choice_marks)
           temporary: (content
             (text)))
         (content
@@ -98,6 +104,7 @@
             target: (identifier))))
       (choice_block
         (choice
+          (choice_marks)
           temporary: (content
             (text)))
         (content
@@ -123,6 +130,7 @@
     (content_block
       (choice_block
         (choice
+          (choice_marks)
           temporary: (content
             (text))
           final: (content
@@ -130,6 +138,7 @@
               target: (identifier)))))
       (choice_block
         (choice
+          (choice_marks)
           temporary: (content
             (text))
           final: (content
@@ -137,6 +146,7 @@
               target: (identifier)))))
       (choice_block
         (choice
+          (choice_marks)
           main: (content
             (divert
               target: (identifier))))))))
@@ -155,8 +165,10 @@
   (content_block
     (choice_block
       (choice
-        condition: (unary
-          right: (identifier))
+        (choice_marks)
+        condition: (condition
+          (unary
+            right: (identifier)))
         temporary: (content
           (text))
         final: (content
@@ -164,17 +176,21 @@
             target: (identifier)))))
     (choice_block
       (choice
-        condition: (identifier)
-        temporary: (content
-          (text))
-        final: (content
-          (divert
-            target: (identifier)))))
-    (choice_block
-      (choice
-        condition: (qualified_name
-          (identifier)
+        (choice_marks)
+        condition: (condition
           (identifier))
+        temporary: (content
+          (text))
+        final: (content
+          (divert
+            target: (identifier)))))
+    (choice_block
+      (choice
+        (choice_marks)
+        condition: (condition
+          (qualified_name
+            (identifier)
+            (identifier)))
         temporary: (content
           (text))
         final: (content
@@ -194,8 +210,10 @@
   (content_block
     (choice_block
       (choice
-        condition: (unary
-          right: (identifier))
+        (choice_marks)
+        condition: (condition
+          (unary
+            right: (identifier)))
         temporary: (content
           (text))
         final: (content
@@ -203,9 +221,12 @@
             target: (identifier)))))
     (choice_block
       (choice
-        condition: (identifier)
-        condition: (unary
-          right: (identifier))
+        (choice_marks)
+        condition: (condition
+          (identifier))
+        condition: (condition
+          (unary
+            right: (identifier)))
         temporary: (content
           (text))
         final: (content
@@ -223,16 +244,18 @@
   (content_block
     (choice_block
       (choice
-        condition: (binary
-          left: (unary
+        (choice_marks)
+        condition: (condition
+          (binary
+            left: (unary
+              right: (paren
+                (binary
+                  left: (identifier)
+                  right: (identifier))))
             right: (paren
               (binary
                 left: (identifier)
-                right: (identifier))))
-          right: (paren
-            (binary
-              left: (identifier)
-              right: (identifier))))
+                right: (identifier)))))
         temporary: (content
           (text))
         final: (content
@@ -251,13 +274,17 @@
   (content_block
     (choice_block
       (choice
-        condition: (identifier)
+        (choice_marks)
+        condition: (condition
+          (identifier))
         temporary: (content
           (text))))
     (choice_block
       (choice
-        condition: (binary
-          left: (identifier)
-          right: (number))
+        (choice_marks)
+        condition: (condition
+          (binary
+            left: (identifier)
+            right: (number)))
         temporary: (content
           (text))))))

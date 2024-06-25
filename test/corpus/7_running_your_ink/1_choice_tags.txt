@@ -9,12 +9,14 @@
   (content_block
     (choice_block
       (choice
+        (choice_marks)
         main: (content
           (text)
           (tag
             (text)))))
     (choice_block
       (choice
+        (choice_marks)
         main: (content
           (text)
           (tag

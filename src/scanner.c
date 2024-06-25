@@ -122,8 +122,8 @@ unsigned tree_sitter_ink_external_scanner_serialize(void *payload, char *buffer)
 
   if (size >= TREE_SITTER_SERIALIZATION_BUFFER_SIZE) {
     // printf needs to be commented out to be compiled for wasm (i.e. to use the playground).
-    printf("WARN: Bumped up against tree sitter serialization limit (%d)! We may have lost data!\n",
-           TREE_SITTER_SERIALIZATION_BUFFER_SIZE);
+    // printf("WARN: Bumped up against tree sitter serialization limit (%d)! We may have lost data!\n",
+    //        TREE_SITTER_SERIALIZATION_BUFFER_SIZE);
   }
   // MSG("Serializing %d bytes of state\n", size);
   return size;

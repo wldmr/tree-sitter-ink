@@ -157,7 +157,7 @@ module.exports = grammar({
   ],
 
   precedences: $ => [
-    [$._choice_condition, $.eval],  // since they are syntactically the same, maybe we just treat a condition as an eval?
+    [$.condition, $.eval],  // since they are syntactically the same, maybe we just treat a condition as an eval?
     [$._anon_expr, $._anon_list_values],  // How should `(<identifier>)` be interpreted? Doesn't really matter, but we have to choose one.
     [$._choice_content, $.content],
     [$.gather, $.content],
@@ -174,6 +174,7 @@ module.exports = grammar({
     [$._content_item, $.content_block],
   ],
 
+  
   rules: {
     ink: $ => seq(
       $._start_of_file,
@@ -181,6 +182,7 @@ module.exports = grammar({
       repeat($.stitch_block), // Evidently we can define orphan stitches. OK …
       repeat($.knot_block),
     ),
+
 
     content_block: $ => choice(
       // either: at least one content item followed by choices/gathers
@@ -411,7 +413,7 @@ module.exports = grammar({
     )))),
 
     choice: $ => seq(
-      repeat1(prec(PREC.ink, choice('*', '+'))), // yes, this technically allows mixing * and + on the same 'choice', but it's simpler and probably leads to the structure the user intends.
+      $.choice_marks, 
       optional(seq($._label_field, optional($._eol))),
       repeat(seq($._choice_condition, optional($._eol))),
       optional('\\'),  // to separate conditions from content starting with logic (e.g. conditional text): https://github.com/inkle/ink/blob/master/Documentation/WritingWithInk.md#features-of-alternatives
@@ -419,15 +421,20 @@ module.exports = grammar({
     ),
 
     gather: $ => prec.right(seq(
-      repeat1(prec(PREC.ink, '-')),
+      $.gather_marks,
       optional($._label_field),
       optional($.content),
       optional($._redirect),
     )),
 
-    _label_field: $ => prec(PREC.ink, field('label', seq('(', $.identifier, ')'))),
+    choice_marks: $ => prec.right(repeat1(prec(PREC.ink, choice('*', '+')))), // yes, this technically allows mixing * and + on the same 'choice', but it's simpler and probably leads to the structure the user intends.
+    gather_marks: $ => prec.right(repeat1(prec(PREC.ink, "-"))),
 
-    _choice_condition: $ => prec.right(PREC.ink, field('condition', seq('{', $.expr, '}', ))),
+    _label_field: $ => prec(PREC.ink, field('label', $.label)),
+    label: $ => seq('(', $.identifier, ')'),
+
+    _choice_condition: $ => prec.right(PREC.ink, field('condition', $.condition)),
+    condition: $ => seq('{', $.expr, '}', ),
 
     _choice_content: $ => prec.right(choice(
       field('main', $.content),

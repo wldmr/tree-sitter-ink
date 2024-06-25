@@ -55,8 +55,10 @@
               (number)))))
       (choice_block
         (choice
-          (call
-            (identifier))
+          (choice_marks)
+          (condition
+            (call
+              (identifier)))
           (content
             (text)))))))
 

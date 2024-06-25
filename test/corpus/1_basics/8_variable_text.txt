@@ -168,6 +168,7 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
   (content_block
     (choice_block
       (choice
+        (choice_marks)
         main: (content
           (text)
           (alternatives
@@ -193,6 +194,7 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
   (content_block
     (choice_block
       (choice
+        (choice_marks)
         main: (content
           (alternatives
             (content

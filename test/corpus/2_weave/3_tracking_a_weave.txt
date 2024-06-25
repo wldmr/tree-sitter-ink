@@ -21,7 +21,9 @@ The guard frowns at you.
   (content_block
     (gather_block
       (gather
-        label: (identifier))))
+        (gather_marks)
+        label: (label
+          (identifier)))))
   (knot_block
     (knot
       name: (identifier))
@@ -30,14 +32,18 @@ The guard frowns at you.
         (text))
       (choice_block
         (choice
-          label: (identifier)
+          (choice_marks)
+          label: (label
+            (identifier))
           temporary: (content
             (text)))
         (content
           (text)))
       (choice_block
         (choice
-          label: (identifier)
+          (choice_marks)
+          label: (label
+            (identifier))
           main: (content
             (text))
           temporary: (content
@@ -46,16 +52,20 @@ The guard frowns at you.
             (text))))
       (gather_block
         (gather
+          (gather_marks)
           (content
             (text))))
       (choice_block
         (choice
-          condition: (identifier)
+          (choice_marks)
+          condition: (condition
+            (identifier))
           main: (content
             (text)))
         (comment))
       (choice_block
         (choice
+          (choice_marks)
           main: (content
             (text))
           final: (content
@@ -68,11 +78,14 @@ The guard frowns at you.
     [Greet him]
 	'Greetings.'
 ---
+
 (ink
   (content_block
     (choice_block
       (choice
-        (identifier)
+        (choice_marks)
+        (label
+          (identifier))
         (content
           (text)))
       (content

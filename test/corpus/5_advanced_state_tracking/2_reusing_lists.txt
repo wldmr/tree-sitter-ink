@@ -48,9 +48,11 @@ VAR microwaveState = cold
     (content_block
       (choice_block
         (choice
-          (binary
-            (identifier)
-            (identifier))
+          (choice_marks)
+          (condition
+            (binary
+              (identifier)
+              (identifier)))
           (content
             (text)
             (eval
@@ -96,7 +98,9 @@ VAR microwaveState = cold
               (identifier)))))
       (gather_block
         (gather
-          (identifier))))))
+          (gather_marks)
+          (label
+            (identifier)))))))
 
 ===
 .EBB. Lists can share names

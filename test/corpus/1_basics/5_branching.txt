@@ -23,6 +23,7 @@ You open the gate, and step out onto the path.
         (text))
       (choice_block
         (choice
+          (choice_marks)
           temporary: (content
             (text))
           final: (content
@@ -30,6 +31,7 @@ You open the gate, and step out onto the path.
               target: (identifier)))))
       (choice_block
         (choice
+          (choice_marks)
           temporary: (content
             (text))
           final: (content
@@ -37,6 +39,7 @@ You open the gate, and step out onto the path.
               target: (identifier)))))
       (choice_block
         (choice
+          (choice_marks)
           temporary: (content
             (text))
           final: (content
@@ -90,6 +93,7 @@ He insisted that we hurried home to Savile Row
         (text))
       (choice_block
         (choice
+          (choice_marks)
           (content
             (text))
           (content
@@ -99,6 +103,7 @@ He insisted that we hurried home to Savile Row
             (identifier))))
       (choice_block
         (choice
+          (choice_marks)
           (content
             (text))
           (content
@@ -110,6 +115,7 @@ He insisted that we hurried home to Savile Row
             (identifier))))
       (choice_block
         (choice
+          (choice_marks)
           (content
             (text))
           (content

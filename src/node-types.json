@@ -480,60 +480,8 @@
         "required": false,
         "types": [
           {
-            "type": "binary",
+            "type": "condition",
             "named": true
-          },
-          {
-            "type": "boolean",
-            "named": true
-          },
-          {
-            "type": "call",
-            "named": true
-          },
-          {
-            "type": "divert",
-            "named": true
-          },
-          {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "list_values",
-            "named": true
-          },
-          {
-            "type": "number",
-            "named": true
-          },
-          {
-            "type": "paren",
-            "named": true
-          },
-          {
-            "type": "postfix",
-            "named": true
-          },
-          {
-            "type": "qualified_name",
-            "named": true
-          },
-          {
-            "type": "string",
-            "named": true
-          },
-          {
-            "type": "unary",
-            "named": true
-          },
-          {
-            "type": "{",
-            "named": false
-          },
-          {
-            "type": "}",
-            "named": false
           }
         ]
       },
@@ -548,19 +496,11 @@
         ]
       },
       "label": {
-        "multiple": true,
+        "multiple": false,
         "required": false,
         "types": [
           {
-            "type": "(",
-            "named": false
-          },
-          {
-            "type": ")",
-            "named": false
-          },
-          {
-            "type": "identifier",
+            "type": "label",
             "named": true
           }
         ]
@@ -585,6 +525,16 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "choice_marks",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -641,6 +591,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "choice_marks",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "code",
@@ -825,6 +780,65 @@
       "types": [
         {
           "type": "cond_arm",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "condition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "binary",
+          "named": true
+        },
+        {
+          "type": "boolean",
+          "named": true
+        },
+        {
+          "type": "call",
+          "named": true
+        },
+        {
+          "type": "divert",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "list_values",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "paren",
+          "named": true
+        },
+        {
+          "type": "postfix",
+          "named": true
+        },
+        {
+          "type": "qualified_name",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "unary",
           "named": true
         }
       ]
@@ -1128,19 +1142,11 @@
     "named": true,
     "fields": {
       "label": {
-        "multiple": true,
+        "multiple": false,
         "required": false,
         "types": [
           {
-            "type": "(",
-            "named": false
-          },
-          {
-            "type": ")",
-            "named": false
-          },
-          {
-            "type": "identifier",
+            "type": "label",
             "named": true
           }
         ]
@@ -1148,7 +1154,7 @@
     },
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
         {
           "type": "content",
@@ -1156,6 +1162,10 @@
         },
         {
           "type": "divert",
+          "named": true
+        },
+        {
+          "type": "gather_marks",
           "named": true
         },
         {
@@ -1223,6 +1233,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "gather_marks",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "global",
@@ -1443,6 +1458,21 @@
         },
         {
           "type": "stitch_block",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "label",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
           "named": true
         }
       ]

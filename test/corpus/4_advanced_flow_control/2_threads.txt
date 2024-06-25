@@ -46,6 +46,7 @@ Before long, we arrived at his house.
         (text))
       (choice_block
         (choice
+          (choice_marks)
           (content
             (text))
           (content
@@ -54,6 +55,7 @@ Before long, we arrived at his house.
           (text)))
       (choice_block
         (choice
+          (choice_marks)
           (content
             (text))
           (content
@@ -62,6 +64,7 @@ Before long, we arrived at his house.
           (text)))
       (gather_block
         (gather
+          (gather_marks)
           (divert
             (identifier))))))
   (knot_block
@@ -72,6 +75,7 @@ Before long, we arrived at his house.
         (text))
       (choice_block
         (choice
+          (choice_marks)
           (content
             (text)))
         (content
@@ -116,7 +120,9 @@ Before long, we arrived at his house.
     (content_block
       (gather_block
         (gather
-          (identifier))
+          (gather_marks)
+          (label
+            (identifier)))
         (content
           (thread
             (call
