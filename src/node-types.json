@@ -515,6 +515,16 @@
           }
         ]
       },
+      "separator": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "\\",
+            "named": false
+          }
+        ]
+      },
       "when_chosen": {
         "multiple": false,
         "required": false,

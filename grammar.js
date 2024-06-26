@@ -416,7 +416,7 @@ module.exports = grammar({
       $.choice_marks, 
       optional(seq($._label_field, optional($._eol))),
       repeat(seq($._choice_condition, optional($._eol))),
-      optional('\\'),  // to separate conditions from content starting with logic (e.g. conditional text): https://github.com/inkle/ink/blob/master/Documentation/WritingWithInk.md#features-of-alternatives
+      field('separator', optional('\\')),  // to separate conditions from content starting with logic (e.g. conditional text): https://github.com/inkle/ink/blob/master/Documentation/WritingWithInk.md#features-of-alternatives
       $._choice_content
     ),
 
