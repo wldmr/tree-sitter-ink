@@ -53,10 +53,11 @@ VAR microwaveState = cold
             (binary
               (identifier)
               (identifier)))
-          (content
-            (text)
-            (eval
-              (identifier))))
+          (choice_only
+            (content
+              (text)
+              (eval
+                (identifier)))))
         (content
           (text)
           (eval

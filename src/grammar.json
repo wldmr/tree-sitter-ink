@@ -1631,46 +1631,16 @@
             }
           },
           {
-            "type": "TOKEN",
+            "type": "FIELD",
+            "name": "choice_only",
             "content": {
-              "type": "PREC",
-              "value": 1,
-              "content": {
-                "type": "STRING",
-                "value": "["
-              }
+              "type": "SYMBOL",
+              "name": "choice_only"
             }
           },
           {
             "type": "FIELD",
-            "name": "temporary",
-            "content": {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "content"
-                },
-                {
-                  "type": "BLANK"
-                }
-              ]
-            }
-          },
-          {
-            "type": "TOKEN",
-            "content": {
-              "type": "PREC",
-              "value": 1,
-              "content": {
-                "type": "STRING",
-                "value": "]"
-              }
-            }
-          },
-          {
-            "type": "FIELD",
-            "name": "final",
+            "name": "when_chosen",
             "content": {
               "type": "CHOICE",
               "members": [
@@ -1686,6 +1656,45 @@
           }
         ]
       }
+    },
+    "choice_only": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "TOKEN",
+          "content": {
+            "type": "PREC",
+            "value": 1,
+            "content": {
+              "type": "STRING",
+              "value": "["
+            }
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "content"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "TOKEN",
+          "content": {
+            "type": "PREC",
+            "value": 1,
+            "content": {
+              "type": "STRING",
+              "value": "]"
+            }
+          }
+        }
+      ]
     },
     "knot": {
       "type": "PREC_RIGHT",

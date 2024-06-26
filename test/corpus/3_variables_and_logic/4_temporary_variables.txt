@@ -48,8 +48,9 @@
     (choice_block
       (choice
         (choice_marks)
-        (content
-          (text)))
+        (choice_only
+          (content
+            (text))))
       (content
         (divert
           (call
@@ -59,8 +60,9 @@
     (choice_block
       (choice
         (choice_marks)
-        (content
-          (text)))
+        (choice_only
+          (content
+            (text))))
       (content
         (divert
           (call
@@ -70,8 +72,9 @@
     (choice_block
       (choice
         (choice_marks)
-        (content
-          (text)))
+        (choice_only
+          (content
+            (text))))
       (content
         (divert
           (call

@@ -475,22 +475,22 @@
     "type": "choice",
     "named": true,
     "fields": {
+      "choice_only": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "choice_only",
+            "named": true
+          }
+        ]
+      },
       "condition": {
         "multiple": true,
         "required": false,
         "types": [
           {
             "type": "condition",
-            "named": true
-          }
-        ]
-      },
-      "final": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "content",
             "named": true
           }
         ]
@@ -515,7 +515,7 @@
           }
         ]
       },
-      "temporary": {
+      "when_chosen": {
         "multiple": false,
         "required": false,
         "types": [
@@ -596,6 +596,21 @@
     "type": "choice_marks",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "choice_only",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "content",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "code",

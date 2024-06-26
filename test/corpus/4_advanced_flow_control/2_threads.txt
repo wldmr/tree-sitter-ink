@@ -49,6 +49,7 @@ Before long, we arrived at his house.
           (choice_marks)
           (content
             (text))
+          (choice_only)
           (content
             (text)))
         (content
@@ -58,6 +59,7 @@ Before long, we arrived at his house.
           (choice_marks)
           (content
             (text))
+          (choice_only)
           (content
             (text)))
         (content
@@ -76,8 +78,9 @@ Before long, we arrived at his house.
       (choice_block
         (choice
           (choice_marks)
-          (content
-            (text)))
+          (choice_only
+            (content
+              (text))))
         (content
           (divert
             (identifier))))))

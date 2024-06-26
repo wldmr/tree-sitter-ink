@@ -23,11 +23,12 @@
             (text))
           (tag
             (text)))
-        temporary: (content
-          (text)
-          (tag
-            (text)))
-        final: (content
+        choice_only: (choice_only
+          (content
+            (text)
+            (tag
+              (text))))
+        when_chosen: (content
           (text)
           (tag
             (text))

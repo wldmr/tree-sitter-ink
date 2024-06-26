@@ -35,9 +35,10 @@ Hello world!
         (choice_marks)
         main: (content
           (text))
-        temporary: (content
-          (text))
-        final: (content
+        choice_only: (choice_only
+          (content
+            (text)))
+        when_chosen: (content
           (text)))
       (content
         (text)))))
@@ -88,9 +89,10 @@ Hello [World]
         (choice_marks)
         main: (content
           (text))
-        temporary: (content
-          (text))
-        final: (content
+        choice_only: (choice_only
+          (content
+            (text)))
+        when_chosen: (content
           (text)))
       (content
         (text)))
@@ -99,7 +101,8 @@ Hello [World]
         (choice_marks)
         main: (content
           (text))
-        final: (content
+        choice_only: (choice_only)
+        when_chosen: (content
           (text)))
       (content
         (text)))
@@ -108,9 +111,10 @@ Hello [World]
         (choice_marks)
         main: (content
           (text))
-        temporary: (content
-          (text))
-        final: (content
+        choice_only: (choice_only
+          (content
+            (text)))
+        when_chosen: (content
           (text)))
       (content
         (text)))))

@@ -445,11 +445,11 @@ module.exports = grammar({
 
     _compound_choice_content: $ => prec.right(seq(
       field('main', optional($.content)),
-      mark('['),
-      field('temporary', optional($.content)),
-      mark(']'),
-      field('final', optional($.content))
+      field('choice_only', $.choice_only),
+      field('when_chosen', optional($.content))
     )),
+
+    choice_only: $ => seq(mark('['), optional($.content), mark(']')),
 
     knot: $ => prec.right(seq(
       field("start_mark", $._knot_mark),

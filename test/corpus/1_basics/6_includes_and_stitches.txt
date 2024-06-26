@@ -57,8 +57,9 @@
     (choice_block
       (choice
         (choice_marks)
-        temporary: (content
-          (text)))
+        choice_only: (choice_only
+          (content
+            (text))))
       (content
         (divert
           target: (qualified_name
@@ -67,8 +68,9 @@
     (choice_block
       (choice
         (choice_marks)
-        temporary: (content
-          (text)))
+        choice_only: (choice_only
+          (content
+            (text))))
       (content
         (divert
           target: (qualified_name

@@ -37,8 +37,9 @@
         (choice_block
           (choice
             (choice_marks)
-            (content
-              (text)))
+            (choice_only
+              (content
+                (text))))
           (content
             (tunnel
               (divert
@@ -62,8 +63,9 @@
       (choice_block
         (choice
           (choice_marks)
-          (content
-            (text)))
+          (choice_only
+            (content
+              (text))))
         (content
           (tunnel
             (divert
@@ -71,8 +73,9 @@
       (choice_block
         (choice
           (choice_marks)
-          (content
-            (text))))
+          (choice_only
+            (content
+              (text)))))
       (gather_block
         (gather
           (gather_marks)

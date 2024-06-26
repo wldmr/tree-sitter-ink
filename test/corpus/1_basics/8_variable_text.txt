@@ -181,7 +181,8 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
             (content
               (text)))
           (text))
-        final: (content
+        choice_only: (choice_only)
+        when_chosen: (content
           (text))))))
 
 ===

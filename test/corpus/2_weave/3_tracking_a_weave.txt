@@ -35,8 +35,9 @@ The guard frowns at you.
           (choice_marks)
           label: (label
             (identifier))
-          temporary: (content
-            (text)))
+          choice_only: (choice_only
+            (content
+              (text))))
         (content
           (text)))
       (choice_block
@@ -46,9 +47,10 @@ The guard frowns at you.
             (identifier))
           main: (content
             (text))
-          temporary: (content
-            (text))
-          final: (content
+          choice_only: (choice_only
+            (content
+              (text)))
+          when_chosen: (content
             (text))))
       (gather_block
         (gather
@@ -68,7 +70,8 @@ The guard frowns at you.
           (choice_marks)
           main: (content
             (text))
-          final: (content
+          choice_only: (choice_only)
+          when_chosen: (content
             (text)))))))
 
 ===
@@ -86,7 +89,8 @@ The guard frowns at you.
         (choice_marks)
         (label
           (identifier))
-        (content
-          (text)))
+        (choice_only
+          (content
+            (text))))
       (content
         (text)))))

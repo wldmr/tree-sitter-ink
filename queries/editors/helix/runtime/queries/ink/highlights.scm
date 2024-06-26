@@ -42,7 +42,7 @@
 
 (assignment ["=" "+=" "-="]) @operator
 
-(choice ["[" "]"] @punctuation.bracket)  ; Need to specifiy choice here, because the grammar does always tokenize these brackets (for all text), but we don't want to highlight them outside of choices.
+(choice_only ["[" "]"] @punctuation.bracket)  ; Need to specifiy choice here, because the grammar does always tokenize these brackets (for all text), but we don't want to highlight them outside of choices.
 (label ["(" ")"] @punctuation.bracket)
 
 ["{" "}"] @punctuation.bracket ; Curlies are never just text, no need to qualify
