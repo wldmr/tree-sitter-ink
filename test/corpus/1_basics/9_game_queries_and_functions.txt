@@ -11,21 +11,24 @@
   (content_block
     (choice_block
       (choice
-        (choice_marks)
+        (choice_marks
+          (choice_mark))
         condition: (condition
           (boolean))
         main: (content
           (text))))
     (choice_block
       (choice
-        (choice_marks)
+        (choice_marks
+          (choice_mark))
         condition: (condition
           (boolean))
         main: (content
           (text))))
     (choice_block
       (choice
-        (choice_marks)
+        (choice_marks
+          (choice_mark))
         condition: (condition
           (binary
             left: (call
@@ -45,7 +48,8 @@
   (content_block
     (choice_block
       (choice
-        (choice_marks)
+        (choice_marks
+          (choice_mark))
         condition: (condition
           (binary
             left: (call
@@ -62,7 +66,8 @@
             target: (identifier)))))
     (choice_block
       (choice
-        (choice_marks)
+        (choice_marks
+          (choice_mark))
         condition: (condition
           (binary
             left: (call
@@ -110,7 +115,8 @@
   (content_block
     (choice_block
       (choice
-        (choice_marks)
+        (choice_marks
+          (choice_mark))
         condition: (condition
           (binary
             left: (binary

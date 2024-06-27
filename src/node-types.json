@@ -603,9 +603,24 @@
     }
   },
   {
-    "type": "choice_marks",
+    "type": "choice_mark",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "choice_marks",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "choice_mark",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "choice_only",
@@ -1260,9 +1275,24 @@
     }
   },
   {
-    "type": "gather_marks",
+    "type": "gather_mark",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "gather_marks",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "gather_mark",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "global",

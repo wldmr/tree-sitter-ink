@@ -67,10 +67,10 @@
 (stitch "=" @markup.heading)
 (stitch (identifier) @markup.link.url)
 
-(choice_marks ["*" "+"] @markup.list)
+(choice_mark) @markup.list
 (label (identifier) @markup.link.url)
 
-(gather_marks "-" @markup.list.unnumbered)
+(gather_mark) @markup.list.unnumbered
 
 (params "ref" @keyword)
 (params (identifier) @variable.parameter)

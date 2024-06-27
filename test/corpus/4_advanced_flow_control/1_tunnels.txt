@@ -36,7 +36,8 @@
           (text))
         (choice_block
           (choice
-            (choice_marks)
+            (choice_marks
+              (choice_mark))
             (choice_only
               (content
                 (text))))
@@ -62,7 +63,8 @@
         (text))
       (choice_block
         (choice
-          (choice_marks)
+          (choice_marks
+            (choice_mark))
           (choice_only
             (content
               (text))))
@@ -72,13 +74,15 @@
               (identifier)))))
       (choice_block
         (choice
-          (choice_marks)
+          (choice_marks
+            (choice_mark))
           (choice_only
             (content
               (text)))))
       (gather_block
         (gather
-          (gather_marks)
+          (gather_marks
+            (gather_mark))
           (tunnel)))))
   (knot_block
     (knot

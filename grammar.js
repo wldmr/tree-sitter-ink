@@ -427,8 +427,10 @@ module.exports = grammar({
       optional($._redirect),
     )),
 
-    choice_marks: $ => prec.right(repeat1(prec(PREC.ink, choice('*', '+')))), // yes, this technically allows mixing * and + on the same 'choice', but it's simpler and probably leads to the structure the user intends.
-    gather_marks: $ => prec.right(repeat1(prec(PREC.ink, "-"))),
+    choice_marks: $ => prec.right(repeat1(prec(PREC.ink, $.choice_mark))), // yes, this technically allows mixing * and + on the same 'choice', but it's simpler and probably leads to the structure the user intends.
+    gather_marks: $ => prec.right(repeat1(prec(PREC.ink, $.gather_mark))),
+    choice_mark: _ => choice('*', '+'),
+    gather_mark: _ => '-',
 
     _label_field: $ => prec(PREC.ink, field('label', $.label)),
     label: $ => seq('(', $.identifier, ')'),

@@ -12,13 +12,15 @@
   (content_block
     (choice_block
       (choice
-        (choice_marks)
+        (choice_marks
+          (choice_mark))
         main: (content
           (divert
             target: (identifier)))))
     (choice_block
       (choice
-        (choice_marks))
+        (choice_marks
+          (choice_mark)))
       (content
         (text)
         (divert
@@ -47,7 +49,8 @@
         (text))
       (choice_block
         (choice
-          (choice_marks)
+          (choice_marks
+            (choice_mark))
           main: (content
             (text))
           choice_only: (choice_only
@@ -59,7 +62,8 @@
               target: (identifier)))))
       (choice_block
         (choice
-          (choice_marks)
+          (choice_marks
+            (choice_mark))
           main: (content
             (text))
           choice_only: (choice_only
@@ -71,7 +75,8 @@
               target: (identifier)))))
       (choice_block
         (choice
-          (choice_marks))
+          (choice_marks
+            (choice_mark)))
         (content
           (text))
         (content
@@ -97,7 +102,8 @@
     (content_block
       (choice_block
         (choice
-          (choice_marks)
+          (choice_marks
+            (choice_mark))
           choice_only: (choice_only
             (content
               (text))))
@@ -107,7 +113,8 @@
             target: (identifier))))
       (choice_block
         (choice
-          (choice_marks)
+          (choice_marks
+            (choice_mark))
           choice_only: (choice_only
             (content
               (text))))
@@ -134,7 +141,8 @@
     (content_block
       (choice_block
         (choice
-          (choice_marks)
+          (choice_marks
+            (choice_mark))
           choice_only: (choice_only
             (content
               (text)))
@@ -143,7 +151,8 @@
               target: (identifier)))))
       (choice_block
         (choice
-          (choice_marks)
+          (choice_marks
+            (choice_mark))
           choice_only: (choice_only
             (content
               (text)))
@@ -152,7 +161,8 @@
               target: (identifier)))))
       (choice_block
         (choice
-          (choice_marks)
+          (choice_marks
+            (choice_mark))
           main: (content
             (divert
               target: (identifier))))))))
@@ -171,7 +181,8 @@
   (content_block
     (choice_block
       (choice
-        (choice_marks)
+        (choice_marks
+          (choice_mark))
         condition: (condition
           (unary
             right: (identifier)))
@@ -183,7 +194,8 @@
             target: (identifier)))))
     (choice_block
       (choice
-        (choice_marks)
+        (choice_marks
+          (choice_mark))
         condition: (condition
           (identifier))
         choice_only: (choice_only
@@ -194,7 +206,8 @@
             target: (identifier)))))
     (choice_block
       (choice
-        (choice_marks)
+        (choice_marks
+          (choice_mark))
         condition: (condition
           (qualified_name
             (identifier)
@@ -219,7 +232,8 @@
   (content_block
     (choice_block
       (choice
-        (choice_marks)
+        (choice_marks
+          (choice_mark))
         condition: (condition
           (unary
             right: (identifier)))
@@ -231,7 +245,8 @@
             target: (identifier)))))
     (choice_block
       (choice
-        (choice_marks)
+        (choice_marks
+          (choice_mark))
         condition: (condition
           (identifier))
         condition: (condition
@@ -255,7 +270,8 @@
   (content_block
     (choice_block
       (choice
-        (choice_marks)
+        (choice_marks
+          (choice_mark))
         condition: (condition
           (binary
             left: (unary
@@ -286,7 +302,8 @@
   (content_block
     (choice_block
       (choice
-        (choice_marks)
+        (choice_marks
+          (choice_mark))
         condition: (condition
           (identifier))
         choice_only: (choice_only
@@ -294,7 +311,8 @@
             (text)))))
     (choice_block
       (choice
-        (choice_marks)
+        (choice_marks
+          (choice_mark))
         condition: (condition
           (binary
             left: (identifier)

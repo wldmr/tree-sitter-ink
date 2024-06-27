@@ -1499,17 +1499,8 @@
           "type": "PREC",
           "value": 1,
           "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "STRING",
-                "value": "*"
-              },
-              {
-                "type": "STRING",
-                "value": "+"
-              }
-            ]
+            "type": "SYMBOL",
+            "name": "choice_mark"
           }
         }
       }
@@ -1523,11 +1514,28 @@
           "type": "PREC",
           "value": 1,
           "content": {
-            "type": "STRING",
-            "value": "-"
+            "type": "SYMBOL",
+            "name": "gather_mark"
           }
         }
       }
+    },
+    "choice_mark": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "*"
+        },
+        {
+          "type": "STRING",
+          "value": "+"
+        }
+      ]
+    },
+    "gather_mark": {
+      "type": "STRING",
+      "value": "-"
     },
     "_label_field": {
       "type": "PREC",

@@ -48,7 +48,8 @@ VAR microwaveState = cold
     (content_block
       (choice_block
         (choice
-          (choice_marks)
+          (choice_marks
+            (choice_mark))
           (condition
             (binary
               (identifier)
@@ -99,7 +100,8 @@ VAR microwaveState = cold
               (identifier)))))
       (gather_block
         (gather
-          (gather_marks)
+          (gather_marks
+            (gather_mark))
           (label
             (identifier)))))))
 

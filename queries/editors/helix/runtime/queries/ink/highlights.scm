@@ -59,10 +59,10 @@
 (stitch "=" @markup.heading.2)
 (stitch (identifier) @label)
 
-(choice_marks ["*" "+"] @markup.list)
+(choice_mark) @markup.list
 (label (identifier) @label)
 
-(gather_marks "-" @markup.list.unnumbered)
+(gather_mark) @markup.list.unnumbered
 
 (params "ref" @keyword)
 (params (identifier) @variable.parameter)

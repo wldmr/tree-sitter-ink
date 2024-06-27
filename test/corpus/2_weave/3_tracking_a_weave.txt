@@ -21,7 +21,8 @@ The guard frowns at you.
   (content_block
     (gather_block
       (gather
-        (gather_marks)
+        (gather_marks
+          (gather_mark))
         label: (label
           (identifier)))))
   (knot_block
@@ -32,7 +33,8 @@ The guard frowns at you.
         (text))
       (choice_block
         (choice
-          (choice_marks)
+          (choice_marks
+            (choice_mark))
           label: (label
             (identifier))
           choice_only: (choice_only
@@ -42,7 +44,8 @@ The guard frowns at you.
           (text)))
       (choice_block
         (choice
-          (choice_marks)
+          (choice_marks
+            (choice_mark))
           label: (label
             (identifier))
           main: (content
@@ -54,12 +57,14 @@ The guard frowns at you.
             (text))))
       (gather_block
         (gather
-          (gather_marks)
+          (gather_marks
+            (gather_mark))
           (content
             (text))))
       (choice_block
         (choice
-          (choice_marks)
+          (choice_marks
+            (choice_mark))
           condition: (condition
             (identifier))
           main: (content
@@ -67,7 +72,8 @@ The guard frowns at you.
         (comment))
       (choice_block
         (choice
-          (choice_marks)
+          (choice_marks
+            (choice_mark))
           main: (content
             (text))
           choice_only: (choice_only)
@@ -86,7 +92,8 @@ The guard frowns at you.
   (content_block
     (choice_block
       (choice
-        (choice_marks)
+        (choice_marks
+          (choice_mark))
         (label
           (identifier))
         (choice_only

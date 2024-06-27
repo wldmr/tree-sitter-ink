@@ -16,41 +16,51 @@
   (content_block
     (gather_block
       (gather
-        (gather_marks)
+        (gather_marks
+          (gather_mark))
         (content
           (text))))
     (choice_block
       (choice
-        (choice_marks)
+        (choice_marks
+          (choice_mark))
         (content
           (text)))
       (content
         (text))
       (choice_block
         (choice
-          (choice_marks)
+          (choice_marks
+            (choice_mark)
+            (choice_mark))
           (content
             (text))))
       (gather_block
         (gather
-          (gather_marks)
+          (gather_marks
+            (gather_mark)
+            (gather_mark))
           (content
             (text)))))
     (choice_block
       (choice
-        (choice_marks)
+        (choice_marks
+          (choice_mark))
         (content
           (text)))
       (content
         (text))
       (choice_block
         (choice
-          (choice_marks)
+          (choice_marks
+            (choice_mark)
+            (choice_mark))
           (content
             (text)))))
     (gather_block
       (gather
-        (gather_marks)
+        (gather_marks
+          (gather_mark))
         (content
           (text))))))
 
@@ -71,41 +81,59 @@
   (content_block
     (gather_block
       (gather
-        (gather_marks)
+        (gather_marks
+          (gather_mark))
         (content
           (text))))
     (choice_block
       (choice
-        (choice_marks)
+        (choice_marks
+          (choice_mark))
         (content
           (text)))
       (choice_block
         (choice
-          (choice_marks)
+          (choice_marks
+            (choice_mark)
+            (choice_mark))
           (content
             (text)))
         (choice_block
           (choice
-            (choice_marks)
+            (choice_marks
+              (choice_mark)
+              (choice_mark)
+              (choice_mark))
             (content
               (text)))
           (choice_block
             (choice
-              (choice_marks)
+              (choice_marks
+                (choice_mark)
+                (choice_mark)
+                (choice_mark)
+                (choice_mark))
               (content
                 (text)))
             (choice_block
               (choice
-                (choice_marks)
+                (choice_marks
+                  (choice_mark)
+                  (choice_mark)
+                  (choice_mark)
+                  (choice_mark)
+                  (choice_mark))
                 (content
                   (text))))))))
     (choice_block
       (choice
-        (choice_marks)
+        (choice_marks
+          (choice_mark))
         (content
           (text))))
     (gather_block
       (gather
-        (gather_marks)
+        (gather_marks
+          (gather_mark))
         (content
           (text))))))

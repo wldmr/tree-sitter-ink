@@ -55,7 +55,8 @@
               (number)))))
       (choice_block
         (choice
-          (choice_marks)
+          (choice_marks
+            (choice_mark))
           (condition
             (call
               (identifier)))

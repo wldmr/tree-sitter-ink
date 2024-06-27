@@ -23,7 +23,8 @@ You open the gate, and step out onto the path.
         (text))
       (choice_block
         (choice
-          (choice_marks)
+          (choice_marks
+            (choice_mark))
           choice_only: (choice_only
             (content
               (text)))
@@ -32,7 +33,8 @@ You open the gate, and step out onto the path.
               target: (identifier)))))
       (choice_block
         (choice
-          (choice_marks)
+          (choice_marks
+            (choice_mark))
           choice_only: (choice_only
             (content
               (text)))
@@ -41,7 +43,8 @@ You open the gate, and step out onto the path.
               target: (identifier)))))
       (choice_block
         (choice
-          (choice_marks)
+          (choice_marks
+            (choice_mark))
           choice_only: (choice_only
             (content
               (text)))
@@ -96,7 +99,8 @@ He insisted that we hurried home to Savile Row
         (text))
       (choice_block
         (choice
-          (choice_marks)
+          (choice_marks
+            (choice_mark))
           (content
             (text))
           (choice_only)
@@ -107,7 +111,8 @@ He insisted that we hurried home to Savile Row
             (identifier))))
       (choice_block
         (choice
-          (choice_marks)
+          (choice_marks
+            (choice_mark))
           (content
             (text))
           (choice_only)
@@ -120,7 +125,8 @@ He insisted that we hurried home to Savile Row
             (identifier))))
       (choice_block
         (choice
-          (choice_marks)
+          (choice_marks
+            (choice_mark))
           (choice_only
             (content
               (text)))
