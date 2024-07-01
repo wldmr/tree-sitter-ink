@@ -6,7 +6,7 @@ Hello, world!
 
 (ink
   (content_block
-    (content
+    (paragraph
       (text))))
 
 ==============
@@ -25,10 +25,10 @@ Hello, world!
 
 (ink
   (content_block
-    (content
+    (paragraph
       (text))
     (comment)
-    (content
+    (paragraph
       (text))
     (comment)))
 
@@ -48,7 +48,7 @@ Stuff
 (ink
   (content_block
     (comment)
-    (content
+    (paragraph
       (text))
     (comment)))
 
@@ -62,10 +62,10 @@ Stuff
 
 (ink
   (content_block
-    (content
+    (paragraph
       (text))
     (comment)
-    (content
+    (paragraph
       (text
         (comment)))))
 
@@ -81,7 +81,7 @@ And?
 (ink
   (content_block
     (todo_comment)
-    (content
+    (paragraph
       (text))))
 
 =================================
@@ -95,7 +95,7 @@ He remembered that he was allowed to write TODO: anywhere else on the line.
 (ink
   (content_block
     (todo_comment)
-    (content
+    (paragraph
       (text))))
 
 ==========
@@ -109,16 +109,16 @@ Some more text. # and a tag
 
 (ink
   (content_block
-    (content
+    (paragraph
       (text)
       (tag
         (text)))
-    (content
+    (paragraph
       (tag
         (text))
       (tag
         (text)))
-    (content
+    (paragraph
       (text)
       (tag
         (text)))))
@@ -132,9 +132,9 @@ A line of normal game-text. \# colour it blue
 
 (ink
   (content_block
-    (content
+    (paragraph
       (text)
       (tag
         (text)))
-    (content
+    (paragraph
       (text))))

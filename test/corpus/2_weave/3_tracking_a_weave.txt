@@ -29,7 +29,7 @@ The guard frowns at you.
     (knot
       name: (identifier))
     (content_block
-      (content
+      (paragraph
         (text))
       (choice_block
         (choice
@@ -40,7 +40,7 @@ The guard frowns at you.
           choice_only: (choice_only
             (content
               (text))))
-        (content
+        (paragraph
           (text)))
       (choice_block
         (choice
@@ -99,5 +99,5 @@ The guard frowns at you.
         (choice_only
           (content
             (text))))
-      (content
+      (paragraph
         (text)))))

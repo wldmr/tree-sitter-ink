@@ -21,7 +21,7 @@
       (choice
         (choice_marks
           (choice_mark)))
-      (content
+      (paragraph
         (text)
         (divert
           target: (identifier))))))
@@ -45,7 +45,7 @@
     (knot
       name: (identifier))
     (content_block
-      (content
+      (paragraph
         (text))
       (choice_block
         (choice
@@ -77,9 +77,9 @@
         (choice
           (choice_marks
             (choice_mark)))
-        (content
+        (paragraph
           (text))
-        (content
+        (paragraph
           (divert
             target: (identifier)))))))
 
@@ -107,7 +107,7 @@
           choice_only: (choice_only
             (content
               (text))))
-        (content
+        (paragraph
           (text)
           (divert
             target: (identifier))))
@@ -118,9 +118,9 @@
           choice_only: (choice_only
             (content
               (text))))
-        (content
+        (paragraph
           (text))
-        (content
+        (paragraph
           (divert
             target: (identifier)))))))
 

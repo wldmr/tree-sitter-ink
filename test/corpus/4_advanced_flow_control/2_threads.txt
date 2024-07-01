@@ -30,19 +30,19 @@ Before long, we arrived at his house.
     (knot
       (identifier))
     (content_block
-      (content
+      (paragraph
         (text))
-      (content
+      (paragraph
         (thread
           (identifier)))
-      (content
+      (paragraph
         (thread
           (identifier)))))
   (knot_block
     (knot
       (identifier))
     (content_block
-      (content
+      (paragraph
         (text))
       (choice_block
         (choice
@@ -53,7 +53,7 @@ Before long, we arrived at his house.
           (choice_only)
           (content
             (text)))
-        (content
+        (paragraph
           (text)))
       (choice_block
         (choice
@@ -64,7 +64,7 @@ Before long, we arrived at his house.
           (choice_only)
           (content
             (text)))
-        (content
+        (paragraph
           (text)))
       (gather_block
         (gather
@@ -76,7 +76,7 @@ Before long, we arrived at his house.
     (knot
       (identifier))
     (content_block
-      (content
+      (paragraph
         (text))
       (choice_block
         (choice
@@ -85,16 +85,16 @@ Before long, we arrived at his house.
           (choice_only
             (content
               (text))))
-        (content
+        (paragraph
           (divert
             (identifier))))))
   (knot_block
     (knot
       (identifier))
     (content_block
-      (content
+      (paragraph
         (text))
-      (content
+      (paragraph
         (divert
           (identifier))))))
 
@@ -131,21 +131,21 @@ Before long, we arrived at his house.
             (gather_mark))
           (label
             (identifier)))
-        (content
+        (paragraph
           (thread
             (call
               (identifier)
               (args
                 (divert
                   (identifier))))))
-        (content
+        (paragraph
           (thread
             (call
               (identifier)
               (args
                 (divert
                   (identifier))))))
-        (content
+        (paragraph
           (thread
             (identifier)))))
     (stitch_block
@@ -156,7 +156,7 @@ Before long, we arrived at his house.
             (identifier))))
       (content_block
         (comment)
-        (content
+        (paragraph
           (text))))
     (stitch_block
       (stitch
@@ -166,12 +166,12 @@ Before long, we arrived at his house.
             (identifier))))
       (content_block
         (comment)
-        (content
+        (paragraph
           (text))))
     (stitch_block
       (stitch
         (identifier))
       (content_block
         (comment)
-        (content
+        (paragraph
           (text))))))

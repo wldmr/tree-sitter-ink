@@ -271,8 +271,13 @@
           "type": "SEQ",
           "members": [
             {
-              "type": "SYMBOL",
-              "name": "content"
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "content"
+              },
+              "named": true,
+              "value": "paragraph"
             },
             {
               "type": "SYMBOL",
@@ -375,8 +380,13 @@
           "type": "SEQ",
           "members": [
             {
-              "type": "SYMBOL",
-              "name": "content"
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "content"
+              },
+              "named": true,
+              "value": "paragraph"
             },
             {
               "type": "SYMBOL",

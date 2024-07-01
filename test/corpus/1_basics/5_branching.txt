@@ -19,7 +19,7 @@ You open the gate, and step out onto the path.
     (knot
       name: (identifier))
     (content_block
-      (content
+      (paragraph
         (text))
       (choice_block
         (choice
@@ -55,9 +55,9 @@ You open the gate, and step out onto the path.
     (knot
       name: (identifier))
     (content_block
-      (content
+      (paragraph
         (text))
-      (content
+      (paragraph
         (text)))))
 
 ===
@@ -95,7 +95,7 @@ He insisted that we hurried home to Savile Row
     (knot
       (identifier))
     (content_block
-      (content
+      (paragraph
         (text))
       (choice_block
         (choice
@@ -106,7 +106,7 @@ He insisted that we hurried home to Savile Row
           (choice_only)
           (content
             (text)))
-        (content
+        (paragraph
           (divert
             (identifier))))
       (choice_block
@@ -118,9 +118,9 @@ He insisted that we hurried home to Savile Row
           (choice_only)
           (content
             (text)))
-        (content
+        (paragraph
           (text))
-        (content
+        (paragraph
           (divert
             (identifier))))
       (choice_block
@@ -137,7 +137,7 @@ He insisted that we hurried home to Savile Row
     (knot
       (identifier))
     (content_block
-      (content
+      (paragraph
         (text)
         (divert
           (identifier)))))
@@ -145,15 +145,15 @@ He insisted that we hurried home to Savile Row
     (knot
       (identifier))
     (content_block
-      (content
+      (paragraph
         (text))
-      (content
+      (paragraph
         (divert
           (identifier)))))
   (knot_block
     (knot
       (identifier))
     (content_block
-      (content
+      (paragraph
         (glue)
         (text)))))

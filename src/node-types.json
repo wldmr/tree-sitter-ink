@@ -16,10 +16,6 @@
           "named": true
         },
         {
-          "type": "content",
-          "named": true
-        },
-        {
           "type": "external",
           "named": true
         },
@@ -33,6 +29,10 @@
         },
         {
           "type": "list",
+          "named": true
+        },
+        {
+          "type": "paragraph",
           "named": true
         },
         {
@@ -572,10 +572,6 @@
           "named": true
         },
         {
-          "type": "content",
-          "named": true
-        },
-        {
           "type": "external",
           "named": true
         },
@@ -593,6 +589,10 @@
         },
         {
           "type": "list",
+          "named": true
+        },
+        {
+          "type": "paragraph",
           "named": true
         },
         {
@@ -784,10 +784,6 @@
           "named": true
         },
         {
-          "type": "content",
-          "named": true
-        },
-        {
           "type": "external",
           "named": true
         },
@@ -801,6 +797,10 @@
         },
         {
           "type": "list",
+          "named": true
+        },
+        {
+          "type": "paragraph",
           "named": true
         },
         {
@@ -1030,10 +1030,6 @@
           "named": true
         },
         {
-          "type": "content",
-          "named": true
-        },
-        {
           "type": "external",
           "named": true
         },
@@ -1051,6 +1047,10 @@
         },
         {
           "type": "list",
+          "named": true
+        },
+        {
+          "type": "paragraph",
           "named": true
         },
         {
@@ -1240,10 +1240,6 @@
           "named": true
         },
         {
-          "type": "content",
-          "named": true
-        },
-        {
           "type": "external",
           "named": true
         },
@@ -1265,6 +1261,10 @@
         },
         {
           "type": "list",
+          "named": true
+        },
+        {
+          "type": "paragraph",
           "named": true
         },
         {
@@ -1695,6 +1695,61 @@
     "type": "number",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "paragraph",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "alternatives",
+          "named": true
+        },
+        {
+          "type": "cond_block",
+          "named": true
+        },
+        {
+          "type": "conditional_text",
+          "named": true
+        },
+        {
+          "type": "divert",
+          "named": true
+        },
+        {
+          "type": "eval",
+          "named": true
+        },
+        {
+          "type": "glue",
+          "named": true
+        },
+        {
+          "type": "multiline_alternatives",
+          "named": true
+        },
+        {
+          "type": "tag",
+          "named": true
+        },
+        {
+          "type": "text",
+          "named": true
+        },
+        {
+          "type": "thread",
+          "named": true
+        },
+        {
+          "type": "tunnel",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "params",

@@ -8,7 +8,7 @@ Hello world!
 
 (ink
   (content_block
-    (content
+    (paragraph
       (text))
     (choice_block
       (choice
@@ -16,7 +16,7 @@ Hello world!
           (choice_mark))
         main: (content
           (text)))
-      (content
+      (paragraph
         (text)))))
 
 ===
@@ -29,7 +29,7 @@ Hello world!
 
 (ink
   (content_block
-    (content
+    (paragraph
       (text))
     (choice_block
       (choice
@@ -42,7 +42,7 @@ Hello world!
             (text)))
         when_chosen: (content
           (text)))
-      (content
+      (paragraph
         (text)))))
 
 ===
@@ -53,7 +53,7 @@ Hello [World]
 
 (ink
   (content_block
-    (content
+    (paragraph
       (text))))
 
 ===
@@ -85,7 +85,7 @@ Hello [World]
 
 (ink
   (content_block
-    (content
+    (paragraph
       (text))
     (choice_block
       (choice
@@ -98,7 +98,7 @@ Hello [World]
             (text)))
         when_chosen: (content
           (text)))
-      (content
+      (paragraph
         (text)))
     (choice_block
       (choice
@@ -109,7 +109,7 @@ Hello [World]
         choice_only: (choice_only)
         when_chosen: (content
           (text)))
-      (content
+      (paragraph
         (text)))
     (choice_block
       (choice
@@ -122,5 +122,5 @@ Hello [World]
             (text)))
         when_chosen: (content
           (text)))
-      (content
+      (paragraph
         (text)))))

@@ -26,7 +26,7 @@
           (choice_mark))
         (content
           (text)))
-      (content
+      (paragraph
         (text))
       (choice_block
         (choice
@@ -48,7 +48,7 @@
           (choice_mark))
         (content
           (text)))
-      (content
+      (paragraph
         (text))
       (choice_block
         (choice

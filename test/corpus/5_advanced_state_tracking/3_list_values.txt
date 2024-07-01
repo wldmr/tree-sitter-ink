@@ -36,7 +36,7 @@ VAR murmurersVolume = quiet
     (global
       (identifier)
       (identifier))
-    (content
+    (paragraph
       (cond_block
         (cond_arm
           (binary
@@ -45,7 +45,7 @@ VAR murmurersVolume = quiet
           (code
             (postfix
               (identifier)))
-          (content
+          (paragraph
             (cond_block
               (cond_arm
                 (binary
@@ -54,7 +54,7 @@ VAR murmurersVolume = quiet
                 (code
                   (postfix
                     (identifier)))
-                (content
+                (paragraph
                   (text))))))))))
 
 ===

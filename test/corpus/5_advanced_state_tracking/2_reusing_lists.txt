@@ -59,7 +59,7 @@ VAR microwaveState = cold
               (text)
               (eval
                 (identifier)))))
-        (content
+        (paragraph
           (text)
           (eval
             (identifier))
@@ -68,7 +68,7 @@ VAR microwaveState = cold
           (assignment
             (identifier)
             (identifier)))
-        (content
+        (paragraph
           (divert
             (qualified_name
               (identifier)
@@ -77,21 +77,21 @@ VAR microwaveState = cold
     (knot
       (identifier))
     (content_block
-      (content
+      (paragraph
         (thread
           (call
             (identifier)
             (args
               (string)
               (identifier)))))
-      (content
+      (paragraph
         (thread
           (call
             (identifier)
             (args
               (string)
               (identifier)))))
-      (content
+      (paragraph
         (thread
           (call
             (identifier)

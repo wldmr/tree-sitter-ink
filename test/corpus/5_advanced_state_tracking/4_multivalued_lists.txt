@@ -63,7 +63,7 @@ LIST primeNumbers = (two = 2), (three) = 3, (five = 5)
 
 (ink
   (content_block
-    (content
+    (paragraph
       (cond_block
         (cond_arm
           (binary
@@ -71,13 +71,13 @@ LIST primeNumbers = (two = 2), (three) = 3, (five = 5)
             (list_values
               (identifier)
               (identifier)))
-          (content
+          (paragraph
             (text)))
         (cond_arm
           (binary
             (identifier)
             (identifier))
-          (content
+          (paragraph
             (text)))
         (cond_arm
           (binary
@@ -136,7 +136,7 @@ My favourite dinosaurs are {listWithCommas(favouriteDinosaurs, "all extinct")}.
           (identifier))
         (list_value_def
           (identifier))))
-    (content
+    (paragraph
       (text)
       (eval
         (call
@@ -152,7 +152,7 @@ My favourite dinosaurs are {listWithCommas(favouriteDinosaurs, "all extinct")}.
         (identifier)
         (identifier)))
     (content_block
-      (content
+      (paragraph
         (cond_block
           (cond_arm
             (call
@@ -161,7 +161,7 @@ My favourite dinosaurs are {listWithCommas(favouriteDinosaurs, "all extinct")}.
                 (identifier))))
           (cond_arm
             (number)
-            (content
+            (paragraph
               (eval
                 (call
                   (identifier)
@@ -181,17 +181,17 @@ My favourite dinosaurs are {listWithCommas(favouriteDinosaurs, "all extinct")}.
                     (identifier))))))
           (cond_arm
             (number)
-            (content
+            (paragraph
               (eval
                 (identifier))))
           (cond_arm
             (number)
-            (content
+            (paragraph
               (eval
                 (identifier))))
           (cond_arm
             (else)
-            (content
+            (paragraph
               (eval
                 (call
                   (identifier)
@@ -218,7 +218,7 @@ My favourite dinosaur{LIST_COUNT(favouriteDinosaurs) != 1:s} {isAre(favouriteDin
 
 (ink
   (content_block
-    (content
+    (paragraph
       (text)
       (conditional_text
         (binary
@@ -252,14 +252,14 @@ My favourite dinosaur{LIST_COUNT(favouriteDinosaurs) != 1:s} {isAre(favouriteDin
 
 (ink
   (content_block
-    (content
+    (paragraph
       (conditional_text
         (binary
           (identifier)
           (identifier))
         (content
           (text))))
-    (content
+    (paragraph
       (conditional_text
         (binary
           (call

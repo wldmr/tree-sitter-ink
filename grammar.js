@@ -237,7 +237,7 @@ module.exports = grammar({
     _content_item: $ => choice(
       seq($.comment, $._eol),
       seq($.todo_comment, $._eol),
-      seq($.content, $._eol),
+      seq(alias($.content, $.paragraph), $._eol),
       seq($.code, $._eol),
       seq($.include, $._eol),
       seq($.external, $._eol),
@@ -250,7 +250,7 @@ module.exports = grammar({
 
     _content_item_in_conditional: $ => choice(
       seq($.todo_comment, $._eol),
-      seq($.content, $._eol),
+      seq(alias($.content, $.paragraph), $._eol),
       seq($.code, $._eol),
       seq($.include, $._eol),
       seq($.external, $._eol),
@@ -261,8 +261,6 @@ module.exports = grammar({
       // Gathers are not allowed here, which is why we do all this _in_conditional business
       // and also why we have to distinguish between choice and gather blocks.
     ),
-
-
 
     _redirect: $ => choice(
       $.divert,  // diverts are defined as part of the `make_expr` function.

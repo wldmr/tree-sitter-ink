@@ -8,7 +8,7 @@ The radio hissed into life. {"Three!"|"Two!"|"One!"|There was the white noise ra
 
 (ink
   (content_block
-    (content
+    (paragraph
       (text)
       (alternatives
         (text)
@@ -20,7 +20,7 @@ The radio hissed into life. {"Three!"|"Two!"|"One!"|There was the white noise ra
           (text))
         (content
           (text))))
-    (content
+    (paragraph
       (alternatives
         (text)
         (content
@@ -37,9 +37,9 @@ The radio hissed into life. {"Three!"|"Two!"|"One!"|There was the white noise ra
 
 (ink
   (content_block
-    (content
+    (paragraph
       (text))
-    (content
+    (paragraph
       (alternatives
         (text)
         (content
@@ -55,7 +55,7 @@ It was {&Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday} today.
 
 (ink
   (content_block
-    (content
+    (paragraph
       (text)
       (alternatives
         (content
@@ -82,7 +82,7 @@ He told me a joke. {!I laughed politely.|I smiled.|I grimaced.|I promised myself
 
 (ink
   (content_block
-    (content
+    (paragraph
       (text)
       (alternatives
         (content
@@ -102,7 +102,7 @@ I tossed the coin. {~Heads|Tails}.
 
 (ink
   (content_block
-    (content
+    (paragraph
       (text)
       (alternatives
         (content
@@ -119,7 +119,7 @@ I took a step forward. {!||||Then the lights went out. -> eek}
 
 (ink
   (content_block
-    (content
+    (paragraph
       (text)
       (alternatives
         (content
@@ -135,7 +135,7 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
 
 (ink
   (content_block
-    (content
+    (paragraph
       (text)
       (alternatives
         (content
@@ -216,7 +216,7 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
 
 (ink
   (content_block
-    (content
+    (paragraph
       (conditional_text
         condition: (identifier)
         (content
@@ -243,15 +243,15 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
 
 (ink
   (content_block
-    (content
+    (paragraph
       (eval
         (identifier)))
     (comment)
-    (content
+    (paragraph
       (alternatives
         (text)))
     (comment)
-    (content
+    (paragraph
       (conditional_text
         (identifier)
         (content
@@ -267,7 +267,7 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
 
 (ink
   (content_block
-    (content
+    (paragraph
       (conditional_text
         (binary
           (identifier)
@@ -275,7 +275,7 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
         (content
           (text))))
     (comment)
-    (content
+    (paragraph
       (alternatives
         (text)))
     (comment)))
@@ -290,11 +290,11 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
 
 (ink
   (content_block
-    (content
+    (paragraph
       (alternatives
         (text
           (MISSING ")"))))
-    (content
+    (paragraph
       (alternatives
         (text)))
     (comment)))

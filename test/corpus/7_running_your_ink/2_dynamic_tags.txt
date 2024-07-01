@@ -8,7 +8,7 @@ I open the door. #suspense_music{RANDOM(1, 4)}.mp3
 
 (ink
   (content_block
-    (content
+    (paragraph
       (eval
         (identifier))
       (text)
@@ -16,7 +16,7 @@ I open the door. #suspense_music{RANDOM(1, 4)}.mp3
         (eval
           (identifier))
         (text)))
-    (content
+    (paragraph
       (text)
       (tag
         (text)
@@ -36,7 +36,7 @@ I push the door. # door_{door ? locked:thump|creak}.mp3 # suspense_music_{~1|2|3
 
 (ink
   (content_block
-    (content
+    (paragraph
       (text)
       (tag
         (text)
@@ -77,7 +77,7 @@ I push the door. # door_{door ? locked:
 (ink
   (content_block
     (comment)
-    (content
+    (paragraph
       (text)
       (tag
         (text)
@@ -86,13 +86,13 @@ I push the door. # door_{door ? locked:
             (binary
               (identifier)
               (identifier))
-            (content
+            (paragraph
               (glue)
               (text)
               (glue)))
           (cond_arm
             (else)
-            (content
+            (paragraph
               (glue)
               (text)
               (glue))))
@@ -101,12 +101,12 @@ I push the door. # door_{door ? locked:
         (text)
         (multiline_alternatives
           (alt_arm
-            (content
+            (paragraph
               (text)))
           (alt_arm
-            (content
+            (paragraph
               (text)))
           (alt_arm
-            (content
+            (paragraph
               (text))))
         (text)))))

@@ -14,7 +14,7 @@
 
 (ink
   (content_block
-    (content
+    (paragraph
       (text))
     (choice_block
       (choice
@@ -27,7 +27,7 @@
             (text)))
         (content
           (text)))
-      (content
+      (paragraph
         (text)))
     (choice_block
       (choice
@@ -38,7 +38,7 @@
         (choice_only)
         (content
           (text)))
-      (content
+      (paragraph
         (text)))
     (choice_block
       (choice
@@ -51,7 +51,7 @@
             (text)))
         (content
           (text)))
-      (content
+      (paragraph
         (text)))
     (gather_block
       (gather
@@ -85,7 +85,7 @@ I ran through the forest, the dogs snapping at my heels.
     (knot
       (identifier))
     (content_block
-      (content
+      (paragraph
         (text))
       (choice_block
         (choice

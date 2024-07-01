@@ -10,7 +10,7 @@
 
 (ink
   (content_block
-    (content
+    (paragraph
       (cond_block
         (cond_arm
           condition: (binary
@@ -46,7 +46,7 @@
 
 (ink
   (content_block
-    (content
+    (paragraph
       (cond_block
         (cond_arm
           condition: (binary
@@ -88,25 +88,25 @@
 
 (ink
   (content_block
-    (content
+    (paragraph
       (cond_block
         (cond_arm
           (identifier))
         (cond_arm
           (number)
-          (content
+          (paragraph
             (text)))
         (cond_arm
           (number)
-          (content
+          (paragraph
             (text)))
         (cond_arm
           (number)
-          (content
+          (paragraph
             (text)))
         (cond_arm
           (else)
-          (content
+          (paragraph
             (text)))))))
 
 ===
@@ -133,7 +133,7 @@
     (knot
       (identifier))
     (content_block
-      (content
+      (paragraph
         (cond_block
           (cond_arm
             (binary
@@ -143,7 +143,7 @@
             (code
               (postfix
                 (identifier)))
-            (content
+            (paragraph
               (divert
                 (identifier))))
           (cond_arm
@@ -154,13 +154,13 @@
             (code
               (postfix
                 (identifier)))
-            (content
+            (paragraph
               (divert
                 (identifier))))
           (cond_arm
             (else)
             (comment)
-            (content
+            (paragraph
               (divert
                 (identifier)))))))))
 
@@ -211,71 +211,71 @@ At the table, I drew a card. <>
 (ink
   (content_block
     (comment)
-    (content
+    (paragraph
       (multiline_alternatives
         (alt_arm
-          (content
+          (paragraph
             (text)))
         (alt_arm
-          (content
+          (paragraph
             (text)))
         (alt_arm
-          (content
+          (paragraph
             (text)))))
     (comment)
-    (content
+    (paragraph
       (text)
       (glue))
-    (content
+    (paragraph
       (multiline_alternatives
         (alt_arm
-          (content
+          (paragraph
             (text)))
         (alt_arm
-          (content
+          (paragraph
             (text)))
         (alt_arm
-          (content
+          (paragraph
             (text))
-          (content
+          (paragraph
             (text)))))
-    (content
+    (paragraph
       (multiline_alternatives
         (alt_arm
-          (content
+          (paragraph
             (text)))
         (alt_arm
-          (content
+          (paragraph
             (text)))))
-    (content
+    (paragraph
       (multiline_alternatives
         (alt_arm
-          (content
+          (paragraph
             (text)))
         (alt_arm
-          (content
+          (paragraph
             (text)))
         (alt_arm
-          (content
-            (text)))))
-    (comment)
-    (content
-      (multiline_alternatives
-        (alt_arm
-          (content
-            (text)))
-        (alt_arm
-          (content
-            (text)))
-        (alt_arm
-          (content
+          (paragraph
             (text)))))
     (comment)
-    (content
+    (paragraph
       (multiline_alternatives
         (alt_arm
-          (content
+          (paragraph
             (text)))
         (alt_arm
-          (content
+          (paragraph
+            (text)))
+        (alt_arm
+          (paragraph
+            (text)))))
+    (comment)
+    (paragraph
+      (multiline_alternatives
+        (alt_arm
+          (paragraph
+            (text)))
+        (alt_arm
+          (paragraph
             (text)))))))

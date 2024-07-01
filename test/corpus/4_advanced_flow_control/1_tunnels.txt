@@ -32,7 +32,7 @@
       (stitch
         (identifier))
       (content_block
-        (content
+        (paragraph
           (text))
         (choice_block
           (choice
@@ -41,7 +41,7 @@
             (choice_only
               (content
                 (text))))
-          (content
+          (paragraph
             (tunnel
               (divert
                 (identifier))
@@ -53,13 +53,13 @@
       (stitch
         (identifier))
       (content_block
-        (content
+        (paragraph
           (text)))))
   (knot_block
     (knot
       (identifier))
     (content_block
-      (content
+      (paragraph
         (text))
       (choice_block
         (choice
@@ -68,7 +68,7 @@
           (choice_only
             (content
               (text))))
-        (content
+        (paragraph
           (tunnel
             (divert
               (identifier)))))
@@ -88,19 +88,19 @@
     (knot
       (identifier))
     (content_block
-      (content
+      (paragraph
         (text))
-      (content
+      (paragraph
         (tunnel
           (divert
             (identifier))))
-      (content
+      (paragraph
         (text))
-      (content
+      (paragraph
         (tunnel
           (divert
             (identifier))))
-      (content
+      (paragraph
         (tunnel)))))
 
 ===
@@ -125,14 +125,14 @@ Suddenly, there is a white light all around you. Fingers lift an eyepiece from y
     (knot
       (identifier))
     (content_block
-      (content
+      (paragraph
         (tunnel
           (divert
             (call
               (identifier)
               (args
                 (number))))))
-      (content
+      (paragraph
         (text))))
   (knot_block
     (knot
@@ -144,18 +144,18 @@ Suddenly, there is a white light all around you. Fingers lift an eyepiece from y
         (assignment
           (identifier)
           (identifier)))
-      (content
+      (paragraph
         (cond_block
           (cond_arm
             (binary
               (identifier)
               (number))
-            (content
+            (paragraph
               (tunnel
                 (identifier))))))))
   (knot_block
     (knot
       (identifier))
     (content_block
-      (content
+      (paragraph
         (text)))))

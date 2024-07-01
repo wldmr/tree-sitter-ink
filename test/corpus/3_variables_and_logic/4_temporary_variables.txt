@@ -18,7 +18,7 @@
         (temp
           name: (identifier)
           value: (number)))
-      (content
+      (paragraph
         (cond_block
           (cond_arm
             condition: (identifier)
@@ -52,7 +52,7 @@
         (choice_only
           (content
             (text))))
-      (content
+      (paragraph
         (divert
           (call
             (identifier)
@@ -65,7 +65,7 @@
         (choice_only
           (content
             (text))))
-      (content
+      (paragraph
         (divert
           (call
             (identifier)
@@ -78,7 +78,7 @@
         (choice_only
           (content
             (text))))
-      (content
+      (paragraph
         (divert
           (call
             (identifier)
@@ -90,12 +90,12 @@
       (params
         (identifier)))
     (content_block
-      (content
+      (paragraph
         (text)
         (eval
           (identifier))
         (text))
-      (content
+      (paragraph
         (text)
         (conditional_text
           (binary
@@ -108,7 +108,7 @@
               (identifier))
             (text)))
         (text))
-      (content
+      (paragraph
         (text)))))
 
 ===
@@ -131,9 +131,9 @@
     (knot
       (identifier))
     (content_block
-      (content
+      (paragraph
         (text))
-      (content
+      (paragraph
         (divert
           (call
             (identifier)
@@ -147,16 +147,16 @@
         (divert
           (identifier))))
     (content_block
-      (content
+      (paragraph
         (text))
-      (content
+      (paragraph
         (divert
           (identifier)))))
   (knot_block
     (knot
       (identifier))
     (content_block
-      (content
+      (paragraph
         (text)))))
 
 ===
@@ -167,7 +167,7 @@
 
 (ink
   (content_block
-    (content
+    (paragraph
       (divert
         (call
           (qualified_name
