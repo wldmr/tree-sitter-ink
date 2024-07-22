@@ -37,53 +37,11 @@
       ]
     },
     "content_block": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "REPEAT1",
-              "content": {
-                "type": "SYMBOL",
-                "name": "_content_item"
-              }
-            },
-            {
-              "type": "REPEAT",
-              "content": {
-                "type": "CHOICE",
-                "members": [
-                  {
-                    "type": "SYMBOL",
-                    "name": "choice_block"
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "gather_block"
-                  }
-                ]
-              }
-            }
-          ]
-        },
-        {
-          "type": "REPEAT1",
-          "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "choice_block"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "gather_block"
-              }
-            ]
-          }
-        }
-      ]
+      "type": "REPEAT1",
+      "content": {
+        "type": "SYMBOL",
+        "name": "_content_item"
+      }
     },
     "knot_block": {
       "type": "PREC_RIGHT",

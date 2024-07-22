@@ -171,7 +171,6 @@ module.exports = grammar({
     [$.list_values, $._anon_list_values],
     [$.tunnel],
     [$._redirect, $.tunnel],
-    [$._content_item, $.content_block],
   ],
 
   
@@ -184,20 +183,7 @@ module.exports = grammar({
     ),
 
 
-    content_block: $ => choice(
-      // either: at least one content item followed by choices/gathers
-      seq(
-        repeat1($._content_item),
-        repeat(choice(
-          $.choice_block,
-          $.gather_block,
-        ))
-      ),
-      // or: at least one choice/gather
-      repeat1(choice(
-        $.choice_block,
-        $.gather_block,
-    ))),
+    content_block: $ => repeat1($._content_item),
 
     knot_block: $ => prec.right(seq(
       $.knot,
