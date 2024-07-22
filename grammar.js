@@ -274,7 +274,7 @@ module.exports = grammar({
        '\\[', '\\]',
        '\\{', '\\}',
        '\\|', '\\#',
-       alias(token(prec(-1, /[^\s\{\}\[\]#\-<>/|\\]+/)), 'word'),
+       alias(token(prec(-1, /[^\s\{\}\[\]#\-<>/|\\]+ */)), 'word'),
     ))),
 
     content: $ => prec.right(choice(

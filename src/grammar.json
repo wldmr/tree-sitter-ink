@@ -607,7 +607,7 @@
                   "value": -1,
                   "content": {
                     "type": "PATTERN",
-                    "value": "[^\\s\\{\\}\\[\\]#\\-<>/|\\\\]+"
+                    "value": "[^\\s\\{\\}\\[\\]#\\-<>/|\\\\]+ *"
                   }
                 }
               },
@@ -4095,10 +4095,6 @@
     [
       "_redirect",
       "tunnel"
-    ],
-    [
-      "_content_item",
-      "content_block"
     ]
   ],
   "precedences": [
