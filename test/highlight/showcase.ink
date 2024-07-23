@@ -121,6 +121,7 @@ TODO: implement external function
 ~ LIST_INVERT(some_list)
 // <- keyword
 // ^ function.builtin
+//             ^ variable.parameter (due to locals query)
 ~ some_list += value
 // ^ variable.parameter (due to locals query)
 //             ^ variable.parameter (due to locals query)
@@ -131,7 +132,7 @@ TODO: implement external function
 //     ^ variable.member
 ~ internal++
 // ^ variable.member (due to locals query)
-~ some_bool = false;
+~ some_bool = false
 // ^ variable
 ~ return some_list
 // ^ keyword
