@@ -6,4 +6,4 @@
 (temp name: (identifier) @local.definition)
 
 (identifier) @local.reference
-(divert (identifier)) @local.reference
+(divert (identifier) @local.reference)
