@@ -64,8 +64,8 @@
 
 (gather_mark) @markup.list.unnumbered
 
-(params "ref" @keyword)
-(params (identifier) @variable.parameter)
+(param "ref" @keyword)
+(param (identifier) @variable.parameter)
 
 (cond_arm "-" @keyword.control.conditional)
 (alt_arm "-" @keyword.control.repeat)
@@ -87,7 +87,7 @@
 
 ["->" "->->" "<-"] @keyword.control
 
-(params (divert (identifier) @variable.parameter)) ; exception to normal divert coloring: parameters should be distinguishable
+(param (divert (identifier) @variable.parameter)) ; exception to normal divert coloring: parameters should be distinguishable
 (divert (identifier) @constant.builtin
         (#any-of? @constant.builtin "END" "DONE"))
 

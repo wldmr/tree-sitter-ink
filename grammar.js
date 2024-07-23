@@ -441,7 +441,7 @@ module.exports = grammar({
       field("start_mark", $._knot_mark),
       field('function', optional('function')),
       field('name', $.identifier),
-      field('params', optional($._param_list)),
+      field('params', optional($.params)),
       field("end_mark", optional($._knot_mark)),
       $._eol,
     )),
@@ -455,7 +455,7 @@ module.exports = grammar({
     stitch: $ => prec.right(seq(
       field('start_mark', $._stitch_mark),
       field('name', $.identifier),
-      field('params', optional($._param_list)),
+      field('params', optional($.params)),
       $._eol,
     )),
 
@@ -483,13 +483,12 @@ module.exports = grammar({
 
     return: $ => seq('return', $.expr),
 
-    _param: $ => seq(
+    params: $ => seq('(', optional(sepBy1(',', $.param)), ')'),
+
+    param: $ => seq(
       field('ref', optional('ref')),
       choice($.identifier, $.divert)
     ),
-
-    params: $ => sepBy1(',', $._param),
-    _param_list: $ => seq('(', optional($.params), ')'),
 
     // Let's just accept any old characters for the path. We don't have to do anything with it …
     include: $ => seq(keyword('INCLUDE'), alias(/[^\n]+/, $.path)),
@@ -497,7 +496,7 @@ module.exports = grammar({
     external: $ => seq(
       keyword('EXTERNAL'),
       field('name', $.identifier),
-      field('params', $._param_list),
+      field('params', $.params),
     ),
 
     global: $ => seq(

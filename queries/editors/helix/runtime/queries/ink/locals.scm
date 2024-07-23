@@ -1,8 +1,8 @@
 (knot_block) @local.scope
 (stitch_block) @local.scope
 
-(params (identifier) @local.definition)
-(params (divert (identifier) @local.definition))
+(param (identifier) @local.definition)
+(param (divert (identifier) @local.definition))
 (temp name: (identifier) @local.definition)
 
 (identifier) @local.reference

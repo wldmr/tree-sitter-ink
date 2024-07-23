@@ -92,8 +92,9 @@
     (knot
       (identifier)
       (params
-        (divert
-          (identifier))))
+        (param
+          (divert
+            (identifier)))))
     (content_block
       (code
         (return

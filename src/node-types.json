@@ -1158,17 +1158,9 @@
         ]
       },
       "params": {
-        "multiple": true,
+        "multiple": false,
         "required": true,
         "types": [
-          {
-            "type": "(",
-            "named": false
-          },
-          {
-            "type": ")",
-            "named": false
-          },
           {
             "type": "params",
             "named": true
@@ -1466,17 +1458,9 @@
         ]
       },
       "params": {
-        "multiple": true,
+        "multiple": false,
         "required": false,
         "types": [
-          {
-            "type": "(",
-            "named": false
-          },
-          {
-            "type": ")",
-            "named": false
-          },
           {
             "type": "params",
             "named": true
@@ -1752,11 +1736,11 @@
     }
   },
   {
-    "type": "params",
+    "type": "param",
     "named": true,
     "fields": {
       "ref": {
-        "multiple": true,
+        "multiple": false,
         "required": false,
         "types": [
           {
@@ -1767,7 +1751,7 @@
       }
     },
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
         {
@@ -1776,6 +1760,21 @@
         },
         {
           "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "params",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "param",
           "named": true
         }
       ]
@@ -1959,17 +1958,9 @@
         ]
       },
       "params": {
-        "multiple": true,
+        "multiple": false,
         "required": false,
         "types": [
-          {
-            "type": "(",
-            "named": false
-          },
-          {
-            "type": ")",
-            "named": false
-          },
           {
             "type": "params",
             "named": true

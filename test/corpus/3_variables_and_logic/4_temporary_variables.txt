@@ -88,7 +88,8 @@
     (knot
       (identifier)
       (params
-        (identifier)))
+        (param
+          (identifier))))
     (content_block
       (paragraph
         (text)
@@ -144,8 +145,9 @@
     (knot
       (identifier)
       (params
-        (divert
-          (identifier))))
+        (param
+          (divert
+            (identifier)))))
     (content_block
       (paragraph
         (text))

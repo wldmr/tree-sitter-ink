@@ -152,8 +152,9 @@ Before long, we arrived at his house.
       (stitch
         (identifier)
         (params
-          (divert
-            (identifier))))
+          (param
+            (divert
+              (identifier)))))
       (content_block
         (comment)
         (paragraph
@@ -162,8 +163,9 @@ Before long, we arrived at his house.
       (stitch
         (identifier)
         (params
-          (divert
-            (identifier))))
+          (param
+            (divert
+              (identifier)))))
       (content_block
         (comment)
         (paragraph

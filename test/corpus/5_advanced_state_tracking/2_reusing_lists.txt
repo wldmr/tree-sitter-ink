@@ -43,8 +43,10 @@ VAR microwaveState = cold
     (knot
       (identifier)
       (params
-        (identifier)
-        (identifier)))
+        (param
+          (identifier))
+        (param
+          (identifier))))
     (content_block
       (choice_block
         (choice

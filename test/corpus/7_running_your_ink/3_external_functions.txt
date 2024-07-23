@@ -3,6 +3,11 @@
 ===
 EXTERNAL playSound(soundName)
 ---
+
 (ink
   (content_block
-    (external (identifier) (params (identifier)))))
+    (external
+      (identifier)
+      (params
+        (param
+          (identifier))))))

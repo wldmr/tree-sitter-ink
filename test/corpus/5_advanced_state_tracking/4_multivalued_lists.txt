@@ -149,8 +149,10 @@ My favourite dinosaurs are {listWithCommas(favouriteDinosaurs, "all extinct")}.
     (knot
       (identifier)
       (params
-        (identifier)
-        (identifier)))
+        (param
+          (identifier))
+        (param
+          (identifier))))
     (content_block
       (paragraph
         (cond_block
