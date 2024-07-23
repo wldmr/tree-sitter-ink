@@ -11,7 +11,8 @@ The radio hissed into life. {"Three!"|"Two!"|"One!"|There was the white noise ra
     (paragraph
       (text)
       (alternatives
-        (text)
+        (content
+          (text))
         (content
           (text))
         (content
@@ -22,7 +23,8 @@ The radio hissed into life. {"Three!"|"Two!"|"One!"|There was the white noise ra
           (text))))
     (paragraph
       (alternatives
-        (text)
+        (content
+          (text))
         (content
           (text))
         (content
@@ -41,7 +43,8 @@ The radio hissed into life. {"Three!"|"Two!"|"One!"|There was the white noise ra
       (text))
     (paragraph
       (alternatives
-        (text)
+        (content
+          (text))
         (content
           (text))
         (content
@@ -140,7 +143,8 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
       (alternatives
         (content
           (alternatives
-            (text))
+            (content
+              (text)))
           (text))
         (content
           (text)))
@@ -249,7 +253,8 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
     (comment)
     (paragraph
       (alternatives
-        (text)))
+        (content
+          (text))))
     (comment)
     (paragraph
       (conditional_text
@@ -277,7 +282,8 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
     (comment)
     (paragraph
       (alternatives
-        (text)))
+        (content
+          (text))))
     (comment)))
 
 ===
@@ -292,9 +298,11 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
   (content_block
     (paragraph
       (alternatives
-        (text
-          (MISSING ")"))))
+        (content
+          (text
+            (MISSING ")")))))
     (paragraph
       (alternatives
-        (text)))
+        (content
+          (text))))
     (comment)))

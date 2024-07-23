@@ -759,6 +759,71 @@
         ]
       }
     },
+    "_fake_content": {
+      "type": "PREC_RIGHT",
+      "value": 0,
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_fake_glue_logic_or_text"
+              },
+              {
+                "type": "REPEAT",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "tag"
+                }
+              },
+              {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "_redirect"
+                  },
+                  {
+                    "type": "BLANK"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "REPEAT1",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "tag"
+                }
+              },
+              {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "_redirect"
+                  },
+                  {
+                    "type": "BLANK"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_redirect"
+          }
+        ]
+      }
+    },
     "_glue_logic_or_text": {
       "type": "PREC_RIGHT",
       "value": 0,
@@ -779,6 +844,62 @@
               {
                 "type": "SYMBOL",
                 "name": "text"
+              }
+            ]
+          },
+          {
+            "type": "REPEAT",
+            "content": {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "glue"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "_logic"
+                },
+                {
+                  "type": "ALIAS",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "_text_with_ws"
+                  },
+                  "named": true,
+                  "value": "text"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "_fake_glue_logic_or_text": {
+      "type": "PREC_RIGHT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_logic"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "glue"
+              },
+              {
+                "type": "ALIAS",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_maybe_expr_text"
+                },
+                "named": true,
+                "value": "text"
               }
             ]
           },
@@ -996,8 +1117,13 @@
                     "type": "CHOICE",
                     "members": [
                       {
-                        "type": "SYMBOL",
-                        "name": "_fake_content"
+                        "type": "ALIAS",
+                        "content": {
+                          "type": "SYMBOL",
+                          "name": "_fake_content"
+                        },
+                        "named": true,
+                        "value": "content"
                       },
                       {
                         "type": "BLANK"
@@ -1034,49 +1160,6 @@
           {
             "type": "STRING",
             "value": "}"
-          }
-        ]
-      }
-    },
-    "_fake_content": {
-      "type": "PREC_RIGHT",
-      "value": 0,
-      "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "ALIAS",
-                "content": {
-                  "type": "SYMBOL",
-                  "name": "_maybe_expr_text"
-                },
-                "named": true,
-                "value": "text"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "_logic"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "glue"
-              }
-            ]
-          },
-          {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "_glue_logic_or_text"
-              },
-              {
-                "type": "BLANK"
-              }
-            ]
           }
         ]
       }

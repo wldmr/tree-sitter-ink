@@ -51,35 +51,7 @@
       "required": false,
       "types": [
         {
-          "type": "alternatives",
-          "named": true
-        },
-        {
-          "type": "cond_block",
-          "named": true
-        },
-        {
-          "type": "conditional_text",
-          "named": true
-        },
-        {
           "type": "content",
-          "named": true
-        },
-        {
-          "type": "eval",
-          "named": true
-        },
-        {
-          "type": "glue",
-          "named": true
-        },
-        {
-          "type": "multiline_alternatives",
-          "named": true
-        },
-        {
-          "type": "text",
           "named": true
         }
       ]

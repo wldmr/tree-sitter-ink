@@ -141,15 +141,14 @@ function make_text(with_leading_whitespace = false) {
     ? / *[^\s\{\}\[\]#\-<>/|\\]+ */
     :   /[^\s\{\}\[\]#\-<>/|\\]+ */;
 
-  return _ => prec.right(repeat1(
-   choice(
-     '-', '<', '>', '/',  // individual divert, thread or comment characters
-     '[', ']', // square brackets outside of choices are fine
-     // escaped special chars:
-     '\\[', '\\]',
-     '\\{', '\\}',
-     '\\|', '\\#',
-     alias(token(prec(-1, word_regex)), 'word'),
+  return _ => prec.right(repeat1(choice(
+    '-', '<', '>', '/',  // individual divert, thread or comment characters
+    '[', ']', // square brackets outside of choices are fine
+    // escaped special chars:
+    '\\[', '\\]',
+    '\\{', '\\}',
+    '\\|', '\\#',
+    alias(token(prec(-1, word_regex)), 'word'),
   )));
 }
 
@@ -308,11 +307,41 @@ module.exports = grammar({
       $._redirect,
     )),
 
+    // this "_fake" machinery exists so that we can generate conflicts between text or expressions
+    // after an opening `{`. The fake versions must mirror the normal versions exactly,
+    // except that the _first_ text element (if present) must lead to a conflict with expressions.
+    _fake_content: $ => prec.right(choice(
+      seq(
+        $._fake_glue_logic_or_text,
+        repeat($.tag),
+        optional($._redirect),
+      ),
+      seq(
+        repeat1($.tag),
+        optional($._redirect),
+      ),
+      $._redirect,
+    )),
+
+    // First piece of content does not consume leading whitespace, but then the following pieces do.
     _glue_logic_or_text: $ => prec.right(seq(
       choice(
         $.glue,
         $._logic,
         $.text,
+      ),
+      repeat(choice(
+        $.glue,
+        $._logic,
+        alias($._text_with_ws, $.text),
+      )),
+    )),
+
+    _fake_glue_logic_or_text: $ => prec.right(seq(
+      choice(
+        $._logic,
+        $.glue,
+        alias($._maybe_expr_text, $.text),
       ),
       repeat(choice(
         $.glue,
@@ -352,20 +381,11 @@ module.exports = grammar({
           choice('$', '&', '~', mark('!')),
           optional($.content),
         ),
-        optional($._fake_content),
+        optional(alias($._fake_content, $.content)),
       )),
       '|',
       repeat(choice('|', $.content)),
       '}'
-    )),
-
-    _fake_content: $ => prec.right(seq(
-      choice(
-        alias($._maybe_expr_text, $.text),
-        $._logic,
-        $.glue,
-      ),
-      optional($._glue_logic_or_text),
     )),
 
     _maybe_expr_text: $ => prec.right(seq(
