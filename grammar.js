@@ -128,6 +128,32 @@ function make_expr(named = true) {
   }
 }
 
+
+/*
+Whitespace in text is significant (multiple pieces of text can be glued together
+over multiple "paragraphs", choices, diverts, etc.).
+
+However, in some places we don't count leading spaces as part of the content.
+This chiefly happens at the beginning of paragraphs, choices, etc.
+*/
+function make_text(with_leading_whitespace = false) {
+  let word_regex = with_leading_whitespace
+    ? / *[^\s\{\}\[\]#\-<>/|\\]+ */
+    :   /[^\s\{\}\[\]#\-<>/|\\]+ */;
+
+  return _ => prec.right(repeat1(
+   choice(
+     '-', '<', '>', '/',  // individual divert, thread or comment characters
+     '[', ']', // square brackets outside of choices are fine
+     // escaped special chars:
+     '\\[', '\\]',
+     '\\{', '\\}',
+     '\\|', '\\#',
+     alias(token(prec(-1, word_regex)), 'word'),
+  )));
+}
+
+
 /// Separate every two occurrences of `rule` by an occurrence of `sep`. `rule` has to occurr at least once.
 function sepBy1(sep, rule) {
   return seq(rule, repeat(seq(sep, rule)));
@@ -266,24 +292,12 @@ module.exports = grammar({
 
     thread: $ => seq($._thread_mark, field('target', choice($.identifier, $.call))),
 
-    text: _ => prec.right(repeat1(
-     choice(
-       '-', '<', '>', '/',  // individual divert, thread or comment characters
-       '[', ']', // square brackets outside of choices are fine
-       // escaped special chars:
-       '\\[', '\\]',
-       '\\{', '\\}',
-       '\\|', '\\#',
-       alias(token(prec(-1, /[^\s\{\}\[\]#\-<>/|\\]+ */)), 'word'),
-    ))),
+    text: make_text(with_leading_whitespace = false),
+    _text_with_ws: make_text(with_leading_whitespace = true),
 
     content: $ => prec.right(choice(
       seq(
-        repeat1(choice(
-          $.glue,
-          $._logic,
-          $.text,
-        )),
+        $._glue_logic_or_text,
         repeat($.tag),
         optional($._redirect),
       ),
@@ -292,6 +306,19 @@ module.exports = grammar({
         optional($._redirect),
       ),
       $._redirect,
+    )),
+
+    _glue_logic_or_text: $ => prec.right(seq(
+      choice(
+        $.glue,
+        $._logic,
+        $.text,
+      ),
+      repeat(choice(
+        $.glue,
+        $._logic,
+        alias($._text_with_ws, $.text),
+      )),
     )),
 
     glue: _ => '<>',
@@ -338,11 +365,7 @@ module.exports = grammar({
         $._logic,
         $.glue,
       ),
-      repeat(choice(
-        $.glue,
-        $._logic,
-        $.text,
-      )),
+      optional($._glue_logic_or_text),
     )),
 
     _maybe_expr_text: $ => prec.right(seq(
@@ -390,11 +413,7 @@ module.exports = grammar({
 
     alt_arm: $ => seq(mark('-'), prec.left(repeat($._content_item_in_conditional))),
 
-    tag: $ => prec.left(seq('#', repeat(choice(
-      $.text,
-      $.glue,
-      $._logic,
-    )))),
+    tag: $ => prec.left(seq('#', $._glue_logic_or_text)),
 
     choice: $ => seq(
       $.choice_marks, 
