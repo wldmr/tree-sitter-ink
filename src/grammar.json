@@ -5,10 +5,6 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "SYMBOL",
-          "name": "_start_of_file"
-        },
-        {
           "type": "CHOICE",
           "members": [
             {
@@ -4296,10 +4292,6 @@
     {
       "type": "SYMBOL",
       "name": "_eol"
-    },
-    {
-      "type": "SYMBOL",
-      "name": "_start_of_file"
     },
     {
       "type": "SYMBOL",

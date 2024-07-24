@@ -5,9 +5,6 @@
 
 typedef enum {
   END_OF_LINE,
-  // We use END_OF_LINE to look ahead to (and store) the next block start marker.
-  // But the first line doesn't start with an EOL (not in general at least), so we use this special token instead.
-  START_OF_FILE, 
   CHOICE_BLOCK_START,
   CHOICE_BLOCK_END,
   GATHER_BLOCK_START,
@@ -56,20 +53,11 @@ typedef struct BlockInfo {
 #define BLOCK_INFO_INIT (BlockInfo) {.type = NONE, .level = BLOCK_LEVEL_MIN}
 
 typedef struct {
-  BlockInfo next_block;
   Array(BlockLevel) blocks;
 } Scanner;
 
 void print_scanner_state(Scanner *scanner) {
-  MSG("Scanner: next_block=");
-  switch(scanner->next_block.type) {
-  case NONE: MSG("NONE"); break;
-  case CONTENT: MSG("CONTENT"); break;
-  case CHOICE: MSG("CHOICE"); break;
-  case GATHER: MSG("GATHER"); break;
-  default: assert(false); // Unhandled Enum value == Bug
-  }
-  MSG("|%d; Levels: ", scanner->next_block.level);
+  MSG("Scanner: blocks=");
   for (uint32_t i = 0; i < scanner->blocks.size; i++)
     MSG("%d", *array_get(&scanner->blocks, i));
   MSG("\n");
@@ -112,9 +100,6 @@ unsigned tree_sitter_ink_external_scanner_serialize(void *payload, char *buffer)
   Scanner *scanner = (Scanner *)payload;
   uint32_t size = 0;
 
-  buffer[size++] = (char) scanner->next_block.type;
-  buffer[size++] = (char) scanner->next_block.level;
-
   for (uint32_t i = 0; i < scanner->blocks.size && size <= TREE_SITTER_SERIALIZATION_BUFFER_SIZE; i++) {
     buffer[size] = (char) *array_get(&scanner->blocks, i);
     size++;
@@ -133,17 +118,12 @@ void tree_sitter_ink_external_scanner_deserialize(void *payload, const char *buf
   Scanner *scanner = (Scanner *)payload;
 
   // reset all members as per suggestion in the docs
-  scanner->next_block = BLOCK_INFO_INIT;
   array_delete(&scanner->blocks);
 
   // init from buffer, if present and required
   // MSG("Deserializing %d bytes of state.\n", length);
   if (buffer != NULL && length > 0) {
     uint32_t size = 0;
-
-    const BlockType type = (BlockType) buffer[size++];
-    const BlockLevel level = (BlockLevel) buffer[size++];
-    scanner->next_block = (BlockInfo) {.type = type, .level = level };
 
     while (size < length)
       array_push(&scanner->blocks, buffer[size++]);
@@ -202,9 +182,6 @@ bool start_block(TSLexer *lexer, Scanner *scanner, Token token, BlockLevel level
   }
   lexer->result_symbol = token;
   array_push(&scanner->blocks, level);
-  // We're leaving scanner->next_block in a dirty state here, because after the block has started, there's no next block.
-  // But that will rectify itself at the next newline, before which this state shouldn't be checked anymore.
-  // What could go wrong?
   return true; // Just so this can be called inline.
 }
 
@@ -303,26 +280,16 @@ bool tree_sitter_ink_external_scanner_scan(
   mark_end(lexer);
   MSG("at '%c' (%d).\n", pretty(lookahead(lexer)), lookahead(lexer));
 
-  if (valid_symbols[START_OF_FILE] && !valid_symbols[ERROR]) {
-    MSG("At Start of file; determine first block marker, if any.\n");
-    scanner->next_block = lookahead_block_start(lexer);
-    lexer->result_symbol = START_OF_FILE;
-    return true;
-  }
-
   // first, try to end lines (that's always the innermost 'block')
   if (valid_symbols[END_OF_LINE]) {
     MSG("Checking for EO[L|F]\n");
     skip_ws_upto_cr(lexer);
     if (lookahead(lexer) == '\n') {
       MSG("  at EOL\n");
-      // Linebreak means the next line could start a new block.
-      scanner->next_block = lookahead_block_start(lexer);
       lexer->result_symbol = END_OF_LINE;
       return true;
     } else if (is_eof(lexer)) {
       MSG("  at EOF\n");
-      scanner->next_block = BLOCK_INFO_INIT;
       lexer->result_symbol = END_OF_LINE;
       return true;
     }
@@ -333,7 +300,7 @@ bool tree_sitter_ink_external_scanner_scan(
     MSG("Checking for Block delimiters.\n");
 
     BlockLevel current_block_level = *array_back(&scanner->blocks);
-    BlockInfo next_block = scanner->next_block;
+    BlockInfo next_block = lookahead_block_start(lexer);
 
     if (next_block.type == NONE) {
       MSG("Blocks can only end here.\n");
