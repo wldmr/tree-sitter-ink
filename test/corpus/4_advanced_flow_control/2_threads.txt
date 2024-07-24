@@ -70,8 +70,9 @@ Before long, we arrived at his house.
         (gather
           (gather_marks
             (gather_mark))
-          (divert
-            (identifier))))))
+          (content
+            (divert
+              (identifier)))))))
   (knot_block
     (knot
       (identifier))

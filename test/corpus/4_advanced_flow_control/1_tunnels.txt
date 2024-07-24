@@ -83,7 +83,8 @@
         (gather
           (gather_marks
             (gather_mark))
-          (tunnel)))))
+          (content
+            (tunnel))))))
   (knot_block
     (knot
       (identifier))

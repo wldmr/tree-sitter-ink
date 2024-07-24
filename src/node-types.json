@@ -1157,19 +1157,7 @@
           "named": true
         },
         {
-          "type": "divert",
-          "named": true
-        },
-        {
           "type": "gather_marks",
-          "named": true
-        },
-        {
-          "type": "thread",
-          "named": true
-        },
-        {
-          "type": "tunnel",
           "named": true
         }
       ]

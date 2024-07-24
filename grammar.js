@@ -444,7 +444,6 @@ module.exports = grammar({
       $.gather_marks,
       optional($._label_field),
       optional($.content),
-      optional($._redirect),
     )),
 
     choice_marks: $ => prec.right(repeat1(prec(PREC.ink, $.choice_mark))), // yes, this technically allows mixing * and + on the same 'choice', but it's simpler and probably leads to the structure the user intends.
