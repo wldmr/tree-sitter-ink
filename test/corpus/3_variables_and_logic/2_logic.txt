@@ -48,9 +48,9 @@
 ---
 
 (ink
+  (comment)
+  (comment)
   (content_block
-    (comment)
-    (comment)
     (code
       (assignment
         name: (identifier)
@@ -69,8 +69,8 @@
 ---
 
 (ink
+  (comment)
   (content_block
-    (comment)
     (code
       (return
         (binary

@@ -12,8 +12,7 @@ So, more text I guess.
 ---
 
 (ink
-  (content_block
-    (comment))
+  (comment)
   (knot_block
     (knot
       name: (identifier))

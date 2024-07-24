@@ -304,5 +304,5 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
     (paragraph
       (alternatives
         (content
-          (text))))
-    (comment)))
+          (text)))))
+  (comment))

@@ -204,19 +204,6 @@
           "members": [
             {
               "type": "SYMBOL",
-              "name": "comment"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "_eol"
-            }
-          ]
-        },
-        {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "SYMBOL",
               "name": "todo_comment"
             },
             {

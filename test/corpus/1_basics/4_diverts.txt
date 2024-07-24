@@ -27,8 +27,8 @@ We hurried home to Savile Row as fast as we could.
       name: (identifier))
     (content_block
       (paragraph
-        (text))
-      (comment))))
+        (text))))
+  (comment))
 
 ===
 .ADB. Diverts are invisible

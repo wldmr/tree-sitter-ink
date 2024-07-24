@@ -209,8 +209,8 @@ At the table, I drew a card. <>
 ---
 
 (ink
+  (comment)
   (content_block
-    (comment)
     (paragraph
       (multiline_alternatives
         (alt_arm

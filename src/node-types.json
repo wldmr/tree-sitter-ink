@@ -540,10 +540,6 @@
           "named": true
         },
         {
-          "type": "comment",
-          "named": true
-        },
-        {
           "type": "external",
           "named": true
         },
@@ -998,10 +994,6 @@
           "named": true
         },
         {
-          "type": "comment",
-          "named": true
-        },
-        {
           "type": "external",
           "named": true
         },
@@ -1197,10 +1189,6 @@
         },
         {
           "type": "code",
-          "named": true
-        },
-        {
-          "type": "comment",
           "named": true
         },
         {

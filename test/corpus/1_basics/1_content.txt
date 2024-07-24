@@ -29,8 +29,8 @@ Hello, world!
       (text))
     (comment)
     (paragraph
-      (text))
-    (comment)))
+      (text)))
+  (comment))
 
 ========================================================================================================================
 .AABa. Gotcha: Minimal munch for comments (there was a bug where multiline comments would swallow all text between them)
@@ -46,11 +46,11 @@ Stuff
 ---
 
 (ink
+  (comment)
   (content_block
-    (comment)
     (paragraph
-      (text))
-    (comment)))
+      (text)))
+  (comment))
 
 =================================
 .AAC. Comments can occur anywhere

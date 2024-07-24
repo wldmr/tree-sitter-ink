@@ -246,7 +246,6 @@ module.exports = grammar({
     )),
 
     _content_item: $ => choice(
-      seq($.comment, $._eol),
       seq($.todo_comment, $._eol),
       seq(alias($.content, $.paragraph), $._eol),
       seq($.code, $._eol),
