@@ -72,10 +72,6 @@ void mark_end(TSLexer *lexer) {
   lexer->mark_end(lexer);
 }
 
-void consume(TSLexer *lexer) {
-  lexer->advance(lexer, false);
-}
-
 void skip(TSLexer *lexer) {
   lexer->advance(lexer, true);
 }
@@ -160,6 +156,12 @@ char pretty(char c) {
   }
 }
 
+/// Skip all whitspace (including carriage returns).
+void skip_ws(TSLexer *lexer) {
+  while (lookahead(lexer) <= ' ' && !is_eof(lexer))
+    skip(lexer);
+}
+
 /// Skip whitespace until _before_ a carriage return (don't consume it).
 /// Return `true` if ended up at up carriage return, false otherwise.
 bool skip_ws_upto_cr(TSLexer *lexer) {
@@ -191,8 +193,8 @@ bool end_block(TSLexer *lexer, Scanner *scanner, Token token) {
 ///
 /// At ==, =, or EOF, BlockType is NONE.
 ///
-/// Calls `lexer->mark_end()` one the _start_ of the line of the next block. This means that all trailing empty lines
-/// will belong to the currently active block.
+/// Calls `lexer->mark_end()` one the start of next block marker.
+/// This means that all trailing empty lines will belong to the currently active block.
 ///
 /// It would have been nice to not include the the lines between blocks, but that would require rewinding
 /// to a previous position based on information that we only learn by advancing until we hit a piece of syntax.
@@ -205,10 +207,8 @@ bool end_block(TSLexer *lexer, Scanner *scanner, Token token) {
 BlockInfo lookahead_block_start(TSLexer *lexer) {
   MSG("Looking ahead for block start marker\n");
 
-  while (skip_ws_upto_cr(lexer)) {
-    skip(lexer);
-    mark_end(lexer);
-  }
+  skip_ws(lexer);
+  mark_end(lexer);
 
   BlockInfo block = BLOCK_INFO_INIT;
 
@@ -222,7 +222,7 @@ BlockInfo lookahead_block_start(TSLexer *lexer) {
   uint32_t first_marker = 0;
   while ((c == '*' || c == '+' || (c == '-')) && (markers < BLOCK_LEVEL_MAX)) {
     MSG("%c ", c);
-    consume(lexer);
+    skip(lexer);
     if (c == '-' && lookahead(lexer) == '>') {
       MSG("capped off by a divert ");
       break;
