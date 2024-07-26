@@ -184,7 +184,6 @@ module.exports = grammar({
     [$.condition, $.eval],  // since they are syntactically the same, maybe we just treat a condition as an eval?
     [$._anon_expr, $._anon_list_values],  // How should `(<identifier>)` be interpreted? Doesn't really matter, but we have to choose one.
     [$._choice_content, $.content],
-    [$.gather, $.content],
   ],
 
   conflicts: $ => [
@@ -238,7 +237,6 @@ module.exports = grammar({
     gather_block: $ => prec.right(seq(
       $._gather_block_start,
       $.gather,
-      $._eol,
       repeat($._content_item),
       $._gather_block_end,
     )),
@@ -266,10 +264,6 @@ module.exports = grammar({
       seq($.external, $._eol),
       seq($.global, $._eol),
       seq($.list, $._eol),
-      // These handle line breaks on their own:
-      alias($._choice_block_in_conditional, $.choice_block),
-      // Gathers are not allowed here, which is why we do all this _in_conditional business
-      // and also why we have to distinguish between choice and gather blocks.
     ),
 
     _redirect: $ => choice(
@@ -445,13 +439,18 @@ module.exports = grammar({
     gather: $ => prec.right(seq(
       $.gather_marks,
       optional($._label_field),
-      optional($.content),
+      optional($._eol)
     )),
 
-    choice_marks: $ => prec.right(repeat1(prec(PREC.ink, $.choice_mark))), // yes, this technically allows mixing * and + on the same 'choice', but it's simpler and probably leads to the structure the user intends.
+    _content_field: $ => field('content', $._content_item),
+
+    choice_marks: $ => choice(
+      prec.right(repeat1(prec(PREC.ink, alias(mark('*'), $.choice_mark)))),
+      prec.right(repeat1(prec(PREC.ink, alias(mark('+'), $.choice_mark))))
+    ), 
+
     gather_marks: $ => prec.right(repeat1(prec(PREC.ink, $.gather_mark))),
-    choice_mark: _ => choice('*', '+'),
-    gather_mark: _ => '-',
+    gather_mark: _ => mark('-'),
 
     _label_field: $ => prec(PREC.ink, field('label', $.label)),
     label: $ => seq('(', $.identifier, ')'),

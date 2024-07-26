@@ -17,9 +17,9 @@
     (gather_block
       (gather
         (gather_marks
-          (gather_mark))
-        (content
-          (text))))
+          (gather_mark)))
+      (paragraph
+        (text)))
     (choice_block
       (choice
         (choice_marks
@@ -39,9 +39,9 @@
         (gather
           (gather_marks
             (gather_mark)
-            (gather_mark))
-          (content
-            (text)))))
+            (gather_mark)))
+        (paragraph
+          (text))))
     (choice_block
       (choice
         (choice_marks
@@ -60,9 +60,9 @@
     (gather_block
       (gather
         (gather_marks
-          (gather_mark))
-        (content
-          (text))))))
+          (gather_mark)))
+      (paragraph
+        (text)))))
 
 ===
 .BBB. You can nest as many levels as you like
@@ -82,9 +82,9 @@
     (gather_block
       (gather
         (gather_marks
-          (gather_mark))
-        (content
-          (text))))
+          (gather_mark)))
+      (paragraph
+        (text)))
     (choice_block
       (choice
         (choice_marks
@@ -134,6 +134,28 @@
     (gather_block
       (gather
         (gather_marks
-          (gather_mark))
+          (gather_mark)))
+      (paragraph
+        (text)))))
+
+===
+.BBBa. Corner case: Weird nesting (this is how the compiler actually works)
+===
+* * choice 1 (actually level 1)
+* choice 2
+---
+(ink
+  (content_block
+    (choice_block
+      (choice
+        (choice_marks
+          (choice_mark)
+          (choice_mark))
+        (content
+          (text))))
+    (choice_block
+      (choice
+        (choice_marks
+          (choice_mark))
         (content
           (text))))))

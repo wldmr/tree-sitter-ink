@@ -197,7 +197,7 @@ bool end_block(TSLexer *lexer, Scanner *scanner, Token token) {
 /// This means that all trailing empty lines will belong to the currently active block.
 ///
 /// It would have been nice to not include the the lines between blocks, but that would require rewinding
-/// to a previous position based on information that we only learn by advancing until we hit a piece of syntax.
+/// to a previous position based on information that we only learn after we've hit a mark.
 /// Maybe revisit this if and when tree-sitter gets more explicit control over token start positions than `mark_end()`.
 ///
 /// CAUTION: This can (and will) report a gather start marker when it encounters a condition in a conditional block
@@ -227,8 +227,12 @@ BlockInfo lookahead_block_start(TSLexer *lexer) {
       MSG("capped off by a divert ");
       break;
     } else {
+      if (first_marker == 0) {
+        first_marker = c;
+      } else if (c != first_marker) {
+        break;
+      }
       markers += 1;
-      if (first_marker == 0) first_marker = c;
       skip_ws_upto_cr(lexer);
       c = lookahead(lexer);
     }

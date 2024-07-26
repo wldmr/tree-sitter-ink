@@ -69,10 +69,10 @@ Before long, we arrived at his house.
       (gather_block
         (gather
           (gather_marks
-            (gather_mark))
-          (content
-            (divert
-              (identifier)))))))
+            (gather_mark)))
+        (paragraph
+          (divert
+            (identifier))))))
   (knot_block
     (knot
       (identifier))

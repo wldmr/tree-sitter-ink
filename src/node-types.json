@@ -571,11 +571,6 @@
     }
   },
   {
-    "type": "choice_mark",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "choice_marks",
     "named": true,
     "fields": {},
@@ -1149,13 +1144,9 @@
       }
     },
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
-        {
-          "type": "content",
-          "named": true
-        },
         {
           "type": "gather_marks",
           "named": true
@@ -3057,6 +3048,10 @@
   {
     "type": "and",
     "named": false
+  },
+  {
+    "type": "choice_mark",
+    "named": true
   },
   {
     "type": "comment",

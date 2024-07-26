@@ -56,9 +56,9 @@
     (gather_block
       (gather
         (gather_marks
-          (gather_mark))
-        (content
-          (text))))))
+          (gather_mark)))
+      (paragraph
+        (text)))))
 
 ===
 .BAB. Options and Gathers form chains of content
@@ -117,9 +117,9 @@ I ran through the forest, the dogs snapping at my heels.
       (gather_block
         (gather
           (gather_marks
-            (gather_mark))
-          (content
-            (text))))
+            (gather_mark)))
+        (paragraph
+          (text)))
       (choice_block
         (choice
           (choice_marks
@@ -141,6 +141,49 @@ I ran through the forest, the dogs snapping at my heels.
       (gather_block
         (gather
           (gather_marks
-            (gather_mark))
-          (content
-            (text)))))))
+            (gather_mark)))
+          (paragraph
+            (text))))))
+
+
+===
+.BABa. Corner case: Gathers can contain normal content items (unlike Choices)
+===
+- TODO: allow todos
+- (label) ~ code = allowed
+---
+(ink
+  (content_block
+    (gather_block
+      (gather
+        (gather_marks
+          (gather_mark)))
+      (todo_comment))
+    (gather_block
+      (gather
+        (gather_marks
+          (gather_mark))
+        (label
+          (identifier)))
+      (code
+        (assignment
+          (identifier)
+          (identifier))))))
+
+===
+.BABb. Corner case: Gathers with a nested choice
+===
+- * choice, same level, therefore a sibling of the gather, not a child
+---
+(ink
+  (content_block
+    (gather_block
+      (gather
+        (gather_marks
+          (gather_mark))))
+    (choice_block
+      (choice
+        (choice_marks
+          (choice_mark))
+        (content
+          (text))))))

@@ -82,9 +82,9 @@
       (gather_block
         (gather
           (gather_marks
-            (gather_mark))
-          (content
-            (tunnel))))))
+            (gather_mark)))
+        (paragraph
+          (tunnel)))))
   (knot_block
     (knot
       (identifier))
