@@ -244,19 +244,21 @@ module.exports = grammar({
     )),
 
     _content_item: $ => choice(
-      seq($.todo_comment, $._eol),
-      seq(alias($.content, $.paragraph), $._eol),
-      seq($.code, $._eol),
-      seq($.include, $._eol),
-      seq($.external, $._eol),
-      seq($.global, $._eol),
-      seq($.list, $._eol),
+      $._single_line_content_item,
       // These handle line breaks on their own:
       $.choice_block,
       $.gather_block,
     ),
 
     _content_item_in_conditional: $ => choice(
+      $._single_line_content_item,
+      // These handle line breaks on their own:
+      alias($._choice_block_in_conditional, $.choice_block),
+      // Gathers are not allowed here, which is why we do all this _in_conditional business
+      // and also why we have to distinguish between choice and gather blocks.
+    ),
+
+    _single_line_content_item: $ => choice(
       seq($.todo_comment, $._eol),
       seq(alias($.content, $.paragraph), $._eol),
       seq($.code, $._eol),
