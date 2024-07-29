@@ -1206,11 +1206,6 @@
     }
   },
   {
-    "type": "gather_mark",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "gather_marks",
     "named": true,
     "fields": {},
@@ -3072,6 +3067,10 @@
   {
     "type": "function",
     "named": false
+  },
+  {
+    "type": "gather_mark",
+    "named": true
   },
   {
     "type": "glue",

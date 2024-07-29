@@ -167,6 +167,8 @@ module.exports = grammar({
     $._choice_block_end,
     $._gather_block_start,
     $._gather_block_end,
+    $.choice_mark,
+    $.gather_mark,
     $._error_sentinel,
   ],
 
@@ -429,7 +431,7 @@ module.exports = grammar({
     tag: $ => prec.left(seq('#', $._glue_logic_or_text)),
 
     choice: $ => seq(
-      $.choice_marks, 
+      $.choice_marks,
       optional(seq($._label_field, optional($._eol))),
       repeat(seq($._choice_condition, optional($._eol))),
       field('separator', optional('\\')),  // to separate conditions from content starting with logic (e.g. conditional text): https://github.com/inkle/ink/blob/master/Documentation/WritingWithInk.md#features-of-alternatives
@@ -444,13 +446,8 @@ module.exports = grammar({
 
     _content_field: $ => field('content', $._content_item),
 
-    choice_marks: $ => choice(
-      prec.right(repeat1(prec(PREC.ink, alias(mark('*'), $.choice_mark)))),
-      prec.right(repeat1(prec(PREC.ink, alias(mark('+'), $.choice_mark))))
-    ), 
-
+    choice_marks: $ => prec.right(repeat1(prec(PREC.ink, $.choice_mark))),
     gather_marks: $ => prec.right(repeat1(prec(PREC.ink, $.gather_mark))),
-    gather_mark: _ => mark('-'),
 
     _label_field: $ => prec(PREC.ink, field('label', $.label)),
     label: $ => seq('(', $.identifier, ')'),

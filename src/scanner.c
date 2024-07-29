@@ -9,6 +9,8 @@ typedef enum {
   CHOICE_BLOCK_END,
   GATHER_BLOCK_START,
   GATHER_BLOCK_END,
+  CHOICE_MARK,
+  GATHER_MARK,
   ERROR,
 } Token;
 
@@ -33,6 +35,8 @@ void print_valid_symbols(const bool *valid_symbols) {
   MSG(" %s CHOICE_BLOCK_END   \n", valid_symbols[CHOICE_BLOCK_END]   ? "*" : "-");
   MSG(" %s GATHER_BLOCK_START \t", valid_symbols[GATHER_BLOCK_START] ? "*" : "-");
   MSG(" %s GATHER_BLOCK_END   \n", valid_symbols[GATHER_BLOCK_END]   ? "*" : "-");
+  MSG(" %s CHOICE_MARK        \t", valid_symbols[CHOICE_MARK]        ? "*" : "-");
+  MSG(" %s GATHER_MARK        \n", valid_symbols[GATHER_MARK]        ? "*" : "-");
   MSG("------------------\n");
 }
 
@@ -291,6 +295,37 @@ bool tree_sitter_ink_external_scanner_scan(
       return true;
     }
   }
+
+  if (valid_symbols[CHOICE_MARK] || valid_symbols[GATHER_MARK]) {
+    MSG("Looking for choice/gather mark.\n");
+    skip_ws_upto_cr(lexer);
+    char c = lookahead(lexer);
+    if (c == '-') {
+      skip(lexer);
+      if (lookahead(lexer) == '>') {
+        MSG("We've found a divert mark, not a gather\n");
+        return false;
+      } 
+      MSG("Found gather mark.\n");
+      mark_end(lexer);
+      lexer->result_symbol = GATHER_MARK;
+      return valid_symbols[GATHER_MARK];
+    }
+    else if (c == '*' || c == '+') {
+      MSG("Found choice mark.\n");
+      skip(lexer);
+      mark_end(lexer);
+      if (valid_symbols[CHOICE_MARK]) {
+        lexer->result_symbol = CHOICE_MARK;
+        return true;
+      } else if (valid_symbols[GATHER_BLOCK_END] && !valid_symbols[ERROR]){
+        // OK, this one is a bit complicated: If We've found a choice mark
+        lexer->result_symbol = GATHER_BLOCK_END;
+        return true;
+      }
+    }
+  }
+
   bool is_start = valid_symbols[GATHER_BLOCK_START] || valid_symbols[CHOICE_BLOCK_START];
   bool is_end = valid_symbols[GATHER_BLOCK_END] || valid_symbols[CHOICE_BLOCK_END];
   if (is_start || is_end) {

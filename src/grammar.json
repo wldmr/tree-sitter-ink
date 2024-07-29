@@ -1521,63 +1521,19 @@
       }
     },
     "choice_marks": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "PREC_RIGHT",
-          "value": 0,
+      "type": "PREC_RIGHT",
+      "value": 0,
+      "content": {
+        "type": "REPEAT1",
+        "content": {
+          "type": "PREC",
+          "value": 1,
           "content": {
-            "type": "REPEAT1",
-            "content": {
-              "type": "PREC",
-              "value": 1,
-              "content": {
-                "type": "ALIAS",
-                "content": {
-                  "type": "TOKEN",
-                  "content": {
-                    "type": "PREC",
-                    "value": 1,
-                    "content": {
-                      "type": "STRING",
-                      "value": "*"
-                    }
-                  }
-                },
-                "named": true,
-                "value": "choice_mark"
-              }
-            }
-          }
-        },
-        {
-          "type": "PREC_RIGHT",
-          "value": 0,
-          "content": {
-            "type": "REPEAT1",
-            "content": {
-              "type": "PREC",
-              "value": 1,
-              "content": {
-                "type": "ALIAS",
-                "content": {
-                  "type": "TOKEN",
-                  "content": {
-                    "type": "PREC",
-                    "value": 1,
-                    "content": {
-                      "type": "STRING",
-                      "value": "+"
-                    }
-                  }
-                },
-                "named": true,
-                "value": "choice_mark"
-              }
-            }
+            "type": "SYMBOL",
+            "name": "choice_mark"
           }
         }
-      ]
+      }
     },
     "gather_marks": {
       "type": "PREC_RIGHT",
@@ -1591,17 +1547,6 @@
             "type": "SYMBOL",
             "name": "gather_mark"
           }
-        }
-      }
-    },
-    "gather_mark": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": 1,
-        "content": {
-          "type": "STRING",
-          "value": "-"
         }
       }
     },
@@ -4245,6 +4190,14 @@
     {
       "type": "SYMBOL",
       "name": "_gather_block_end"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "choice_mark"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "gather_mark"
     },
     {
       "type": "SYMBOL",
