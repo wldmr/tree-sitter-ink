@@ -19,8 +19,7 @@
       (identifier))
     (content_block
       (code
-        (return
-          (boolean)))))
+        (return))))
   (knot_block
     (knot
       (identifier)

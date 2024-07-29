@@ -14,8 +14,7 @@
     (content_block
       (code
         (assignment
-          name: (identifier)
-          value: (boolean)))
+          name: (identifier)))
       (code
         (assignment
           name: (identifier)

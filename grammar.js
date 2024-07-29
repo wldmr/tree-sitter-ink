@@ -182,6 +182,15 @@ module.exports = grammar({
     $.expr,
   ],
 
+  supertypes: $ => [
+    $.expr,
+    $.boolean,
+    $._toplevel_block,
+    $._redirect,
+    $._logic,
+    $._code_stmt,
+  ],
+
   precedences: $ => [
     [$.condition, $.eval],  // since they are syntactically the same, maybe we just treat a condition as an eval?
     [$._anon_expr, $._anon_list_values],  // How should `(<identifier>)` be interpreted? Doesn't really matter, but we have to choose one.
@@ -206,6 +215,12 @@ module.exports = grammar({
       repeat($.knot_block),
     ),
 
+    // not actually used in this grammar, only added for supertypes
+    _toplevel_block: $ => choice(
+      $.content_block,
+      $.stitch_block,
+      $.knot_block,
+    ),
 
     content_block: $ => repeat1($._content_item),
 

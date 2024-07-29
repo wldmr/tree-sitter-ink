@@ -13,16 +13,14 @@
       (choice
         (choice_marks
           (choice_mark))
-        condition: (condition
-          (boolean))
+        condition: (condition)
         main: (content
           (text))))
     (choice_block
       (choice
         (choice_marks
           (choice_mark))
-        condition: (condition
-          (boolean))
+        condition: (condition)
         main: (content
           (text))))
     (choice_block

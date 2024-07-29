@@ -32,6 +32,23 @@
         }
       ]
     },
+    "_toplevel_block": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "content_block"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "stitch_block"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "knot_block"
+        }
+      ]
+    },
     "content_block": {
       "type": "REPEAT1",
       "content": {
@@ -4207,5 +4224,12 @@
   "inline": [
     "expr"
   ],
-  "supertypes": []
+  "supertypes": [
+    "expr",
+    "boolean",
+    "_toplevel_block",
+    "_redirect",
+    "_logic",
+    "_code_stmt"
+  ]
 }

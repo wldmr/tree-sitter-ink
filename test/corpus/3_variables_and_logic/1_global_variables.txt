@@ -11,8 +11,7 @@ VAR current_epilogue = -> they_all_die_of_the_plague
 (ink
   (content_block
     (global
-      name: (identifier)
-      value: (boolean))
+      name: (identifier))
     (global
       name: (identifier)
       value: (string))

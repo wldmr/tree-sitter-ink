@@ -1,5 +1,157 @@
 [
   {
+    "type": "_code_stmt",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "assignment",
+        "named": true
+      },
+      {
+        "type": "expr",
+        "named": true
+      },
+      {
+        "type": "return",
+        "named": true
+      },
+      {
+        "type": "temp",
+        "named": true
+      }
+    ]
+  },
+  {
+    "type": "_logic",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "alternatives",
+        "named": true
+      },
+      {
+        "type": "cond_block",
+        "named": true
+      },
+      {
+        "type": "conditional_text",
+        "named": true
+      },
+      {
+        "type": "eval",
+        "named": true
+      },
+      {
+        "type": "multiline_alternatives",
+        "named": true
+      }
+    ]
+  },
+  {
+    "type": "_redirect",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "divert",
+        "named": true
+      },
+      {
+        "type": "thread",
+        "named": true
+      },
+      {
+        "type": "tunnel",
+        "named": true
+      }
+    ]
+  },
+  {
+    "type": "_toplevel_block",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "content_block",
+        "named": true
+      },
+      {
+        "type": "knot_block",
+        "named": true
+      },
+      {
+        "type": "stitch_block",
+        "named": true
+      }
+    ]
+  },
+  {
+    "type": "boolean",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "false",
+        "named": false
+      },
+      {
+        "type": "true",
+        "named": false
+      }
+    ]
+  },
+  {
+    "type": "expr",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "binary",
+        "named": true
+      },
+      {
+        "type": "boolean",
+        "named": true
+      },
+      {
+        "type": "call",
+        "named": true
+      },
+      {
+        "type": "divert",
+        "named": true
+      },
+      {
+        "type": "identifier",
+        "named": true
+      },
+      {
+        "type": "list_values",
+        "named": true
+      },
+      {
+        "type": "number",
+        "named": true
+      },
+      {
+        "type": "paren",
+        "named": true
+      },
+      {
+        "type": "postfix",
+        "named": true
+      },
+      {
+        "type": "qualified_name",
+        "named": true
+      },
+      {
+        "type": "string",
+        "named": true
+      },
+      {
+        "type": "unary",
+        "named": true
+      }
+    ]
+  },
+  {
     "type": "alt_arm",
     "named": true,
     "fields": {},
@@ -66,51 +218,7 @@
       "required": true,
       "types": [
         {
-          "type": "binary",
-          "named": true
-        },
-        {
-          "type": "boolean",
-          "named": true
-        },
-        {
-          "type": "call",
-          "named": true
-        },
-        {
-          "type": "divert",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "list_values",
-          "named": true
-        },
-        {
-          "type": "number",
-          "named": true
-        },
-        {
-          "type": "paren",
-          "named": true
-        },
-        {
-          "type": "postfix",
-          "named": true
-        },
-        {
-          "type": "qualified_name",
-          "named": true
-        },
-        {
-          "type": "string",
-          "named": true
-        },
-        {
-          "type": "unary",
+          "type": "expr",
           "named": true
         }
       ]
@@ -153,51 +261,7 @@
         "required": true,
         "types": [
           {
-            "type": "binary",
-            "named": true
-          },
-          {
-            "type": "boolean",
-            "named": true
-          },
-          {
-            "type": "call",
-            "named": true
-          },
-          {
-            "type": "divert",
-            "named": true
-          },
-          {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "list_values",
-            "named": true
-          },
-          {
-            "type": "number",
-            "named": true
-          },
-          {
-            "type": "paren",
-            "named": true
-          },
-          {
-            "type": "postfix",
-            "named": true
-          },
-          {
-            "type": "qualified_name",
-            "named": true
-          },
-          {
-            "type": "string",
-            "named": true
-          },
-          {
-            "type": "unary",
+            "type": "expr",
             "named": true
           }
         ]
@@ -213,51 +277,7 @@
         "required": true,
         "types": [
           {
-            "type": "binary",
-            "named": true
-          },
-          {
-            "type": "boolean",
-            "named": true
-          },
-          {
-            "type": "call",
-            "named": true
-          },
-          {
-            "type": "divert",
-            "named": true
-          },
-          {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "list_values",
-            "named": true
-          },
-          {
-            "type": "number",
-            "named": true
-          },
-          {
-            "type": "paren",
-            "named": true
-          },
-          {
-            "type": "postfix",
-            "named": true
-          },
-          {
-            "type": "qualified_name",
-            "named": true
-          },
-          {
-            "type": "string",
-            "named": true
-          },
-          {
-            "type": "unary",
+            "type": "expr",
             "named": true
           }
         ]
@@ -357,61 +377,12 @@
         "required": true,
         "types": [
           {
-            "type": "binary",
-            "named": true
-          },
-          {
-            "type": "boolean",
-            "named": true
-          },
-          {
-            "type": "call",
-            "named": true
-          },
-          {
-            "type": "divert",
-            "named": true
-          },
-          {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "list_values",
-            "named": true
-          },
-          {
-            "type": "number",
-            "named": true
-          },
-          {
-            "type": "paren",
-            "named": true
-          },
-          {
-            "type": "postfix",
-            "named": true
-          },
-          {
-            "type": "qualified_name",
-            "named": true
-          },
-          {
-            "type": "string",
-            "named": true
-          },
-          {
-            "type": "unary",
+            "type": "expr",
             "named": true
           }
         ]
       }
     }
-  },
-  {
-    "type": "boolean",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "call",
@@ -609,63 +580,7 @@
       "required": true,
       "types": [
         {
-          "type": "assignment",
-          "named": true
-        },
-        {
-          "type": "binary",
-          "named": true
-        },
-        {
-          "type": "boolean",
-          "named": true
-        },
-        {
-          "type": "call",
-          "named": true
-        },
-        {
-          "type": "divert",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "list_values",
-          "named": true
-        },
-        {
-          "type": "number",
-          "named": true
-        },
-        {
-          "type": "paren",
-          "named": true
-        },
-        {
-          "type": "postfix",
-          "named": true
-        },
-        {
-          "type": "qualified_name",
-          "named": true
-        },
-        {
-          "type": "return",
-          "named": true
-        },
-        {
-          "type": "string",
-          "named": true
-        },
-        {
-          "type": "temp",
-          "named": true
-        },
-        {
-          "type": "unary",
+          "type": "_code_stmt",
           "named": true
         }
       ]
@@ -680,55 +595,11 @@
         "required": true,
         "types": [
           {
-            "type": "binary",
-            "named": true
-          },
-          {
-            "type": "boolean",
-            "named": true
-          },
-          {
-            "type": "call",
-            "named": true
-          },
-          {
-            "type": "divert",
-            "named": true
-          },
-          {
             "type": "else",
             "named": true
           },
           {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "list_values",
-            "named": true
-          },
-          {
-            "type": "number",
-            "named": true
-          },
-          {
-            "type": "paren",
-            "named": true
-          },
-          {
-            "type": "postfix",
-            "named": true
-          },
-          {
-            "type": "qualified_name",
-            "named": true
-          },
-          {
-            "type": "string",
-            "named": true
-          },
-          {
-            "type": "unary",
+            "type": "expr",
             "named": true
           }
         ]
@@ -797,51 +668,7 @@
       "required": true,
       "types": [
         {
-          "type": "binary",
-          "named": true
-        },
-        {
-          "type": "boolean",
-          "named": true
-        },
-        {
-          "type": "call",
-          "named": true
-        },
-        {
-          "type": "divert",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "list_values",
-          "named": true
-        },
-        {
-          "type": "number",
-          "named": true
-        },
-        {
-          "type": "paren",
-          "named": true
-        },
-        {
-          "type": "postfix",
-          "named": true
-        },
-        {
-          "type": "qualified_name",
-          "named": true
-        },
-        {
-          "type": "string",
-          "named": true
-        },
-        {
-          "type": "unary",
+          "type": "expr",
           "named": true
         }
       ]
@@ -856,51 +683,7 @@
         "required": true,
         "types": [
           {
-            "type": "binary",
-            "named": true
-          },
-          {
-            "type": "boolean",
-            "named": true
-          },
-          {
-            "type": "call",
-            "named": true
-          },
-          {
-            "type": "divert",
-            "named": true
-          },
-          {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "list_values",
-            "named": true
-          },
-          {
-            "type": "number",
-            "named": true
-          },
-          {
-            "type": "paren",
-            "named": true
-          },
-          {
-            "type": "postfix",
-            "named": true
-          },
-          {
-            "type": "qualified_name",
-            "named": true
-          },
-          {
-            "type": "string",
-            "named": true
-          },
-          {
-            "type": "unary",
+            "type": "expr",
             "named": true
           }
         ]
@@ -926,31 +709,15 @@
       "required": true,
       "types": [
         {
-          "type": "alternatives",
+          "type": "_logic",
           "named": true
         },
         {
-          "type": "cond_block",
-          "named": true
-        },
-        {
-          "type": "conditional_text",
-          "named": true
-        },
-        {
-          "type": "divert",
-          "named": true
-        },
-        {
-          "type": "eval",
+          "type": "_redirect",
           "named": true
         },
         {
           "type": "glue",
-          "named": true
-        },
-        {
-          "type": "multiline_alternatives",
           "named": true
         },
         {
@@ -959,14 +726,6 @@
         },
         {
           "type": "text",
-          "named": true
-        },
-        {
-          "type": "thread",
-          "named": true
-        },
-        {
-          "type": "tunnel",
           "named": true
         }
       ]
@@ -1052,51 +811,7 @@
       "required": true,
       "types": [
         {
-          "type": "binary",
-          "named": true
-        },
-        {
-          "type": "boolean",
-          "named": true
-        },
-        {
-          "type": "call",
-          "named": true
-        },
-        {
-          "type": "divert",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "list_values",
-          "named": true
-        },
-        {
-          "type": "number",
-          "named": true
-        },
-        {
-          "type": "paren",
-          "named": true
-        },
-        {
-          "type": "postfix",
-          "named": true
-        },
-        {
-          "type": "qualified_name",
-          "named": true
-        },
-        {
-          "type": "string",
-          "named": true
-        },
-        {
-          "type": "unary",
+          "type": "expr",
           "named": true
         }
       ]
@@ -1263,51 +978,7 @@
         "required": true,
         "types": [
           {
-            "type": "binary",
-            "named": true
-          },
-          {
-            "type": "boolean",
-            "named": true
-          },
-          {
-            "type": "call",
-            "named": true
-          },
-          {
-            "type": "divert",
-            "named": true
-          },
-          {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "list_values",
-            "named": true
-          },
-          {
-            "type": "number",
-            "named": true
-          },
-          {
-            "type": "paren",
-            "named": true
-          },
-          {
-            "type": "postfix",
-            "named": true
-          },
-          {
-            "type": "qualified_name",
-            "named": true
-          },
-          {
-            "type": "string",
-            "named": true
-          },
-          {
-            "type": "unary",
+            "type": "expr",
             "named": true
           }
         ]
@@ -1623,31 +1294,15 @@
       "required": true,
       "types": [
         {
-          "type": "alternatives",
+          "type": "_logic",
           "named": true
         },
         {
-          "type": "cond_block",
-          "named": true
-        },
-        {
-          "type": "conditional_text",
-          "named": true
-        },
-        {
-          "type": "divert",
-          "named": true
-        },
-        {
-          "type": "eval",
+          "type": "_redirect",
           "named": true
         },
         {
           "type": "glue",
-          "named": true
-        },
-        {
-          "type": "multiline_alternatives",
           "named": true
         },
         {
@@ -1656,14 +1311,6 @@
         },
         {
           "type": "text",
-          "named": true
-        },
-        {
-          "type": "thread",
-          "named": true
-        },
-        {
-          "type": "tunnel",
           "named": true
         }
       ]
@@ -1723,51 +1370,7 @@
       "required": true,
       "types": [
         {
-          "type": "binary",
-          "named": true
-        },
-        {
-          "type": "boolean",
-          "named": true
-        },
-        {
-          "type": "call",
-          "named": true
-        },
-        {
-          "type": "divert",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "list_values",
-          "named": true
-        },
-        {
-          "type": "number",
-          "named": true
-        },
-        {
-          "type": "paren",
-          "named": true
-        },
-        {
-          "type": "postfix",
-          "named": true
-        },
-        {
-          "type": "qualified_name",
-          "named": true
-        },
-        {
-          "type": "string",
-          "named": true
-        },
-        {
-          "type": "unary",
+          "type": "expr",
           "named": true
         }
       ]
@@ -1827,51 +1430,7 @@
       "required": true,
       "types": [
         {
-          "type": "binary",
-          "named": true
-        },
-        {
-          "type": "boolean",
-          "named": true
-        },
-        {
-          "type": "call",
-          "named": true
-        },
-        {
-          "type": "divert",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "list_values",
-          "named": true
-        },
-        {
-          "type": "number",
-          "named": true
-        },
-        {
-          "type": "paren",
-          "named": true
-        },
-        {
-          "type": "postfix",
-          "named": true
-        },
-        {
-          "type": "qualified_name",
-          "named": true
-        },
-        {
-          "type": "string",
-          "named": true
-        },
-        {
-          "type": "unary",
+          "type": "expr",
           "named": true
         }
       ]
@@ -1946,27 +1505,11 @@
       "required": true,
       "types": [
         {
-          "type": "alternatives",
-          "named": true
-        },
-        {
-          "type": "cond_block",
-          "named": true
-        },
-        {
-          "type": "conditional_text",
-          "named": true
-        },
-        {
-          "type": "eval",
+          "type": "_logic",
           "named": true
         },
         {
           "type": "glue",
-          "named": true
-        },
-        {
-          "type": "multiline_alternatives",
           "named": true
         },
         {
@@ -2005,51 +1548,7 @@
         "required": true,
         "types": [
           {
-            "type": "binary",
-            "named": true
-          },
-          {
-            "type": "boolean",
-            "named": true
-          },
-          {
-            "type": "call",
-            "named": true
-          },
-          {
-            "type": "divert",
-            "named": true
-          },
-          {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "list_values",
-            "named": true
-          },
-          {
-            "type": "number",
-            "named": true
-          },
-          {
-            "type": "paren",
-            "named": true
-          },
-          {
-            "type": "postfix",
-            "named": true
-          },
-          {
-            "type": "qualified_name",
-            "named": true
-          },
-          {
-            "type": "string",
-            "named": true
-          },
-          {
-            "type": "unary",
+            "type": "expr",
             "named": true
           }
         ]
@@ -2801,51 +2300,7 @@
         "required": true,
         "types": [
           {
-            "type": "binary",
-            "named": true
-          },
-          {
-            "type": "boolean",
-            "named": true
-          },
-          {
-            "type": "call",
-            "named": true
-          },
-          {
-            "type": "divert",
-            "named": true
-          },
-          {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "list_values",
-            "named": true
-          },
-          {
-            "type": "number",
-            "named": true
-          },
-          {
-            "type": "paren",
-            "named": true
-          },
-          {
-            "type": "postfix",
-            "named": true
-          },
-          {
-            "type": "qualified_name",
-            "named": true
-          },
-          {
-            "type": "string",
-            "named": true
-          },
-          {
-            "type": "unary",
+            "type": "expr",
             "named": true
           }
         ]
