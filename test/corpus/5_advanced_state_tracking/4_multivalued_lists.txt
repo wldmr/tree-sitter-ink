@@ -77,6 +77,7 @@ LIST primeNumbers = (two = 2), (three) = 3, (five = 5)
           (binary
             (identifier)
             (identifier))
+          (eol)
           (paragraph
             (text)))
         (cond_arm
@@ -84,23 +85,27 @@ LIST primeNumbers = (two = 2), (three) = 3, (five = 5)
             (identifier)
             (list_values
               (identifier)
-              (identifier))))
+              (identifier)))
+          (eol))
         (cond_arm
           (binary
             (identifier)
             (list_values
               (identifier)
-              (identifier))))
+              (identifier)))
+          (eol))
         (cond_arm
           (binary
             (identifier)
-            (list_values)))
+            (list_values))
+          (eol))
         (cond_arm
           (binary
             (identifier)
             (list_values
               (identifier)
-              (identifier))))))))
+              (identifier)))
+          (eol))))))
 
 ===
 .EDD. Nicer list printing
@@ -163,6 +168,7 @@ My favourite dinosaurs are {listWithCommas(favouriteDinosaurs, "all extinct")}.
                 (identifier))))
           (cond_arm
             (number)
+            (eol)
             (paragraph
               (eval
                 (call
@@ -183,16 +189,19 @@ My favourite dinosaurs are {listWithCommas(favouriteDinosaurs, "all extinct")}.
                     (identifier))))))
           (cond_arm
             (number)
+            (eol)
             (paragraph
               (eval
                 (identifier))))
           (cond_arm
             (number)
+            (eol)
             (paragraph
               (eval
                 (identifier))))
           (cond_arm
             (else)
+            (eol)
             (paragraph
               (eval
                 (call

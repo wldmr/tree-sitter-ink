@@ -1379,7 +1379,7 @@
           "members": [
             {
               "type": "SYMBOL",
-              "name": "_eol"
+              "name": "_eol_field"
             },
             {
               "type": "BLANK"
@@ -1560,7 +1560,7 @@
                   "members": [
                     {
                       "type": "SYMBOL",
-                      "name": "_eol"
+                      "name": "_eol_field"
                     },
                     {
                       "type": "BLANK"
@@ -1588,7 +1588,7 @@
                 "members": [
                   {
                     "type": "SYMBOL",
-                    "name": "_eol"
+                    "name": "_eol_field"
                   },
                   {
                     "type": "BLANK"
@@ -1643,22 +1643,31 @@
             ]
           },
           {
-            "type": "FIELD",
-            "name": "eol",
-            "content": {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "_eol"
-                },
-                {
-                  "type": "BLANK"
-                }
-              ]
-            }
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_eol_field"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
           }
         ]
+      }
+    },
+    "_eol_field": {
+      "type": "FIELD",
+      "name": "eol",
+      "content": {
+        "type": "ALIAS",
+        "content": {
+          "type": "SYMBOL",
+          "name": "_eol"
+        },
+        "named": true,
+        "value": "eol"
       }
     },
     "_content_field": {

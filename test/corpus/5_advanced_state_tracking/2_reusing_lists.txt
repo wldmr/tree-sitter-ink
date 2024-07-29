@@ -105,7 +105,8 @@ VAR microwaveState = cold
           (gather_marks
             (gather_mark))
           (label
-            (identifier)))))))
+            (identifier))
+          (eol))))))
 
 ===
 .EBB. Lists can share names

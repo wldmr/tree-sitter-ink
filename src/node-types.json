@@ -479,6 +479,16 @@
           }
         ]
       },
+      "eol": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "eol",
+            "named": true
+          }
+        ]
+      },
       "label": {
         "multiple": false,
         "required": false,
@@ -652,6 +662,16 @@
           },
           {
             "type": "expr",
+            "named": true
+          }
+        ]
+      },
+      "eol": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "eol",
             "named": true
           }
         ]
@@ -951,6 +971,16 @@
     "type": "gather",
     "named": true,
     "fields": {
+      "eol": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "eol",
+            "named": true
+          }
+        ]
+      },
       "label": {
         "multiple": false,
         "required": false,
@@ -2707,6 +2737,10 @@
   },
   {
     "type": "else",
+    "named": true
+  },
+  {
+    "type": "eol",
     "named": true
   },
   {

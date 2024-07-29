@@ -131,7 +131,8 @@ Before long, we arrived at his house.
           (gather_marks
             (gather_mark))
           (label
-            (identifier)))
+            (identifier))
+          (eol))
         (paragraph
           (thread
             (call

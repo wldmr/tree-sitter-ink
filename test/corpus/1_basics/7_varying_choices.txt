@@ -252,6 +252,7 @@
         (condition
           expr: (unary
             right: (identifier)))
+        eol: (eol)
         choice_only: (choice_only
           (content
             content: (text)))

@@ -423,7 +423,7 @@ module.exports = grammar({
       mark('-'),
       field('condition', choice($.expr, $.else)),
       ':',
-      optional($._eol)
+      optional($._eol_field),
     ),
 
     _then_block: $ => prec.left(repeat1($._content_item_in_conditional)),
@@ -452,8 +452,14 @@ module.exports = grammar({
 
     choice: $ => seq(
       $.choice_marks,
-      optional(seq($._label_field, optional($._eol))),
-      repeat(seq($._choice_condition, optional($._eol))),
+      optional(seq(
+        $._label_field,
+        optional($._eol_field),
+      )),
+      repeat(seq(
+        $._choice_condition,
+        optional($._eol_field),
+      )),
       field('separator', optional('\\')),  // to separate conditions from content starting with logic (e.g. conditional text): https://github.com/inkle/ink/blob/master/Documentation/WritingWithInk.md#features-of-alternatives
       $._choice_content
     ),
@@ -461,8 +467,10 @@ module.exports = grammar({
     gather: $ => prec.right(seq(
       $.gather_marks,
       optional($._label_field),
-      field('eol', optional($._eol))
+      optional($._eol_field)
     )),
+
+    _eol_field: $ => field('eol', alias($._eol, $.eol)),
 
     _content_field: $ => field('content', $._content_item),
 

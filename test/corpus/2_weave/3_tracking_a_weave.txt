@@ -24,7 +24,8 @@ The guard frowns at you.
         (gather_marks
           (gather_mark))
         label: (label
-          name: (identifier)))))
+          name: (identifier))
+        eol: (eol))))
   knot: (knot_block
     header: (knot
       name: (identifier))
@@ -96,6 +97,7 @@ The guard frowns at you.
           (choice_mark))
         (label
           (identifier))
+        (eol)
         (choice_only
           (content
             (text))))
