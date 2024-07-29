@@ -18,67 +18,67 @@ The guard frowns at you.
 ---
 
 (ink
-  (content_block
+  content: (content_block
     (gather_block
-      (gather
+      header: (gather
         (gather_marks
           (gather_mark))
         label: (label
-          (identifier)))))
-  (knot_block
-    (knot
+          name: (identifier)))))
+  knot: (knot_block
+    header: (knot
       name: (identifier))
-    (content_block
+    content: (content_block
       (paragraph
-        (text))
+        content: (text))
       (choice_block
-        (choice
+        header: (choice
           (choice_marks
             (choice_mark))
           label: (label
-            (identifier))
+            name: (identifier))
           choice_only: (choice_only
             (content
-              (text))))
-        (paragraph
-          (text)))
+              content: (text))))
+        content: (paragraph
+          content: (text)))
       (choice_block
-        (choice
+        header: (choice
           (choice_marks
             (choice_mark))
           label: (label
-            (identifier))
+            name: (identifier))
           main: (content
-            (text))
+            content: (text))
           choice_only: (choice_only
             (content
-              (text)))
+              content: (text)))
           when_chosen: (content
-            (text))))
+            content: (text))))
       (gather_block
-        (gather
+        header: (gather
           (gather_marks
             (gather_mark)))
-          (paragraph
-            (text)))
+        content: (paragraph
+          content: (text)))
       (choice_block
-        (choice
+        header: (choice
           (choice_marks
             (choice_mark))
-          condition: (condition
-            (identifier))
+          (condition
+            expr: (identifier))
           main: (content
-            (text)))
+            content: (text)))
         (comment))
       (choice_block
-        (choice
+        header: (choice
           (choice_marks
             (choice_mark))
           main: (content
-            (text))
+            content: (text))
           choice_only: (choice_only)
           when_chosen: (content
-            (text)))))))
+            content: (text)))))))
 
 ===
 .BCAa. v1.2.0: Choices can have a line break after the label (i.e. next line still belongs to the choice)

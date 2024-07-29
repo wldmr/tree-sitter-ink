@@ -13,21 +13,21 @@ We hurried home to Savile Row as fast as we could.
 ---
 
 (ink
-  (knot_block
-    (knot
+  knot: (knot_block
+    header: (knot
       name: (identifier))
-    (content_block
+    content: (content_block
       (paragraph
-        (text))
+        content: (text))
       (paragraph
-        (divert
+        redirect: (divert
           target: (identifier)))))
-  (knot_block
-    (knot
+  knot: (knot_block
+    header: (knot
       name: (identifier))
-    (content_block
+    content: (content_block
       (paragraph
-        (text))))
+        content: (text))))
   (comment))
 
 ===
@@ -42,20 +42,20 @@ as fast as we could.
 ---
 
 (ink
-  (knot_block
-    (knot
+  knot: (knot_block
+    header: (knot
       name: (identifier))
-    (content_block
+    content: (content_block
       (paragraph
-        (text)
-        (divert
+        content: (text)
+        redirect: (divert
           target: (identifier)))))
-  (knot_block
-    (knot
+  knot: (knot_block
+    header: (knot
       name: (identifier))
-    (content_block
+    content: (content_block
       (paragraph
-        (text)))))
+        content: (text)))))
 
 ===
 .ADC. Glue
@@ -73,32 +73,32 @@ to Savile Row
 ---
 
 (ink
-  (knot_block
-    (knot
+  knot: (knot_block
+    header: (knot
       name: (identifier))
-    (content_block
+    content: (content_block
       (paragraph
-        (text)
-        (glue))
+        content: (text)
+        content: (glue))
       (paragraph
-        (divert
+        redirect: (divert
           target: (identifier)))))
-  (knot_block
-    (knot
+  knot: (knot_block
+    header: (knot
       name: (identifier))
-    (content_block
+    content: (content_block
       (paragraph
-        (text))
+        content: (text))
       (paragraph
-        (divert
+        redirect: (divert
           target: (identifier)))))
-  (knot_block
-    (knot
+  knot: (knot_block
+    header: (knot
       name: (identifier))
-    (content_block
+    content: (content_block
       (paragraph
-        (glue)
-        (text)))))
+        content: (glue)
+        content: (text)))))
 
 ===
 .ADDa. Glue on same line as divert
@@ -114,31 +114,31 @@ We hurried home <> -> to_savile_row
 ---
 
 (ink
-  (knot_block
-    (knot
+  knot: (knot_block
+    header: (knot
       name: (identifier))
-    (content_block
+    content: (content_block
       (paragraph
-        (text)
-        (glue)
-        (divert
+        content: (text)
+        content: (glue)
+        redirect: (divert
           target: (identifier)))))
-  (knot_block
-    (knot
+  knot: (knot_block
+    header: (knot
       name: (identifier))
-    (content_block
+    content: (content_block
       (paragraph
-        (glue)
-        (text)
-        (divert
+        content: (glue)
+        content: (text)
+        redirect: (divert
           target: (identifier)))))
-  (knot_block
-    (knot
+  knot: (knot_block
+    header: (knot
       name: (identifier))
-    (content_block
+    content: (content_block
       (paragraph
-        (glue)
-        (text)))))
+        content: (glue)
+        content: (text)))))
 
 ===
 .ADDb. Can't use too much glue
@@ -168,17 +168,17 @@ We hurried home to Savile Road sevent-<> no wait, it was a number <<>-> what_num
 ---
 
 (ink
-  (content_block
+  content: (content_block
     (paragraph
-      (text)
-      (glue)
-      (text)
-      (glue)
-      (divert
+      content: (text)
+      content: (glue)
+      content: (text)
+      content: (glue)
+      redirect: (divert
         target: (identifier))))
-  (knot_block
-    (knot
+  knot: (knot_block
+    header: (knot
       name: (identifier))
-    (content_block
+    content: (content_block
       (paragraph
-        (text)))))
+        content: (text)))))

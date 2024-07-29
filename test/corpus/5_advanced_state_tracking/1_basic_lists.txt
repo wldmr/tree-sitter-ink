@@ -5,13 +5,13 @@ LIST kettleState = cold, (boiling), recently_boiled
 ---
 
 (ink
-  (content_block
+  content: (content_block
     (list
       name: (identifier)
       values: (list_value_defs
-        (list_value_def
+        value: (list_value_def
           name: (identifier))
-        (list_value_def
+        value: (list_value_def
           name: (identifier))
-        (list_value_def
+        value: (list_value_def
           name: (identifier))))))

@@ -10,17 +10,17 @@
 ---
 
 (ink
-  (knot_block
-    (knot
+  knot: (knot_block
+    header: (knot
       name: (identifier))
-    (content_block
+    content: (content_block
       (code
         (temp
           name: (identifier)
           value: (number)))
       (paragraph
-        (cond_block
-          (cond_arm
+        content: (cond_block
+          arm: (cond_arm
             condition: (identifier)
             (code
               (postfix

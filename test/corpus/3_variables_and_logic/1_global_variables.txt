@@ -9,7 +9,7 @@ VAR current_epilogue = -> they_all_die_of_the_plague
 ---
 
 (ink
-  (content_block
+  content: (content_block
     (global
       name: (identifier))
     (global

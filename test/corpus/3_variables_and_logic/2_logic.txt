@@ -8,10 +8,10 @@
 ---
 
 (ink
-  (knot_block
-    (knot
+  knot: (knot_block
+    header: (knot
       name: (identifier))
-    (content_block
+    content: (content_block
       (code
         (assignment
           name: (identifier)))
@@ -49,7 +49,7 @@
 (ink
   (comment)
   (comment)
-  (content_block
+  content: (content_block
     (code
       (assignment
         name: (identifier)

@@ -14,33 +14,33 @@
 ---
 
 (ink
-  (knot_block
-    (knot
+  knot: (knot_block
+    header: (knot
       name: (identifier))
-    (stitch_block
-      (stitch
+    stitch: (stitch_block
+      header: (stitch
         name: (identifier))
-      (content_block
+      content: (content_block
         (paragraph
-          (text))))
-    (stitch_block
-      (stitch
+          content: (text))))
+    stitch: (stitch_block
+      header: (stitch
         name: (identifier))
-      (content_block
+      content: (content_block
         (paragraph
-          (text))))
-    (stitch_block
-      (stitch
+          content: (text))))
+    stitch: (stitch_block
+      header: (stitch
         name: (identifier))
-      (content_block
+      content: (content_block
         (paragraph
-          (text))))
-    (stitch_block
-      (stitch
+          content: (text))))
+    stitch: (stitch_block
+      header: (stitch
         name: (identifier))
-      (content_block
+      content: (content_block
         (paragraph
-          (text))))))
+          content: (text))))))
 
 ===
 .AFB. Stitches have unique names
@@ -53,28 +53,28 @@
 ---
 
 (ink
-  (content_block
+  content: (content_block
     (choice_block
-      (choice
+      header: (choice
         (choice_marks
           (choice_mark))
         choice_only: (choice_only
           (content
-            (text))))
-      (paragraph
-        (divert
+            content: (text))))
+      content: (paragraph
+        redirect: (divert
           target: (qualified_name
             (identifier)
             (identifier)))))
     (choice_block
-      (choice
+      header: (choice
         (choice_marks
           (choice_mark))
         choice_only: (choice_only
           (content
-            (text))))
-      (paragraph
-        (divert
+            content: (text))))
+      content: (paragraph
+        redirect: (divert
           target: (qualified_name
             (identifier)
             (identifier)))))))

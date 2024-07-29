@@ -8,32 +8,32 @@
 ---
 
 (ink
-  (content_block
+  content: (content_block
     (choice_block
-      (choice
+      header: (choice
         (choice_marks
           (choice_mark))
-        condition: (condition)
+        (condition)
         main: (content
-          (text))))
+          content: (text))))
     (choice_block
-      (choice
+      header: (choice
         (choice_marks
           (choice_mark))
-        condition: (condition)
+        (condition)
         main: (content
-          (text))))
+          content: (text))))
     (choice_block
-      (choice
+      header: (choice
         (choice_marks
           (choice_mark))
-        condition: (condition
-          (binary
+        (condition
+          expr: (binary
             left: (call
               name: (identifier))
             right: (number)))
         main: (content
-          (text))))))
+          content: (text))))))
 
 ===
 .AIB. TURNS_SINCE
@@ -43,13 +43,13 @@
 ---
 
 (ink
-  (content_block
+  content: (content_block
     (choice_block
-      (choice
+      header: (choice
         (choice_marks
           (choice_mark))
-        condition: (condition
-          (binary
+        (condition
+          expr: (binary
             left: (call
               name: (identifier)
               args: (args
@@ -59,15 +59,15 @@
                     (identifier)))))
             right: (number)))
         main: (content
-          (text)
-          (divert
+          content: (text)
+          redirect: (divert
             target: (identifier)))))
     (choice_block
-      (choice
+      header: (choice
         (choice_marks
           (choice_mark))
-        condition: (condition
-          (binary
+        (condition
+          expr: (binary
             left: (call
               name: (identifier)
               args: (args
@@ -75,7 +75,7 @@
                   target: (identifier))))
             right: (number)))
         main: (content
-          (text))))))
+          content: (text))))))
 
 ===
 .AIC. came_from
@@ -111,13 +111,13 @@
 ---
 
 (ink
-  (content_block
+  content: (content_block
     (choice_block
-      (choice
+      header: (choice
         (choice_marks
           (choice_mark))
-        condition: (condition
-          (binary
+        (condition
+          expr: (binary
             left: (binary
               left: (binary
                 left: (identifier)
@@ -137,4 +137,4 @@
               right: (unary
                 right: (number)))))
         main: (content
-          (text))))))
+          content: (text))))))

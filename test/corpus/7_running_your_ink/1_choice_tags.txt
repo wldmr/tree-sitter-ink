@@ -6,33 +6,33 @@
 ---
 
 (ink
-  (content_block
+  content: (content_block
     (choice_block
-      (choice
+      header: (choice
         (choice_marks
           (choice_mark))
         main: (content
-          (text)
-          (tag
-            (text)))))
+          content: (text)
+          tag: (tag
+            content: (text)))))
     (choice_block
-      (choice
+      header: (choice
         (choice_marks
           (choice_mark))
         main: (content
-          (text)
-          (tag
-            (text))
-          (tag
-            (text)))
+          content: (text)
+          tag: (tag
+            content: (text))
+          tag: (tag
+            content: (text)))
         choice_only: (choice_only
           (content
-            (text)
-            (tag
-              (text))))
+            content: (text)
+            tag: (tag
+              content: (text))))
         when_chosen: (content
-          (text)
-          (tag
-            (text))
-          (divert
+          content: (text)
+          tag: (tag
+            content: (text))
+          redirect: (divert
             target: (identifier)))))))

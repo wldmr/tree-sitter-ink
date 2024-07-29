@@ -9,21 +9,21 @@
 ---
 
 (ink
-  (content_block
+  content: (content_block
     (choice_block
-      (choice
+      header: (choice
         (choice_marks
           (choice_mark))
         main: (content
-          (divert
+          redirect: (divert
             target: (identifier)))))
     (choice_block
-      (choice
+      header: (choice
         (choice_marks
           (choice_mark)))
-      (paragraph
-        (text)
-        (divert
+      content: (paragraph
+        content: (text)
+        redirect: (divert
           target: (identifier))))))
 
 ===
@@ -41,46 +41,46 @@
 ---
 
 (ink
-  (knot_block
-    (knot
+  knot: (knot_block
+    header: (knot
       name: (identifier))
-    (content_block
+    content: (content_block
       (paragraph
-        (text))
+        content: (text))
       (choice_block
-        (choice
+        header: (choice
           (choice_marks
             (choice_mark))
           main: (content
-            (text))
+            content: (text))
           choice_only: (choice_only
             (content
-              (text)))
+              content: (text)))
           when_chosen: (content
-            (text)
-            (divert
+            content: (text)
+            redirect: (divert
               target: (identifier)))))
       (choice_block
-        (choice
+        header: (choice
           (choice_marks
             (choice_mark))
           main: (content
-            (text))
+            content: (text))
           choice_only: (choice_only
             (content
-              (text)))
+              content: (text)))
           when_chosen: (content
-            (text)
-            (divert
+            content: (text)
+            redirect: (divert
               target: (identifier)))))
       (choice_block
-        (choice
+        header: (choice
           (choice_marks
             (choice_mark)))
-        (paragraph
-          (text))
-        (paragraph
-          (divert
+        content: (paragraph
+          content: (text))
+        content: (paragraph
+          redirect: (divert
             target: (identifier)))))))
 
 ===
@@ -96,32 +96,32 @@
 ---
 
 (ink
-  (knot_block
-    (knot
+  knot: (knot_block
+    header: (knot
       name: (identifier))
-    (content_block
+    content: (content_block
       (choice_block
-        (choice
+        header: (choice
           (choice_marks
             (choice_mark))
           choice_only: (choice_only
             (content
-              (text))))
-        (paragraph
-          (text)
-          (divert
+              content: (text))))
+        content: (paragraph
+          content: (text)
+          redirect: (divert
             target: (identifier))))
       (choice_block
-        (choice
+        header: (choice
           (choice_marks
             (choice_mark))
           choice_only: (choice_only
             (content
-              (text))))
-        (paragraph
-          (text))
-        (paragraph
-          (divert
+              content: (text))))
+        content: (paragraph
+          content: (text))
+        content: (paragraph
+          redirect: (divert
             target: (identifier)))))))
 
 ===
@@ -135,36 +135,36 @@
 ---
 
 (ink
-  (knot_block
-    (knot
+  knot: (knot_block
+    header: (knot
       name: (identifier))
-    (content_block
+    content: (content_block
       (choice_block
-        (choice
+        header: (choice
           (choice_marks
             (choice_mark))
           choice_only: (choice_only
             (content
-              (text)))
+              content: (text)))
           when_chosen: (content
-            (divert
+            redirect: (divert
               target: (identifier)))))
       (choice_block
-        (choice
+        header: (choice
           (choice_marks
             (choice_mark))
           choice_only: (choice_only
             (content
-              (text)))
+              content: (text)))
           when_chosen: (content
-            (divert
+            redirect: (divert
               target: (identifier)))))
       (choice_block
-        (choice
+        header: (choice
           (choice_marks
             (choice_mark))
           main: (content
-            (divert
+            redirect: (divert
               target: (identifier))))))))
 
 ===
@@ -178,45 +178,45 @@
 ---
 
 (ink
-  (content_block
+  content: (content_block
     (choice_block
-      (choice
+      header: (choice
         (choice_marks
           (choice_mark))
-        condition: (condition
-          (unary
+        (condition
+          expr: (unary
             right: (identifier)))
         choice_only: (choice_only
           (content
-            (text)))
+            content: (text)))
         when_chosen: (content
-          (divert
+          redirect: (divert
             target: (identifier)))))
     (choice_block
-      (choice
+      header: (choice
         (choice_marks
           (choice_mark))
-        condition: (condition
-          (identifier))
+        (condition
+          expr: (identifier))
         choice_only: (choice_only
           (content
-            (text)))
+            content: (text)))
         when_chosen: (content
-          (divert
+          redirect: (divert
             target: (identifier)))))
     (choice_block
-      (choice
+      header: (choice
         (choice_marks
           (choice_mark))
-        condition: (condition
-          (qualified_name
+        (condition
+          expr: (qualified_name
             (identifier)
             (identifier)))
         choice_only: (choice_only
           (content
-            (text)))
+            content: (text)))
         when_chosen: (content
-          (divert
+          redirect: (divert
             target: (identifier)))))))
 
 ===
@@ -229,34 +229,34 @@
 ---
 
 (ink
-  (content_block
+  content: (content_block
     (choice_block
-      (choice
+      header: (choice
         (choice_marks
           (choice_mark))
-        condition: (condition
-          (unary
+        (condition
+          expr: (unary
             right: (identifier)))
         choice_only: (choice_only
           (content
-            (text)))
+            content: (text)))
         when_chosen: (content
-          (divert
+          redirect: (divert
             target: (identifier)))))
     (choice_block
-      (choice
+      header: (choice
         (choice_marks
           (choice_mark))
-        condition: (condition
-          (identifier))
-        condition: (condition
-          (unary
+        (condition
+          expr: (identifier))
+        (condition
+          expr: (unary
             right: (identifier)))
         choice_only: (choice_only
           (content
-            (text)))
+            content: (text)))
         when_chosen: (content
-          (divert
+          redirect: (divert
             target: (identifier)))))))
 
 ===
@@ -267,13 +267,13 @@
 ---
 
 (ink
-  (content_block
+  content: (content_block
     (choice_block
-      (choice
+      header: (choice
         (choice_marks
           (choice_mark))
-        condition: (condition
-          (binary
+        (condition
+          expr: (binary
             left: (unary
               right: (paren
                 (binary
@@ -285,9 +285,9 @@
                 right: (identifier)))))
         choice_only: (choice_only
           (content
-            (text)))
+            content: (text)))
         when_chosen: (content
-          (divert
+          redirect: (divert
             target: (identifier)))))))
 
 ===
@@ -299,24 +299,24 @@
 ---
 
 (ink
-  (content_block
+  content: (content_block
     (choice_block
-      (choice
+      header: (choice
         (choice_marks
           (choice_mark))
-        condition: (condition
-          (identifier))
+        (condition
+          expr: (identifier))
         choice_only: (choice_only
           (content
-            (text)))))
+            content: (text)))))
     (choice_block
-      (choice
+      header: (choice
         (choice_marks
           (choice_mark))
-        condition: (condition
-          (binary
+        (condition
+          expr: (binary
             left: (identifier)
             right: (number)))
         choice_only: (choice_only
           (content
-            (text)))))))
+            content: (text)))))))

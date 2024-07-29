@@ -9,10 +9,10 @@
 ---
 
 (ink
-  (content_block
+  content: (content_block
     (paragraph
-      (cond_block
-        (cond_arm
+      content: (cond_block
+        arm: (cond_arm
           condition: (binary
             left: (identifier)
             right: (number))
@@ -22,7 +22,7 @@
               value: (binary
                 left: (identifier)
                 right: (number)))))
-        (cond_arm
+        arm: (cond_arm
           condition: (else)
           (code
             (assignment
@@ -45,10 +45,10 @@
 ---
 
 (ink
-  (content_block
+  content: (content_block
     (paragraph
-      (cond_block
-        (cond_arm
+      content: (cond_block
+        arm: (cond_arm
           condition: (binary
             left: (identifier)
             right: (number))
@@ -56,7 +56,7 @@
             (assignment
               name: (identifier)
               value: (number))))
-        (cond_arm
+        arm: (cond_arm
           condition: (binary
             left: (identifier)
             right: (number))
@@ -66,7 +66,7 @@
               value: (binary
                 left: (identifier)
                 right: (number)))))
-        (cond_arm
+        arm: (cond_arm
           condition: (else)
           (code
             (assignment

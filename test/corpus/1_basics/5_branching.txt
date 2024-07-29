@@ -15,50 +15,50 @@ You open the gate, and step out onto the path.
 ---
 
 (ink
-  (knot_block
-    (knot
+  knot: (knot_block
+    header: (knot
       name: (identifier))
-    (content_block
+    content: (content_block
       (paragraph
-        (text))
+        content: (text))
       (choice_block
-        (choice
+        header: (choice
           (choice_marks
             (choice_mark))
           choice_only: (choice_only
             (content
-              (text)))
+              content: (text)))
           when_chosen: (content
-            (divert
+            redirect: (divert
               target: (identifier)))))
       (choice_block
-        (choice
+        header: (choice
           (choice_marks
             (choice_mark))
           choice_only: (choice_only
             (content
-              (text)))
+              content: (text)))
           when_chosen: (content
-            (divert
+            redirect: (divert
               target: (identifier)))))
       (choice_block
-        (choice
+        header: (choice
           (choice_marks
             (choice_mark))
           choice_only: (choice_only
             (content
-              (text)))
+              content: (text)))
           when_chosen: (content
-            (divert
+            redirect: (divert
               target: (identifier)))))))
-  (knot_block
-    (knot
+  knot: (knot_block
+    header: (knot
       name: (identifier))
-    (content_block
+    content: (content_block
       (paragraph
-        (text))
+        content: (text))
       (paragraph
-        (text)))))
+        content: (text)))))
 
 ===
 .AEB. Branching and joining

@@ -7,17 +7,17 @@ Hello world!
 ---
 
 (ink
-  (content_block
+  content: (content_block
     (paragraph
-      (text))
+      content: (text))
     (choice_block
-      (choice
+      header: (choice
         (choice_marks
           (choice_mark))
         main: (content
-          (text)))
-      (paragraph
-        (text)))))
+          content: (text)))
+      content: (paragraph
+        content: (text)))))
 
 ===
 .ABB. Suppressing Choice Text
@@ -28,22 +28,22 @@ Hello world!
 ---
 
 (ink
-  (content_block
+  content: (content_block
     (paragraph
-      (text))
+      content: (text))
     (choice_block
-      (choice
+      header: (choice
         (choice_marks
           (choice_mark))
         main: (content
-          (text))
+          content: (text))
         choice_only: (choice_only
           (content
-            (text)))
+            content: (text)))
         when_chosen: (content
-          (text)))
-      (paragraph
-        (text)))))
+          content: (text)))
+      content: (paragraph
+        content: (text)))))
 
 ===
 .ABBa. Corner Case: Outside of choices, square brackets are just text
@@ -84,43 +84,43 @@ Hello [World]
 ---
 
 (ink
-  (content_block
+  content: (content_block
     (paragraph
-      (text))
+      content: (text))
     (choice_block
-      (choice
+      header: (choice
         (choice_marks
           (choice_mark))
         main: (content
-          (text))
+          content: (text))
         choice_only: (choice_only
           (content
-            (text)))
+            content: (text)))
         when_chosen: (content
-          (text)))
-      (paragraph
-        (text)))
+          content: (text)))
+      content: (paragraph
+        content: (text)))
     (choice_block
-      (choice
+      header: (choice
         (choice_marks
           (choice_mark))
         main: (content
-          (text))
+          content: (text))
         choice_only: (choice_only)
         when_chosen: (content
-          (text)))
-      (paragraph
-        (text)))
+          content: (text)))
+      content: (paragraph
+        content: (text)))
     (choice_block
-      (choice
+      header: (choice
         (choice_marks
           (choice_mark))
         main: (content
-          (text))
+          content: (text))
         choice_only: (choice_only
           (content
-            (text)))
+            content: (text)))
         when_chosen: (content
-          (text)))
-      (paragraph
-        (text)))))
+          content: (text)))
+      content: (paragraph
+        content: (text)))))

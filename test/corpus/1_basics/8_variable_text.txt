@@ -121,13 +121,13 @@ I took a step forward. {!||||Then the lights went out. -> eek}
 ---
 
 (ink
-  (content_block
+  content: (content_block
     (paragraph
-      (text)
-      (alternatives
-        (content
-          (text)
-          (divert
+      content: (text)
+      content: (alternatives
+        content: (content
+          content: (text)
+          redirect: (divert
             target: (identifier)))))))
 
 ===
@@ -169,26 +169,26 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
 ---
 
 (ink
-  (content_block
+  content: (content_block
     (choice_block
-      (choice
+      header: (choice
         (choice_marks
           (choice_mark))
         main: (content
-          (text)
-          (alternatives
-            (content
-              (text))
-            (content
-              (text))
-            (content
-              (text))
-            (content
-              (text)))
-          (text))
+          content: (text)
+          content: (alternatives
+            content: (content
+              content: (text))
+            content: (content
+              content: (text))
+            content: (content
+              content: (text))
+            content: (content
+              content: (text)))
+          content: (text))
         choice_only: (choice_only)
         when_chosen: (content
-          (text))))))
+          content: (text))))))
 
 ===
 .AHH. Alternatives Starting Choice Text
@@ -197,19 +197,19 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
 ---
 
 (ink
-  (content_block
+  content: (content_block
     (choice_block
-      (choice
+      header: (choice
         (choice_marks
           (choice_mark))
         main: (content
-          (alternatives
-            (content
-              (text))
-            (content
-              (text))
-            (content
-              (text))))))))
+          content: (alternatives
+            content: (content
+              content: (text))
+            content: (content
+              content: (text))
+            content: (content
+              content: (text))))))))
 
 ===
 .AHI. Conditional Text
@@ -219,23 +219,23 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
 ---
 
 (ink
-  (content_block
+  content: (content_block
     (paragraph
-      (conditional_text
+      content: (conditional_text
         condition: (identifier)
-        (content
-          (text)
-          (conditional_text
+        content: (content
+          content: (text)
+          content: (conditional_text
             condition: (qualified_name
               (identifier)
               (identifier))
-            (content
-              (text))
-            (content
-              (text)))
-          (text))
-        (content
-          (text))))))
+            content: (content
+              content: (text))
+            content: (content
+              content: (text)))
+          content: (text))
+        content: (content
+          content: (text))))))
 
 ===
 .AHJa. Inline Logic syntax: Minimal distinguishing examples

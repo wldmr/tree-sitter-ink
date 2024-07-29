@@ -189,6 +189,8 @@ module.exports = grammar({
     $._redirect,
     $._logic,
     $._code_stmt,
+    $._param_value,
+    $._global_keyword,
   ],
 
   precedences: $ => [
@@ -210,9 +212,9 @@ module.exports = grammar({
   
   rules: {
     ink: $ => seq(
-      optional($.content_block),
-      repeat($.stitch_block), // Evidently we can define orphan stitches. OK …
-      repeat($.knot_block),
+      field('content', optional($.content_block)),
+      field('stitch', repeat($.stitch_block)), // Evidently we can define orphan stitches. OK …
+      field('knot', repeat($.knot_block)),
     ),
 
     // not actually used in this grammar, only added for supertypes
@@ -225,36 +227,36 @@ module.exports = grammar({
     content_block: $ => repeat1($._content_item),
 
     knot_block: $ => prec.right(seq(
-      $.knot,
-      optional($.content_block),
-      repeat($.stitch_block),
+      field('header', $.knot),
+      field('content', optional($.content_block)),
+      field('stitch', repeat($.stitch_block)),
     )),
 
     stitch_block: $ => prec.right(seq(
-      $.stitch,
-      optional($.content_block),
+      field('header', $.stitch),
+      field('content', optional($.content_block)),
     )),
 
     choice_block: $ => prec.right(seq(
       $._choice_block_start,
-      $.choice,
+      field('header', $.choice),
       $._eol,
-      repeat($._content_item),
+      field('content', repeat($._content_item)),
       $._choice_block_end,
     )),
 
     _choice_block_in_conditional: $ => prec.right(seq(
       $._choice_block_start,
-      $.choice,
+      field('header', $.choice),
       $._eol,
-      repeat($._content_item_in_conditional),
+      field('content', repeat($._content_item_in_conditional)),
       $._choice_block_end,
     )),
 
     gather_block: $ => prec.right(seq(
       $._gather_block_start,
-      $.gather,
-      repeat($._content_item),
+      field('header', $.gather),
+      field('content', repeat($._content_item)),
       $._gather_block_end,
     )),
 
@@ -306,15 +308,15 @@ module.exports = grammar({
 
     content: $ => prec.right(choice(
       seq(
-        $._glue_logic_or_text,
-        repeat($.tag),
-        optional($._redirect),
+        field('content', $._glue_logic_or_text),
+        field('tag', repeat($.tag)),
+        field('redirect', optional($._redirect)),
       ),
       seq(
-        repeat1($.tag),
-        optional($._redirect),
+        field('tag', repeat1($.tag)),
+        field('redirect', optional($._redirect)),
       ),
-      $._redirect,
+      field('redirect', $._redirect),
     )),
 
     // this "_fake" machinery exists so that we can generate conflicts between text or expressions
@@ -370,15 +372,15 @@ module.exports = grammar({
       $.multiline_alternatives,
     ),
 
-    eval: $ => prec.right(seq('{', $.expr, '}')),
+    eval: $ => prec.right(seq('{', field('expr', $.expr), '}')),
 
     conditional_text: $ => prec.right(seq(
       '{',
       prec.dynamic(PREC.ink, seq(field('condition', $.expr), ':')),
-      $.content,
+      field('content', $.content),
       optional(seq(
         '|',
-        optional($.content)
+        field('content', optional($.content))
       )),
       '}',
     )),
@@ -388,13 +390,13 @@ module.exports = grammar({
       optional(choice(
         seq(
           // ! can conflict with expressions starting with negation; but in this position, the alternatives marker gets precedence.
-          choice('$', '&', '~', mark('!')),
-          optional($.content),
+          field('mark', choice('$', '&', '~', mark('!'))),
+          field('content', optional($.content)),
         ),
-        optional(alias($._fake_content, $.content)),
+        field('content', optional(alias($._fake_content, $.content))),
       )),
       '|',
-      repeat(choice('|', $.content)),
+      repeat(choice('|', field('content', $.content))),
       '}'
     )),
 
@@ -405,8 +407,8 @@ module.exports = grammar({
 
     cond_block: $ => prec.right(seq(
       '{',
-      choice($._eol, alias($._first_cond_arm, $.cond_arm)),
-      repeat($.cond_arm),
+      choice($._eol, field('arm', alias($._first_cond_arm, $.cond_arm))),
+      field('arm', repeat($.cond_arm)),
       '}',
     )),
     
@@ -437,13 +439,16 @@ module.exports = grammar({
         'once',
       )),
       ':', $._eol,
-      repeat($.alt_arm),
+      field('arm', repeat($.alt_arm)),
       '}',
     ),
 
     alt_arm: $ => seq(mark('-'), prec.left(repeat($._content_item_in_conditional))),
 
-    tag: $ => prec.left(seq('#', $._glue_logic_or_text)),
+    tag: $ => prec.left(seq(
+      field('mark', '#'),
+      field('content', $._glue_logic_or_text)
+    )),
 
     choice: $ => seq(
       $.choice_marks,
@@ -456,7 +461,7 @@ module.exports = grammar({
     gather: $ => prec.right(seq(
       $.gather_marks,
       optional($._label_field),
-      optional($._eol)
+      field('eol', optional($._eol))
     )),
 
     _content_field: $ => field('content', $._content_item),
@@ -465,10 +470,10 @@ module.exports = grammar({
     gather_marks: $ => prec.right(repeat1(prec(PREC.ink, $.gather_mark))),
 
     _label_field: $ => prec(PREC.ink, field('label', $.label)),
-    label: $ => seq('(', $.identifier, ')'),
+    label: $ => seq('(', field('name', $.identifier), ')'),
 
-    _choice_condition: $ => prec.right(PREC.ink, field('condition', $.condition)),
-    condition: $ => seq('{', $.expr, '}', ),
+    _choice_condition: $ => prec.right(PREC.ink, $.condition),
+    condition: $ => seq('{', field('expr', $.expr), '}', ),
 
     _choice_content: $ => prec.right(choice(
       field('main', $.content),
@@ -535,33 +540,38 @@ module.exports = grammar({
 
     param: $ => seq(
       field('ref', optional('ref')),
-      choice($.identifier, $.divert)
+      field('value', $._param_value),
     ),
+    _param_value: $ => choice($.identifier, $.divert),
 
     // Let's just accept any old characters for the path. We don't have to do anything with it …
-    include: $ => seq(keyword('INCLUDE'), alias(/[^\n]+/, $.path)),
+    include: $ => seq(
+      field('keyword', keyword('INCLUDE')),
+      field('path', alias(/[^\n]+/, $.path))
+    ),
 
     external: $ => seq(
-      keyword('EXTERNAL'),
+      field('keyword', keyword('EXTERNAL')),
       field('name', $.identifier),
       field('params', $.params),
     ),
 
     global: $ => seq(
-      field('type', choice(keyword('VAR'), keyword('CONST'))),
+      field('keyword', $._global_keyword),
       field('name', $.identifier),
       field('op', '='),
       field('value', $.expr),
     ),
+    _global_keyword: $ => choice(keyword('VAR'), keyword('CONST')),
 
     list: $ => seq(
-      keyword('LIST'),
+      field('keyword', keyword('LIST')),
       field('name', $.identifier),
       field('op', '='),
       field('values', $.list_value_defs),
     ),
 
-    list_value_defs: $ => sepBy1(',', $.list_value_def),
+    list_value_defs: $ => sepBy1(',', field('value', $.list_value_def)),
 
     list_value_def: $ => choice(
       field('name', $.identifier),
@@ -606,7 +616,7 @@ module.exports = grammar({
     )),
 
     todo_comment: _ => seq(
-      mark('TODO'),
+      field('keyword', mark('TODO')),
       ':',
       field('text', /[^\n]*/),
     ),
