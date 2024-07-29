@@ -57,10 +57,19 @@ typedef struct BlockInfo {
 #define BLOCK_INFO_INIT (BlockInfo) {.type = NONE, .level = BLOCK_LEVEL_MIN}
 
 typedef struct {
+  /// When parsing a gather/choice: Number of block chars remaining at current parse position
+  BlockLevel remaining_block_marks;
+
+  /// When parsing a gather/choice: Type of block delimiter currently being parsed
+  BlockType block_type;
+
+  /// The stack of blocks that we're currently in. Used to establish the tree structure of the document.
   Array(BlockLevel) blocks;
 } Scanner;
 
 void print_scanner_state(Scanner *scanner) {
+  if (scanner->remaining_block_marks > 0)
+    MSG("Scanner: marks type %d ramaining: %d\n", scanner->block_type, scanner->remaining_block_marks);
   MSG("Scanner: blocks=");
   for (uint32_t i = 0; i < scanner->blocks.size; i++)
     MSG("%d", *array_get(&scanner->blocks, i));
@@ -78,6 +87,10 @@ void mark_end(TSLexer *lexer) {
 
 void skip(TSLexer *lexer) {
   lexer->advance(lexer, true);
+}
+
+void consume(TSLexer *lexer) {
+  lexer->advance(lexer, false);
 }
 
 bool is_eof(TSLexer *lexer) {
@@ -100,6 +113,9 @@ unsigned tree_sitter_ink_external_scanner_serialize(void *payload, char *buffer)
   Scanner *scanner = (Scanner *)payload;
   uint32_t size = 0;
 
+  buffer[size++] = scanner->remaining_block_marks;
+  buffer[size++] = scanner->block_type;
+
   for (uint32_t i = 0; i < scanner->blocks.size && size <= TREE_SITTER_SERIALIZATION_BUFFER_SIZE; i++) {
     buffer[size] = (char) *array_get(&scanner->blocks, i);
     size++;
@@ -118,12 +134,17 @@ void tree_sitter_ink_external_scanner_deserialize(void *payload, const char *buf
   Scanner *scanner = (Scanner *)payload;
 
   // reset all members as per suggestion in the docs
+  scanner->remaining_block_marks = 0;
+  scanner->block_type = 0;
   array_delete(&scanner->blocks);
 
   // init from buffer, if present and required
   // MSG("Deserializing %d bytes of state.\n", length);
   if (buffer != NULL && length > 0) {
     uint32_t size = 0;
+
+    scanner->remaining_block_marks = (BlockLevel) buffer[size++];
+    scanner->block_type = (BlockType) buffer[size++];
 
     while (size < length)
       array_push(&scanner->blocks, buffer[size++]);
@@ -282,7 +303,36 @@ bool tree_sitter_ink_external_scanner_scan(
   mark_end(lexer);
   MSG("at '%c' (%d).\n", pretty(lookahead(lexer)), lookahead(lexer));
 
-  // first, try to end lines (that's always the innermost 'block')
+  // If we've previously detected a block start, just emit the block marks.
+  if (scanner->remaining_block_marks > 0) {
+
+    skip_ws_upto_cr(lexer);
+
+    switch (scanner->block_type) {
+    case CHOICE:
+      assert(valid_symbols[CHOICE_MARK]);
+      assert(lookahead(lexer) == '*' || lookahead(lexer) == '+');
+      lexer->result_symbol = CHOICE_MARK;
+      break;
+    case GATHER:
+      assert(valid_symbols[GATHER_MARK]);
+      lexer->result_symbol = GATHER_MARK;
+      assert(lookahead(lexer) == '-');
+      break;
+    case NONE:
+    case CONTENT:
+      MSG("BUG: This combination makes no sense");
+      exit(255);
+    }
+
+    consume(lexer);
+    mark_end(lexer);
+
+    scanner->remaining_block_marks--;
+    return true;
+  }
+
+  // Try to end lines (that's always the innermost 'block')
   if (valid_symbols[END_OF_LINE]) {
     MSG("Checking for EO[L|F]\n");
     if (skip_ws_upto_cr(lexer)) {
@@ -293,36 +343,6 @@ bool tree_sitter_ink_external_scanner_scan(
       MSG("  at EOF\n");
       lexer->result_symbol = END_OF_LINE;
       return true;
-    }
-  }
-
-  if (valid_symbols[CHOICE_MARK] || valid_symbols[GATHER_MARK]) {
-    MSG("Looking for choice/gather mark.\n");
-    skip_ws_upto_cr(lexer);
-    char c = lookahead(lexer);
-    if (c == '-') {
-      skip(lexer);
-      if (lookahead(lexer) == '>') {
-        MSG("We've found a divert mark, not a gather\n");
-        return false;
-      } 
-      MSG("Found gather mark.\n");
-      mark_end(lexer);
-      lexer->result_symbol = GATHER_MARK;
-      return valid_symbols[GATHER_MARK];
-    }
-    else if (c == '*' || c == '+') {
-      MSG("Found choice mark.\n");
-      skip(lexer);
-      mark_end(lexer);
-      if (valid_symbols[CHOICE_MARK]) {
-        lexer->result_symbol = CHOICE_MARK;
-        return true;
-      } else if (valid_symbols[GATHER_BLOCK_END] && !valid_symbols[ERROR]){
-        // OK, this one is a bit complicated: If We've found a choice mark
-        lexer->result_symbol = GATHER_BLOCK_END;
-        return true;
-      }
     }
   }
 
@@ -351,12 +371,19 @@ bool tree_sitter_ink_external_scanner_scan(
     MSG("Current %d -> Next %d|%d: ", current_block_level, next_block.type, next_block.level);
     if (next_block.level > current_block_level) {
       MSG("Next block is deeper. Start block.\n");
+
+      // Remember the marks we're going to emit next.
+      scanner->block_type = next_block.type;
+      scanner->remaining_block_marks = next_block.level;
+
       if (next_block.type == CHOICE && valid_symbols[CHOICE_BLOCK_START]) {
         return start_block(lexer, scanner, CHOICE_BLOCK_START, next_block.level);
       } else if (next_block.type == GATHER && valid_symbols[GATHER_BLOCK_START]) {
         return start_block(lexer, scanner, GATHER_BLOCK_START, next_block.level);
       }
+
     } else {
+
       MSG("Next block same or shallower. End block.\n");
       if (valid_symbols[CHOICE_BLOCK_END]) {
         return end_block(lexer, scanner, CHOICE_BLOCK_END);
@@ -365,6 +392,7 @@ bool tree_sitter_ink_external_scanner_scan(
       } else {
         return false; // Weird. Error recovery next
       }
+
     }
   }
 
