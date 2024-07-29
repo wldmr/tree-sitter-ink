@@ -5,6 +5,11 @@
 //!
 //! ```
 //! let code = r#"
+//! === Some_knot ===
+//! It was a dark and stormy <>
+//! * (night) night
+//! * dark storm
+//! - <> and I was feeling (night:tired|cold and was unable to see).
 //! "#;
 //! let mut parser = tree_sitter::Parser::new();
 //! parser.set_language(&tree_sitter_ink::language()).expect("Error loading Ink grammar");
@@ -16,6 +21,24 @@
 //! [language func]: fn.language.html
 //! [Parser]: https://docs.rs/tree-sitter/*/tree_sitter/struct.Parser.html
 //! [tree-sitter]: https://tree-sitter.github.io/
+//!
+//! # Features
+//!
+//! ## Typed syntax nodes with `type-sitter`
+//!
+//! Enabling this feature exports a module named `node_types` which contains type
+//! definitions based on `node-types.json` build using the [type-sitter][] library.
+//!
+//! [type-sitter]: https://github.com/Jakobeha/type-sitter
+//!
+//! ### Example
+//!
+//! ```
+//! let typed_root: tree_sitter_ink::node_types::Ink = tree
+//!     .root_node()
+//!     .try_into()
+//!     .expect("We should have checked for errors.");
+//! ```
 
 use tree_sitter::Language;
 
@@ -34,6 +57,12 @@ pub fn language() -> Language {
 ///
 /// [`node-types.json`]: https://tree-sitter.github.io/tree-sitter/using-parsers#static-node-types
 pub const NODE_TYPES: &str = include_str!("../../src/node-types.json");
+
+/// The typed syntax nodes
+#[cfg(feature = "type-sitter")]
+pub mod node_types {
+    include!(concat!(env!("OUT_DIR"), "/type_sitter_ink.rs"));
+}
 
 // Uncomment these to include any queries that this grammar contains
 
