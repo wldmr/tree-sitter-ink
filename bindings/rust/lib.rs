@@ -28,6 +28,8 @@
 //!
 //! Enabling this feature exports a module named `node_types` which contains type
 //! definitions based on `node-types.json` build using the [type-sitter][] library.
+//! This library re-exports the common code from `type-sitter-lib` under
+//! `tree_sitter_ink::node_types::lib`.
 //!
 //! [type-sitter]: https://github.com/Jakobeha/type-sitter
 //!
@@ -61,6 +63,7 @@ pub const NODE_TYPES: &str = include_str!("../../src/node-types.json");
 /// The typed syntax nodes
 #[cfg(feature = "type-sitter")]
 pub mod node_types {
+    pub use type_sitter_lib as lib;
     include!(concat!(env!("OUT_DIR"), "/type_sitter_ink.rs"));
 }
 
