@@ -2095,10 +2095,6 @@
         {
           "type": "SYMBOL",
           "name": "_code_stmt"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_eol"
         }
       ]
     },

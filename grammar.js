@@ -520,7 +520,7 @@ module.exports = grammar({
       $._eol,
     )),
 
-    code: $ => seq('~', $._code_stmt, $._eol),
+    code: $ => seq('~', $._code_stmt),
     
     _code_stmt: $ => choice(
       $.assignment,
