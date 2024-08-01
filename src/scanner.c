@@ -227,75 +227,6 @@ bool end_block(TSLexer *lexer, Scanner *scanner, Token token) {
   return true; // Just so this can be called inline.
 }
 
-/// Looks ahead to see if a new block could be started here.
-///
-/// At ==, =, or EOF, BlockType is NONE.
-///
-/// Calls `lexer->mark_end()` at the start of next block marker.
-/// This means that all trailing empty lines will belong to the currently active block.
-///
-/// It would have been nice to not include the the lines between blocks, but that would require rewinding
-/// to a previous position based on information that we only learn after we've hit a mark.
-/// Maybe revisit this if and when tree-sitter gets more explicit control over token start positions than `mark_end()`.
-///
-/// CAUTION: This can (and will) report a gather start marker when it encounters a condition in a conditional block
-/// (i.e. `- some_expression:`). We can't really distinguish that here without more complicated parsing.
-/// That's why it is important to cross-reference the result with the valid symbols at that position (i.e.
-/// can a gather even start here?).
-BlockInfo lookahead_block_start(TSLexer *lexer) {
-  MSG("Looking ahead for block start marker\n");
-
-  skip_ws(lexer);
-  mark_end(lexer);
-
-  BlockInfo block = BLOCK_INFO_INIT;
-
-  if (lookahead(lexer) == '=' || is_eof(lexer)) {
-    MSG("Next block: None.\n");
-    return block;
-  }
-
-  BlockLevel markers = 0;
-  uint32_t c = lookahead(lexer);
-  uint32_t first_marker = 0;
-  while ((c == '*' || c == '+' || (c == '-')) && (markers < BLOCK_LEVEL_MAX)) {
-    MSG("%c ", c);
-    skip(lexer);
-    if (c == '-' && lookahead(lexer) == '>') {
-      MSG("capped off by a divert ");
-      break;
-    } else {
-      if (first_marker == 0) {
-        first_marker = c;
-      } else if (c != first_marker) {
-        break;
-      }
-      markers += 1;
-      skip_ws_upto_cr(lexer);
-      c = lookahead(lexer);
-    }
-  }
-
-  MSG("Next block is flow. Level indicators: %d\n", markers);
-
-  block.level = markers;
-
-  switch (first_marker) {
-  case '-':
-    block.type = GATHER;
-    break;
-  case '*':
-  case '+':
-    block.type = CHOICE;
-    break;
-  default:
-    block.type = CONTENT;
-    break;
-  }
-
-  return block;
-}
-
 typedef enum {
   LINE_COMMENT_TOKEN,
   BLOCK_COMMENT_TOKEN,
@@ -340,6 +271,78 @@ CommentType lookahead_comment(TSLexer *lexer) {
   }
 }
 
+/// Looks ahead to see if a new block could be started here.
+///
+/// At ==, =, or EOF, BlockType is NONE.
+///
+/// Calls `lexer->mark_end()` at the start of next block marker.
+/// This means that all trailing empty lines will belong to the currently active block.
+///
+/// It would have been nice to not include the the lines between blocks, but that would require rewinding
+/// to a previous position based on information that we only learn after we've hit a mark.
+/// Maybe revisit this if and when tree-sitter gets more explicit control over token start positions than `mark_end()`.
+///
+/// CAUTION: This can (and will) report a gather start marker when it encounters a condition in a conditional block
+/// (i.e. `- some_expression:`). We can't really distinguish that here without more complicated parsing.
+/// That's why it is important to cross-reference the result with the valid symbols at that position (i.e.
+/// can a gather even start here?).
+BlockInfo lookahead_block_start(TSLexer *lexer) {
+  MSG("Looking ahead for block start marker\n");
+
+  lookahead_comment(lexer);
+  skip_ws(lexer);
+  mark_end(lexer);
+
+  BlockInfo block = BLOCK_INFO_INIT;
+
+    if (lookahead(lexer) == '=' || is_eof(lexer)) {
+    MSG("Next block: None.\n");
+    return block;
+  }
+
+  BlockLevel markers = 0;
+  uint32_t c = lookahead(lexer);
+  uint32_t first_marker = 0;
+  while ((c == '*' || c == '+' || (c == '-')) && (markers < BLOCK_LEVEL_MAX)) {
+    MSG("%c ", c);
+    skip(lexer);
+    if (c == '-' && lookahead(lexer) == '>') {
+      MSG("capped off by a divert ");
+      break;
+    } else {
+      if (first_marker == 0) {
+        first_marker = c;
+      } else if (c != first_marker) {
+        break;
+      }
+      markers += 1;
+      lookahead_comment(lexer);
+      skip_ws_upto_cr(lexer);
+      c = lookahead(lexer);
+    }
+  }
+
+  MSG("Next block is flow. Level indicators: %d\n", markers);
+
+  block.level = markers;
+
+  switch (first_marker) {
+  case '-':
+    block.type = GATHER;
+    break;
+  case '*':
+  case '+':
+    block.type = CHOICE;
+    break;
+  default:
+    block.type = CONTENT;
+    break;
+  }
+
+  return block;
+}
+
+
 bool tree_sitter_ink_external_scanner_scan(
   void *payload,
   TSLexer *lexer,
@@ -355,13 +358,19 @@ bool tree_sitter_ink_external_scanner_scan(
     return false;
   }
 
-    // Must mark our starting place so that we don't advance the position when doing a lookahead.
+  // Must mark our starting place so that we don't advance the position when doing a lookahead.
   mark_end(lexer);
   MSG("at '%c' (%d).\n", pretty(lookahead(lexer)), lookahead(lexer));
 
   // If we've previously detected a block start, just emit the block marks.
   if (scanner->remaining_block_marks > 0) {
 
+    // Block comments can creep in ANYWHERE >:-(, so we have to account for that.
+    if (valid_symbols[BLOCK_COMMENT] && lookahead_comment(lexer) == BLOCK_COMMENT_TOKEN) {
+      lexer->result_symbol = BLOCK_COMMENT;
+      mark_end(lexer);
+      return true;
+    }
     skip_ws_upto_cr(lexer);
 
     switch (scanner->block_type) {
@@ -394,7 +403,7 @@ bool tree_sitter_ink_external_scanner_scan(
     if (skip_ws_upto_cr(lexer)) {
       MSG("  at EOL\n");
       lexer->result_symbol = END_OF_LINE;
-      skip(lexer);
+      consume(lexer);
       mark_end(lexer);
       return true;
     } else if (is_eof(lexer)) {

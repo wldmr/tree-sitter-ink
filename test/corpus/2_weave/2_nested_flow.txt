@@ -65,6 +65,59 @@
         (text)))))
 
 ===
+.BBAa. Corner Case: Block comments between choice/gather marks
+===
+* /* you can comment here */ * choice
+- -/* and here */- gather
+---
+(ink
+  (content_block
+    (choice_block
+      (choice
+        (choice_marks
+          (choice_mark)
+          (block_comment)
+          (choice_mark))
+        (content
+          (text)))
+      (gather_block
+        (gather
+          (gather_marks
+            (gather_mark)
+            (gather_mark)
+            (block_comment)
+            (gather_mark)))
+          (paragraph
+            (text))))))
+
+===
+.BBAa. Corner Case: Block comments between choice/gather marks
+===
+* /* you can comment here */ * choice
+- -/* and here */- gather
+---
+(ink
+  (content_block
+    (choice_block
+      (choice
+        (choice_marks
+          (choice_mark)
+          (block_comment)
+          (choice_mark))
+        (content
+          (text)))
+      (gather_block
+        (gather
+          (gather_marks
+            (gather_mark)
+            (gather_mark)
+            (block_comment)
+            (gather_mark)))
+          (paragraph
+            (text))))))
+
+
+===
 .BBB. You can nest as many levels as you like
 ===
 -	"Tell us a tale, Captain!"
