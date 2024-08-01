@@ -117,7 +117,8 @@
 (multiline_alternatives ["shuffle" "stopping" "cycle" "once"] @keyword.control.repeat)
 (alternatives ["&" "$" "~" "!"] @keyword.control.repeat)
 
-(comment) @comment
+(line_comment) @comment.line
+(block_comment) @comment.block
 
 (identifier) @variable
 (qualified_name "." @punctuation.delimiter)

@@ -27,10 +27,10 @@ Hello, world!
   (content_block
     (paragraph
       (text))
-    (comment)
+    (line_comment)
     (paragraph
       (text)))
-  (comment))
+  (block_comment))
 
 ========================================================================================================================
 .AABa. Gotcha: Minimal munch for comments (there was a bug where multiline comments would swallow all text between them)
@@ -46,11 +46,11 @@ Stuff
 ---
 
 (ink
-  (comment)
+  (block_comment)
   (content_block
     (paragraph
       (text)))
-  (comment))
+  (block_comment))
 
 =================================
 .AAC. Comments can occur anywhere
@@ -64,10 +64,10 @@ Stuff
   (content_block
     (paragraph
       (text))
-    (comment)
+    (line_comment)
     (paragraph
       (text
-        (comment)))))
+        (block_comment)))))
 
 ===================
 .AAD. TODO Comments

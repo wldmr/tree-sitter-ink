@@ -5,6 +5,8 @@
 
 typedef enum {
   END_OF_LINE,
+  LINE_COMMENT,
+  BLOCK_COMMENT,
   CHOICE_BLOCK_START,
   CHOICE_BLOCK_END,
   GATHER_BLOCK_START,
@@ -31,6 +33,8 @@ void print_valid_symbols(const bool *valid_symbols) {
   else
     MSG("========================================================================================\n");
   MSG(" %s END_OF_LINE        \n", valid_symbols[END_OF_LINE]        ? "*" : "-");
+  MSG(" %s LINE_COMMENT       \t", valid_symbols[LINE_COMMENT]       ? "*" : "-");
+  MSG(" %s BLOCK_COMMENT      \n", valid_symbols[BLOCK_COMMENT]      ? "*" : "-");
   MSG(" %s CHOICE_BLOCK_START \t", valid_symbols[CHOICE_BLOCK_START] ? "*" : "-");
   MSG(" %s CHOICE_BLOCK_END   \n", valid_symbols[CHOICE_BLOCK_END]   ? "*" : "-");
   MSG(" %s GATHER_BLOCK_START \t", valid_symbols[GATHER_BLOCK_START] ? "*" : "-");
@@ -99,6 +103,15 @@ bool is_eof(TSLexer *lexer) {
 
 int32_t lookahead(TSLexer *lexer) {
   return lexer->lookahead;
+}
+
+bool consume_char(TSLexer *lexer, char c) {
+  if (lexer->lookahead == c) {
+    consume(lexer);
+    return true;
+  } else {
+    return false;
+  }
 }
 
 bool is_at_line_start(TSLexer *lexer) {
@@ -218,7 +231,7 @@ bool end_block(TSLexer *lexer, Scanner *scanner, Token token) {
 ///
 /// At ==, =, or EOF, BlockType is NONE.
 ///
-/// Calls `lexer->mark_end()` one the start of next block marker.
+/// Calls `lexer->mark_end()` at the start of next block marker.
 /// This means that all trailing empty lines will belong to the currently active block.
 ///
 /// It would have been nice to not include the the lines between blocks, but that would require rewinding
@@ -283,6 +296,49 @@ BlockInfo lookahead_block_start(TSLexer *lexer) {
   return block;
 }
 
+typedef enum {
+  LINE_COMMENT_TOKEN,
+  BLOCK_COMMENT_TOKEN,
+  NO_COMMENT_TOKEN,
+} CommentType;
+
+/// Identify comment token. Skips all leading whitespace (including linebreaks!).
+///
+/// If a block comment is still open at EOF then return NO_COMMENT_TOKEN,
+/// so that tree-sitter can treat it as an error.
+CommentType lookahead_comment(TSLexer *lexer) {
+  skip_ws(lexer);
+  if (!consume_char(lexer, '/'))
+    return NO_COMMENT_TOKEN;
+
+  CommentType type = NO_COMMENT_TOKEN;
+  if (consume_char(lexer, '/')) {
+    type = LINE_COMMENT_TOKEN;
+  } else if (consume_char(lexer, '*')) {
+    type = BLOCK_COMMENT_TOKEN;
+  } else {
+    return NO_COMMENT_TOKEN;
+  }
+
+  while (!is_eof(lexer)) {
+    if (type == LINE_COMMENT_TOKEN && lookahead(lexer) == '\n') {
+      // NOTE: We don't eat the carriage return, because other syntax may depend on it.
+      return LINE_COMMENT_TOKEN;
+    } else if (type == BLOCK_COMMENT_TOKEN) {
+      if (consume_char(lexer, '*') && consume_char(lexer, '/')) {
+        return BLOCK_COMMENT_TOKEN;
+      }
+    }
+    consume(lexer);
+  }
+
+  // We're at EOF; line comments can rightfully end here, but unterminated block comments are an error.
+  if (type == LINE_COMMENT_TOKEN) {
+    return LINE_COMMENT_TOKEN;
+  } else {
+    return NO_COMMENT_TOKEN;
+  }
+}
 
 bool tree_sitter_ink_external_scanner_scan(
   void *payload,
@@ -299,7 +355,7 @@ bool tree_sitter_ink_external_scanner_scan(
     return false;
   }
 
-  // Must mark our starting place so that we don't advance the position when doing a lookahead.
+    // Must mark our starting place so that we don't advance the position when doing a lookahead.
   mark_end(lexer);
   MSG("at '%c' (%d).\n", pretty(lookahead(lexer)), lookahead(lexer));
 
@@ -346,6 +402,22 @@ bool tree_sitter_ink_external_scanner_scan(
       lexer->result_symbol = END_OF_LINE;
       return true;
     }
+  }
+
+  if (valid_symbols[LINE_COMMENT] || valid_symbols[BLOCK_COMMENT]) {
+    CommentType type = lookahead_comment(lexer);
+    switch(type) {
+      case LINE_COMMENT_TOKEN:
+        lexer->result_symbol = LINE_COMMENT;
+        mark_end(lexer);
+        return valid_symbols[LINE_COMMENT];
+      case BLOCK_COMMENT_TOKEN:
+        lexer->result_symbol = BLOCK_COMMENT;
+        mark_end(lexer);
+        return valid_symbols[BLOCK_COMMENT];
+      case NO_COMMENT_TOKEN:
+        break;
+      }
   }
 
   bool is_start = valid_symbols[GATHER_BLOCK_START] || valid_symbols[CHOICE_BLOCK_START];

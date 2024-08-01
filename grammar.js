@@ -163,6 +163,8 @@ module.exports = grammar({
 
   externals: $ => [
     $._eol,
+    $.line_comment,
+    $.block_comment,
     $._choice_block_start,
     $._choice_block_end,
     $._gather_block_start,
@@ -175,7 +177,8 @@ module.exports = grammar({
   extras: $ => [
     /[ \t\r]+/, // we count carriage return as a non-linebreak, because that's the correct way of interpreting it. ╭∩╮(ಠ_ಠ)╭∩╮
     /[\n\v\f]/,
-    $.comment,
+    $.line_comment,
+    $.block_comment,
   ],
 
   inline: $ => [
@@ -613,15 +616,6 @@ module.exports = grammar({
     ...make_expr(named = true),
     // and one anonymous, to be able to trigger the GLR conflict between text and the starting expression of conditional text.
     ...make_expr(named = false),
-
-    comment: _ => token(choice(
-      /\/\/[^\n]*/,
-      seq(
-        '/*',
-        /[^*]*\*+([^/*][^*]*\*+)*/,
-        '/'
-      ),
-    )),
 
     todo_comment: _ => seq(
       field('keyword', mark('TODO')),

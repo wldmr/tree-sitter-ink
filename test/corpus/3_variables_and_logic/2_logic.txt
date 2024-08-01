@@ -47,8 +47,8 @@
 ---
 
 (ink
-  (comment)
-  (comment)
+  (line_comment)
+  (line_comment)
   content: (content_block
     (code
       (assignment
@@ -68,7 +68,7 @@
 ---
 
 (ink
-  (comment)
+  (line_comment)
   (content_block
     (code
       (return

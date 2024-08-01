@@ -12,7 +12,7 @@ So, more text I guess.
 ---
 
 (ink
-  (comment)
+  (line_comment)
   knot: (knot_block
     header: (knot
       name: (identifier))
@@ -22,7 +22,7 @@ So, more text I guess.
   knot: (knot_block
     header: (knot
       name: (identifier)
-      (comment))
+      (line_comment))
     content: (content_block
       (paragraph
         content: (text)))))

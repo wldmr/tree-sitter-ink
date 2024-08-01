@@ -166,7 +166,7 @@
           (cond_arm
             (else)
             (eol)
-            (comment)
+            (line_comment)
             (paragraph
               (divert
                 (identifier)))))))))
@@ -216,7 +216,7 @@ At the table, I drew a card. <>
 ---
 
 (ink
-  (comment)
+  (line_comment)
   (content_block
     (paragraph
       (multiline_alternatives
@@ -229,7 +229,7 @@ At the table, I drew a card. <>
         (alt_arm
           (paragraph
             (text)))))
-    (comment)
+    (line_comment)
     (paragraph
       (text)
       (glue))
@@ -265,7 +265,7 @@ At the table, I drew a card. <>
         (alt_arm
           (paragraph
             (text)))))
-    (comment)
+    (line_comment)
     (paragraph
       (multiline_alternatives
         (alt_arm
@@ -277,7 +277,7 @@ At the table, I drew a card. <>
         (alt_arm
           (paragraph
             (text)))))
-    (comment)
+    (line_comment)
     (paragraph
       (multiline_alternatives
         (alt_arm

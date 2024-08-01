@@ -250,18 +250,18 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
     (paragraph
       (eval
         (identifier)))
-    (comment)
+    (line_comment)
     (paragraph
       (alternatives
         (content
           (text))))
-    (comment)
+    (line_comment)
     (paragraph
       (conditional_text
         (identifier)
         (content
           (text))))
-    (comment)))
+    (line_comment)))
 
 ===
 .AHJb. Distinguishing between expression and text
@@ -279,19 +279,19 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
           (identifier))
         (content
           (text))))
-    (comment)
+    (line_comment)
     (paragraph
       (alternatives
         (content
           (text))))
-    (comment)))
+    (line_comment)))
 
 ===
 .AHJc. Paranthesized expressions directly after opening brace _must_ be balanced (even if there is no colon)
 ===
 {(a + b|}
 {(a + b)|}
-/* To be clear: This is how the ink compiler works as well. */
+// To be clear: This is how the ink compiler works as well.
 ---
 
 (ink
@@ -305,4 +305,4 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
       (alternatives
         (content
           (text)))))
-  (comment))
+  (line_comment))

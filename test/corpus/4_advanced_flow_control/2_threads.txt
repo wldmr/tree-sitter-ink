@@ -157,7 +157,7 @@ Before long, we arrived at his house.
           (param
             (divert
               (identifier)))))
-      (comment)
+      (line_comment)
       (content_block
         (paragraph
           (text))))
@@ -168,14 +168,14 @@ Before long, we arrived at his house.
           (param
             (divert
               (identifier)))))
-      (comment)
+      (line_comment)
       (content_block
         (paragraph
           (text))))
     (stitch_block
       (stitch
         (identifier))
-      (comment)
+      (line_comment)
       (content_block
         (paragraph
           (text))))))

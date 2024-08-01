@@ -75,7 +75,7 @@ I push the door. # door_{door ? locked:
 ---
 
 (ink
-  (comment)
+  (line_comment)
   (content_block
     (paragraph
       (text)

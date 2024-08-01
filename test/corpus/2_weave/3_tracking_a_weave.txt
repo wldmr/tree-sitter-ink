@@ -70,7 +70,7 @@ The guard frowns at you.
             expr: (identifier))
           main: (content
             content: (text)))
-        (comment))
+        (line_comment))
       (choice_block
         header: (choice
           marks: (choice_marks

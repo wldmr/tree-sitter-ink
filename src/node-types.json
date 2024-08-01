@@ -2730,11 +2730,11 @@
     "named": false
   },
   {
-    "type": "choice_mark",
+    "type": "block_comment",
     "named": true
   },
   {
-    "type": "comment",
+    "type": "choice_mark",
     "named": true
   },
   {
@@ -2772,6 +2772,10 @@
   {
     "type": "hasnt",
     "named": false
+  },
+  {
+    "type": "line_comment",
+    "named": true
   },
   {
     "type": "mod",
