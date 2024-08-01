@@ -148,7 +148,7 @@ function make_text(with_leading_whitespace = false) {
     '\\[', '\\]',
     '\\{', '\\}',
     '\\|', '\\#',
-    alias(token(prec(-1, word_regex)), 'word'),
+    token(prec(-1, word_regex)),
   )));
 }
 

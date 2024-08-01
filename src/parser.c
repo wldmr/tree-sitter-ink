@@ -250,8 +250,8 @@ static const char * const ts_symbol_names[] = {
   [anon_sym_BSLASH_RBRACE] = "\\}",
   [anon_sym_BSLASH_PIPE] = "\\|",
   [anon_sym_BSLASH_POUND] = "\\#",
-  [aux_sym_text_token1] = "word",
-  [aux_sym__text_with_ws_token1] = "word",
+  [aux_sym_text_token1] = "text_token1",
+  [aux_sym__text_with_ws_token1] = "_text_with_ws_token1",
   [sym_glue] = "glue",
   [anon_sym_LBRACE] = "{",
   [anon_sym_RBRACE] = "}",
@@ -465,7 +465,7 @@ static const TSSymbol ts_symbol_map[] = {
   [anon_sym_BSLASH_PIPE] = anon_sym_BSLASH_PIPE,
   [anon_sym_BSLASH_POUND] = anon_sym_BSLASH_POUND,
   [aux_sym_text_token1] = aux_sym_text_token1,
-  [aux_sym__text_with_ws_token1] = aux_sym_text_token1,
+  [aux_sym__text_with_ws_token1] = aux_sym__text_with_ws_token1,
   [sym_glue] = sym_glue,
   [anon_sym_LBRACE] = anon_sym_LBRACE,
   [anon_sym_RBRACE] = anon_sym_RBRACE,
@@ -718,11 +718,11 @@ static const TSSymbolMetadata ts_symbol_metadata[] = {
     .named = false,
   },
   [aux_sym_text_token1] = {
-    .visible = true,
+    .visible = false,
     .named = false,
   },
   [aux_sym__text_with_ws_token1] = {
-    .visible = true,
+    .visible = false,
     .named = false,
   },
   [sym_glue] = {

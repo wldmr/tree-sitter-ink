@@ -568,20 +568,15 @@
               "value": "\\#"
             },
             {
-              "type": "ALIAS",
+              "type": "TOKEN",
               "content": {
-                "type": "TOKEN",
+                "type": "PREC",
+                "value": -1,
                 "content": {
-                  "type": "PREC",
-                  "value": -1,
-                  "content": {
-                    "type": "PATTERN",
-                    "value": "[^\\s\\{\\}\\[\\]#\\-<>/|\\\\]+ *"
-                  }
+                  "type": "PATTERN",
+                  "value": "[^\\s\\{\\}\\[\\]#\\-<>/|\\\\]+ *"
                 }
-              },
-              "named": false,
-              "value": "word"
+              }
             }
           ]
         }
@@ -644,20 +639,15 @@
               "value": "\\#"
             },
             {
-              "type": "ALIAS",
+              "type": "TOKEN",
               "content": {
-                "type": "TOKEN",
+                "type": "PREC",
+                "value": -1,
                 "content": {
-                  "type": "PREC",
-                  "value": -1,
-                  "content": {
-                    "type": "PATTERN",
-                    "value": " *[^\\s\\{\\}\\[\\]#\\-<>/|\\\\]+ *"
-                  }
+                  "type": "PATTERN",
+                  "value": " *[^\\s\\{\\}\\[\\]#\\-<>/|\\\\]+ *"
                 }
-              },
-              "named": false,
-              "value": "word"
+              }
             }
           ]
         }
