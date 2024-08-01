@@ -124,3 +124,22 @@ Hello [World]
           content: (text)))
       content: (paragraph
         content: (text)))))
+
+===
+.ABC. Corner Case: Completely Empty Choice
+===
+*
+* choice 2
+---
+(ink
+  (content_block
+    (choice_block
+      (choice
+        (choice_marks
+          (choice_mark))))
+    (choice_block
+      (choice
+        (choice_marks
+          (choice_mark))
+        (content
+          (text))))))

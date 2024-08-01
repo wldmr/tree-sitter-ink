@@ -176,7 +176,8 @@ module.exports = grammar({
 
   extras: $ => [
     /[ \t\r]+/, // we count carriage return as a non-linebreak, because that's the correct way of interpreting it. ╭∩╮(ಠ_ಠ)╭∩╮
-    /[\n\v\f]/,
+    /[\v\f]/,
+    $._newline,  // Very odd. Just writing '\n' here changes somethiG and tests fail. BUG?
     $.line_comment,
     $.block_comment,
   ],
@@ -453,19 +454,23 @@ module.exports = grammar({
       field('content', $._glue_logic_or_text)
     )),
 
-    choice: $ => seq(
-      field('marks', $.choice_marks),
-      optional(seq(
-        $._label_field,
-        optional($._eol_field),
-      )),
-      repeat(seq(
-        field('condition', $._choice_condition),
-        optional($._eol_field),
-      )),
-      field('separator', optional('\\')),  // to separate conditions from content starting with logic (e.g. conditional text): https://github.com/inkle/ink/blob/master/Documentation/WritingWithInk.md#features-of-alternatives
-      $._choice_content
-    ),
+    choice: $ => prec.left(choice(
+      field('marks', $.choice_marks),  // Completely empty choice == fallback choice. Generates a compiler warning ("please add a `->`"), but it is valid syntax.
+      seq(
+        field('marks', $.choice_marks),
+        optional(seq(
+          $._label_field,
+          optional($._eol_field),
+        )),
+        repeat(seq(
+          field('condition', $._choice_condition),
+          optional($._eol_field),
+        )),
+        field('separator', optional('\\')),  // to separate conditions from content starting with logic (e.g. conditional text): https://github.com/inkle/ink/blob/master/Documentation/WritingWithInk.md#features-of-alternatives
+        $._choice_content,
+      ),
+    )),
+
 
     gather: $ => prec.right(seq(
       $.gather_marks,
@@ -622,6 +627,8 @@ module.exports = grammar({
       ':',
       field('text', /[^\n]*/),
     ),
+
+    _newline: _ => '\n',
 
   },
 

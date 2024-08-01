@@ -233,12 +233,12 @@ typedef enum {
   NO_COMMENT_TOKEN,
 } CommentType;
 
-/// Identify comment token. Skips all leading whitespace (including linebreaks!).
+/// Identify comment token. Does not skip ahead; skip all whitespace as appropriate before calling this.
 ///
 /// If a block comment is still open at EOF then return NO_COMMENT_TOKEN,
 /// so that tree-sitter can treat it as an error.
 CommentType lookahead_comment(TSLexer *lexer) {
-  skip_ws(lexer);
+  skip_ws_upto_cr(lexer);
   if (!consume_char(lexer, '/'))
     return NO_COMMENT_TOKEN;
 
@@ -289,8 +289,6 @@ CommentType lookahead_comment(TSLexer *lexer) {
 BlockInfo lookahead_block_start(TSLexer *lexer) {
   MSG("Looking ahead for block start marker\n");
 
-  lookahead_comment(lexer);
-  skip_ws(lexer);
   mark_end(lexer);
 
   BlockInfo block = BLOCK_INFO_INIT;
