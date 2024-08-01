@@ -172,7 +172,7 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
   content: (content_block
     (choice_block
       header: (choice
-        (choice_marks
+        marks: (choice_marks
           (choice_mark))
         main: (content
           content: (text)
@@ -200,7 +200,7 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
   content: (content_block
     (choice_block
       header: (choice
-        (choice_marks
+        marks: (choice_marks
           (choice_mark))
         main: (content
           content: (alternatives

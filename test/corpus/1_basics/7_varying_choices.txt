@@ -12,14 +12,14 @@
   content: (content_block
     (choice_block
       header: (choice
-        (choice_marks
+        marks: (choice_marks
           (choice_mark))
         main: (content
           redirect: (divert
             target: (identifier)))))
     (choice_block
       header: (choice
-        (choice_marks
+        marks: (choice_marks
           (choice_mark)))
       content: (paragraph
         content: (text)
@@ -49,7 +49,7 @@
         content: (text))
       (choice_block
         header: (choice
-          (choice_marks
+          marks: (choice_marks
             (choice_mark))
           main: (content
             content: (text))
@@ -62,7 +62,7 @@
               target: (identifier)))))
       (choice_block
         header: (choice
-          (choice_marks
+          marks: (choice_marks
             (choice_mark))
           main: (content
             content: (text))
@@ -75,7 +75,7 @@
               target: (identifier)))))
       (choice_block
         header: (choice
-          (choice_marks
+          marks: (choice_marks
             (choice_mark)))
         content: (paragraph
           content: (text))
@@ -102,7 +102,7 @@
     content: (content_block
       (choice_block
         header: (choice
-          (choice_marks
+          marks: (choice_marks
             (choice_mark))
           choice_only: (choice_only
             (content
@@ -113,7 +113,7 @@
             target: (identifier))))
       (choice_block
         header: (choice
-          (choice_marks
+          marks: (choice_marks
             (choice_mark))
           choice_only: (choice_only
             (content
@@ -141,7 +141,7 @@
     content: (content_block
       (choice_block
         header: (choice
-          (choice_marks
+          marks: (choice_marks
             (choice_mark))
           choice_only: (choice_only
             (content
@@ -151,7 +151,7 @@
               target: (identifier)))))
       (choice_block
         header: (choice
-          (choice_marks
+          marks: (choice_marks
             (choice_mark))
           choice_only: (choice_only
             (content
@@ -161,7 +161,7 @@
               target: (identifier)))))
       (choice_block
         header: (choice
-          (choice_marks
+          marks: (choice_marks
             (choice_mark))
           main: (content
             redirect: (divert
@@ -181,9 +181,9 @@
   content: (content_block
     (choice_block
       header: (choice
-        (choice_marks
+        marks: (choice_marks
           (choice_mark))
-        (condition
+        condition: (condition
           expr: (unary
             right: (identifier)))
         choice_only: (choice_only
@@ -194,9 +194,9 @@
             target: (identifier)))))
     (choice_block
       header: (choice
-        (choice_marks
+        marks: (choice_marks
           (choice_mark))
-        (condition
+        condition: (condition
           expr: (identifier))
         choice_only: (choice_only
           (content
@@ -206,9 +206,9 @@
             target: (identifier)))))
     (choice_block
       header: (choice
-        (choice_marks
+        marks: (choice_marks
           (choice_mark))
-        (condition
+        condition: (condition
           expr: (qualified_name
             (identifier)
             (identifier)))
@@ -232,9 +232,9 @@
   content: (content_block
     (choice_block
       header: (choice
-        (choice_marks
+        marks: (choice_marks
           (choice_mark))
-        (condition
+        condition: (condition
           expr: (unary
             right: (identifier)))
         choice_only: (choice_only
@@ -245,11 +245,11 @@
             target: (identifier)))))
     (choice_block
       header: (choice
-        (choice_marks
+        marks: (choice_marks
           (choice_mark))
-        (condition
+        condition: (condition
           expr: (identifier))
-        (condition
+        condition: (condition
           expr: (unary
             right: (identifier)))
         eol: (eol)
@@ -271,9 +271,9 @@
   content: (content_block
     (choice_block
       header: (choice
-        (choice_marks
+        marks: (choice_marks
           (choice_mark))
-        (condition
+        condition: (condition
           expr: (binary
             left: (unary
               right: (paren
@@ -303,18 +303,18 @@
   content: (content_block
     (choice_block
       header: (choice
-        (choice_marks
+        marks: (choice_marks
           (choice_mark))
-        (condition
+        condition: (condition
           expr: (identifier))
         choice_only: (choice_only
           (content
             content: (text)))))
     (choice_block
       header: (choice
-        (choice_marks
+        marks: (choice_marks
           (choice_mark))
-        (condition
+        condition: (condition
           expr: (binary
             left: (identifier)
             right: (number)))

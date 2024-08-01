@@ -479,6 +479,16 @@
           }
         ]
       },
+      "condition": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "condition",
+            "named": true
+          }
+        ]
+      },
       "eol": {
         "multiple": true,
         "required": false,
@@ -509,6 +519,16 @@
           }
         ]
       },
+      "marks": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "choice_marks",
+            "named": true
+          }
+        ]
+      },
       "separator": {
         "multiple": false,
         "required": false,
@@ -529,20 +549,6 @@
           }
         ]
       }
-    },
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "choice_marks",
-          "named": true
-        },
-        {
-          "type": "condition",
-          "named": true
-        }
-      ]
     }
   },
   {

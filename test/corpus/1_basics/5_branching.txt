@@ -23,7 +23,7 @@ You open the gate, and step out onto the path.
         content: (text))
       (choice_block
         header: (choice
-          (choice_marks
+          marks: (choice_marks
             (choice_mark))
           choice_only: (choice_only
             (content
@@ -33,7 +33,7 @@ You open the gate, and step out onto the path.
               target: (identifier)))))
       (choice_block
         header: (choice
-          (choice_marks
+          marks: (choice_marks
             (choice_mark))
           choice_only: (choice_only
             (content
@@ -43,7 +43,7 @@ You open the gate, and step out onto the path.
               target: (identifier)))))
       (choice_block
         header: (choice
-          (choice_marks
+          marks: (choice_marks
             (choice_mark))
           choice_only: (choice_only
             (content

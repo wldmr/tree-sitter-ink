@@ -1532,8 +1532,12 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "SYMBOL",
-          "name": "choice_marks"
+          "type": "FIELD",
+          "name": "marks",
+          "content": {
+            "type": "SYMBOL",
+            "name": "choice_marks"
+          }
         },
         {
           "type": "CHOICE",
@@ -1570,8 +1574,12 @@
             "type": "SEQ",
             "members": [
               {
-                "type": "SYMBOL",
-                "name": "_choice_condition"
+                "type": "FIELD",
+                "name": "condition",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_choice_condition"
+                }
               },
               {
                 "type": "CHOICE",

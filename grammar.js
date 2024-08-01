@@ -451,13 +451,13 @@ module.exports = grammar({
     )),
 
     choice: $ => seq(
-      $.choice_marks,
+      field('marks', $.choice_marks),
       optional(seq(
         $._label_field,
         optional($._eol_field),
       )),
       repeat(seq(
-        $._choice_condition,
+        field('condition', $._choice_condition),
         optional($._eol_field),
       )),
       field('separator', optional('\\')),  // to separate conditions from content starting with logic (e.g. conditional text): https://github.com/inkle/ink/blob/master/Documentation/WritingWithInk.md#features-of-alternatives

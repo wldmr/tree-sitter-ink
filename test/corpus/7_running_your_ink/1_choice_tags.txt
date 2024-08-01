@@ -9,7 +9,7 @@
   content: (content_block
     (choice_block
       header: (choice
-        (choice_marks
+        marks: (choice_marks
           (choice_mark))
         main: (content
           content: (text)
@@ -17,7 +17,7 @@
             content: (text)))))
     (choice_block
       header: (choice
-        (choice_marks
+        marks: (choice_marks
           (choice_mark))
         main: (content
           content: (text)
