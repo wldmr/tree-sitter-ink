@@ -52,9 +52,9 @@
 (call (identifier) @function)
 
 (knot "==" @markup.heading.1)
-(knot (identifier) @label)
 (knot "function" @keyword.function
       (identifier) @function)
+(knot (identifier) @label)
 
 (stitch "=" @markup.heading.2)
 (stitch (identifier) @label)
