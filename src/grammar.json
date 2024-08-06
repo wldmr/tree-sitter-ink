@@ -2549,8 +2549,13 @@
               "type": "FIELD",
               "name": "value",
               "content": {
-                "type": "SYMBOL",
-                "name": "number"
+                "type": "ALIAS",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_list_def_number"
+                },
+                "named": true,
+                "value": "number"
               }
             }
           ]
@@ -2560,7 +2565,7 @@
           "members": [
             {
               "type": "FIELD",
-              "name": "paren",
+              "name": "lparen",
               "content": {
                 "type": "STRING",
                 "value": "("
@@ -2576,7 +2581,7 @@
             },
             {
               "type": "FIELD",
-              "name": "paren",
+              "name": "rparen",
               "content": {
                 "type": "STRING",
                 "value": ")"
@@ -2589,7 +2594,7 @@
           "members": [
             {
               "type": "FIELD",
-              "name": "paren",
+              "name": "lparen",
               "content": {
                 "type": "STRING",
                 "value": "("
@@ -2615,13 +2620,18 @@
               "type": "FIELD",
               "name": "value",
               "content": {
-                "type": "SYMBOL",
-                "name": "number"
+                "type": "ALIAS",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_list_def_number"
+                },
+                "named": true,
+                "value": "number"
               }
             },
             {
               "type": "FIELD",
-              "name": "paren",
+              "name": "rparen",
               "content": {
                 "type": "STRING",
                 "value": ")"
@@ -2634,7 +2644,7 @@
           "members": [
             {
               "type": "FIELD",
-              "name": "paren",
+              "name": "lparen",
               "content": {
                 "type": "STRING",
                 "value": "("
@@ -2650,7 +2660,7 @@
             },
             {
               "type": "FIELD",
-              "name": "paren",
+              "name": "rparen",
               "content": {
                 "type": "STRING",
                 "value": ")"
@@ -2668,13 +2678,22 @@
               "type": "FIELD",
               "name": "value",
               "content": {
-                "type": "SYMBOL",
-                "name": "number"
+                "type": "ALIAS",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_list_def_number"
+                },
+                "named": true,
+                "value": "number"
               }
             }
           ]
         }
       ]
+    },
+    "_list_def_number": {
+      "type": "PATTERN",
+      "value": "\\d+"
     },
     "expr": {
       "type": "CHOICE",

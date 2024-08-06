@@ -1353,6 +1353,16 @@
     "type": "list_value_def",
     "named": true,
     "fields": {
+      "lparen": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "(",
+            "named": false
+          }
+        ]
+      },
       "name": {
         "multiple": false,
         "required": true,
@@ -1373,14 +1383,10 @@
           }
         ]
       },
-      "paren": {
-        "multiple": true,
+      "rparen": {
+        "multiple": false,
         "required": false,
         "types": [
-          {
-            "type": "(",
-            "named": false
-          },
           {
             "type": ")",
             "named": false

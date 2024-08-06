@@ -594,28 +594,30 @@ module.exports = grammar({
       seq(
         field('name', $.identifier),
         field('op', '='),
-        field('value', $.number),
+        field('value', alias($._list_def_number, $.number)),
       ),
       seq(
-        field('paren', '('),
+        field('lparen', '('),
         field('name', $.identifier),
-        field('paren', ')'),
+        field('rparen', ')'),
       ),
       seq(
-        field('paren', '('),
+        field('lparen', '('),
         field('name', $.identifier),
         field('op', '='),
-        field('value', $.number),
-        field('paren', ')'),
+        field('value', alias($._list_def_number, $.number)),
+        field('rparen', ')'),
       ),
       seq(
-        field('paren', '('),
+        field('lparen', '('),
         field('name', $.identifier),
-        field('paren', ')'),
+        field('rparen', ')'),
         field('op', '='),
-        field('value', $.number),
+        field('value', alias($._list_def_number, $.number)),
       ),
     ),
+
+    _list_def_number: _ => /\d+/,  // weird bug: Using the actual $.number regex (/\d+(\.\d+)?/) leads to the number containing the leading whitespace. I don't get it.
 
     // we create two sets of "expressions": One named for the actual expressions,
     ...make_expr(named = true),
