@@ -1,5 +1,4 @@
 let mark = rule => token(prec(1, rule));
-let keyword = str => alias(RegExp(str + '\\s'), str);
 
 // The Ink docs get very specific about which Unicode they allow.
 // But just saying Letters and Numbers is so much simpler. This should be fine.
@@ -141,9 +140,10 @@ function make_text(with_leading_whitespace = false) {
     ? / *[^\s\{\}\[\]#\-<>/|\\]+ */
     :   /[^\s\{\}\[\]#\-<>/|\\]+ */;
 
-  return _ => prec.right(repeat1(choice(
+  return _ => prec.right(-1, repeat1(choice(
     '-', '<', '>', '/',  // individual divert, thread or comment characters
     '[', ']', // square brackets outside of choices are fine
+    'LIST', 'INCLUDE', 'TODO', 'VAR', 'GLOBAL', 'temp',  // keywords, which for some reason don't get recognized by the word_regex and cause errors for text like `LISTED`
     // escaped special chars:
     '\\[', '\\]',
     '\\{', '\\}',
@@ -175,8 +175,7 @@ module.exports = grammar({
   ],
 
   extras: $ => [
-    /[ \t\r]+/, // we count carriage return as a non-linebreak, because that's the correct way of interpreting it. ╭∩╮(ಠ_ಠ)╭∩╮
-    /[\v\f]/,
+    $._space,
     $._newline,  // Very odd. Just writing '\n' here changes somethiG and tests fail. BUG?
     $.line_comment,
     $.block_comment,
@@ -544,7 +543,7 @@ module.exports = grammar({
     ),
     
     temp: $ => seq(
-      keyword('temp'),
+      'temp', $._space,
       field('name', $.identifier),
       field('op', "="),
       field('value', $.expr)
@@ -562,26 +561,30 @@ module.exports = grammar({
 
     // Let's just accept any old characters for the path. We don't have to do anything with it …
     include: $ => seq(
-      field('keyword', keyword('INCLUDE')),
+      field('keyword', 'INCLUDE'),
+      $._space,
       field('path', alias(/[^\n]+/, $.path))
     ),
 
     external: $ => seq(
-      field('keyword', keyword('EXTERNAL')),
+      field('keyword', 'EXTERNAL'),
+      $._space,
       field('name', $.identifier),
       field('params', $.params),
     ),
 
     global: $ => seq(
       field('keyword', $._global_keyword),
+      $._space,
       field('name', $.identifier),
       field('op', '='),
       field('value', $.expr),
     ),
-    _global_keyword: $ => choice(keyword('VAR'), keyword('CONST')),
+    _global_keyword: _ => choice('VAR', 'CONST'),
 
     list: $ => seq(
-      field('keyword', keyword('LIST')),
+      field('keyword', 'LIST'),
+      $._space,
       field('name', $.identifier),
       field('op', '='),
       field('values', $.list_value_defs),
@@ -631,6 +634,8 @@ module.exports = grammar({
     ),
 
     _newline: _ => '\n',
+
+    _space: _ => /[ \t\r]+/, // we count carriage return as a non-linebreak, because that's the correct way of interpreting it. ╭∩╮(ಠ_ಠ)╭∩╮
 
   },
 

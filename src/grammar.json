@@ -513,7 +513,7 @@
     },
     "text": {
       "type": "PREC_RIGHT",
-      "value": 0,
+      "value": -1,
       "content": {
         "type": "REPEAT1",
         "content": {
@@ -542,6 +542,30 @@
             {
               "type": "STRING",
               "value": "]"
+            },
+            {
+              "type": "STRING",
+              "value": "LIST"
+            },
+            {
+              "type": "STRING",
+              "value": "INCLUDE"
+            },
+            {
+              "type": "STRING",
+              "value": "TODO"
+            },
+            {
+              "type": "STRING",
+              "value": "VAR"
+            },
+            {
+              "type": "STRING",
+              "value": "GLOBAL"
+            },
+            {
+              "type": "STRING",
+              "value": "temp"
             },
             {
               "type": "STRING",
@@ -584,7 +608,7 @@
     },
     "_text_with_ws": {
       "type": "PREC_RIGHT",
-      "value": 0,
+      "value": -1,
       "content": {
         "type": "REPEAT1",
         "content": {
@@ -613,6 +637,30 @@
             {
               "type": "STRING",
               "value": "]"
+            },
+            {
+              "type": "STRING",
+              "value": "LIST"
+            },
+            {
+              "type": "STRING",
+              "value": "INCLUDE"
+            },
+            {
+              "type": "STRING",
+              "value": "TODO"
+            },
+            {
+              "type": "STRING",
+              "value": "VAR"
+            },
+            {
+              "type": "STRING",
+              "value": "GLOBAL"
+            },
+            {
+              "type": "STRING",
+              "value": "temp"
             },
             {
               "type": "STRING",
@@ -2180,13 +2228,12 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "ALIAS",
-          "content": {
-            "type": "PATTERN",
-            "value": "temp\\s"
-          },
-          "named": false,
+          "type": "STRING",
           "value": "temp"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_space"
         },
         {
           "type": "FIELD",
@@ -2322,14 +2369,13 @@
           "type": "FIELD",
           "name": "keyword",
           "content": {
-            "type": "ALIAS",
-            "content": {
-              "type": "PATTERN",
-              "value": "INCLUDE\\s"
-            },
-            "named": false,
+            "type": "STRING",
             "value": "INCLUDE"
           }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_space"
         },
         {
           "type": "FIELD",
@@ -2353,14 +2399,13 @@
           "type": "FIELD",
           "name": "keyword",
           "content": {
-            "type": "ALIAS",
-            "content": {
-              "type": "PATTERN",
-              "value": "EXTERNAL\\s"
-            },
-            "named": false,
+            "type": "STRING",
             "value": "EXTERNAL"
           }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_space"
         },
         {
           "type": "FIELD",
@@ -2392,6 +2437,10 @@
           }
         },
         {
+          "type": "SYMBOL",
+          "name": "_space"
+        },
+        {
           "type": "FIELD",
           "name": "name",
           "content": {
@@ -2421,21 +2470,11 @@
       "type": "CHOICE",
       "members": [
         {
-          "type": "ALIAS",
-          "content": {
-            "type": "PATTERN",
-            "value": "VAR\\s"
-          },
-          "named": false,
+          "type": "STRING",
           "value": "VAR"
         },
         {
-          "type": "ALIAS",
-          "content": {
-            "type": "PATTERN",
-            "value": "CONST\\s"
-          },
-          "named": false,
+          "type": "STRING",
           "value": "CONST"
         }
       ]
@@ -2447,14 +2486,13 @@
           "type": "FIELD",
           "name": "keyword",
           "content": {
-            "type": "ALIAS",
-            "content": {
-              "type": "PATTERN",
-              "value": "LIST\\s"
-            },
-            "named": false,
+            "type": "STRING",
             "value": "LIST"
           }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_space"
         },
         {
           "type": "FIELD",
@@ -4300,16 +4338,16 @@
     "_newline": {
       "type": "STRING",
       "value": "\n"
+    },
+    "_space": {
+      "type": "PATTERN",
+      "value": "[ \\t\\r]+"
     }
   },
   "extras": [
     {
-      "type": "PATTERN",
-      "value": "[ \\t\\r]+"
-    },
-    {
-      "type": "PATTERN",
-      "value": "[\\v\\f]"
+      "type": "SYMBOL",
+      "name": "_space"
     },
     {
       "type": "SYMBOL",

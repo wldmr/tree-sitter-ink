@@ -2676,6 +2676,10 @@
     "named": false
   },
   {
+    "type": "GLOBAL",
+    "named": false
+  },
+  {
     "type": "INCLUDE",
     "named": false
   },
