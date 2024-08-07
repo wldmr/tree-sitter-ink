@@ -54,7 +54,15 @@ I was outside, and I {some_bool == true:liked|hated} it.
 //                                                                ^ embedded (only the first square bracket in a choice is recognized)
 * * I did some chores
     <- chores
-* * I lay on my {&lazy|stupid|fat} derrière.
+* * I lay on my {&     lazy    |stupid|fat}     derrière.
+//  ^ embedded
+//                ^ embedded (leading whitespace in text)
+//                            ^ embedded (trailing whitespace in text)
+//                                         ^ embedded (leading whitespace in text again)
+* * I lay on my {   lazy but stupid   |  stupid  }     derrière.
+//             ^ embedded
+//                ^ embedded (leading whitespace in text; alternatives are complicated so we test them specifically)
+//                                 ^ embedded (trailing whitespace in text)
 - - Ah … better.
 // <- markup.list.unnumbered
 //^ markup.list.unnumbered
