@@ -140,7 +140,7 @@ function make_text(with_leading_whitespace = false) {
     ? / *[^\s\{\}\[\]#\-<>/|\\]+ */
     :   /[^\s\{\}\[\]#\-<>/|\\]+ */;
 
-  return _ => prec.right(-1, repeat1(choice(
+  return _ => prec.right(repeat1(choice(
     '-', '<', '>', '/',  // individual divert, thread or comment characters
     '[', ']', // square brackets outside of choices are fine
     'LIST', 'INCLUDE', 'TODO', 'VAR', 'GLOBAL', 'temp',  // keywords, which for some reason don't get recognized by the word_regex and cause errors for text like `LISTED`
@@ -175,7 +175,8 @@ module.exports = grammar({
   ],
 
   extras: $ => [
-    $._space,
+    // using $._space here prevents from whitespace being recognized as part of text for some godforsaken reason. So we use the explicit regex:
+    /[ \t\r]+/, // this must be different from $._space, otherwise it's like we wrote $._space here.
     $._newline,  // Very odd. Just writing '\n' here changes somethiG and tests fail. BUG?
     $.line_comment,
     $.block_comment,
@@ -635,7 +636,7 @@ module.exports = grammar({
 
     _newline: _ => '\n',
 
-    _space: _ => /[ \t\r]+/, // we count carriage return as a non-linebreak, because that's the correct way of interpreting it. ╭∩╮(ಠ_ಠ)╭∩╮
+    _space: _ => /[ \t]+/,
 
   },
 

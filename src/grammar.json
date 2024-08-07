@@ -513,7 +513,7 @@
     },
     "text": {
       "type": "PREC_RIGHT",
-      "value": -1,
+      "value": 0,
       "content": {
         "type": "REPEAT1",
         "content": {
@@ -608,7 +608,7 @@
     },
     "_text_with_ws": {
       "type": "PREC_RIGHT",
-      "value": -1,
+      "value": 0,
       "content": {
         "type": "REPEAT1",
         "content": {
@@ -4341,13 +4341,13 @@
     },
     "_space": {
       "type": "PATTERN",
-      "value": "[ \\t\\r]+"
+      "value": "[ \\t]+"
     }
   },
   "extras": [
     {
-      "type": "SYMBOL",
-      "name": "_space"
+      "type": "PATTERN",
+      "value": "[ \\t\\r]+"
     },
     {
       "type": "SYMBOL",
