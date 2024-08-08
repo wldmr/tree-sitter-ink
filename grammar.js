@@ -128,31 +128,6 @@ function make_expr(named = true) {
 }
 
 
-/*
-Whitespace in text is significant (multiple pieces of text can be glued together
-over multiple "paragraphs", choices, diverts, etc.).
-
-However, in some places we don't count leading spaces as part of the content.
-This chiefly happens at the beginning of paragraphs, choices, etc.
-*/
-function make_text(with_leading_whitespace = false) {
-  let word_regex = with_leading_whitespace
-    ? / *[^\s\{\}\[\]#\-<>/|\\]+ */
-    :   /[^\s\{\}\[\]#\-<>/|\\]+ */;
-
-  return _ => prec.right(repeat1(choice(
-    '-', '<', '>', '/',  // individual divert, thread or comment characters
-    '[', ']', // square brackets outside of choices are fine
-    'LIST', 'INCLUDE', 'TODO', 'VAR', 'GLOBAL', 'temp',  // keywords, which for some reason don't get recognized by the word_regex and cause errors for text like `LISTED`
-    // escaped special chars:
-    '\\[', '\\]',
-    '\\{', '\\}',
-    '\\|', '\\#',
-    token(prec(-1, word_regex)),
-  )));
-}
-
-
 /// Separate every two occurrences of `rule` by an occurrence of `sep`. `rule` has to occurr at least once.
 function sepBy1(sep, rule) {
   return seq(rule, repeat(seq(sep, rule)));
@@ -307,8 +282,16 @@ module.exports = grammar({
 
     thread: $ => seq($._thread_mark, field('target', choice($.identifier, $.call))),
 
-    text: make_text(with_leading_whitespace = false),
-    _text_with_ws: make_text(with_leading_whitespace = true),
+    text: _ =>  prec.right(repeat1(choice(
+      '-', '<', '>', '/',  // individual divert, thread or comment characters
+      '[', ']', // square brackets outside of choices are fine
+      'LIST', 'INCLUDE', 'TODO', 'VAR', 'GLOBAL', 'temp',  // keywords, which for some reason don't get recognized by the word_regex and cause errors for text like `LISTED`
+      // escaped special chars:
+      '\\[', '\\]',
+      '\\{', '\\}',
+      '\\|', '\\#',
+      token(prec(-1, /[^\s\{\}\[\]#\-<>/|\\]/)),
+    ))),
 
     content: $ => prec.right(choice(
       seq(
@@ -339,19 +322,11 @@ module.exports = grammar({
       $._redirect,
     )),
 
-    // First piece of content does not consume leading whitespace, but then the following pieces do.
-    _glue_logic_or_text: $ => prec.right(seq(
-      choice(
-        $.glue,
-        $._logic,
-        $.text,
-      ),
-      repeat(choice(
-        $.glue,
-        $._logic,
-        alias($._text_with_ws, $.text),
-      )),
-    )),
+    _glue_logic_or_text: $ => prec.right(repeat1(choice(
+      $.glue,
+      $._logic,
+      $.text,
+    ))),
 
     _fake_glue_logic_or_text: $ => prec.right(seq(
       choice(
@@ -362,7 +337,7 @@ module.exports = grammar({
       repeat(choice(
         $.glue,
         $._logic,
-        alias($._text_with_ws, $.text),
+        $.text,
       )),
     )),
 

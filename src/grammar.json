@@ -598,102 +598,7 @@
                 "value": -1,
                 "content": {
                   "type": "PATTERN",
-                  "value": "[^\\s\\{\\}\\[\\]#\\-<>/|\\\\]+ *"
-                }
-              }
-            }
-          ]
-        }
-      }
-    },
-    "_text_with_ws": {
-      "type": "PREC_RIGHT",
-      "value": 0,
-      "content": {
-        "type": "REPEAT1",
-        "content": {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "STRING",
-              "value": "-"
-            },
-            {
-              "type": "STRING",
-              "value": "<"
-            },
-            {
-              "type": "STRING",
-              "value": ">"
-            },
-            {
-              "type": "STRING",
-              "value": "/"
-            },
-            {
-              "type": "STRING",
-              "value": "["
-            },
-            {
-              "type": "STRING",
-              "value": "]"
-            },
-            {
-              "type": "STRING",
-              "value": "LIST"
-            },
-            {
-              "type": "STRING",
-              "value": "INCLUDE"
-            },
-            {
-              "type": "STRING",
-              "value": "TODO"
-            },
-            {
-              "type": "STRING",
-              "value": "VAR"
-            },
-            {
-              "type": "STRING",
-              "value": "GLOBAL"
-            },
-            {
-              "type": "STRING",
-              "value": "temp"
-            },
-            {
-              "type": "STRING",
-              "value": "\\["
-            },
-            {
-              "type": "STRING",
-              "value": "\\]"
-            },
-            {
-              "type": "STRING",
-              "value": "\\{"
-            },
-            {
-              "type": "STRING",
-              "value": "\\}"
-            },
-            {
-              "type": "STRING",
-              "value": "\\|"
-            },
-            {
-              "type": "STRING",
-              "value": "\\#"
-            },
-            {
-              "type": "TOKEN",
-              "content": {
-                "type": "PREC",
-                "value": -1,
-                "content": {
-                  "type": "PATTERN",
-                  "value": " *[^\\s\\{\\}\\[\\]#\\-<>/|\\\\]+ *"
+                  "value": "[^\\s\\{\\}\\[\\]#\\-<>/|\\\\]"
                 }
               }
             }
@@ -859,51 +764,24 @@
       "type": "PREC_RIGHT",
       "value": 0,
       "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "glue"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "_logic"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "text"
-              }
-            ]
-          },
-          {
-            "type": "REPEAT",
-            "content": {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "glue"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "_logic"
-                },
-                {
-                  "type": "ALIAS",
-                  "content": {
-                    "type": "SYMBOL",
-                    "name": "_text_with_ws"
-                  },
-                  "named": true,
-                  "value": "text"
-                }
-              ]
+        "type": "REPEAT1",
+        "content": {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "glue"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_logic"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "text"
             }
-          }
-        ]
+          ]
+        }
       }
     },
     "_fake_glue_logic_or_text": {
@@ -948,13 +826,8 @@
                   "name": "_logic"
                 },
                 {
-                  "type": "ALIAS",
-                  "content": {
-                    "type": "SYMBOL",
-                    "name": "_text_with_ws"
-                  },
-                  "named": true,
-                  "value": "text"
+                  "type": "SYMBOL",
+                  "name": "text"
                 }
               ]
             }
