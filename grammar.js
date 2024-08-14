@@ -82,7 +82,10 @@ function make_expr(named = true) {
 
     [rule('paren')]: $ => prec.left(15, seq('(', $[rule('expr')], ')')),
     [rule('unary')]: $ => prec.left(14, seq(
-      field('op', choice('not', '!', '-')),
+      field('op', choice(
+        'not',
+        mark('!'),   // without the higher precedence, `* {!condition} choice` is a parse error
+        '-')),
       field('right', $[rule('expr')])
     )),
     [rule('postfix')]: $ => prec.left(13, seq(

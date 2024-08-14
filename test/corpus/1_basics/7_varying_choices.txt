@@ -220,7 +220,7 @@
             target: (identifier)))))))
 
 ===
-.AGF. Advanced Conditional Choices: Multiple Choices
+.AGF. Advanced Conditional Choices: Multiple Conditions
 ===
 *	{ not visit_paris } 	[Go to Paris] -> visit_paris
 + 	{ visit_paris } { not bored_of_paris }
@@ -290,6 +290,27 @@
         when_chosen: (content
           redirect: (divert
             target: (identifier)))))))
+
+===
+.AGGa. Corner Case: Exclamation mark at beginning of condition
+===
+* { !visit_paris } {! visit_new_york} -> visit_anywhere
+---
+(ink
+  (content_block
+    (choice_block
+      (choice
+        (choice_marks
+          (choice_mark))
+        (condition
+          (unary
+            (identifier)))
+        (condition
+          (unary
+            (identifier)))
+        (content
+          (divert
+            (identifier)))))))
 
 ===
 .AGH. Knot/stitch labels are actually read counts
