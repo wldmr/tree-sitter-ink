@@ -36,6 +36,7 @@ VAR current_chief_suspect = HASTINGS
         (cond_block
           (cond_arm
             (identifier)
+            (eol)
             (code
               (assignment
                 (identifier)

@@ -71,6 +71,7 @@ LIST primeNumbers = (two = 2), (three) = 3, (five = 5)
             (list_values
               (identifier)
               (identifier)))
+          (eol)
           (paragraph
             (text)))
         (cond_arm
@@ -165,7 +166,8 @@ My favourite dinosaurs are {listWithCommas(favouriteDinosaurs, "all extinct")}.
             (call
               (identifier)
               (args
-                (identifier))))
+                (identifier)))
+            (eol))
           (cond_arm
             (number)
             (eol)

@@ -1209,7 +1209,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "_eol"
+          "name": "_eol_field"
         },
         {
           "type": "CHOICE",
@@ -1254,13 +1254,17 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "TOKEN",
+          "type": "FIELD",
+          "name": "mark",
           "content": {
-            "type": "PREC",
-            "value": 1,
+            "type": "TOKEN",
             "content": {
-              "type": "STRING",
-              "value": "-"
+              "type": "PREC",
+              "value": 1,
+              "content": {
+                "type": "STRING",
+                "value": "-"
+              }
             }
           }
         },

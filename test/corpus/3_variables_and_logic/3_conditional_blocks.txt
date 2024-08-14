@@ -16,6 +16,7 @@
           condition: (binary
             left: (identifier)
             right: (number))
+          eol: (eol)
           (code
             (assignment
               name: (identifier)
@@ -95,7 +96,8 @@
     (paragraph
       (cond_block
         (cond_arm
-          (identifier))
+          (identifier)
+          (eol))
         (cond_arm
           (number)
           (paragraph

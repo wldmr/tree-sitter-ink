@@ -395,14 +395,15 @@ module.exports = grammar({
     )),
     
     _first_cond_arm: $ => seq(
-      field('condition', $.expr), ':', $._eol,
+      field('condition', $.expr), ':',
+      $._eol_field,  // eol NOT optional in first arm
       optional($._then_block)
     ),
     
     cond_arm: $ => prec.right(seq($._if_line, optional($._then_block))),
 
     _if_line: $ => seq(
-      mark('-'),
+      field('mark', mark('-')),
       field('condition', choice($.expr, $.else)),
       ':',
       optional($._eol_field),

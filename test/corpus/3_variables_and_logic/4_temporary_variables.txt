@@ -22,6 +22,7 @@
         content: (cond_block
           arm: (cond_arm
             condition: (identifier)
+            eol: (eol)
             (code
               (postfix
                 left: (identifier)))))))))

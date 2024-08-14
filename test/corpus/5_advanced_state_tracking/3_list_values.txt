@@ -42,6 +42,7 @@ VAR murmurersVolume = quiet
           (binary
             (identifier)
             (identifier))
+          (eol)
           (code
             (postfix
               (identifier)))
@@ -51,6 +52,7 @@ VAR murmurersVolume = quiet
                 (binary
                   (identifier)
                   (identifier))
+                (eol)
                 (code
                   (postfix
                     (identifier)))

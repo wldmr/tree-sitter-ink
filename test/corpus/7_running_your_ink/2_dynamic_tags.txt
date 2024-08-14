@@ -86,6 +86,7 @@ I push the door. # door_{door ? locked:
             (binary
               (identifier)
               (identifier))
+            (eol)
             (paragraph
               (glue)
               (text)

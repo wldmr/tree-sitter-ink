@@ -681,6 +681,16 @@
             "named": true
           }
         ]
+      },
+      "mark": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "-",
+            "named": false
+          }
+        ]
       }
     },
     "children": {
