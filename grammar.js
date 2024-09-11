@@ -613,7 +613,18 @@ module.exports = grammar({
       field('text', /[^\n]*/),
     ),
 
-    _newline: _ => '\n',
+    _newline: _ => /\n/, /* Having '\n' here results in the parser generation hanging indefinitely.
+
+    There is some weird interaction between literals (`'\n'`) and anonymous nodes (`$._newline`) in `$._extras`
+    that causes the generator to hang. For some strange reason this didn't bite me when using 0.22, but with 0.23
+    it does affect me.
+
+    See these bugs:
+    
+    - https://github.com/tree-sitter/tree-sitter/issues/1165 <- shows it most clearly
+    - https://github.com/tree-sitter/tree-sitter/issues/1371 <- dup
+    - https://github.com/tree-sitter/tree-sitter/issues/1062 <- dup
+    */
 
     _space: _ => /[ \t]+/,
 

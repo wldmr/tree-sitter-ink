@@ -4227,8 +4227,8 @@
       ]
     },
     "_newline": {
-      "type": "STRING",
-      "value": "\n"
+      "type": "PATTERN",
+      "value": "\\n"
     },
     "_space": {
       "type": "PATTERN",
