@@ -1,12 +1,12 @@
 ===
 .ADA. Knots divert to knots
 ===
-=== back_in_london ===
+== back_in_london ==
 
 We arrived into London at 9.45pm exactly.
 -> hurry_home
 
-=== hurry_home ===
+== hurry_home ==
 We hurried home to Savile Row as fast as we could.
 // For some reason we need an empty line here. Bug in Tree-Sitter or grammar?
 
@@ -33,10 +33,10 @@ We hurried home to Savile Row as fast as we could.
 ===
 .ADB. Diverts are invisible
 ===
-=== hurry_home ===
+== hurry_home ==
 We hurried home to Savile Row -> as_fast_as_we_could
 
-=== as_fast_as_we_could ===
+== as_fast_as_we_could ==
 as fast as we could.
 
 ---
@@ -60,15 +60,15 @@ as fast as we could.
 ===
 .ADC. Glue
 ===
-=== hurry_home ===
+== hurry_home ==
 We hurried home <>
 -> to_savile_row
 
-=== to_savile_row ===
+== to_savile_row ==
 to Savile Row
 -> as_fast_as_we_could
 
-=== as_fast_as_we_could ===
+== as_fast_as_we_could ==
 <> as fast as we could.
 ---
 
@@ -103,13 +103,13 @@ to Savile Row
 ===
 .ADDa. Glue on same line as divert
 ===
-=== hurry_home ===
+== hurry_home ==
 We hurried home <> -> to_savile_row
 
-=== to_savile_row ===
+== to_savile_row ==
 <> to Savile Row -> as_fast_as_we_could
 
-=== as_fast_as_we_could ===
+== as_fast_as_we_could ==
 <> as fast as we could.
 ---
 
@@ -162,7 +162,7 @@ When we <> came home, <> <> <> we went to sleep.
 ===
 We hurried home to Savile Road sevent-<> no wait, it was a number <<>-> what_number
 
-=== what_number ===
+== what_number ==
 20
 
 ---

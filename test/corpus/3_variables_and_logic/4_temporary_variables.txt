@@ -1,7 +1,7 @@
 ===
 .CDA. Temporary variables are for scratch calculations
 ===
-=== near_north_pole ===
+== near_north_pole ==
 	~ temp number_of_warm_things = 0
 	{ blanket:
 		~ number_of_warm_things++
@@ -37,7 +37,7 @@
 *	[Accuse myself]
 		-> accuse("myself")
 
-=== accuse(who) ===
+== accuse(who) ==
 	"I accuse {who}!" Poirot declared.
 	"Really?" Japp replied. "{who == "myself":You did it?|{who}?}"
 	"And why not?" Poirot shot back.
@@ -116,15 +116,15 @@
 ===
 .CDC. Sending divert Targets as parameters
 ===
-=== sleeping_in_hut ===
+== sleeping_in_hut ==
 	You lie down and close your eyes.
 	-> generic_sleep (-> waking_in_the_hut)
 
-===	 generic_sleep (-> waking)
+==	 generic_sleep (-> waking)
 	You sleep perchance to dream etc. etc.
 	-> waking
 
-=== waking_in_the_hut
+== waking_in_the_hut
 	You get back to your feet, ready to continue your journey.
 ---
 

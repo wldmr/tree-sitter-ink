@@ -118,7 +118,7 @@
 ===
 .CCD. Example: Context-Relevant Content
 ===
-=== dream ===
+== dream ==
 	{
 		- visited_snakes && not dream_about_snakes:
 			~ fear++

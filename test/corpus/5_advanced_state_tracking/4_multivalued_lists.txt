@@ -116,7 +116,7 @@ LIST favouriteDinosaurs = (stegosaurs), brachiosaur, (anklyosaurus), (pleiosaur)
 
 My favourite dinosaurs are {listWithCommas(favouriteDinosaurs, "all extinct")}.
 
-=== function listWithCommas(list, if_empty)
+== function listWithCommas(list, if_empty)
     {LIST_COUNT(list):
     - 2:
         	{LIST_MIN(list)} and {listWithCommas(list - LIST_MIN(list), if_empty)}

@@ -1,7 +1,7 @@
 ===
 .CBA. Logic
 ===
-=== set_some_variables ===
+== set_some_variables ==
 	~ knows_about_wager = true
 	~ x = (x * x) - (y * y) + c
 	~ y = 2 * x * y

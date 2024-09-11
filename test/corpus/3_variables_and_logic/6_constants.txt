@@ -7,7 +7,7 @@ CONST JAPP = "Japp"
 
 VAR current_chief_suspect = HASTINGS
 
-=== review_evidence ===
+== review_evidence ==
 	{ found_japps_bloodied_glove:
 		~ current_chief_suspect = POIROT
 	}
