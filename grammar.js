@@ -36,7 +36,8 @@ function make_expr(named = true) {
 
   let binop = ($, precedence, ...operators) => prec.left(precedence, seq(
     field('left', $[rule('expr')]),
-    field('op', choice(...operators)),
+    // prevent single operator from being wrapped in a choice, otherwise tree-sitter will annoy us with a warning.
+    field('op', operators.length == 1 ? operators[0] : choice(...operators)),
     field('right', $[rule('expr')]))
   );
 
