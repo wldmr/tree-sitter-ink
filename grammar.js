@@ -156,7 +156,7 @@ module.exports = grammar({
   extras: $ => [
     // using $._space here prevents from whitespace being recognized as part of text for some godforsaken reason. So we use the explicit regex:
     /[ \t\r]+/, // this must be different from $._space, otherwise it's like we wrote $._space here.
-    $._newline,  // Very odd. Just writing '\n' here changes somethiG and tests fail. BUG?
+    '\n',
     $.line_comment,
     $.block_comment,
   ],
@@ -287,7 +287,7 @@ module.exports = grammar({
     thread: $ => seq($._thread_mark, field('target', choice($.identifier, $.call))),
 
     text: _ =>  prec.right(repeat1(choice(
-      '-', '<', '>', '/',  // individual divert, thread or comment characters
+      '-', '<', '>', '/', // individual characters also occurring in divert, thread or comment marks
       '[', ']', // square brackets outside of choices are fine
       'LIST', 'INCLUDE', 'TODO', 'VAR', 'GLOBAL', 'temp',  // keywords, which for some reason don't get recognized by the word_regex and cause errors for text like `LISTED`
       // escaped special chars:
@@ -613,19 +613,6 @@ module.exports = grammar({
       ':',
       field('text', /[^\n]*/),
     ),
-
-    _newline: _ => /\n/, /* Having '\n' here results in the parser generation hanging indefinitely.
-
-    There is some weird interaction between literals (`'\n'`) and anonymous nodes (`$._newline`) in `$._extras`
-    that causes the generator to hang. For some strange reason this didn't bite me when using 0.22, but with 0.23
-    it does affect me.
-
-    See these bugs:
-    
-    - https://github.com/tree-sitter/tree-sitter/issues/1165 <- shows it most clearly
-    - https://github.com/tree-sitter/tree-sitter/issues/1371 <- dup
-    - https://github.com/tree-sitter/tree-sitter/issues/1062 <- dup
-    */
 
     _space: _ => /[ \t]+/,
 
