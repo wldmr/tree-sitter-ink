@@ -403,15 +403,15 @@ bool tree_sitter_ink_external_scanner_scan(
   if (valid_symbols[END_OF_LINE]) {
     MSG("Checking for EO[L|F]\n");
     if (skip_ws_upto_cr(lexer)) {
-      skip(lexer);
+      consume(lexer);
+      mark_end(lexer);  // only mark the first newline as part of the EOL.
       MSG("  at EOL\n");
       while (skip_ws_upto_cr(lexer)) {
-        // consume as many empty lines as possible
+        // skip as many empty lines as possible, but don't mark them as part of the match
         MSG("  … one more line …\n");
         skip(lexer);
       };
       lexer->result_symbol = END_OF_LINE;
-      mark_end(lexer);
       return true;
     } else if (is_eof(lexer)) {
       MSG("  at EOF\n");
