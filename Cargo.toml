@@ -16,22 +16,8 @@ include = ["bindings/rust/*", "grammar.js", "queries/*", "src/*"]
 [lib]
 path = "bindings/rust/lib.rs"
 
-[features]
-type-sitter = ["dep:rust-format", "dep:type-sitter-gen", "dep:type-sitter-lib"]
-
 [dependencies]
 tree-sitter-language = "0.1.0"
 
-[dependencies.type-sitter-lib]
-git = "https://github.com/wldmr/type-sitter.git"
-branch = "3-replacement-names-clash"
-optional = true
-
 [build-dependencies]
 cc = "1.0.87"
-rust-format = { version = "0.3.4", optional = true }
-
-[build-dependencies.type-sitter-gen]
-git = "https://github.com/wldmr/type-sitter.git"
-branch = "3-replacement-names-clash"
-optional = true

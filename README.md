@@ -57,9 +57,3 @@ conditional text, and similar-looking normal text in alternatives:
 
 In addition, tree-sitter allows for not just highlighting, but also source code navigation, indenting, etc.
 With this, advanced editor support is possible for multiple editors.
-
-## Features for the Rust crate
-
-The rust crate exports a typed syntax tree based on [type-sitter][] when the `type-sitter` feature is enabled.
-
-[type-sitter]: https://github.com/Jakobeha/type-sitter
