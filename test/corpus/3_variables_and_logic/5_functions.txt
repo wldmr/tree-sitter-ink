@@ -1,13 +1,13 @@
 ===
 .CEA. Defining and calling functions
 ===
-=== function say_yes_to_everything ===
+== function say_yes_to_everything
 	~ return true
 
-=== function lerp(a, b, k) ===
+== function lerp(a, b, k)
 	~ return ((b - a) * k) + a
 
-=== and_now_for_some_content ===
+== and_now_for_some_content
 ~ x = lerp(2, 8, 0.3)
 
 *	{say_yes_to_everything()} 'Yes.'
@@ -68,7 +68,7 @@
 ===
 .CEB. Parameters can be passed by reference
 ===
-=== function alter(ref x, k) ===
+== function alter(ref x, k)
 	~ x = x + k
 ---
 

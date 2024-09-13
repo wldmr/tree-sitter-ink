@@ -21,8 +21,7 @@ See the [`queries/editors`](queries/editors/) directory. If your editor is suppo
 the corresponding subfolder should contain everything you need.
 
 > [!NOTE]
-> If you'd like to see your editor supported, please get in touch.
-> I probably won't do it myself, but PRs are always welcome.
+> If you'd like to see your editor supported, feel free to open a PR.
 
 - [ ] Vim
 - [ ] Neovim
@@ -46,12 +45,14 @@ conditional text, and similar-looking normal text in alternatives:
 // Conditional text:
 {blofeld and old: I saw that old git,|Dunno,} I said.
 /*       ^^^ `and` is an operator, therefore
- --------------- <- all this is an expression */
+ |-------------| <- all this is an expression
+|-------------------------------------------| <- and this is conditional text */
 
 // Alternative text:
 {blofeld is old: and that's a fact,|I already told you about his age,} I said.
 /*       ^^ `is` is *not* an operator, therefore
- ---------------------------------- <- all this is just text */
+ |--------------------------------| <- all this is just text
+|--------------------------------------------------------------------| <- and this is a _sequence_ (a type of alternative text) */
 ```
 
 In addition, tree-sitter allows for not just highlighting, but also source code navigation, indenting, etc.

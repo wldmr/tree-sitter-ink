@@ -126,7 +126,7 @@ Hello [World]
         content: (text)))))
 
 ===
-.ABC. Corner Case: Completely Empty Choice
+.ABCa. Corner Case: Completely Empty Choice
 ===
 *
 * choice 2

@@ -3,7 +3,7 @@
 ===
 // vvv Whitespace before and  vvv after knot definitions is fine (note the trailing spaces).
 
-       === back_in_london ===    
+       == back_in_london ==    
 We arrived into London at 9.45pm exactly.
 
 == bottom_knot // only two '='s and no closing mark: fine
@@ -32,7 +32,7 @@ So, more text I guess.
 ===
 -> top_knot
 
-=== top_knot ===
+== top_knot ==
 Hello world!
 ---
 

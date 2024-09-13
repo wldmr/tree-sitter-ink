@@ -80,7 +80,7 @@
 ===
 .AIC. came_from
 ===
-=== function came_from(-> x)
+== function came_from(-> x)
 	~ return TURNS_SINCE(x) == 0
 
 ---
