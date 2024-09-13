@@ -212,9 +212,6 @@ bool skip_ws_upto_cr(TSLexer *lexer) {
 }
 
 /// Set `token` as the lexer result and add `level` to the `scanner` block hierarchy.
-///
-/// Advances the `lexer` by one if at a carriage return, because we want all blocks to start and end at column 0.
-/// That way, selecting blocks always grabs complete lines.
 bool start_block(TSLexer *lexer, Scanner *scanner, Token token, BlockLevel level) {
   lexer->result_symbol = token;
   array_push(&scanner->blocks, level);
@@ -222,8 +219,6 @@ bool start_block(TSLexer *lexer, Scanner *scanner, Token token, BlockLevel level
 }
 
 /// Set `token` as the lexer result and pop/discard the topmest element from the `scanner`'s block hierarchy.
-///
-/// Advances the lexer by one if at a carriage return (like `start_block()`).
 bool end_block(TSLexer *lexer, Scanner *scanner, Token token) {
   lexer->result_symbol = token;
   (void) array_pop(&scanner->blocks);  // cast to void to shut up warnings about unused values.
