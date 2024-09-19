@@ -12,8 +12,8 @@ So, more text I guess.
 ---
 
 (ink
-  (line_comment)
   knot: (knot_block
+    (line_comment)
     header: (knot
       name: (identifier))
     content: (content_block

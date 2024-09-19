@@ -43,6 +43,39 @@
           content: (text))))))
 
 ===
+.AFAa. Comments belong to Knot/Stitch blocks that follow
+===
+// knot comment
+== the_orient_express ==
+
+// knot content comment
+knot content
+
+// stitch comment
+= in_first_class
+
+// stitch content comment
+stitch content
+---
+(ink
+  (knot_block
+    (line_comment)
+    (knot
+      (identifier))
+    (line_comment)
+    (content_block
+      (paragraph
+        (text)))
+    (stitch_block
+      (line_comment)
+      (stitch
+        (identifier))
+      (line_comment)
+      (content_block
+        (paragraph
+          (text))))))
+
+===
 .AFB. Stitches have unique names
 ===
 *	[Travel in third class]

@@ -436,6 +436,11 @@
     }
   },
   {
+    "type": "block_comment",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "call",
     "named": true,
     "fields": {
@@ -1312,6 +1317,11 @@
         ]
       }
     }
+  },
+  {
+    "type": "line_comment",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "list",
@@ -2598,6 +2608,10 @@
     "named": false
   },
   {
+    "type": "*/",
+    "named": false
+  },
+  {
     "type": "+",
     "named": false
   },
@@ -2639,6 +2653,10 @@
   },
   {
     "type": "/",
+    "named": false
+  },
+  {
+    "type": "/*",
     "named": false
   },
   {
@@ -2750,8 +2768,8 @@
     "named": false
   },
   {
-    "type": "block_comment",
-    "named": true
+    "type": "block_comment_line",
+    "named": false
   },
   {
     "type": "choice_mark",
@@ -2792,10 +2810,6 @@
   {
     "type": "hasnt",
     "named": false
-  },
-  {
-    "type": "line_comment",
-    "named": true
   },
   {
     "type": "mod",

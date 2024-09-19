@@ -75,6 +75,10 @@
         "type": "SEQ",
         "members": [
           {
+            "type": "SYMBOL",
+            "name": "_knot_block_start"
+          },
+          {
             "type": "FIELD",
             "name": "header",
             "content": {
@@ -108,6 +112,10 @@
                 "name": "stitch_block"
               }
             }
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_knot_block_end"
           }
         ]
       }
@@ -118,6 +126,10 @@
       "content": {
         "type": "SEQ",
         "members": [
+          {
+            "type": "SYMBOL",
+            "name": "_stitch_block_start"
+          },
           {
             "type": "FIELD",
             "name": "header",
@@ -141,6 +153,10 @@
                 }
               ]
             }
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_stitch_block_end"
           }
         ]
       }
@@ -4189,6 +4205,69 @@
     "_space": {
       "type": "PATTERN",
       "value": "[ \\t]+"
+    },
+    "line_comment": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "\\/\\/[^\\n]*"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_eol"
+        }
+      ]
+    },
+    "block_comment": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "/*"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "ALIAS",
+                "content": {
+                  "type": "PATTERN",
+                  "value": "[^\\n]"
+                },
+                "named": false,
+                "value": "block_comment_line"
+              }
+            ]
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "*/"
+        }
+      ]
+    },
+    "_comments": {
+      "type": "PREC_RIGHT",
+      "value": 0,
+      "content": {
+        "type": "REPEAT1",
+        "content": {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "line_comment"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "block_comment"
+            }
+          ]
+        }
+      }
     }
   },
   "extras": [
@@ -4277,11 +4356,19 @@
     },
     {
       "type": "SYMBOL",
-      "name": "line_comment"
+      "name": "_knot_block_start"
     },
     {
       "type": "SYMBOL",
-      "name": "block_comment"
+      "name": "_knot_block_end"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_stitch_block_start"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_stitch_block_end"
     },
     {
       "type": "SYMBOL",
