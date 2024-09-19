@@ -142,14 +142,23 @@ module.exports = grammar({
 
   externals: $ => [
     $._eol,
-    $.line_comment,
-    $.block_comment,
+    // We have these explicit block markers so that blocks can actually start and end _before_
+    // the marks that introduce them (by doing a lookahead in the external scanner).
+    // This is so that a block can include any preceding comments,
+    // and also so that a block doesn't include any unecessary intervening whitespace.
+    // These block markers are zero width.
+    //
+    // We could probably get away with fewer block markers, but we _must_ at least distinguish
+    // gather and choice blocks because gathers can't occurr in alternatives and if/switch blocks.
+    // So it seems cleaner to just very specific right away.
+    $._knot_block_start,
+    $._knot_block_end,
+    $._stitch_block_start,
+    $._stitch_block_end,
     $._choice_block_start,
     $._choice_block_end,
     $._gather_block_start,
     $._gather_block_end,
-    $.choice_mark,
-    $.gather_mark,
     $._error_sentinel,
   ],
 
@@ -210,14 +219,18 @@ module.exports = grammar({
     content_block: $ => repeat1($._content_item),
 
     knot_block: $ => prec.right(seq(
+      $._knot_block_start,
       field('header', $.knot),
       field('content', optional($.content_block)),
       field('stitch', repeat($.stitch_block)),
+      $._knot_block_end,
     )),
 
     stitch_block: $ => prec.right(seq(
+      $._stitch_block_start,
       field('header', $.stitch),
       field('content', optional($.content_block)),
+      $._stitch_block_end,
     )),
 
     choice_block: $ => prec.right(seq(
@@ -497,6 +510,8 @@ module.exports = grammar({
 
     _knot_mark: _ => alias(mark(/==+/), '=='), // TODO: Be sure to document that we collapse all knot marks to this "literal" (to distinguish it from the comparison operator)
     _stitch_mark: _ => alias(mark('='), '='),
+    choice_mark: _ => choice(alias(mark('*'), '*'), alias(mark('+'), '+')),
+    gather_mark: _ => alias(mark('-'), '-'),
     _divert_mark: _ => alias(mark('->'), '->'),
     _tunnel_return: _ => alias(mark('->->'), '->->'),
     _thread_mark: _ => alias(mark('<-'), '<-'),
@@ -615,6 +630,14 @@ module.exports = grammar({
     ),
 
     _space: _ => /[ \t]+/,
+
+    line_comment: $ => seq(/\/\/[^\n]*/, $._eol),
+    block_comment: $ => seq(
+      '/*',
+      repeat(seq(alias(/[^\n]/, 'block_comment_line', $._eol))),
+      '*/'
+    ),
+    _comments: $ => prec.right(repeat1(choice($.line_comment, $.block_comment))),
 
   },
 
