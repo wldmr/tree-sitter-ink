@@ -141,7 +141,9 @@ module.exports = grammar({
   name: 'ink',
 
   externals: $ => [
+    // This token lives in the external scanner so that we can treat end-of-line and end-of-file uniformly.
     $._eol,
+
     // We have these explicit block markers so that blocks can actually start and end _before_
     // the marks that introduce them (by doing a lookahead in the external scanner).
     // This is so that a block can include any preceding comments,
@@ -159,6 +161,13 @@ module.exports = grammar({
     $._choice_block_end,
     $._gather_block_start,
     $._gather_block_end,
+
+    // We have to emit these marks from the scanner, that we can update the scanner state.
+    // The scanner state keeps track of how many marks still need to be emitted after a block start.
+    // But that state is only persisted if the scan function returns `true`.
+    $.choice_mark,
+    $.gather_mark,
+
     $._error_sentinel,
   ],
 
@@ -510,8 +519,6 @@ module.exports = grammar({
 
     _knot_mark: _ => alias(mark(/==+/), '=='), // TODO: Be sure to document that we collapse all knot marks to this "literal" (to distinguish it from the comparison operator)
     _stitch_mark: _ => alias(mark('='), '='),
-    choice_mark: _ => choice(alias(mark('*'), '*'), alias(mark('+'), '+')),
-    gather_mark: _ => alias(mark('-'), '-'),
     _divert_mark: _ => alias(mark('->'), '->'),
     _tunnel_return: _ => alias(mark('->->'), '->->'),
     _thread_mark: _ => alias(mark('<-'), '<-'),

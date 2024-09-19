@@ -13,10 +13,12 @@ typedef enum {
   CHOICE_BLOCK_END,
   GATHER_BLOCK_START,
   GATHER_BLOCK_END,
+  CHOICE_MARK,
+  GATHER_MARK,
   ERROR,
 } Token;
 
-#define DEBUG 1
+#define DEBUG 0
 // From this badass: https://stackoverflow.com/a/1644898
 // and this https://www.reddit.com/r/C_Programming/comments/jq8zsq/gblfq5y/ for the ## __VA_ARGS bit
 #define DBG(fmt, ...) \
@@ -41,6 +43,8 @@ void print_valid_symbols(const bool *valid_symbols) {
   MSG(" %s CHOICE_BLOCK_END   \n", valid_symbols[CHOICE_BLOCK_END]   ? "*" : "-");
   MSG(" %s GATHER_BLOCK_START \t", valid_symbols[GATHER_BLOCK_START] ? "*" : "-");
   MSG(" %s GATHER_BLOCK_END   \n", valid_symbols[GATHER_BLOCK_END]   ? "*" : "-");
+  MSG(" %s CHOICE_MARK        \t", valid_symbols[CHOICE_MARK]        ? "*" : "-");
+  MSG(" %s GATHER_MARK        \n", valid_symbols[GATHER_MARK]        ? "*" : "-");
   MSG("------------------\n");
 }
 
@@ -84,7 +88,7 @@ typedef struct BlockInfo {
 
 typedef struct {
   /// When parsing a gather/choice: Number of block chars remaining at current parse position
-  BlockLevel remaining_block_marks;
+  BlockLevel remaining_flow_marks;
 
   /// When parsing a gather/choice: Type of block delimiter currently being parsed
   BlockType block_type;
@@ -94,8 +98,8 @@ typedef struct {
 } Scanner;
 
 void print_scanner_state(Scanner *scanner) {
-  if (scanner->remaining_block_marks > 0)
-    MSG("Scanner: marks type %d ramaining: %d\n", scanner->block_type, scanner->remaining_block_marks);
+  if (scanner->remaining_flow_marks > 0)
+    MSG("Scanner: marks type %d ramaining: %d\n", scanner->block_type, scanner->remaining_flow_marks);
   MSG("Scanner: blocks=");
   for (uint32_t i = 0; i < scanner->blocks.size; i++)
     MSG("%d", *array_get(&scanner->blocks, i));
@@ -130,7 +134,7 @@ int32_t lookahead(TSLexer *lexer) {
 bool skip_char(TSLexer *lexer, char c) {
   MSG("Expecting %c", pretty(c));
   if (lexer->lookahead == c) {
-    MSG(", which we got. Consuming.\n");
+    MSG(", which we got\n");
     skip(lexer);
     return true;
   } else {
@@ -151,7 +155,7 @@ unsigned tree_sitter_ink_external_scanner_serialize(void *payload, char *buffer)
   Scanner *scanner = (Scanner *)payload;
   uint32_t size = 0;
 
-  buffer[size++] = scanner->remaining_block_marks;
+  buffer[size++] = scanner->remaining_flow_marks;
   buffer[size++] = scanner->block_type;
 
   for (uint32_t i = 0; i < scanner->blocks.size && size <= TREE_SITTER_SERIALIZATION_BUFFER_SIZE; i++) {
@@ -172,7 +176,7 @@ void tree_sitter_ink_external_scanner_deserialize(void *payload, const char *buf
   Scanner *scanner = (Scanner *)payload;
 
   // reset all members as per suggestion in the docs
-  scanner->remaining_block_marks = 0;
+  scanner->remaining_flow_marks = 0;
   scanner->block_type = 0;
   array_delete(&scanner->blocks);
 
@@ -181,7 +185,7 @@ void tree_sitter_ink_external_scanner_deserialize(void *payload, const char *buf
   if (buffer != NULL && length > 0) {
     uint32_t size = 0;
 
-    scanner->remaining_block_marks = (BlockLevel) buffer[size++];
+    scanner->remaining_flow_marks = (BlockLevel) buffer[size++];
     scanner->block_type = (BlockType) buffer[size++];
 
     while (size < length)
@@ -385,6 +389,31 @@ bool tree_sitter_ink_external_scanner_scan(
     }
   }
 
+  if (scanner->remaining_flow_marks) {
+    skip_ws(lexer);
+    MSG("Still %d remaining block marks. Trying to emit one.\n", scanner->remaining_flow_marks);
+    bool found_correct_mark = false;
+    int32_t c = lookahead(lexer);
+    if (scanner->block_type == BLOCK_TYPE_CHOICE) {
+      found_correct_mark = c == '*' || c == '+';
+      lexer->result_symbol = CHOICE_MARK;
+    } else if (scanner->block_type == BLOCK_TYPE_GATHER) {
+      found_correct_mark = c == '-';
+      lexer->result_symbol = GATHER_MARK;
+    } else {
+      MSG("Unexpected block type %d while emitting choice/gather marks\n", scanner->block_type);
+      exit(255);
+    }
+    if (found_correct_mark) {
+      consume(lexer);
+      mark_end(lexer);
+      scanner->remaining_flow_marks--;
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   bool is_block_boundary = valid_symbols[KNOT_BLOCK_START]
                         || valid_symbols[KNOT_BLOCK_END]
                         || valid_symbols[STITCH_BLOCK_START]
@@ -429,7 +458,9 @@ bool tree_sitter_ink_external_scanner_scan(
 
       // Remember the marks we're going to emit next.
       scanner->block_type = next_block.type;
-      scanner->remaining_block_marks = next_block.level;
+      scanner->remaining_flow_marks = (next_block.level >= BLOCK_LEVEL_FLOW)
+                                       ? next_block.level - BLOCK_LEVEL_FLOW
+                                       : 0;
 
       if (next_block.type == BLOCK_TYPE_CHOICE && valid_symbols[CHOICE_BLOCK_START]) {
         return start_block(lexer, scanner, CHOICE_BLOCK_START, next_block.level);
