@@ -219,7 +219,7 @@ void skip_ws(TSLexer *lexer) {
 
 /// Skip whitespace until _before_ a carriage return (don't consume it).
 /// Return `true` if ended up at up carriage return, false otherwise.
-bool skip_ws_before_newline(TSLexer *lexer) {
+bool skip_whitspace_to_newline(TSLexer *lexer) {
   while (lookahead(lexer) <= ' ' && lookahead(lexer) != '\n' && !is_eof(lexer))
     skip(lexer);
   return lookahead(lexer) == '\n';
@@ -328,9 +328,9 @@ BlockInfo lookahead_block_start(TSLexer *lexer) {
         break;
       }
       markers += 1;
-      skip_ws_before_newline(lexer);
+      skip_whitspace_to_newline(lexer);  // flow markers can't span newlines
       lookahead_comment(lexer);
-      skip_ws_before_newline(lexer);
+      skip_whitspace_to_newline(lexer);
       c = lookahead(lexer);
     }
   }
@@ -371,14 +371,12 @@ bool tree_sitter_ink_external_scanner_scan(
     return false;
   }
 
-  // Must mark our starting place so that we don't advance the position when doing a lookahead.
-  mark_end(lexer);
   MSG("at '%c' (%d).\n", pretty(lookahead(lexer)), lookahead(lexer));
 
   // Try to end lines (that's always the innermost 'block')
   if (valid_symbols[END_OF_LINE]) {
     MSG("Checking for EO[L|F]\n");
-    if (skip_ws_before_newline(lexer)) {
+    if (skip_whitspace_to_newline(lexer)) {
       MSG("  at EOL\n");
       lexer->result_symbol = END_OF_LINE;
       return true;
@@ -406,7 +404,6 @@ bool tree_sitter_ink_external_scanner_scan(
     }
     if (found_correct_mark) {
       consume(lexer);
-      mark_end(lexer);
       scanner->remaining_flow_marks--;
       return true;
     } else {
@@ -427,9 +424,11 @@ bool tree_sitter_ink_external_scanner_scan(
     MSG("Checking for Block delimiters.\n");
 
     skip_ws(lexer);
+    mark_end(lexer);
     while (lookahead_comment(lexer) != NO_COMMENT_TOKEN) {
       skip_ws(lexer);
     }
+
     BlockLevel current_block_level = *array_back(&scanner->blocks);
     BlockInfo next_block = lookahead_block_start(lexer);
 

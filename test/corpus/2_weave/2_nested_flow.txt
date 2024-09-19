@@ -91,33 +91,6 @@
             (text))))))
 
 ===
-.BBAa. Corner Case: Block comments between choice/gather marks
-===
-* /* you can comment here */ * choice
-- -/* and here */- gather
----
-(ink
-  (content_block
-    (choice_block
-      (choice
-        (choice_marks
-          (choice_mark)
-          (block_comment)
-          (choice_mark))
-        (content
-          (text)))
-      (gather_block
-        (gather
-          (gather_marks
-            (gather_mark)
-            (gather_mark)
-            (block_comment)
-            (gather_mark)))
-          (paragraph
-            (text))))))
-
-
-===
 .BBB. You can nest as many levels as you like
 ===
 -	"Tell us a tale, Captain!"
@@ -212,3 +185,51 @@
           (choice_mark))
         (content
           (text))))))
+
+
+===
+.BBBb. Comments belong to the following choice / gather block
+===
+/* ink comment - does not belong to next element */
+
+content
+
+// choice comment - does belong to next choice
+
+* choice
+
+  /* subchoice comment - belongs to next choice */
+
+  * * sub choice
+
+// comment for next gather
+
+- gather
+---
+(ink
+  (block_comment)
+  (content_block
+    (paragraph
+      (text))
+    (choice_block
+      (line_comment)
+      (choice
+        (choice_marks
+          (choice_mark))
+        (content
+          (text)))
+      (choice_block
+        (block_comment)
+        (choice
+          (choice_marks
+            (choice_mark)
+            (choice_mark))
+          (content
+            (text)))))
+    (gather_block
+      (line_comment)
+      (gather
+        (gather_marks
+          (gather_mark)))
+      (paragraph
+        (text)))))
