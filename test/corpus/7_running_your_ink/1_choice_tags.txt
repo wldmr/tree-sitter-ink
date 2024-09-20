@@ -6,33 +6,32 @@
 ---
 
 (ink
-  content: (content_block
-    (choice_block
-      header: (choice
-        marks: (choice_marks
-          (choice_mark))
-        main: (content
+  (choice_block
+    (choice
+      marks: (choice_marks
+        (choice_mark))
+      main: (content
+        content: (text)
+        tag: (tag
+          content: (text)))))
+  (choice_block
+    (choice
+      marks: (choice_marks
+        (choice_mark))
+      main: (content
+        content: (text)
+        tag: (tag
+          content: (text))
+        tag: (tag
+          content: (text)))
+      choice_only: (choice_only
+        (content
           content: (text)
           tag: (tag
-            content: (text)))))
-    (choice_block
-      header: (choice
-        marks: (choice_marks
-          (choice_mark))
-        main: (content
-          content: (text)
-          tag: (tag
-            content: (text))
-          tag: (tag
-            content: (text)))
-        choice_only: (choice_only
-          (content
-            content: (text)
-            tag: (tag
-              content: (text))))
-        when_chosen: (content
-          content: (text)
-          tag: (tag
-            content: (text))
-          redirect: (divert
-            target: (identifier)))))))
+            content: (text))))
+      when_chosen: (content
+        content: (text)
+        tag: (tag
+          content: (text))
+        redirect: (divert
+          target: (identifier))))))

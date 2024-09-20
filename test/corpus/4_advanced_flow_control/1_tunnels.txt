@@ -31,34 +31,6 @@
     (stitch_block
       (stitch
         (identifier))
-      (content_block
-        (paragraph
-          (text))
-        (choice_block
-          (choice
-            (choice_marks
-              (choice_mark))
-            (choice_only
-              (content
-                (text))))
-          (paragraph
-            (tunnel
-              (divert
-                (identifier))
-              (divert
-                (identifier))
-              (divert
-                (identifier)))))))
-    (stitch_block
-      (stitch
-        (identifier))
-      (content_block
-        (paragraph
-          (text)))))
-  (knot_block
-    (knot
-      (identifier))
-    (content_block
       (paragraph
         (text))
       (choice_block
@@ -71,38 +43,62 @@
         (paragraph
           (tunnel
             (divert
-              (identifier)))))
-      (choice_block
-        (choice
-          (choice_marks
-            (choice_mark))
-          (choice_only
-            (content
-              (text)))))
-      (gather_block
-        (gather
-          (gather_marks
-            (gather_mark)))
-        (paragraph
-          (tunnel)))))
+              (identifier))
+            (divert
+              (identifier))
+            (divert
+              (identifier))))))
+    (stitch_block
+      (stitch
+        (identifier))
+      (paragraph
+        (text))))
   (knot_block
     (knot
       (identifier))
-    (content_block
-      (paragraph
-        (text))
+    (paragraph
+      (text))
+    (choice_block
+      (choice
+        (choice_marks
+          (choice_mark))
+        (choice_only
+          (content
+            (text))))
       (paragraph
         (tunnel
           (divert
-            (identifier))))
+            (identifier)))))
+    (choice_block
+      (choice
+        (choice_marks
+          (choice_mark))
+        (choice_only
+          (content
+            (text)))))
+    (gather_block
+      (gather
+        (gather_marks
+          (gather_mark)))
       (paragraph
-        (text))
-      (paragraph
-        (tunnel
-          (divert
-            (identifier))))
-      (paragraph
-        (tunnel)))))
+        (tunnel))))
+  (knot_block
+    (knot
+      (identifier))
+    (paragraph
+      (text))
+    (paragraph
+      (tunnel
+        (divert
+          (identifier))))
+    (paragraph
+      (text))
+    (paragraph
+      (tunnel
+        (divert
+          (identifier))))
+    (paragraph
+      (tunnel))))
 
 ===
 .DAB. Advanced: Tunnels can return elsewhere
@@ -125,40 +121,37 @@ Suddenly, there is a white light all around you. Fingers lift an eyepiece from y
   (knot_block
     (knot
       (identifier))
-    (content_block
-      (paragraph
-        (tunnel
-          (divert
-            (call
-              (identifier)
-              (args
-                (number))))))
-      (paragraph
-        (text))))
+    (paragraph
+      (tunnel
+        (divert
+          (call
+            (identifier)
+            (args
+              (number))))))
+    (paragraph
+      (text)))
   (knot_block
     (knot
       (identifier)
       (params
         (param
           (identifier))))
-    (content_block
-      (code
-        (assignment
-          (identifier)
-          (identifier)))
-      (paragraph
-        (cond_block
-          (cond_arm
-            (binary
-              (identifier)
-              (number))
-            (eol)
-            (paragraph
-              (tunnel
-                (identifier))))))))
+    (code
+      (assignment
+        (identifier)
+        (identifier)))
+    (paragraph
+      (cond_block
+        (cond_arm
+          (binary
+            (identifier)
+            (number))
+          (eol)
+          (paragraph
+            (tunnel
+              (identifier)))))))
   (knot_block
     (knot
       (identifier))
-    (content_block
-      (paragraph
-        (text)))))
+    (paragraph
+      (text))))

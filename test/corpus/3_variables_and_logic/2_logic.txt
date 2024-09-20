@@ -8,35 +8,34 @@
 ---
 
 (ink
-  knot: (knot_block
-    header: (knot
+  (knot_block
+    (knot
       name: (identifier))
-    content: (content_block
-      (code
-        (assignment
-          name: (identifier)))
-      (code
-        (assignment
-          name: (identifier)
-          value: (binary
-            left: (binary
-              left: (paren
-                (binary
-                  left: (identifier)
-                  right: (identifier)))
-              right: (paren
-                (binary
-                  left: (identifier)
-                  right: (identifier))))
-            right: (identifier))))
-      (code
-        (assignment
-          name: (identifier)
-          value: (binary
-            left: (binary
-              left: (number)
-              right: (identifier))
-            right: (identifier)))))))
+    (code
+      (assignment
+        name: (identifier)))
+    (code
+      (assignment
+        name: (identifier)
+        value: (binary
+          left: (binary
+            left: (paren
+              (binary
+                left: (identifier)
+                right: (identifier)))
+            right: (paren
+              (binary
+                left: (identifier)
+                right: (identifier))))
+          right: (identifier))))
+    (code
+      (assignment
+        name: (identifier)
+        value: (binary
+          left: (binary
+            left: (number)
+            right: (identifier))
+          right: (identifier))))))
 
 ===
 .CBB. Mathematics
@@ -49,14 +48,13 @@
 (ink
   (line_comment)
   (line_comment)
-  content: (content_block
-    (code
-      (assignment
+  (code
+    (assignment
+      name: (identifier)
+      value: (call
         name: (identifier)
-        value: (call
-          name: (identifier)
-          args: (args
-            (number)))))))
+        args: (args
+          (number))))))
 
 ===
 .CBC. String Queries
@@ -69,19 +67,18 @@
 
 (ink
   (line_comment)
-  (content_block
-    (code
-      (return
-        (binary
-          (string)
-          (string))))
-    (code
-      (return
-        (binary
-          (string)
-          (string))))
-    (code
-      (return
-        (binary
-          (string)
-          (string))))))
+  (code
+    (return
+      (binary
+        (string)
+        (string))))
+  (code
+    (return
+      (binary
+        (string)
+        (string))))
+  (code
+    (return
+      (binary
+        (string)
+        (string)))))

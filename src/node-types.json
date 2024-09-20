@@ -94,24 +94,6 @@
     ]
   },
   {
-    "type": "_toplevel_block",
-    "named": true,
-    "subtypes": [
-      {
-        "type": "content_block",
-        "named": true
-      },
-      {
-        "type": "knot_block",
-        "named": true
-      },
-      {
-        "type": "stitch_block",
-        "named": true
-      }
-    ]
-  },
-  {
     "type": "boolean",
     "named": true,
     "subtypes": [
@@ -226,16 +208,6 @@
     "type": "alternatives",
     "named": true,
     "fields": {
-      "content": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "content",
-            "named": true
-          }
-        ]
-      },
       "mark": {
         "multiple": false,
         "required": false,
@@ -258,6 +230,16 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "content",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -559,59 +541,52 @@
   {
     "type": "choice_block",
     "named": true,
-    "fields": {
-      "content": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "choice_block",
-            "named": true
-          },
-          {
-            "type": "code",
-            "named": true
-          },
-          {
-            "type": "external",
-            "named": true
-          },
-          {
-            "type": "gather_block",
-            "named": true
-          },
-          {
-            "type": "global",
-            "named": true
-          },
-          {
-            "type": "include",
-            "named": true
-          },
-          {
-            "type": "list",
-            "named": true
-          },
-          {
-            "type": "paragraph",
-            "named": true
-          },
-          {
-            "type": "todo_comment",
-            "named": true
-          }
-        ]
-      },
-      "header": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "choice",
-            "named": true
-          }
-        ]
-      }
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "choice",
+          "named": true
+        },
+        {
+          "type": "choice_block",
+          "named": true
+        },
+        {
+          "type": "code",
+          "named": true
+        },
+        {
+          "type": "external",
+          "named": true
+        },
+        {
+          "type": "gather_block",
+          "named": true
+        },
+        {
+          "type": "global",
+          "named": true
+        },
+        {
+          "type": "include",
+          "named": true
+        },
+        {
+          "type": "list",
+          "named": true
+        },
+        {
+          "type": "paragraph",
+          "named": true
+        },
+        {
+          "type": "todo_comment",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -740,17 +715,16 @@
   {
     "type": "cond_block",
     "named": true,
-    "fields": {
-      "arm": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "cond_arm",
-            "named": true
-          }
-        ]
-      }
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "cond_arm",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -782,17 +756,17 @@
             "named": true
           }
         ]
-      },
-      "content": {
-        "multiple": true,
-        "required": true,
-        "types": [
-          {
-            "type": "content",
-            "named": true
-          }
-        ]
       }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "content",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -860,53 +834,6 @@
         },
         {
           "type": "text",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "content_block",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "choice_block",
-          "named": true
-        },
-        {
-          "type": "code",
-          "named": true
-        },
-        {
-          "type": "external",
-          "named": true
-        },
-        {
-          "type": "gather_block",
-          "named": true
-        },
-        {
-          "type": "global",
-          "named": true
-        },
-        {
-          "type": "include",
-          "named": true
-        },
-        {
-          "type": "list",
-          "named": true
-        },
-        {
-          "type": "paragraph",
-          "named": true
-        },
-        {
-          "type": "todo_comment",
           "named": true
         }
       ]
@@ -1027,59 +954,52 @@
   {
     "type": "gather_block",
     "named": true,
-    "fields": {
-      "content": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "choice_block",
-            "named": true
-          },
-          {
-            "type": "code",
-            "named": true
-          },
-          {
-            "type": "external",
-            "named": true
-          },
-          {
-            "type": "gather_block",
-            "named": true
-          },
-          {
-            "type": "global",
-            "named": true
-          },
-          {
-            "type": "include",
-            "named": true
-          },
-          {
-            "type": "list",
-            "named": true
-          },
-          {
-            "type": "paragraph",
-            "named": true
-          },
-          {
-            "type": "todo_comment",
-            "named": true
-          }
-        ]
-      },
-      "header": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "gather",
-            "named": true
-          }
-        ]
-      }
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "choice_block",
+          "named": true
+        },
+        {
+          "type": "code",
+          "named": true
+        },
+        {
+          "type": "external",
+          "named": true
+        },
+        {
+          "type": "gather",
+          "named": true
+        },
+        {
+          "type": "gather_block",
+          "named": true
+        },
+        {
+          "type": "global",
+          "named": true
+        },
+        {
+          "type": "include",
+          "named": true
+        },
+        {
+          "type": "list",
+          "named": true
+        },
+        {
+          "type": "paragraph",
+          "named": true
+        },
+        {
+          "type": "todo_comment",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -1177,37 +1097,56 @@
   {
     "type": "ink",
     "named": true,
-    "fields": {
-      "content": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "content_block",
-            "named": true
-          }
-        ]
-      },
-      "knot": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "knot_block",
-            "named": true
-          }
-        ]
-      },
-      "stitch": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "stitch_block",
-            "named": true
-          }
-        ]
-      }
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "choice_block",
+          "named": true
+        },
+        {
+          "type": "code",
+          "named": true
+        },
+        {
+          "type": "external",
+          "named": true
+        },
+        {
+          "type": "gather_block",
+          "named": true
+        },
+        {
+          "type": "global",
+          "named": true
+        },
+        {
+          "type": "include",
+          "named": true
+        },
+        {
+          "type": "knot_block",
+          "named": true
+        },
+        {
+          "type": "list",
+          "named": true
+        },
+        {
+          "type": "paragraph",
+          "named": true
+        },
+        {
+          "type": "stitch_block",
+          "named": true
+        },
+        {
+          "type": "todo_comment",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -1269,37 +1208,56 @@
   {
     "type": "knot_block",
     "named": true,
-    "fields": {
-      "content": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "content_block",
-            "named": true
-          }
-        ]
-      },
-      "header": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "knot",
-            "named": true
-          }
-        ]
-      },
-      "stitch": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "stitch_block",
-            "named": true
-          }
-        ]
-      }
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "choice_block",
+          "named": true
+        },
+        {
+          "type": "code",
+          "named": true
+        },
+        {
+          "type": "external",
+          "named": true
+        },
+        {
+          "type": "gather_block",
+          "named": true
+        },
+        {
+          "type": "global",
+          "named": true
+        },
+        {
+          "type": "include",
+          "named": true
+        },
+        {
+          "type": "knot",
+          "named": true
+        },
+        {
+          "type": "list",
+          "named": true
+        },
+        {
+          "type": "paragraph",
+          "named": true
+        },
+        {
+          "type": "stitch_block",
+          "named": true
+        },
+        {
+          "type": "todo_comment",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -1464,16 +1422,6 @@
     "type": "multiline_alternatives",
     "named": true,
     "fields": {
-      "arm": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "alt_arm",
-            "named": true
-          }
-        ]
-      },
       "type": {
         "multiple": true,
         "required": true,
@@ -1496,6 +1444,16 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "alt_arm",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -1702,27 +1660,52 @@
   {
     "type": "stitch_block",
     "named": true,
-    "fields": {
-      "content": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "content_block",
-            "named": true
-          }
-        ]
-      },
-      "header": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "stitch",
-            "named": true
-          }
-        ]
-      }
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "choice_block",
+          "named": true
+        },
+        {
+          "type": "code",
+          "named": true
+        },
+        {
+          "type": "external",
+          "named": true
+        },
+        {
+          "type": "gather_block",
+          "named": true
+        },
+        {
+          "type": "global",
+          "named": true
+        },
+        {
+          "type": "include",
+          "named": true
+        },
+        {
+          "type": "list",
+          "named": true
+        },
+        {
+          "type": "paragraph",
+          "named": true
+        },
+        {
+          "type": "stitch",
+          "named": true
+        },
+        {
+          "type": "todo_comment",
+          "named": true
+        }
+      ]
     }
   },
   {

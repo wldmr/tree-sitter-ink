@@ -17,9 +17,8 @@
   (knot_block
     (knot
       (identifier))
-    (content_block
-      (code
-        (return))))
+    (code
+      (return)))
   (knot_block
     (knot
       (identifier)
@@ -30,40 +29,38 @@
           (identifier))
         (param
           (identifier))))
-    (content_block
-      (code
-        (return
-          (binary
-            (paren
-              (binary
-                (paren
-                  (binary
-                    (identifier)
-                    (identifier)))
-                (identifier)))
-            (identifier))))))
+    (code
+      (return
+        (binary
+          (paren
+            (binary
+              (paren
+                (binary
+                  (identifier)
+                  (identifier)))
+              (identifier)))
+          (identifier)))))
   (knot_block
     (knot
       (identifier))
-    (content_block
-      (code
-        (assignment
+    (code
+      (assignment
+        (identifier)
+        (call
           (identifier)
+          (args
+            (number)
+            (number)
+            (number)))))
+    (choice_block
+      (choice
+        (choice_marks
+          (choice_mark))
+        (condition
           (call
-            (identifier)
-            (args
-              (number)
-              (number)
-              (number)))))
-      (choice_block
-        (choice
-          (choice_marks
-            (choice_mark))
-          (condition
-            (call
-              (identifier)))
-          (content
-            (text)))))))
+            (identifier)))
+        (content
+          (text))))))
 
 ===
 .CEB. Parameters can be passed by reference
@@ -81,10 +78,9 @@
           (identifier))
         (param
           (identifier))))
-    (content_block
-      (code
-        (assignment
+    (code
+      (assignment
+        (identifier)
+        (binary
           (identifier)
-          (binary
-            (identifier)
-            (identifier)))))))
+          (identifier))))))

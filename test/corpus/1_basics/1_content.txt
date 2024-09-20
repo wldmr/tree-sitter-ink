@@ -5,9 +5,8 @@ Hello, world!
 ---
 
 (ink
-  (content_block
-    (paragraph
-      (text))))
+  (paragraph
+    (text)))
 
 ==============
 .AAB. Comments
@@ -24,12 +23,11 @@ Hello, world!
 ---
 
 (ink
-  (content_block
-    (paragraph
-      (text))
-    (line_comment)
-    (paragraph
-      (text)))
+  (paragraph
+    (text))
+  (line_comment)
+  (paragraph
+    (text))
   (block_comment))
 
 ========================================================================================================================
@@ -47,9 +45,8 @@ Stuff
 
 (ink
   (block_comment)
-  (content_block
-    (paragraph
-      (text)))
+  (paragraph
+    (text))
   (block_comment))
 
 =================================
@@ -61,13 +58,12 @@ Stuff
 ---
 
 (ink
-  (content_block
-    (paragraph
-      (text))
-    (line_comment)
-    (paragraph
-      (text
-        (block_comment)))))
+  (paragraph
+    (text))
+  (line_comment)
+  (paragraph
+    (text
+      (block_comment))))
 
 ===================
 .AAD. TODO Comments
@@ -79,10 +75,9 @@ And?
 ---
 
 (ink
-  (content_block
-    (todo_comment)
-    (paragraph
-      (text))))
+  (todo_comment)
+  (paragraph
+    (text)))
 
 =================================
 .AADa. TODO Comments corner cases
@@ -93,10 +88,9 @@ He remembered that he was allowed to write TODO: anywhere else on the line.
 ---
 
 (ink
-  (content_block
-    (todo_comment)
-    (paragraph
-      (text))))
+  (todo_comment)
+  (paragraph
+    (text)))
 
 ==========
 .AAE. Tags
@@ -108,20 +102,19 @@ Some more text. # and a tag
 ---
 
 (ink
-  (content_block
-    (paragraph
-      (text)
-      (tag
-        (text)))
-    (paragraph
-      (tag
-        (text))
-      (tag
-        (text)))
-    (paragraph
-      (text)
-      (tag
-        (text)))))
+  (paragraph
+    (text)
+    (tag
+      (text)))
+  (paragraph
+    (tag
+      (text))
+    (tag
+      (text)))
+  (paragraph
+    (text)
+    (tag
+      (text))))
 
 ==========================
 .AAEa. Tags can be escaped
@@ -131,10 +124,9 @@ A line of normal game-text. \# colour it blue
 ---
 
 (ink
-  (content_block
-    (paragraph
-      (text)
-      (tag
-        (text)))
-    (paragraph
-      (text))))
+  (paragraph
+    (text)
+    (tag
+      (text)))
+  (paragraph
+    (text)))

@@ -9,22 +9,21 @@ VAR current_epilogue = -> they_all_die_of_the_plague
 ---
 
 (ink
-  content: (content_block
-    (global
-      name: (identifier))
-    (global
-      name: (identifier)
-      value: (string))
-    (global
-      name: (identifier)
-      value: (string))
-    (global
-      name: (identifier)
-      value: (number))
-    (global
-      name: (identifier)
-      value: (divert
-        target: (identifier)))))
+  (global
+    name: (identifier))
+  (global
+    name: (identifier)
+    value: (string))
+  (global
+    name: (identifier)
+    value: (string))
+  (global
+    name: (identifier)
+    value: (number))
+  (global
+    name: (identifier)
+    value: (divert
+      target: (identifier))))
 
 ===
 .CAB. Printing Variables
@@ -36,18 +35,17 @@ My name is Jean Passepartout, but my friend's call me {friendly_name_of_player}.
 ---
 
 (ink
-  (content_block
-    (global
-      (identifier)
-      (string))
-    (global
-      (identifier)
-      (number))
-    (paragraph
-      (text)
-      (eval
-        (identifier))
-      (text)
-      (eval
-        (identifier))
-      (text))))
+  (global
+    (identifier)
+    (string))
+  (global
+    (identifier)
+    (number))
+  (paragraph
+    (text)
+    (eval
+      (identifier))
+    (text)
+    (eval
+      (identifier))
+    (text)))

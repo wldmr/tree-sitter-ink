@@ -9,22 +9,21 @@
 ---
 
 (ink
-  content: (content_block
-    (choice_block
-      header: (choice
-        marks: (choice_marks
-          (choice_mark))
-        main: (content
-          redirect: (divert
-            target: (identifier)))))
-    (choice_block
-      header: (choice
-        marks: (choice_marks
-          (choice_mark)))
-      content: (paragraph
-        content: (text)
+  (choice_block
+    (choice
+      marks: (choice_marks
+        (choice_mark))
+      main: (content
         redirect: (divert
-          target: (identifier))))))
+          target: (identifier)))))
+  (choice_block
+    (choice
+      marks: (choice_marks
+        (choice_mark)))
+    (paragraph
+      content: (text)
+      redirect: (divert
+        target: (identifier)))))
 
 ===
 .AGB. Fallback Choices extended example
@@ -41,47 +40,46 @@
 ---
 
 (ink
-  knot: (knot_block
-    header: (knot
+  (knot_block
+    (knot
       name: (identifier))
-    content: (content_block
+    (paragraph
+      content: (text))
+    (choice_block
+      (choice
+        marks: (choice_marks
+          (choice_mark))
+        main: (content
+          content: (text))
+        choice_only: (choice_only
+          (content
+            content: (text)))
+        when_chosen: (content
+          content: (text)
+          redirect: (divert
+            target: (identifier)))))
+    (choice_block
+      (choice
+        marks: (choice_marks
+          (choice_mark))
+        main: (content
+          content: (text))
+        choice_only: (choice_only
+          (content
+            content: (text)))
+        when_chosen: (content
+          content: (text)
+          redirect: (divert
+            target: (identifier)))))
+    (choice_block
+      (choice
+        marks: (choice_marks
+          (choice_mark)))
       (paragraph
         content: (text))
-      (choice_block
-        header: (choice
-          marks: (choice_marks
-            (choice_mark))
-          main: (content
-            content: (text))
-          choice_only: (choice_only
-            (content
-              content: (text)))
-          when_chosen: (content
-            content: (text)
-            redirect: (divert
-              target: (identifier)))))
-      (choice_block
-        header: (choice
-          marks: (choice_marks
-            (choice_mark))
-          main: (content
-            content: (text))
-          choice_only: (choice_only
-            (content
-              content: (text)))
-          when_chosen: (content
-            content: (text)
-            redirect: (divert
-              target: (identifier)))))
-      (choice_block
-        header: (choice
-          marks: (choice_marks
-            (choice_mark)))
-        content: (paragraph
-          content: (text))
-        content: (paragraph
-          redirect: (divert
-            target: (identifier)))))))
+      (paragraph
+        redirect: (divert
+          target: (identifier))))))
 
 ===
 .AGC. Sticky Choices
@@ -96,33 +94,32 @@
 ---
 
 (ink
-  knot: (knot_block
-    header: (knot
+  (knot_block
+    (knot
       name: (identifier))
-    content: (content_block
-      (choice_block
-        header: (choice
-          marks: (choice_marks
-            (choice_mark))
-          choice_only: (choice_only
-            (content
-              content: (text))))
-        content: (paragraph
-          content: (text)
-          redirect: (divert
-            target: (identifier))))
-      (choice_block
-        header: (choice
-          marks: (choice_marks
-            (choice_mark))
-          choice_only: (choice_only
-            (content
-              content: (text))))
-        content: (paragraph
-          content: (text))
-        content: (paragraph
-          redirect: (divert
-            target: (identifier)))))))
+    (choice_block
+      (choice
+        marks: (choice_marks
+          (choice_mark))
+        choice_only: (choice_only
+          (content
+            content: (text))))
+      (paragraph
+        content: (text)
+        redirect: (divert
+          target: (identifier))))
+    (choice_block
+      (choice
+        marks: (choice_marks
+          (choice_mark))
+        choice_only: (choice_only
+          (content
+            content: (text))))
+      (paragraph
+        content: (text))
+      (paragraph
+        redirect: (divert
+          target: (identifier))))))
 
 ===
 .AGD. Sticky Fallback Choices
@@ -135,37 +132,36 @@
 ---
 
 (ink
-  knot: (knot_block
-    header: (knot
+  (knot_block
+    (knot
       name: (identifier))
-    content: (content_block
-      (choice_block
-        header: (choice
-          marks: (choice_marks
-            (choice_mark))
-          choice_only: (choice_only
-            (content
-              content: (text)))
-          when_chosen: (content
-            redirect: (divert
-              target: (identifier)))))
-      (choice_block
-        header: (choice
-          marks: (choice_marks
-            (choice_mark))
-          choice_only: (choice_only
-            (content
-              content: (text)))
-          when_chosen: (content
-            redirect: (divert
-              target: (identifier)))))
-      (choice_block
-        header: (choice
-          marks: (choice_marks
-            (choice_mark))
-          main: (content
-            redirect: (divert
-              target: (identifier))))))))
+    (choice_block
+      (choice
+        marks: (choice_marks
+          (choice_mark))
+        choice_only: (choice_only
+          (content
+            content: (text)))
+        when_chosen: (content
+          redirect: (divert
+            target: (identifier)))))
+    (choice_block
+      (choice
+        marks: (choice_marks
+          (choice_mark))
+        choice_only: (choice_only
+          (content
+            content: (text)))
+        when_chosen: (content
+          redirect: (divert
+            target: (identifier)))))
+    (choice_block
+      (choice
+        marks: (choice_marks
+          (choice_mark))
+        main: (content
+          redirect: (divert
+            target: (identifier)))))))
 
 ===
 .AGE. Conditional Choices
@@ -178,46 +174,45 @@
 ---
 
 (ink
-  content: (content_block
-    (choice_block
-      header: (choice
-        marks: (choice_marks
-          (choice_mark))
-        condition: (condition
-          expr: (unary
-            right: (identifier)))
-        choice_only: (choice_only
-          (content
-            content: (text)))
-        when_chosen: (content
-          redirect: (divert
-            target: (identifier)))))
-    (choice_block
-      header: (choice
-        marks: (choice_marks
-          (choice_mark))
-        condition: (condition
-          expr: (identifier))
-        choice_only: (choice_only
-          (content
-            content: (text)))
-        when_chosen: (content
-          redirect: (divert
-            target: (identifier)))))
-    (choice_block
-      header: (choice
-        marks: (choice_marks
-          (choice_mark))
-        condition: (condition
-          expr: (qualified_name
-            (identifier)
-            (identifier)))
-        choice_only: (choice_only
-          (content
-            content: (text)))
-        when_chosen: (content
-          redirect: (divert
-            target: (identifier)))))))
+  (choice_block
+    (choice
+      marks: (choice_marks
+        (choice_mark))
+      condition: (condition
+        expr: (unary
+          right: (identifier)))
+      choice_only: (choice_only
+        (content
+          content: (text)))
+      when_chosen: (content
+        redirect: (divert
+          target: (identifier)))))
+  (choice_block
+    (choice
+      marks: (choice_marks
+        (choice_mark))
+      condition: (condition
+        expr: (identifier))
+      choice_only: (choice_only
+        (content
+          content: (text)))
+      when_chosen: (content
+        redirect: (divert
+          target: (identifier)))))
+  (choice_block
+    (choice
+      marks: (choice_marks
+        (choice_mark))
+      condition: (condition
+        expr: (qualified_name
+          (identifier)
+          (identifier)))
+      choice_only: (choice_only
+        (content
+          content: (text)))
+      when_chosen: (content
+        redirect: (divert
+          target: (identifier))))))
 
 ===
 .AGF. Advanced Conditional Choices: Multiple Conditions
@@ -229,36 +224,35 @@
 ---
 
 (ink
-  content: (content_block
-    (choice_block
-      header: (choice
-        marks: (choice_marks
-          (choice_mark))
-        condition: (condition
-          expr: (unary
-            right: (identifier)))
-        choice_only: (choice_only
-          (content
-            content: (text)))
-        when_chosen: (content
-          redirect: (divert
-            target: (identifier)))))
-    (choice_block
-      header: (choice
-        marks: (choice_marks
-          (choice_mark))
-        condition: (condition
-          expr: (identifier))
-        condition: (condition
-          expr: (unary
-            right: (identifier)))
-        eol: (eol)
-        choice_only: (choice_only
-          (content
-            content: (text)))
-        when_chosen: (content
-          redirect: (divert
-            target: (identifier)))))))
+  (choice_block
+    (choice
+      marks: (choice_marks
+        (choice_mark))
+      condition: (condition
+        expr: (unary
+          right: (identifier)))
+      choice_only: (choice_only
+        (content
+          content: (text)))
+      when_chosen: (content
+        redirect: (divert
+          target: (identifier)))))
+  (choice_block
+    (choice
+      marks: (choice_marks
+        (choice_mark))
+      condition: (condition
+        expr: (identifier))
+      condition: (condition
+        expr: (unary
+          right: (identifier)))
+      eol: (eol)
+      choice_only: (choice_only
+        (content
+          content: (text)))
+      when_chosen: (content
+        redirect: (divert
+          target: (identifier))))))
 
 ===
 .AGG. Logical Operators (and parentheses)
@@ -268,49 +262,48 @@
 ---
 
 (ink
-  content: (content_block
-    (choice_block
-      header: (choice
-        marks: (choice_marks
-          (choice_mark))
-        condition: (condition
-          expr: (binary
-            left: (unary
-              right: (paren
-                (binary
-                  left: (identifier)
-                  right: (identifier))))
+  (choice_block
+    (choice
+      marks: (choice_marks
+        (choice_mark))
+      condition: (condition
+        expr: (binary
+          left: (unary
             right: (paren
               (binary
                 left: (identifier)
-                right: (identifier)))))
-        choice_only: (choice_only
-          (content
-            content: (text)))
-        when_chosen: (content
-          redirect: (divert
-            target: (identifier)))))))
+                right: (identifier))))
+          right: (paren
+            (binary
+              left: (identifier)
+              right: (identifier)))))
+      choice_only: (choice_only
+        (content
+          content: (text)))
+      when_chosen: (content
+        redirect: (divert
+          target: (identifier))))))
 
 ===
 .AGGa. Corner Case: Exclamation mark at beginning of condition
 ===
 * { !visit_paris } {! visit_new_york} -> visit_anywhere
 ---
+
 (ink
-  (content_block
-    (choice_block
-      (choice
-        (choice_marks
-          (choice_mark))
-        (condition
-          (unary
-            (identifier)))
-        (condition
-          (unary
-            (identifier)))
-        (content
-          (divert
-            (identifier)))))))
+  (choice_block
+    (choice
+      (choice_marks
+        (choice_mark))
+      (condition
+        (unary
+          (identifier)))
+      (condition
+        (unary
+          (identifier)))
+      (content
+        (divert
+          (identifier))))))
 
 ===
 .AGH. Knot/stitch labels are actually read counts
@@ -321,24 +314,23 @@
 ---
 
 (ink
-  content: (content_block
-    (choice_block
-      header: (choice
-        marks: (choice_marks
-          (choice_mark))
-        condition: (condition
-          expr: (identifier))
-        choice_only: (choice_only
-          (content
-            content: (text)))))
-    (choice_block
-      header: (choice
-        marks: (choice_marks
-          (choice_mark))
-        condition: (condition
-          expr: (binary
-            left: (identifier)
-            right: (number)))
-        choice_only: (choice_only
-          (content
-            content: (text)))))))
+  (choice_block
+    (choice
+      marks: (choice_marks
+        (choice_mark))
+      condition: (condition
+        expr: (identifier))
+      choice_only: (choice_only
+        (content
+          content: (text)))))
+  (choice_block
+    (choice
+      marks: (choice_marks
+        (choice_mark))
+      condition: (condition
+        expr: (binary
+          left: (identifier)
+          right: (number)))
+      choice_only: (choice_only
+        (content
+          content: (text))))))

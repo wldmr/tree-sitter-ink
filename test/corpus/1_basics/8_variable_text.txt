@@ -7,28 +7,27 @@ The radio hissed into life. {"Three!"|"Two!"|"One!"|There was the white noise ra
 ---
 
 (ink
-  (content_block
-    (paragraph
-      (text)
-      (alternatives
-        (content
-          (text))
-        (content
-          (text))
-        (content
-          (text))
-        (content
-          (text))
-        (content
-          (text))))
-    (paragraph
-      (alternatives
-        (content
-          (text))
-        (content
-          (text))
-        (content
-          (text))))))
+  (paragraph
+    (text)
+    (alternatives
+      (content
+        (text))
+      (content
+        (text))
+      (content
+        (text))
+      (content
+        (text))
+      (content
+        (text))))
+  (paragraph
+    (alternatives
+      (content
+        (text))
+      (content
+        (text))
+      (content
+        (text)))))
 
 ===
 .AHAa. Corner Case: Curly braces and pipes can be escaped
@@ -38,17 +37,16 @@ The radio hissed into life. {"Three!"|"Two!"|"One!"|There was the white noise ra
 ---
 
 (ink
-  (content_block
-    (paragraph
-      (text))
-    (paragraph
-      (alternatives
-        (content
-          (text))
-        (content
-          (text))
-        (content
-          (text))))))
+  (paragraph
+    (text))
+  (paragraph
+    (alternatives
+      (content
+        (text))
+      (content
+        (text))
+      (content
+        (text)))))
 
 ===
 .AHB. Alternatives: Cycles
@@ -57,25 +55,24 @@ It was {&Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday} today.
 ---
 
 (ink
-  (content_block
-    (paragraph
-      (text)
-      (alternatives
-        (content
-          (text))
-        (content
-          (text))
-        (content
-          (text))
-        (content
-          (text))
-        (content
-          (text))
-        (content
-          (text))
-        (content
-          (text)))
-      (text))))
+  (paragraph
+    (text)
+    (alternatives
+      (content
+        (text))
+      (content
+        (text))
+      (content
+        (text))
+      (content
+        (text))
+      (content
+        (text))
+      (content
+        (text))
+      (content
+        (text)))
+    (text)))
 
 ===
 .AHC. Alternatives: Once Only
@@ -84,18 +81,17 @@ He told me a joke. {!I laughed politely.|I smiled.|I grimaced.|I promised myself
 ---
 
 (ink
-  (content_block
-    (paragraph
-      (text)
-      (alternatives
-        (content
-          (text))
-        (content
-          (text))
-        (content
-          (text))
-        (content
-          (text))))))
+  (paragraph
+    (text)
+    (alternatives
+      (content
+        (text))
+      (content
+        (text))
+      (content
+        (text))
+      (content
+        (text)))))
 
 ===
 .AHD. Alternatives: Shuffle
@@ -104,15 +100,14 @@ I tossed the coin. {~Heads|Tails}.
 ---
 
 (ink
-  (content_block
-    (paragraph
-      (text)
-      (alternatives
-        (content
-          (text))
-        (content
-          (text)))
-      (text))))
+  (paragraph
+    (text)
+    (alternatives
+      (content
+        (text))
+      (content
+        (text)))
+    (text)))
 
 ===
 .AHE. Alternatives: Blank elements
@@ -121,14 +116,13 @@ I took a step forward. {!||||Then the lights went out. -> eek}
 ---
 
 (ink
-  content: (content_block
-    (paragraph
-      content: (text)
-      content: (alternatives
-        content: (content
-          content: (text)
-          redirect: (divert
-            target: (identifier)))))))
+  (paragraph
+    content: (text)
+    content: (alternatives
+      (content
+        content: (text)
+        redirect: (divert
+          target: (identifier))))))
 
 ===
 .AHF. Alternatives Can Be Nested
@@ -137,30 +131,29 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
 ---
 
 (ink
-  (content_block
-    (paragraph
-      (text)
-      (alternatives
-        (content
-          (alternatives
-            (content
-              (text)))
-          (text))
-        (content
-          (text)))
-      (alternatives
-        (content
-          (text))
-        (content
-          (text)
-          (alternatives
-            (content
-              (text))
-            (content
-              (text))
-            (content
-              (text)))))
-      (text))))
+  (paragraph
+    (text)
+    (alternatives
+      (content
+        (alternatives
+          (content
+            (text)))
+        (text))
+      (content
+        (text)))
+    (alternatives
+      (content
+        (text))
+      (content
+        (text)
+        (alternatives
+          (content
+            (text))
+          (content
+            (text))
+          (content
+            (text)))))
+    (text)))
 
 ===
 .AHG. Alternatives Inside Choice Text
@@ -169,26 +162,25 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
 ---
 
 (ink
-  content: (content_block
-    (choice_block
-      header: (choice
-        marks: (choice_marks
-          (choice_mark))
-        main: (content
-          content: (text)
-          content: (alternatives
-            content: (content
-              content: (text))
-            content: (content
-              content: (text))
-            content: (content
-              content: (text))
-            content: (content
-              content: (text)))
-          content: (text))
-        choice_only: (choice_only)
-        when_chosen: (content
-          content: (text))))))
+  (choice_block
+    (choice
+      marks: (choice_marks
+        (choice_mark))
+      main: (content
+        content: (text)
+        content: (alternatives
+          (content
+            content: (text))
+          (content
+            content: (text))
+          (content
+            content: (text))
+          (content
+            content: (text)))
+        content: (text))
+      choice_only: (choice_only)
+      when_chosen: (content
+        content: (text)))))
 
 ===
 .AHH. Alternatives Starting Choice Text
@@ -197,19 +189,18 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
 ---
 
 (ink
-  content: (content_block
-    (choice_block
-      header: (choice
-        marks: (choice_marks
-          (choice_mark))
-        main: (content
-          content: (alternatives
-            content: (content
-              content: (text))
-            content: (content
-              content: (text))
-            content: (content
-              content: (text))))))))
+  (choice_block
+    (choice
+      marks: (choice_marks
+        (choice_mark))
+      main: (content
+        content: (alternatives
+          (content
+            content: (text))
+          (content
+            content: (text))
+          (content
+            content: (text)))))))
 
 ===
 .AHI. Conditional Text
@@ -219,23 +210,22 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
 ---
 
 (ink
-  content: (content_block
-    (paragraph
-      content: (conditional_text
-        condition: (identifier)
-        content: (content
-          content: (text)
-          content: (conditional_text
-            condition: (qualified_name
-              (identifier)
-              (identifier))
-            content: (content
-              content: (text))
-            content: (content
-              content: (text)))
-          content: (text))
-        content: (content
-          content: (text))))))
+  (paragraph
+    content: (conditional_text
+      condition: (identifier)
+      (content
+        content: (text)
+        content: (conditional_text
+          condition: (qualified_name
+            (identifier)
+            (identifier))
+          (content
+            content: (text))
+          (content
+            content: (text)))
+        content: (text))
+      (content
+        content: (text)))))
 
 ===
 .AHJa. Inline Logic syntax: Minimal distinguishing examples
@@ -246,22 +236,21 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
 ---
 
 (ink
-  (content_block
-    (paragraph
-      (eval
-        (identifier)))
-    (line_comment)
-    (paragraph
-      (alternatives
-        (content
-          (text))))
-    (line_comment)
-    (paragraph
-      (conditional_text
-        (identifier)
-        (content
-          (text))))
-    (line_comment)))
+  (paragraph
+    (eval
+      (identifier)))
+  (line_comment)
+  (paragraph
+    (alternatives
+      (content
+        (text))))
+  (line_comment)
+  (paragraph
+    (conditional_text
+      (identifier)
+      (content
+        (text))))
+  (line_comment))
 
 ===
 .AHJb. Distinguishing between expression and text
@@ -271,20 +260,19 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
 ---
 
 (ink
-  (content_block
-    (paragraph
-      (conditional_text
-        (binary
-          (identifier)
-          (identifier))
-        (content
-          (text))))
-    (line_comment)
-    (paragraph
-      (alternatives
-        (content
-          (text))))
-    (line_comment)))
+  (paragraph
+    (conditional_text
+      (binary
+        (identifier)
+        (identifier))
+      (content
+        (text))))
+  (line_comment)
+  (paragraph
+    (alternatives
+      (content
+        (text))))
+  (line_comment))
 
 ===
 .AHJc. Paranthesized expressions directly after opening brace _must_ be balanced (even if there is no colon)
@@ -295,14 +283,13 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
 ---
 
 (ink
-  (content_block
-    (paragraph
-      (alternatives
-        (content
-          (text
-            (MISSING ")")))))
-    (paragraph
-      (alternatives
-        (content
-          (text)))))
+  (paragraph
+    (alternatives
+      (content
+        (text
+          (MISSING ")")))))
+  (paragraph
+    (alternatives
+      (content
+        (text))))
   (line_comment))

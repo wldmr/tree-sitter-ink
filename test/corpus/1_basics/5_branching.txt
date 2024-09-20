@@ -15,50 +15,48 @@ You open the gate, and step out onto the path.
 ---
 
 (ink
-  knot: (knot_block
-    header: (knot
+  (knot_block
+    (knot
       name: (identifier))
-    content: (content_block
-      (paragraph
-        content: (text))
-      (choice_block
-        header: (choice
-          marks: (choice_marks
-            (choice_mark))
-          choice_only: (choice_only
-            (content
-              content: (text)))
-          when_chosen: (content
-            redirect: (divert
-              target: (identifier)))))
-      (choice_block
-        header: (choice
-          marks: (choice_marks
-            (choice_mark))
-          choice_only: (choice_only
-            (content
-              content: (text)))
-          when_chosen: (content
-            redirect: (divert
-              target: (identifier)))))
-      (choice_block
-        header: (choice
-          marks: (choice_marks
-            (choice_mark))
-          choice_only: (choice_only
-            (content
-              content: (text)))
-          when_chosen: (content
-            redirect: (divert
-              target: (identifier)))))))
-  knot: (knot_block
-    header: (knot
+    (paragraph
+      content: (text))
+    (choice_block
+      (choice
+        marks: (choice_marks
+          (choice_mark))
+        choice_only: (choice_only
+          (content
+            content: (text)))
+        when_chosen: (content
+          redirect: (divert
+            target: (identifier)))))
+    (choice_block
+      (choice
+        marks: (choice_marks
+          (choice_mark))
+        choice_only: (choice_only
+          (content
+            content: (text)))
+        when_chosen: (content
+          redirect: (divert
+            target: (identifier)))))
+    (choice_block
+      (choice
+        marks: (choice_marks
+          (choice_mark))
+        choice_only: (choice_only
+          (content
+            content: (text)))
+        when_chosen: (content
+          redirect: (divert
+            target: (identifier))))))
+  (knot_block
+    (knot
       name: (identifier))
-    content: (content_block
-      (paragraph
-        content: (text))
-      (paragraph
-        content: (text)))))
+    (paragraph
+      content: (text))
+    (paragraph
+      content: (text))))
 
 ===
 .AEB. Branching and joining
@@ -94,66 +92,62 @@ He insisted that we hurried home to Savile Row
   (knot_block
     (knot
       (identifier))
-    (content_block
-      (paragraph
-        (text))
-      (choice_block
-        (choice
-          (choice_marks
-            (choice_mark))
-          (content
-            (text))
-          (choice_only)
-          (content
-            (text)))
-        (paragraph
-          (divert
-            (identifier))))
-      (choice_block
-        (choice
-          (choice_marks
-            (choice_mark))
-          (content
-            (text))
-          (choice_only)
-          (content
-            (text)))
-        (paragraph
+    (paragraph
+      (text))
+    (choice_block
+      (choice
+        (choice_marks
+          (choice_mark))
+        (content
           (text))
-        (paragraph
-          (divert
-            (identifier))))
-      (choice_block
-        (choice
-          (choice_marks
-            (choice_mark))
-          (choice_only
-            (content
-              (text)))
-          (content
-            (divert
-              (identifier)))))))
-  (knot_block
-    (knot
-      (identifier))
-    (content_block
+        (choice_only)
+        (content
+          (text)))
       (paragraph
-        (text)
         (divert
-          (identifier)))))
-  (knot_block
-    (knot
-      (identifier))
-    (content_block
+          (identifier))))
+    (choice_block
+      (choice
+        (choice_marks
+          (choice_mark))
+        (content
+          (text))
+        (choice_only)
+        (content
+          (text)))
       (paragraph
         (text))
       (paragraph
         (divert
-          (identifier)))))
+          (identifier))))
+    (choice_block
+      (choice
+        (choice_marks
+          (choice_mark))
+        (choice_only
+          (content
+            (text)))
+        (content
+          (divert
+            (identifier))))))
   (knot_block
     (knot
       (identifier))
-    (content_block
-      (paragraph
-        (glue)
-        (text)))))
+    (paragraph
+      (text)
+      (divert
+        (identifier))))
+  (knot_block
+    (knot
+      (identifier))
+    (paragraph
+      (text))
+    (paragraph
+      (divert
+        (identifier))))
+  (knot_block
+    (knot
+      (identifier))
+    (paragraph
+      (glue)
+      (text))))

@@ -7,17 +7,16 @@ Hello world!
 ---
 
 (ink
-  content: (content_block
+  (paragraph
+    content: (text))
+  (choice_block
+    (choice
+      marks: (choice_marks
+        (choice_mark))
+      main: (content
+        content: (text)))
     (paragraph
-      content: (text))
-    (choice_block
-      header: (choice
-        marks: (choice_marks
-          (choice_mark))
-        main: (content
-          content: (text)))
-      content: (paragraph
-        content: (text)))))
+      content: (text))))
 
 ===
 .ABB. Suppressing Choice Text
@@ -28,22 +27,21 @@ Hello world!
 ---
 
 (ink
-  content: (content_block
-    (paragraph
-      content: (text))
-    (choice_block
-      header: (choice
-        marks: (choice_marks
-          (choice_mark))
-        main: (content
-          content: (text))
-        choice_only: (choice_only
-          (content
-            content: (text)))
-        when_chosen: (content
+  (paragraph
+    content: (text))
+  (choice_block
+    (choice
+      marks: (choice_marks
+        (choice_mark))
+      main: (content
+        content: (text))
+      choice_only: (choice_only
+        (content
           content: (text)))
-      content: (paragraph
-        content: (text)))))
+      when_chosen: (content
+        content: (text)))
+    (paragraph
+      content: (text))))
 
 ===
 .ABBa. Corner Case: Outside of choices, square brackets are just text
@@ -52,9 +50,8 @@ Hello [World]
 ---
 
 (ink
-  (content_block
-    (paragraph
-      (text))))
+  (paragraph
+    (text)))
 
 ===
 .ABBb. Corner Case: Within choices, square brackets can be escaped to become text
@@ -63,13 +60,12 @@ Hello [World]
 ---
 
 (ink
-  (content_block
-    (choice_block
-      (choice
-        (choice_marks
-          (choice_mark))
-        (content
-          (text))))))
+  (choice_block
+    (choice
+      (choice_marks
+        (choice_mark))
+      (content
+        (text)))))
 
 ===
 .ABC. Multiple choices
@@ -84,46 +80,45 @@ Hello [World]
 ---
 
 (ink
-  content: (content_block
+  (paragraph
+    content: (text))
+  (choice_block
+    (choice
+      marks: (choice_marks
+        (choice_mark))
+      main: (content
+        content: (text))
+      choice_only: (choice_only
+        (content
+          content: (text)))
+      when_chosen: (content
+        content: (text)))
     (paragraph
-      content: (text))
-    (choice_block
-      header: (choice
-        marks: (choice_marks
-          (choice_mark))
-        main: (content
-          content: (text))
-        choice_only: (choice_only
-          (content
-            content: (text)))
-        when_chosen: (content
-          content: (text)))
-      content: (paragraph
+      content: (text)))
+  (choice_block
+    (choice
+      marks: (choice_marks
+        (choice_mark))
+      main: (content
+        content: (text))
+      choice_only: (choice_only)
+      when_chosen: (content
         content: (text)))
-    (choice_block
-      header: (choice
-        marks: (choice_marks
-          (choice_mark))
-        main: (content
-          content: (text))
-        choice_only: (choice_only)
-        when_chosen: (content
+    (paragraph
+      content: (text)))
+  (choice_block
+    (choice
+      marks: (choice_marks
+        (choice_mark))
+      main: (content
+        content: (text))
+      choice_only: (choice_only
+        (content
           content: (text)))
-      content: (paragraph
+      when_chosen: (content
         content: (text)))
-    (choice_block
-      header: (choice
-        marks: (choice_marks
-          (choice_mark))
-        main: (content
-          content: (text))
-        choice_only: (choice_only
-          (content
-            content: (text)))
-        when_chosen: (content
-          content: (text)))
-      content: (paragraph
-        content: (text)))))
+    (paragraph
+      content: (text))))
 
 ===
 .ABCa. Corner Case: Completely Empty Choice
@@ -131,15 +126,15 @@ Hello [World]
 *
 * choice 2
 ---
+
 (ink
-  (content_block
-    (choice_block
-      (choice
-        (choice_marks
-          (choice_mark))))
-    (choice_block
-      (choice
-        (choice_marks
-          (choice_mark))
-        (content
-          (text))))))
+  (choice_block
+    (choice
+      (choice_marks
+        (choice_mark))))
+  (choice_block
+    (choice
+      (choice_marks
+        (choice_mark))
+      (content
+        (text)))))

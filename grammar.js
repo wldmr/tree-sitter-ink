@@ -186,7 +186,6 @@ module.exports = grammar({
   supertypes: $ => [
     $.expr,
     $.boolean,
-    $._toplevel_block,
     $._redirect,
     $._logic,
     $._code_stmt,
@@ -213,55 +212,48 @@ module.exports = grammar({
   
   rules: {
     ink: $ => seq(
-      field('content', optional($.content_block)),
-      field('stitch', repeat($.stitch_block)), // Evidently we can define orphan stitches. OK …
-      field('knot', repeat($.knot_block)),
+      optional($._content_block),
+      repeat($.stitch_block), // Evidently we can define orphan stitches. OK …
+      repeat($.knot_block),
     ),
 
-    // not actually used in this grammar, only added for supertypes
-    _toplevel_block: $ => choice(
-      $.content_block,
-      $.stitch_block,
-      $.knot_block,
-    ),
-
-    content_block: $ => repeat1($._content_item),
+    _content_block: $ => repeat1($._content_item),
 
     knot_block: $ => prec.right(seq(
       $._knot_block_start,
-      field('header', $.knot),
-      field('content', optional($.content_block)),
-      field('stitch', repeat($.stitch_block)),
+      $.knot,
+      optional($._content_block),
+      repeat($.stitch_block),
       $._knot_block_end,
     )),
 
     stitch_block: $ => prec.right(seq(
       $._stitch_block_start,
-      field('header', $.stitch),
-      field('content', optional($.content_block)),
+      $.stitch,
+      optional($._content_block),
       $._stitch_block_end,
     )),
 
     choice_block: $ => prec.right(seq(
       $._choice_block_start,
-      field('header', $.choice),
+      $.choice,
       $._eol,
-      field('content', repeat($._content_item)),
+      repeat($._content_item),
       $._choice_block_end,
     )),
 
     _choice_block_in_conditional: $ => prec.right(seq(
       $._choice_block_start,
-      field('header', $.choice),
+      $.choice,
       $._eol,
-      field('content', repeat($._content_item_in_conditional)),
+      repeat($._content_item_in_conditional),
       $._choice_block_end,
     )),
 
     gather_block: $ => prec.right(seq(
       $._gather_block_start,
-      field('header', $.gather),
-      field('content', repeat($._content_item)),
+      $.gather,
+      repeat($._content_item),
       $._gather_block_end,
     )),
 
@@ -382,10 +374,10 @@ module.exports = grammar({
     conditional_text: $ => prec.right(seq(
       '{',
       prec.dynamic(PREC.ink, seq(field('condition', $.expr), ':')),
-      field('content', $.content),
+      $.content,
       optional(seq(
         '|',
-        field('content', optional($.content))
+        optional($.content)
       )),
       '}',
     )),
@@ -396,12 +388,12 @@ module.exports = grammar({
         seq(
           // ! can conflict with expressions starting with negation; but in this position, the alternatives marker gets precedence.
           field('mark', choice('$', '&', '~', mark('!'))),
-          field('content', optional($.content)),
+          optional($.content),
         ),
-        field('content', optional(alias($._fake_content, $.content))),
+        optional(alias($._fake_content, $.content)),
       )),
       '|',
-      repeat(choice('|', field('content', $.content))),
+      repeat(choice('|', $.content)),
       '}'
     )),
 
@@ -412,8 +404,8 @@ module.exports = grammar({
 
     cond_block: $ => prec.right(seq(
       '{',
-      choice($._eol, field('arm', alias($._first_cond_arm, $.cond_arm))),
-      field('arm', repeat($.cond_arm)),
+      choice($._eol, alias($._first_cond_arm, $.cond_arm)),
+      repeat($.cond_arm),
       '}',
     )),
     
@@ -445,7 +437,7 @@ module.exports = grammar({
         'once',
       )),
       ':', $._eol,
-      field('arm', repeat($.alt_arm)),
+      repeat($.alt_arm),
       '}',
     ),
 

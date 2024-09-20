@@ -13,52 +13,51 @@
 ---
 
 (ink
-  (content_block
+  (paragraph
+    (text))
+  (choice_block
+    (choice
+      (choice_marks
+        (choice_mark))
+      (content
+        (text))
+      (choice_only
+        (content
+          (text)))
+      (content
+        (text)))
     (paragraph
-      (text))
-    (choice_block
-      (choice
-        (choice_marks
-          (choice_mark))
-        (content
-          (text))
-        (choice_only
-          (content
-            (text)))
+      (text)))
+  (choice_block
+    (choice
+      (choice_marks
+        (choice_mark))
+      (content
+        (text))
+      (choice_only)
+      (content
+        (text)))
+    (paragraph
+      (text)))
+  (choice_block
+    (choice
+      (choice_marks
+        (choice_mark))
+      (content
+        (text))
+      (choice_only
         (content
           (text)))
-      (paragraph
+      (content
         (text)))
-    (choice_block
-      (choice
-        (choice_marks
-          (choice_mark))
-        (content
-          (text))
-        (choice_only)
-        (content
-          (text)))
-      (paragraph
-        (text)))
-    (choice_block
-      (choice
-        (choice_marks
-          (choice_mark))
-        (content
-          (text))
-        (choice_only
-          (content
-            (text)))
-        (content
-          (text)))
-      (paragraph
-        (text)))
-    (gather_block
-      (gather
-        (gather_marks
-          (gather_mark)))
-      (paragraph
-        (text)))))
+    (paragraph
+      (text)))
+  (gather_block
+    (gather
+      (gather_marks
+        (gather_mark)))
+    (paragraph
+      (text))))
 
 ===
 .BAB. Options and Gathers form chains of content
@@ -84,67 +83,65 @@ I ran through the forest, the dogs snapping at my heels.
   (knot_block
     (knot
       (identifier))
-    (content_block
+    (paragraph
+      (text))
+    (choice_block
+      (choice
+        (choice_marks
+          (choice_mark))
+        (content
+          (text))
+        (choice_only)
+        (content
+          (text)
+          (glue))))
+    (choice_block
+      (choice
+        (choice_marks
+          (choice_mark))
+        (content
+          (text))
+        (choice_only)
+        (content
+          (text)
+          (glue))))
+    (choice_block
+      (choice
+        (choice_marks
+          (choice_mark))
+        (content
+          (text)
+          (glue))))
+    (gather_block
+      (gather
+        (gather_marks
+          (gather_mark)))
       (paragraph
-        (text))
-      (choice_block
-        (choice
-          (choice_marks
-            (choice_mark))
-          (content
-            (text))
-          (choice_only)
-          (content
-            (text)
-            (glue))))
-      (choice_block
-        (choice
-          (choice_marks
-            (choice_mark))
-          (content
-            (text))
-          (choice_only)
-          (content
-            (text)
-            (glue))))
-      (choice_block
-        (choice
-          (choice_marks
-            (choice_mark))
-          (content
-            (text)
-            (glue))))
-      (gather_block
-        (gather
-          (gather_marks
-            (gather_mark)))
-        (paragraph
-          (text)))
-      (choice_block
-        (choice
-          (choice_marks
-            (choice_mark))
-          (content
-            (text))
-          (choice_only)
-          (content
-            (text))))
-      (choice_block
-        (choice
-          (choice_marks
-            (choice_mark))
-          (content
-            (text))
-          (choice_only)
-          (content
-            (text))))
-      (gather_block
-        (gather
-          (gather_marks
-            (gather_mark)))
-          (paragraph
-            (text))))))
-
+        (text)))
+    (choice_block
+      (choice
+        (choice_marks
+          (choice_mark))
+        (content
+          (text))
+        (choice_only)
+        (content
+          (text))))
+    (choice_block
+      (choice
+        (choice_marks
+          (choice_mark))
+        (content
+          (text))
+        (choice_only)
+        (content
+          (text))))
+    (gather_block
+      (gather
+        (gather_marks
+          (gather_mark)))
+      (paragraph
+        (text)))))
 
 ===
 .BABa. Corner case: Gathers can contain normal content items (unlike Choices)
@@ -152,38 +149,38 @@ I ran through the forest, the dogs snapping at my heels.
 - TODO: allow todos
 - (label) ~ code = allowed
 ---
+
 (ink
-  (content_block
-    (gather_block
-      (gather
-        (gather_marks
-          (gather_mark)))
-      (todo_comment))
-    (gather_block
-      (gather
-        (gather_marks
-          (gather_mark))
-        (label
-          (identifier)))
-      (code
-        (assignment
-          (identifier)
-          (identifier))))))
+  (gather_block
+    (gather
+      (gather_marks
+        (gather_mark)))
+    (todo_comment))
+  (gather_block
+    (gather
+      (gather_marks
+        (gather_mark))
+      (label
+        (identifier)))
+    (code
+      (assignment
+        (identifier)
+        (identifier)))))
 
 ===
 .BABb. Corner case: Gathers with a nested choice
 ===
 - * choice, same level, therefore a sibling of the gather, not a child
 ---
+
 (ink
-  (content_block
-    (gather_block
-      (gather
-        (gather_marks
-          (gather_mark))))
-    (choice_block
-      (choice
-        (choice_marks
-          (choice_mark))
-        (content
-          (text))))))
+  (gather_block
+    (gather
+      (gather_marks
+        (gather_mark))))
+  (choice_block
+    (choice
+      (choice_marks
+        (choice_mark))
+      (content
+        (text)))))

@@ -10,22 +10,21 @@
 ---
 
 (ink
-  knot: (knot_block
-    header: (knot
+  (knot_block
+    (knot
       name: (identifier))
-    content: (content_block
-      (code
-        (temp
-          name: (identifier)
-          value: (number)))
-      (paragraph
-        content: (cond_block
-          arm: (cond_arm
-            condition: (identifier)
-            eol: (eol)
-            (code
-              (postfix
-                left: (identifier)))))))))
+    (code
+      (temp
+        name: (identifier)
+        value: (number)))
+    (paragraph
+      content: (cond_block
+        (cond_arm
+          condition: (identifier)
+          eol: (eol)
+          (code
+            (postfix
+              left: (identifier))))))))
 
 ===
 .CDB. Knots and stitches can take parameters
@@ -45,73 +44,71 @@
 ---
 
 (ink
-  (content_block
-    (choice_block
-      (choice
-        (choice_marks
-          (choice_mark))
-        (choice_only
-          (content
-            (text))))
-      (paragraph
-        (divert
-          (call
-            (identifier)
-            (args
-              (string))))))
-    (choice_block
-      (choice
-        (choice_marks
-          (choice_mark))
-        (choice_only
-          (content
-            (text))))
-      (paragraph
-        (divert
-          (call
-            (identifier)
-            (args
-              (string))))))
-    (choice_block
-      (choice
-        (choice_marks
-          (choice_mark))
-        (choice_only
-          (content
-            (text))))
-      (paragraph
-        (divert
-          (call
-            (identifier)
-            (args
-              (string)))))))
+  (choice_block
+    (choice
+      (choice_marks
+        (choice_mark))
+      (choice_only
+        (content
+          (text))))
+    (paragraph
+      (divert
+        (call
+          (identifier)
+          (args
+            (string))))))
+  (choice_block
+    (choice
+      (choice_marks
+        (choice_mark))
+      (choice_only
+        (content
+          (text))))
+    (paragraph
+      (divert
+        (call
+          (identifier)
+          (args
+            (string))))))
+  (choice_block
+    (choice
+      (choice_marks
+        (choice_mark))
+      (choice_only
+        (content
+          (text))))
+    (paragraph
+      (divert
+        (call
+          (identifier)
+          (args
+            (string))))))
   (knot_block
     (knot
       (identifier)
       (params
         (param
           (identifier))))
-    (content_block
-      (paragraph
-        (text)
-        (eval
-          (identifier))
-        (text))
-      (paragraph
-        (text)
-        (conditional_text
-          (binary
-            (identifier)
-            (string))
-          (content
-            (text))
-          (content
-            (eval
-              (identifier))
-            (text)))
-        (text))
-      (paragraph
-        (text)))))
+    (paragraph
+      (text)
+      (eval
+        (identifier))
+      (text))
+    (paragraph
+      (text)
+      (conditional_text
+        (binary
+          (identifier)
+          (string))
+        (content
+          (text))
+        (content
+          (eval
+            (identifier))
+          (text)))
+      (text))
+    (paragraph
+      (text))))
 
 ===
 .CDC. Sending divert Targets as parameters
@@ -132,16 +129,15 @@
   (knot_block
     (knot
       (identifier))
-    (content_block
-      (paragraph
-        (text))
-      (paragraph
-        (divert
-          (call
-            (identifier)
-            (args
-              (divert
-                (identifier))))))))
+    (paragraph
+      (text))
+    (paragraph
+      (divert
+        (call
+          (identifier)
+          (args
+            (divert
+              (identifier)))))))
   (knot_block
     (knot
       (identifier)
@@ -149,18 +145,16 @@
         (param
           (divert
             (identifier)))))
-    (content_block
-      (paragraph
-        (text))
-      (paragraph
-        (divert
-          (identifier)))))
+    (paragraph
+      (text))
+    (paragraph
+      (divert
+        (identifier))))
   (knot_block
     (knot
       (identifier))
-    (content_block
-      (paragraph
-        (text)))))
+    (paragraph
+      (text))))
 
 ===
 .CDCa. Corner case: Fully qualified divert targets
@@ -169,15 +163,14 @@
 ---
 
 (ink
-  (content_block
-    (paragraph
-      (divert
-        (call
-          (qualified_name
-            (identifier)
-            (identifier))
-          (args
-            (divert
-              (qualified_name
-                (identifier)
-                (identifier)))))))))
+  (paragraph
+    (divert
+      (call
+        (qualified_name
+          (identifier)
+          (identifier))
+        (args
+          (divert
+            (qualified_name
+              (identifier)
+              (identifier))))))))

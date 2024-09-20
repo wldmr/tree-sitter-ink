@@ -14,33 +14,29 @@
 ---
 
 (ink
-  knot: (knot_block
-    header: (knot
+  (knot_block
+    (knot
       name: (identifier))
-    stitch: (stitch_block
-      header: (stitch
+    (stitch_block
+      (stitch
         name: (identifier))
-      content: (content_block
-        (paragraph
-          content: (text))))
-    stitch: (stitch_block
-      header: (stitch
+      (paragraph
+        content: (text)))
+    (stitch_block
+      (stitch
         name: (identifier))
-      content: (content_block
-        (paragraph
-          content: (text))))
-    stitch: (stitch_block
-      header: (stitch
+      (paragraph
+        content: (text)))
+    (stitch_block
+      (stitch
         name: (identifier))
-      content: (content_block
-        (paragraph
-          content: (text))))
-    stitch: (stitch_block
-      header: (stitch
+      (paragraph
+        content: (text)))
+    (stitch_block
+      (stitch
         name: (identifier))
-      content: (content_block
-        (paragraph
-          content: (text))))))
+      (paragraph
+        content: (text)))))
 
 ===
 .AFAa. Comments belong to Knot/Stitch blocks that follow
@@ -57,23 +53,22 @@ knot content
 // stitch content comment
 stitch content
 ---
+
 (ink
   (knot_block
     (line_comment)
     (knot
       (identifier))
     (line_comment)
-    (content_block
-      (paragraph
-        (text)))
+    (paragraph
+      (text))
     (stitch_block
       (line_comment)
       (stitch
         (identifier))
       (line_comment)
-      (content_block
-        (paragraph
-          (text))))))
+      (paragraph
+        (text)))))
 
 ===
 .AFB. Stitches have unique names
@@ -86,31 +81,30 @@ stitch content
 ---
 
 (ink
-  content: (content_block
-    (choice_block
-      header: (choice
-        marks: (choice_marks
-          (choice_mark))
-        choice_only: (choice_only
-          (content
-            content: (text))))
-      content: (paragraph
-        redirect: (divert
-          target: (qualified_name
-            (identifier)
-            (identifier)))))
-    (choice_block
-      header: (choice
-        marks: (choice_marks
-          (choice_mark))
-        choice_only: (choice_only
-          (content
-            content: (text))))
-      content: (paragraph
-        redirect: (divert
-          target: (qualified_name
-            (identifier)
-            (identifier)))))))
+  (choice_block
+    (choice
+      marks: (choice_marks
+        (choice_mark))
+      choice_only: (choice_only
+        (content
+          content: (text))))
+    (paragraph
+      redirect: (divert
+        target: (qualified_name
+          (identifier)
+          (identifier)))))
+  (choice_block
+    (choice
+      marks: (choice_marks
+        (choice_mark))
+      choice_only: (choice_only
+        (content
+          content: (text))))
+    (paragraph
+      redirect: (divert
+        target: (qualified_name
+          (identifier)
+          (identifier))))))
 
 ===
 .AFC. Script files can be combined
@@ -121,13 +115,12 @@ INCLUDE journeys/orient_express.ink
 ---
 
 (ink
-  (content_block
-    (include
-      (path))
-    (include
-      (path))
-    (include
-      (path))))
+  (include
+    (path))
+  (include
+    (path))
+  (include
+    (path)))
 
 ===
 .AFCa. Include corner cases
@@ -141,14 +134,13 @@ INC is a common suffix for a company
 ---
 
 (ink
-  (content_block
-    (include
-      (path))
-    (include
-      (path))
-    (paragraph
-      (text))
-    (paragraph
-      (text))
-    (paragraph
-      (text))))
+  (include
+    (path))
+  (include
+    (path))
+  (paragraph
+    (text))
+  (paragraph
+    (text))
+  (paragraph
+    (text)))

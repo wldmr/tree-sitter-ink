@@ -5,9 +5,8 @@ EXTERNAL playSound(soundName)
 ---
 
 (ink
-  (content_block
-    (external
-      (identifier)
-      (params
-        (param
-          (identifier))))))
+  (external
+    (identifier)
+    (params
+      (param
+        (identifier)))))

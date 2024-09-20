@@ -20,25 +20,24 @@ VAR microwaveState = cold
 ---
 
 (ink
-  (content_block
-    (list
-      (identifier)
-      (list_value_defs
-        (list_value_def
-          (identifier))
-        (list_value_def
-          (identifier))
-        (list_value_def
-          (identifier))))
-    (global
-      (identifier)
-      (identifier))
-    (global
-      (identifier)
-      (identifier))
-    (global
-      (identifier)
-      (identifier)))
+  (list
+    (identifier)
+    (list_value_defs
+      (list_value_def
+        (identifier))
+      (list_value_def
+        (identifier))
+      (list_value_def
+        (identifier))))
+  (global
+    (identifier)
+    (identifier))
+  (global
+    (identifier)
+    (identifier))
+  (global
+    (identifier)
+    (identifier))
   (knot_block
     (knot
       (identifier)
@@ -47,66 +46,64 @@ VAR microwaveState = cold
           (identifier))
         (param
           (identifier))))
-    (content_block
-      (choice_block
-        (choice
-          (choice_marks
-            (choice_mark))
-          (condition
-            (binary
-              (identifier)
-              (identifier)))
-          (choice_only
-            (content
-              (text)
-              (eval
-                (identifier)))))
-        (paragraph
-          (text)
-          (eval
-            (identifier))
-          (text))
-        (code
-          (assignment
+    (choice_block
+      (choice
+        (choice_marks
+          (choice_mark))
+        (condition
+          (binary
             (identifier)
             (identifier)))
-        (paragraph
-          (divert
-            (qualified_name
-              (identifier)
-              (identifier)))))))
+        (choice_only
+          (content
+            (text)
+            (eval
+              (identifier)))))
+      (paragraph
+        (text)
+        (eval
+          (identifier))
+        (text))
+      (code
+        (assignment
+          (identifier)
+          (identifier)))
+      (paragraph
+        (divert
+          (qualified_name
+            (identifier)
+            (identifier))))))
   (knot_block
     (knot
       (identifier))
-    (content_block
-      (paragraph
-        (thread
-          (call
-            (identifier)
-            (args
-              (string)
-              (identifier)))))
-      (paragraph
-        (thread
-          (call
-            (identifier)
-            (args
-              (string)
-              (identifier)))))
-      (paragraph
-        (thread
-          (call
-            (identifier)
-            (args
-              (string)
-              (identifier)))))
-      (gather_block
-        (gather
-          (gather_marks
-            (gather_mark))
-          (label
-            (identifier))
-          (eol))))))
+    (paragraph
+      (thread
+        (call
+          (identifier)
+          (args
+            (string)
+            (identifier)))))
+    (paragraph
+      (thread
+        (call
+          (identifier)
+          (args
+            (string)
+            (identifier)))))
+    (paragraph
+      (thread
+        (call
+          (identifier)
+          (args
+            (string)
+            (identifier)))))
+    (gather_block
+      (gather
+        (gather_marks
+          (gather_mark))
+        (label
+          (identifier))
+        (eol)))))
 
 ===
 .EBB. Lists can share names
@@ -118,29 +115,28 @@ VAR status = color.blue
 ---
 
 (ink
-  (content_block
-    (list
+  (list
+    (identifier)
+    (list_value_defs
+      (list_value_def
+        (identifier))
+      (list_value_def
+        (identifier))
+      (list_value_def
+        (identifier))
+      (list_value_def
+        (identifier))))
+  (list
+    (identifier)
+    (list_value_defs
+      (list_value_def
+        (identifier))
+      (list_value_def
+        (identifier))
+      (list_value_def
+        (identifier))))
+  (global
+    (identifier)
+    (qualified_name
       (identifier)
-      (list_value_defs
-        (list_value_def
-          (identifier))
-        (list_value_def
-          (identifier))
-        (list_value_def
-          (identifier))
-        (list_value_def
-          (identifier))))
-    (list
-      (identifier)
-      (list_value_defs
-        (list_value_def
-          (identifier))
-        (list_value_def
-          (identifier))
-        (list_value_def
-          (identifier))))
-    (global
-      (identifier)
-      (qualified_name
-        (identifier)
-        (identifier)))))
+      (identifier))))

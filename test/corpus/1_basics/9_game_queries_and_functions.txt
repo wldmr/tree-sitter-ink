@@ -8,32 +8,31 @@
 ---
 
 (ink
-  content: (content_block
-    (choice_block
-      header: (choice
-        marks: (choice_marks
-          (choice_mark))
-        condition: (condition)
-        main: (content
-          content: (text))))
-    (choice_block
-      header: (choice
-        marks: (choice_marks
-          (choice_mark))
-        condition: (condition)
-        main: (content
-          content: (text))))
-    (choice_block
-      header: (choice
-        marks: (choice_marks
-          (choice_mark))
-        condition: (condition
-          expr: (binary
-            left: (call
-              name: (identifier))
-            right: (number)))
-        main: (content
-          content: (text))))))
+  (choice_block
+    (choice
+      marks: (choice_marks
+        (choice_mark))
+      condition: (condition)
+      main: (content
+        content: (text))))
+  (choice_block
+    (choice
+      marks: (choice_marks
+        (choice_mark))
+      condition: (condition)
+      main: (content
+        content: (text))))
+  (choice_block
+    (choice
+      marks: (choice_marks
+        (choice_mark))
+      condition: (condition
+        expr: (binary
+          left: (call
+            name: (identifier))
+          right: (number)))
+      main: (content
+        content: (text)))))
 
 ===
 .AIB. TURNS_SINCE
@@ -43,39 +42,38 @@
 ---
 
 (ink
-  content: (content_block
-    (choice_block
-      header: (choice
-        marks: (choice_marks
-          (choice_mark))
-        condition: (condition
-          expr: (binary
-            left: (call
-              name: (identifier)
-              args: (args
-                (divert
-                  target: (qualified_name
-                    (identifier)
-                    (identifier)))))
-            right: (number)))
-        main: (content
-          content: (text)
-          redirect: (divert
-            target: (identifier)))))
-    (choice_block
-      header: (choice
-        marks: (choice_marks
-          (choice_mark))
-        condition: (condition
-          expr: (binary
-            left: (call
-              name: (identifier)
-              args: (args
-                (divert
-                  target: (identifier))))
-            right: (number)))
-        main: (content
-          content: (text))))))
+  (choice_block
+    (choice
+      marks: (choice_marks
+        (choice_mark))
+      condition: (condition
+        expr: (binary
+          left: (call
+            name: (identifier)
+            args: (args
+              (divert
+                target: (qualified_name
+                  (identifier)
+                  (identifier)))))
+          right: (number)))
+      main: (content
+        content: (text)
+        redirect: (divert
+          target: (identifier)))))
+  (choice_block
+    (choice
+      marks: (choice_marks
+        (choice_mark))
+      condition: (condition
+        expr: (binary
+          left: (call
+            name: (identifier)
+            args: (args
+              (divert
+                target: (identifier))))
+          right: (number)))
+      main: (content
+        content: (text)))))
 
 ===
 .AIC. came_from
@@ -93,15 +91,14 @@
         (param
           (divert
             (identifier)))))
-    (content_block
-      (code
-        (return
-          (binary
-            (call
-              (identifier)
-              (args
-                (identifier)))
-            (number)))))))
+    (code
+      (return
+        (binary
+          (call
+            (identifier)
+            (args
+              (identifier)))
+          (number))))))
 
 ===
 .AIX. Expressions TODO: Move to appropriate section when written
@@ -111,30 +108,29 @@
 ---
 
 (ink
-  content: (content_block
-    (choice_block
-      header: (choice
-        marks: (choice_marks
-          (choice_mark))
-        condition: (condition
-          expr: (binary
+  (choice_block
+    (choice
+      marks: (choice_marks
+        (choice_mark))
+      condition: (condition
+        expr: (binary
+          left: (binary
             left: (binary
-              left: (binary
+              left: (identifier)
+              right: (binary
                 left: (identifier)
-                right: (binary
-                  left: (identifier)
+                right: (unary
                   right: (unary
-                    right: (unary
-                      right: (identifier)))))
-              right: (number))
-            right: (binary
-              left: (binary
-                left: (identifier)
-                right: (paren
-                  (binary
-                    left: (identifier)
-                    right: (identifier))))
-              right: (unary
-                right: (number)))))
-        main: (content
-          content: (text))))))
+                    right: (identifier)))))
+            right: (number))
+          right: (binary
+            left: (binary
+              left: (identifier)
+              right: (paren
+                (binary
+                  left: (identifier)
+                  right: (identifier))))
+            right: (unary
+              right: (number)))))
+      main: (content
+        content: (text)))))

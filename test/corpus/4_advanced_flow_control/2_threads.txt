@@ -29,75 +29,71 @@ Before long, we arrived at his house.
   (knot_block
     (knot
       (identifier))
-    (content_block
+    (paragraph
+      (text))
+    (paragraph
+      (thread
+        (identifier)))
+    (paragraph
+      (thread
+        (identifier))))
+  (knot_block
+    (knot
+      (identifier))
+    (paragraph
+      (text))
+    (choice_block
+      (choice
+        (choice_marks
+          (choice_mark))
+        (content
+          (text))
+        (choice_only)
+        (content
+          (text)))
       (paragraph
-        (text))
+        (text)))
+    (choice_block
+      (choice
+        (choice_marks
+          (choice_mark))
+        (content
+          (text))
+        (choice_only)
+        (content
+          (text)))
       (paragraph
-        (thread
-          (identifier)))
+        (text)))
+    (gather_block
+      (gather
+        (gather_marks
+          (gather_mark)))
       (paragraph
-        (thread
+        (divert
           (identifier)))))
   (knot_block
     (knot
       (identifier))
-    (content_block
-      (paragraph
-        (text))
-      (choice_block
-        (choice
-          (choice_marks
-            (choice_mark))
+    (paragraph
+      (text))
+    (choice_block
+      (choice
+        (choice_marks
+          (choice_mark))
+        (choice_only
           (content
-            (text))
-          (choice_only)
-          (content
-            (text)))
-        (paragraph
-          (text)))
-      (choice_block
-        (choice
-          (choice_marks
-            (choice_mark))
-          (content
-            (text))
-          (choice_only)
-          (content
-            (text)))
-        (paragraph
-          (text)))
-      (gather_block
-        (gather
-          (gather_marks
-            (gather_mark)))
-        (paragraph
-          (divert
-            (identifier))))))
-  (knot_block
-    (knot
-      (identifier))
-    (content_block
-      (paragraph
-        (text))
-      (choice_block
-        (choice
-          (choice_marks
-            (choice_mark))
-          (choice_only
-            (content
-              (text))))
-        (paragraph
-          (divert
-            (identifier))))))
-  (knot_block
-    (knot
-      (identifier))
-    (content_block
-      (paragraph
-        (text))
+            (text))))
       (paragraph
         (divert
-          (identifier))))))
+          (identifier)))))
+  (knot_block
+    (knot
+      (identifier))
+    (paragraph
+      (text))
+    (paragraph
+      (divert
+        (identifier)))))
 
 ===
 .DBB. Organization of wide choice points
@@ -125,31 +121,30 @@ Before long, we arrived at his house.
   (knot_block
     (knot
       (identifier))
-    (content_block
-      (gather_block
-        (gather
-          (gather_marks
-            (gather_mark))
-          (label
-            (identifier))
-          (eol))
-        (paragraph
-          (thread
-            (call
-              (identifier)
-              (args
-                (divert
-                  (identifier))))))
-        (paragraph
-          (thread
-            (call
-              (identifier)
-              (args
-                (divert
-                  (identifier))))))
-        (paragraph
-          (thread
-            (identifier)))))
+    (gather_block
+      (gather
+        (gather_marks
+          (gather_mark))
+        (label
+          (identifier))
+        (eol))
+      (paragraph
+        (thread
+          (call
+            (identifier)
+            (args
+              (divert
+                (identifier))))))
+      (paragraph
+        (thread
+          (call
+            (identifier)
+            (args
+              (divert
+                (identifier))))))
+      (paragraph
+        (thread
+          (identifier))))
     (stitch_block
       (stitch
         (identifier)
@@ -158,9 +153,8 @@ Before long, we arrived at his house.
             (divert
               (identifier)))))
       (line_comment)
-      (content_block
-        (paragraph
-          (text))))
+      (paragraph
+        (text)))
     (stitch_block
       (stitch
         (identifier)
@@ -169,13 +163,11 @@ Before long, we arrived at his house.
             (divert
               (identifier)))))
       (line_comment)
-      (content_block
-        (paragraph
-          (text))))
+      (paragraph
+        (text)))
     (stitch_block
       (stitch
         (identifier))
       (line_comment)
-      (content_block
-        (paragraph
-          (text))))))
+      (paragraph
+        (text)))))
