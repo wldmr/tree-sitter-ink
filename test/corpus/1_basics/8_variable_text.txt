@@ -163,7 +163,7 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
 
 (ink
   (choice_block
-    (choice
+    header: (choice
       marks: (choice_marks
         (choice_mark))
       main: (content
@@ -190,7 +190,7 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
 
 (ink
   (choice_block
-    (choice
+    header: (choice
       marks: (choice_marks
         (choice_mark))
       main: (content

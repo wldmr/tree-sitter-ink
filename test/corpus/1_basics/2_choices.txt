@@ -10,7 +10,7 @@ Hello world!
   (paragraph
     content: (text))
   (choice_block
-    (choice
+    header: (choice
       marks: (choice_marks
         (choice_mark))
       main: (content
@@ -30,7 +30,7 @@ Hello world!
   (paragraph
     content: (text))
   (choice_block
-    (choice
+    header: (choice
       marks: (choice_marks
         (choice_mark))
       main: (content
@@ -83,7 +83,7 @@ Hello [World]
   (paragraph
     content: (text))
   (choice_block
-    (choice
+    header: (choice
       marks: (choice_marks
         (choice_mark))
       main: (content
@@ -96,7 +96,7 @@ Hello [World]
     (paragraph
       content: (text)))
   (choice_block
-    (choice
+    header: (choice
       marks: (choice_marks
         (choice_mark))
       main: (content
@@ -107,7 +107,7 @@ Hello [World]
     (paragraph
       content: (text)))
   (choice_block
-    (choice
+    header: (choice
       marks: (choice_marks
         (choice_mark))
       main: (content

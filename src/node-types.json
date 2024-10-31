@@ -22,6 +22,38 @@
     ]
   },
   {
+    "type": "_comment",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "block_comment",
+        "named": true
+      },
+      {
+        "type": "line_comment",
+        "named": true
+      }
+    ]
+  },
+  {
+    "type": "_divert_target",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "call",
+        "named": true
+      },
+      {
+        "type": "identifier",
+        "named": true
+      },
+      {
+        "type": "qualified_name",
+        "named": true
+      }
+    ]
+  },
+  {
     "type": "_global_keyword",
     "named": true,
     "subtypes": [
@@ -90,20 +122,6 @@
       {
         "type": "tunnel",
         "named": true
-      }
-    ]
-  },
-  {
-    "type": "boolean",
-    "named": true,
-    "subtypes": [
-      {
-        "type": "false",
-        "named": false
-      },
-      {
-        "type": "true",
-        "named": false
       }
     ]
   },
@@ -423,6 +441,11 @@
     "fields": {}
   },
   {
+    "type": "boolean",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "call",
     "named": true,
     "fields": {
@@ -541,15 +564,22 @@
   {
     "type": "choice_block",
     "named": true,
-    "fields": {},
+    "fields": {
+      "header": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "choice",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
-        {
-          "type": "choice",
-          "named": true
-        },
         {
           "type": "choice_block",
           "named": true
@@ -848,15 +878,7 @@
         "required": true,
         "types": [
           {
-            "type": "call",
-            "named": true
-          },
-          {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "qualified_name",
+            "type": "_divert_target",
             "named": true
           }
         ]
@@ -954,10 +976,21 @@
   {
     "type": "gather_block",
     "named": true,
-    "fields": {},
+    "fields": {
+      "header": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "gather",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "choice_block",
@@ -969,10 +1002,6 @@
         },
         {
           "type": "external",
-          "named": true
-        },
-        {
-          "type": "gather",
           "named": true
         },
         {
@@ -1208,10 +1237,21 @@
   {
     "type": "knot_block",
     "named": true,
-    "fields": {},
+    "fields": {
+      "header": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "knot",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "choice_block",
@@ -1235,10 +1275,6 @@
         },
         {
           "type": "include",
-          "named": true
-        },
-        {
-          "type": "knot",
           "named": true
         },
         {
@@ -1660,10 +1696,21 @@
   {
     "type": "stitch_block",
     "named": true,
-    "fields": {},
+    "fields": {
+      "header": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "stitch",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "choice_block",
@@ -1695,10 +1742,6 @@
         },
         {
           "type": "paragraph",
-          "named": true
-        },
-        {
-          "type": "stitch",
           "named": true
         },
         {
@@ -2455,11 +2498,7 @@
         "required": true,
         "types": [
           {
-            "type": "call",
-            "named": true
-          },
-          {
-            "type": "identifier",
+            "type": "_divert_target",
             "named": true
           }
         ]
@@ -2491,11 +2530,7 @@
         "required": false,
         "types": [
           {
-            "type": "call",
-            "named": true
-          },
-          {
-            "type": "identifier",
+            "type": "_divert_target",
             "named": true
           }
         ]

@@ -14,12 +14,12 @@ So, more text I guess.
 (ink
   (knot_block
     (line_comment)
-    (knot
+    header: (knot
       name: (identifier))
     (paragraph
       content: (text)))
   (knot_block
-    (knot
+    header: (knot
       name: (identifier)
       (line_comment))
     (paragraph
@@ -39,7 +39,7 @@ Hello world!
     redirect: (divert
       target: (identifier)))
   (knot_block
-    (knot
+    header: (knot
       name: (identifier))
     (paragraph
       content: (text))))

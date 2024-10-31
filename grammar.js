@@ -125,7 +125,7 @@ function make_expr(named = true) {
 
     [rule('divert')]: $ => seq(
       $._divert_mark,
-      field('target', choice($[rule('identifier')], $[rule('qualified_name')], $[rule('call')])),
+      field('target', $[rule('_divert_target')]),
     ),
 
   }
@@ -162,9 +162,9 @@ module.exports = grammar({
     $._gather_block_start,
     $._gather_block_end,
 
-    // We have to emit these marks from the scanner, that we can update the scanner state.
     // The scanner state keeps track of how many marks still need to be emitted after a block start.
-    // But that state is only persisted if the scan function returns `true`.
+    // We have to emit these marks from the scanner itself, so that we can update the scanner state,
+    // because state is only persisted if the scan function returns `true` (that is, if it found a token).
     $.choice_mark,
     $.gather_mark,
 
@@ -180,12 +180,14 @@ module.exports = grammar({
   ],
 
   inline: $ => [
+    $._single_line_content_item,
     $.expr,
   ],
 
   supertypes: $ => [
-    $.expr,
-    $.boolean,
+    $.expr,  // because we inlined it
+    $._divert_target,
+    $._comment,
     $._redirect,
     $._logic,
     $._code_stmt,
@@ -221,7 +223,7 @@ module.exports = grammar({
 
     knot_block: $ => prec.right(seq(
       $._knot_block_start,
-      $.knot,
+      field('header', $.knot),
       optional($._content_block),
       repeat($.stitch_block),
       $._knot_block_end,
@@ -229,14 +231,14 @@ module.exports = grammar({
 
     stitch_block: $ => prec.right(seq(
       $._stitch_block_start,
-      $.stitch,
+      field('header', $.stitch),
       optional($._content_block),
       $._stitch_block_end,
     )),
 
     choice_block: $ => prec.right(seq(
       $._choice_block_start,
-      $.choice,
+      field('header', $.choice),
       $._eol,
       repeat($._content_item),
       $._choice_block_end,
@@ -244,7 +246,7 @@ module.exports = grammar({
 
     _choice_block_in_conditional: $ => prec.right(seq(
       $._choice_block_start,
-      $.choice,
+      field('header', $.choice),
       $._eol,
       repeat($._content_item_in_conditional),
       $._choice_block_end,
@@ -252,7 +254,7 @@ module.exports = grammar({
 
     gather_block: $ => prec.right(seq(
       $._gather_block_start,
-      $.gather,
+      field('header', $.gather),
       repeat($._content_item),
       $._gather_block_end,
     )),
@@ -288,8 +290,11 @@ module.exports = grammar({
       $.thread,
     ),
 
+    _divert_target: $ => choice($.identifier, $.qualified_name, $.call),
+    _anon__divert_target: $ => choice($._anon_identifier, $._anon_qualified_name, $._anon_call),
+
     tunnel: $ => choice(
-      seq($._tunnel_return, field('target', optional(choice($.identifier, $.call)))),
+      seq($._tunnel_return, field('target', optional($._divert_target))),
       // one or more diverts with return
       // -> do_this ->
       seq(repeat1($.divert), $._divert_mark),
@@ -298,7 +303,7 @@ module.exports = grammar({
       seq($.divert, repeat1($.divert)),
     ),
 
-    thread: $ => seq($._thread_mark, field('target', choice($.identifier, $.call))),
+    thread: $ => seq($._thread_mark, field('target', $._divert_target)),
 
     text: _ =>  prec.right(repeat1(choice(
       '-', '<', '>', '/', // individual characters also occurring in divert, thread or comment marks
@@ -636,7 +641,9 @@ module.exports = grammar({
       repeat(seq(alias(/[^\n]/, 'block_comment_line', $._eol))),
       '*/'
     ),
-    _comments: $ => prec.right(repeat1(choice($.line_comment, $.block_comment))),
+
+    _comment: $ => choice($.line_comment, $.block_comment),
+    _comments: $ => prec.right(repeat1($._comment)),
 
   },
 

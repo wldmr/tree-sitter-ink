@@ -7,7 +7,7 @@
 
 (ink
   (choice_block
-    (choice
+    header: (choice
       marks: (choice_marks
         (choice_mark))
       main: (content
@@ -15,7 +15,7 @@
         tag: (tag
           content: (text)))))
   (choice_block
-    (choice
+    header: (choice
       marks: (choice_marks
         (choice_mark))
       main: (content

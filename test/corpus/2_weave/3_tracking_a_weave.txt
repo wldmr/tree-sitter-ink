@@ -19,19 +19,19 @@ The guard frowns at you.
 
 (ink
   (gather_block
-    (gather
+    header: (gather
       (gather_marks
         (gather_mark))
       label: (label
         name: (identifier))
       eol: (eol)))
   (knot_block
-    (knot
+    header: (knot
       name: (identifier))
     (paragraph
       content: (text))
     (choice_block
-      (choice
+      header: (choice
         marks: (choice_marks
           (choice_mark))
         label: (label
@@ -42,7 +42,7 @@ The guard frowns at you.
       (paragraph
         content: (text)))
     (choice_block
-      (choice
+      header: (choice
         marks: (choice_marks
           (choice_mark))
         label: (label
@@ -55,13 +55,13 @@ The guard frowns at you.
         when_chosen: (content
           content: (text))))
     (gather_block
-      (gather
+      header: (gather
         (gather_marks
           (gather_mark)))
       (paragraph
         content: (text)))
     (choice_block
-      (choice
+      header: (choice
         marks: (choice_marks
           (choice_mark))
         condition: (condition
@@ -70,7 +70,7 @@ The guard frowns at you.
           content: (text)))
       (line_comment))
     (choice_block
-      (choice
+      header: (choice
         marks: (choice_marks
           (choice_mark))
         main: (content

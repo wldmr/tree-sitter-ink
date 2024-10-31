@@ -10,14 +10,14 @@
 
 (ink
   (choice_block
-    (choice
+    header: (choice
       marks: (choice_marks
         (choice_mark))
       main: (content
         redirect: (divert
           target: (identifier)))))
   (choice_block
-    (choice
+    header: (choice
       marks: (choice_marks
         (choice_mark)))
     (paragraph
@@ -41,12 +41,12 @@
 
 (ink
   (knot_block
-    (knot
+    header: (knot
       name: (identifier))
     (paragraph
       content: (text))
     (choice_block
-      (choice
+      header: (choice
         marks: (choice_marks
           (choice_mark))
         main: (content
@@ -59,7 +59,7 @@
           redirect: (divert
             target: (identifier)))))
     (choice_block
-      (choice
+      header: (choice
         marks: (choice_marks
           (choice_mark))
         main: (content
@@ -72,7 +72,7 @@
           redirect: (divert
             target: (identifier)))))
     (choice_block
-      (choice
+      header: (choice
         marks: (choice_marks
           (choice_mark)))
       (paragraph
@@ -95,10 +95,10 @@
 
 (ink
   (knot_block
-    (knot
+    header: (knot
       name: (identifier))
     (choice_block
-      (choice
+      header: (choice
         marks: (choice_marks
           (choice_mark))
         choice_only: (choice_only
@@ -109,7 +109,7 @@
         redirect: (divert
           target: (identifier))))
     (choice_block
-      (choice
+      header: (choice
         marks: (choice_marks
           (choice_mark))
         choice_only: (choice_only
@@ -133,10 +133,10 @@
 
 (ink
   (knot_block
-    (knot
+    header: (knot
       name: (identifier))
     (choice_block
-      (choice
+      header: (choice
         marks: (choice_marks
           (choice_mark))
         choice_only: (choice_only
@@ -146,7 +146,7 @@
           redirect: (divert
             target: (identifier)))))
     (choice_block
-      (choice
+      header: (choice
         marks: (choice_marks
           (choice_mark))
         choice_only: (choice_only
@@ -156,7 +156,7 @@
           redirect: (divert
             target: (identifier)))))
     (choice_block
-      (choice
+      header: (choice
         marks: (choice_marks
           (choice_mark))
         main: (content
@@ -175,7 +175,7 @@
 
 (ink
   (choice_block
-    (choice
+    header: (choice
       marks: (choice_marks
         (choice_mark))
       condition: (condition
@@ -188,7 +188,7 @@
         redirect: (divert
           target: (identifier)))))
   (choice_block
-    (choice
+    header: (choice
       marks: (choice_marks
         (choice_mark))
       condition: (condition
@@ -200,7 +200,7 @@
         redirect: (divert
           target: (identifier)))))
   (choice_block
-    (choice
+    header: (choice
       marks: (choice_marks
         (choice_mark))
       condition: (condition
@@ -225,7 +225,7 @@
 
 (ink
   (choice_block
-    (choice
+    header: (choice
       marks: (choice_marks
         (choice_mark))
       condition: (condition
@@ -238,7 +238,7 @@
         redirect: (divert
           target: (identifier)))))
   (choice_block
-    (choice
+    header: (choice
       marks: (choice_marks
         (choice_mark))
       condition: (condition
@@ -263,7 +263,7 @@
 
 (ink
   (choice_block
-    (choice
+    header: (choice
       marks: (choice_marks
         (choice_mark))
       condition: (condition
@@ -315,7 +315,7 @@
 
 (ink
   (choice_block
-    (choice
+    header: (choice
       marks: (choice_marks
         (choice_mark))
       condition: (condition
@@ -324,7 +324,7 @@
         (content
           content: (text)))))
   (choice_block
-    (choice
+    header: (choice
       marks: (choice_marks
         (choice_mark))
       condition: (condition

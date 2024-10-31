@@ -9,21 +9,23 @@
 
 (ink
   (choice_block
-    (choice
+    header: (choice
       marks: (choice_marks
         (choice_mark))
-      condition: (condition)
+      condition: (condition
+        expr: (boolean))
       main: (content
         content: (text))))
   (choice_block
-    (choice
+    header: (choice
       marks: (choice_marks
         (choice_mark))
-      condition: (condition)
+      condition: (condition
+        expr: (boolean))
       main: (content
         content: (text))))
   (choice_block
-    (choice
+    header: (choice
       marks: (choice_marks
         (choice_mark))
       condition: (condition
@@ -43,7 +45,7 @@
 
 (ink
   (choice_block
-    (choice
+    header: (choice
       marks: (choice_marks
         (choice_mark))
       condition: (condition
@@ -61,7 +63,7 @@
         redirect: (divert
           target: (identifier)))))
   (choice_block
-    (choice
+    header: (choice
       marks: (choice_marks
         (choice_mark))
       condition: (condition
@@ -109,7 +111,7 @@
 
 (ink
   (choice_block
-    (choice
+    header: (choice
       marks: (choice_marks
         (choice_mark))
       condition: (condition

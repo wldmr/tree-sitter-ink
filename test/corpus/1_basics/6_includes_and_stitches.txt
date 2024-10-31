@@ -15,25 +15,25 @@
 
 (ink
   (knot_block
-    (knot
+    header: (knot
       name: (identifier))
     (stitch_block
-      (stitch
+      header: (stitch
         name: (identifier))
       (paragraph
         content: (text)))
     (stitch_block
-      (stitch
+      header: (stitch
         name: (identifier))
       (paragraph
         content: (text)))
     (stitch_block
-      (stitch
+      header: (stitch
         name: (identifier))
       (paragraph
         content: (text)))
     (stitch_block
-      (stitch
+      header: (stitch
         name: (identifier))
       (paragraph
         content: (text)))))
@@ -82,7 +82,7 @@ stitch content
 
 (ink
   (choice_block
-    (choice
+    header: (choice
       marks: (choice_marks
         (choice_mark))
       choice_only: (choice_only
@@ -94,7 +94,7 @@ stitch content
           (identifier)
           (identifier)))))
   (choice_block
-    (choice
+    header: (choice
       marks: (choice_marks
         (choice_mark))
       choice_only: (choice_only

@@ -11,7 +11,7 @@
 
 (ink
   (knot_block
-    (knot
+    header: (knot
       name: (identifier))
     (code
       (temp

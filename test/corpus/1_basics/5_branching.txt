@@ -16,12 +16,12 @@ You open the gate, and step out onto the path.
 
 (ink
   (knot_block
-    (knot
+    header: (knot
       name: (identifier))
     (paragraph
       content: (text))
     (choice_block
-      (choice
+      header: (choice
         marks: (choice_marks
           (choice_mark))
         choice_only: (choice_only
@@ -31,7 +31,7 @@ You open the gate, and step out onto the path.
           redirect: (divert
             target: (identifier)))))
     (choice_block
-      (choice
+      header: (choice
         marks: (choice_marks
           (choice_mark))
         choice_only: (choice_only
@@ -41,7 +41,7 @@ You open the gate, and step out onto the path.
           redirect: (divert
             target: (identifier)))))
     (choice_block
-      (choice
+      header: (choice
         marks: (choice_marks
           (choice_mark))
         choice_only: (choice_only
@@ -51,7 +51,7 @@ You open the gate, and step out onto the path.
           redirect: (divert
             target: (identifier))))))
   (knot_block
-    (knot
+    header: (knot
       name: (identifier))
     (paragraph
       content: (text))

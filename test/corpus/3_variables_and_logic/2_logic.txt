@@ -9,11 +9,12 @@
 
 (ink
   (knot_block
-    (knot
+    header: (knot
       name: (identifier))
     (code
       (assignment
-        name: (identifier)))
+        name: (identifier)
+        value: (boolean)))
     (code
       (assignment
         name: (identifier)

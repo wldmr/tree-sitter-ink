@@ -18,7 +18,8 @@
     (knot
       (identifier))
     (code
-      (return)))
+      (return
+        (boolean))))
   (knot_block
     (knot
       (identifier)

@@ -10,7 +10,8 @@ VAR current_epilogue = -> they_all_die_of_the_plague
 
 (ink
   (global
-    name: (identifier))
+    name: (identifier)
+    value: (boolean))
   (global
     name: (identifier)
     value: (string))
