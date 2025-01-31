@@ -1994,7 +1994,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "temp"
+          "name": "temp_def"
         },
         {
           "type": "SYMBOL",
@@ -2048,7 +2048,7 @@
         }
       ]
     },
-    "temp": {
+    "temp_def": {
       "type": "SEQ",
       "members": [
         {

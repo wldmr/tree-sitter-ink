@@ -1,7 +1,7 @@
 (return "return" @keyword.control.return)
 (global ["VAR" "CONST"] @keyword.storage.type
         "=" @operator)
-(temp "temp" @keyword
+(temp_def "temp" @keyword
       name: (identifier) @variable.member) ; not really, but temp vars are the closest thing to members that ink has
 (include "INCLUDE" @keyword.control.import
          (path) @string.special.path)

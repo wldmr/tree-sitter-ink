@@ -531,7 +531,7 @@ module.exports = grammar({
     
     _code_stmt: $ => choice(
       $.assignment,
-      $.temp,
+      $.temp_def,
       $.expr,
       $.return,
     ),
@@ -542,7 +542,7 @@ module.exports = grammar({
       field('value', $.expr)
     ),
     
-    temp: $ => seq(
+    temp_def: $ => seq(
       'temp', $._space,
       field('name', $.identifier),
       field('op', "="),

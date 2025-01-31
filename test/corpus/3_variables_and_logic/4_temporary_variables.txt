@@ -14,7 +14,7 @@
     header: (knot
       name: (identifier))
     (code
-      (temp
+      (temp_def
         name: (identifier)
         value: (number)))
     (paragraph

@@ -16,7 +16,7 @@
         "named": true
       },
       {
-        "type": "temp",
+        "type": "temp_def",
         "named": true
       }
     ]
@@ -1791,7 +1791,7 @@
     }
   },
   {
-    "type": "temp",
+    "type": "temp_def",
     "named": true,
     "fields": {
       "name": {
