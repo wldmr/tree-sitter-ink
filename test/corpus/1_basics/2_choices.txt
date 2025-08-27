@@ -8,15 +8,27 @@ Hello world!
 
 (ink
   (paragraph
-    content: (text))
+    content: (text
+      (word)
+      (word)
+      (word)))
   (choice_block
     header: (choice
       marks: (choice_marks
         (choice_mark))
       main: (content
-        content: (text)))
+        content: (text
+          (word)
+          (word)
+          (word))))
     (paragraph
-      content: (text))))
+      content: (text
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)))))
 
 ===
 .ABB. Suppressing Choice Text
@@ -28,20 +40,37 @@ Hello world!
 
 (ink
   (paragraph
-    content: (text))
+    content: (text
+      (word)
+      (word)
+      (word)))
   (choice_block
     header: (choice
       marks: (choice_marks
         (choice_mark))
       main: (content
-        content: (text))
+        content: (text
+          (word)))
       choice_only: (choice_only
         (content
-          content: (text)))
+          content: (text
+            (word)
+            (word))))
       when_chosen: (content
-        content: (text)))
+        content: (text
+          (word)
+          (word)
+          (word)
+          (word)
+          (word))))
     (paragraph
-      content: (text))))
+      content: (text
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)))))
 
 ===
 .ABBa. Corner Case: Outside of choices, square brackets are just text
@@ -51,7 +80,11 @@ Hello [World]
 
 (ink
   (paragraph
-    (text)))
+    (text
+      (word)
+      (word)
+      (word)
+      (word))))
 
 ===
 .ABBb. Corner Case: Within choices, square brackets can be escaped to become text
@@ -65,7 +98,11 @@ Hello [World]
       (choice_marks
         (choice_mark))
       (content
-        (text)))))
+        (text
+          (word)
+          (word)
+          (word)
+          (word))))))
 
 ===
 .ABC. Multiple choices
@@ -81,44 +118,139 @@ Hello [World]
 
 (ink
   (paragraph
-    content: (text))
+    content: (text
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)))
   (choice_block
     header: (choice
       marks: (choice_marks
         (choice_mark))
       main: (content
-        content: (text))
+        content: (text
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)))
       choice_only: (choice_only
         (content
-          content: (text)))
+          content: (text
+            (word)
+            (word))))
       when_chosen: (content
-        content: (text)))
+        content: (text
+          (word)
+          (word)
+          (word)
+          (word)
+          (word))))
     (paragraph
-      content: (text)))
+      content: (text
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word))))
   (choice_block
     header: (choice
       marks: (choice_marks
         (choice_mark))
       main: (content
-        content: (text))
+        content: (text
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)))
       choice_only: (choice_only)
       when_chosen: (content
-        content: (text)))
+        content: (text
+          (word)
+          (word)
+          (word))))
     (paragraph
-      content: (text)))
+      content: (text
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word))))
   (choice_block
     header: (choice
       marks: (choice_marks
         (choice_mark))
       main: (content
-        content: (text))
+        content: (text
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)))
       choice_only: (choice_only
         (content
-          content: (text)))
+          content: (text
+            (word)
+            (word))))
       when_chosen: (content
-        content: (text)))
+        content: (text
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word))))
     (paragraph
-      content: (text))))
+      content: (text
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)))))
 
 ===
 .ABCa. Corner Case: Completely Empty Choice
@@ -137,4 +269,6 @@ Hello [World]
       (choice_marks
         (choice_mark))
       (content
-        (text)))))
+        (text
+          (word)
+          (word))))))

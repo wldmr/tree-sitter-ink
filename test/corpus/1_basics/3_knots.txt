@@ -17,13 +17,29 @@ So, more text I guess.
     header: (knot
       name: (identifier))
     (paragraph
-      content: (text)))
+      content: (text
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word))))
   (knot_block
     header: (knot
       name: (identifier)
       (line_comment))
     (paragraph
-      content: (text))))
+      content: (text
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)))))
 
 ===
 .ACB. Simplest Knotty Script
@@ -42,4 +58,7 @@ Hello world!
     header: (knot
       name: (identifier))
     (paragraph
-      content: (text))))
+      content: (text
+        (word)
+        (word)
+        (word)))))

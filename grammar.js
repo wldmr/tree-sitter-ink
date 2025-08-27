@@ -2,7 +2,8 @@ let mark = rule => token(prec(1, rule));
 
 // The Ink docs get very specific about which Unicode they allow.
 // But just saying Letters and Numbers is so much simpler. This should be fine.
-IDENTIFIER_REGEX  = /[\p{Letter}_][\p{Letter}\p{Number}_]*/
+const IDENTIFIER_REGEX  = /[\p{Letter}_][\p{Letter}\p{Number}_]*/
+const NUMBER_REGEX = /\d+(\.\d+)?/
 
 PREC = {
   // For ink syntax contstructs that could be confused for text content
@@ -110,7 +111,7 @@ function make_expr(named = true) {
       optional(seq('.', $[rule('identifier')])) // third level: -> knot.stitch.label
     ),
 
-    [rule('number')]: _ => /\d+(\.\d+)?/,
+    [rule('number')]: _ => NUMBER_REGEX,
     [rule('boolean')]: _ => choice('false', 'true'),
 
     [rule('string')]: _ => token(seq(
@@ -197,21 +198,17 @@ module.exports = grammar({
 
   precedences: $ => [
     [$.condition, $.eval],  // since they are syntactically the same, maybe we just treat a condition as an eval?
-    [$._anon_expr, $._anon_list_values],  // How should `(<identifier>)` be interpreted? Doesn't really matter, but we have to choose one.
     [$._choice_content, $.content],
   ],
 
   conflicts: $ => [
-    [$.identifier, $._anon_identifier],
-    [$.number, $._anon_number],
-    [$.boolean, $._anon_boolean],
-    [$.string, $._anon_string],
-    [$.list_values, $._anon_list_values],
+    // [$.word, $.identifier],
     [$.tunnel],
     [$._redirect, $.tunnel],
+    [$.tunnel, $.divert],
   ],
 
-  
+
   rules: {
     ink: $ => seq(
       optional($._content_block),
@@ -291,7 +288,6 @@ module.exports = grammar({
     ),
 
     _divert_target: $ => choice($.identifier, $.qualified_name, $.call),
-    _anon__divert_target: $ => choice($._anon_identifier, $._anon_qualified_name, $._anon_call),
 
     tunnel: $ => choice(
       seq($._tunnel_return, field('target', optional($._divert_target))),
@@ -305,16 +301,21 @@ module.exports = grammar({
 
     thread: $ => seq($._thread_mark, field('target', $._divert_target)),
 
-    text: _ =>  prec.right(repeat1(choice(
-      '-', '<', '>', '/', // individual characters also occurring in divert, thread or comment marks
-      '[', ']', // square brackets outside of choices are fine
-      'LIST', 'INCLUDE', 'TODO', 'VAR', 'GLOBAL', 'temp',  // keywords, which for some reason don't get recognized by the word_regex and cause errors for text like `LISTED`
+    text: $ =>  prec.right(repeat1($.word)),
+
+    word: _ =>  choice(
+      // '-', '<', '>', '/', // individual characters also occurring in divert, thread or comment marks
+      // '[', ']', // square brackets outside of choices are fine
+      // 'LIST', 'INCLUDE', 'TODO', 'VAR', 'GLOBAL', 'temp',  // keywords, which for some reason don't get recognized by the word_regex and cause errors for text like `LISTED`
       // escaped special chars:
       '\\[', '\\]',
       '\\{', '\\}',
       '\\|', '\\#',
-      token(prec(-1, /[^\s\{\}\[\]#\-<>/|\\]/)),
-    ))),
+      // token(prec(-1, /[^\s\{\}\[\]#\-<>/|\\]/)),
+      /\p{Punctuation}/,
+      IDENTIFIER_REGEX,
+      NUMBER_REGEX,
+    ),
 
     content: $ => prec.right(choice(
       seq(
@@ -329,40 +330,11 @@ module.exports = grammar({
       field('redirect', $._redirect),
     )),
 
-    // this "_fake" machinery exists so that we can generate conflicts between text or expressions
-    // after an opening `{`. The fake versions must mirror the normal versions exactly,
-    // except that the _first_ text element (if present) must lead to a conflict with expressions.
-    _fake_content: $ => prec.right(choice(
-      seq(
-        $._fake_glue_logic_or_text,
-        repeat($.tag),
-        optional($._redirect),
-      ),
-      seq(
-        repeat1($.tag),
-        optional($._redirect),
-      ),
-      $._redirect,
-    )),
-
     _glue_logic_or_text: $ => prec.right(repeat1(choice(
       $.glue,
       $._logic,
       $.text,
     ))),
-
-    _fake_glue_logic_or_text: $ => prec.right(seq(
-      choice(
-        $._logic,
-        $.glue,
-        alias($._maybe_expr_text, $.text),
-      ),
-      repeat(choice(
-        $.glue,
-        $._logic,
-        $.text,
-      )),
-    )),
 
     glue: _ => '<>',
 
@@ -395,16 +367,11 @@ module.exports = grammar({
           field('mark', choice('$', '&', '~', mark('!'))),
           optional($.content),
         ),
-        optional(alias($._fake_content, $.content)),
+        optional($.content),
       )),
       '|',
       repeat(choice('|', $.content)),
       '}'
-    )),
-
-    _maybe_expr_text: $ => prec.right(seq(
-      prec.dynamic(PREC.text, $._anon_expr), optional(':'),  // the part causing the conflict with conditional text
-      optional(alias($.text, 'textrest')),
     )),
 
     cond_block: $ => prec.right(seq(
@@ -413,13 +380,13 @@ module.exports = grammar({
       repeat($.cond_arm),
       '}',
     )),
-    
+
     _first_cond_arm: $ => seq(
       field('condition', $.expr), ':',
       $._eol_field,  // eol NOT optional in first arm
       optional($._then_block)
     ),
-    
+
     cond_arm: $ => prec.right(seq($._if_line, optional($._then_block))),
 
     _if_line: $ => seq(
@@ -528,20 +495,20 @@ module.exports = grammar({
     )),
 
     code: $ => seq('~', $._code_stmt),
-    
+
     _code_stmt: $ => choice(
       $.assignment,
       $.temp_def,
       $.expr,
       $.return,
     ),
-    
+
     assignment: $ => seq(
       field('name', $.identifier),
       field('op', choice('=', '-=', '+=')),
       field('value', $.expr)
     ),
-    
+
     temp_def: $ => seq(
       'temp', $._space,
       field('name', $.identifier),
@@ -624,8 +591,6 @@ module.exports = grammar({
 
     // we create two sets of "expressions": One named for the actual expressions,
     ...make_expr(named = true),
-    // and one anonymous, to be able to trigger the GLR conflict between text and the starting expression of conditional text.
-    ...make_expr(named = false),
 
     todo_comment: _ => seq(
       field('keyword', mark('TODO')),

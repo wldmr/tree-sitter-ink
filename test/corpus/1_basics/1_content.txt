@@ -6,7 +6,11 @@ Hello, world!
 
 (ink
   (paragraph
-    (text)))
+    (text
+      (word)
+      (word)
+      (word)
+      (word))))
 
 ==============
 .AAB. Comments
@@ -24,10 +28,34 @@ Hello, world!
 
 (ink
   (paragraph
-    (text))
+    (text
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)))
   (line_comment)
   (paragraph
-    (text))
+    (text
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)))
   (block_comment))
 
 ========================================================================================================================
@@ -46,7 +74,8 @@ Stuff
 (ink
   (block_comment)
   (paragraph
-    (text))
+    (text
+      (word)))
   (block_comment))
 
 =================================
@@ -59,11 +88,35 @@ Stuff
 
 (ink
   (paragraph
-    (text))
+    (text
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)))
   (line_comment)
   (paragraph
     (text
-      (block_comment))))
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (block_comment)
+      (word)
+      (word))))
 
 ===================
 .AAD. TODO Comments
@@ -77,7 +130,9 @@ And?
 (ink
   (todo_comment)
   (paragraph
-    (text)))
+    (text
+      (word)
+      (word))))
 
 =================================
 .AADa. TODO Comments corner cases
@@ -90,7 +145,23 @@ He remembered that he was allowed to write TODO: anywhere else on the line.
 (ink
   (todo_comment)
   (paragraph
-    (text)))
+    (text
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word))))
 
 ==========
 .AAE. Tags
@@ -103,18 +174,41 @@ Some more text. # and a tag
 
 (ink
   (paragraph
-    (text)
+    (text
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word))
     (tag
-      (text)))
+      (text
+        (word)
+        (word)
+        (word))))
   (paragraph
     (tag
-      (text))
+      (text
+        (word)
+        (word)))
     (tag
-      (text)))
+      (text
+        (word)
+        (word)
+        (word))))
   (paragraph
-    (text)
+    (text
+      (word)
+      (word)
+      (word)
+      (word))
     (tag
-      (text))))
+      (text
+        (word)
+        (word)
+        (word)))))
 
 ==========================
 .AAEa. Tags can be escaped
@@ -125,8 +219,31 @@ A line of normal game-text. \# colour it blue
 
 (ink
   (paragraph
-    (text)
+    (text
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word))
     (tag
-      (text)))
+      (text
+        (word)
+        (word)
+        (word))))
   (paragraph
-    (text)))
+    (text
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word))))

@@ -17,7 +17,16 @@ We hurried home to Savile Row as fast as we could.
     header: (knot
       name: (identifier))
     (paragraph
-      content: (text))
+      content: (text
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)))
     (paragraph
       redirect: (divert
         target: (identifier))))
@@ -25,7 +34,19 @@ We hurried home to Savile Row as fast as we could.
     header: (knot
       name: (identifier))
     (paragraph
-      content: (text)))
+      content: (text
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word))))
   (line_comment))
 
 ===
@@ -44,14 +65,26 @@ as fast as we could.
     header: (knot
       name: (identifier))
     (paragraph
-      content: (text)
+      content: (text
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word))
       redirect: (divert
         target: (identifier))))
   (knot_block
     header: (knot
       name: (identifier))
     (paragraph
-      content: (text))))
+      content: (text
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)))))
 
 ===
 .ADC. Glue
@@ -73,7 +106,10 @@ to Savile Row
     header: (knot
       name: (identifier))
     (paragraph
-      content: (text)
+      content: (text
+        (word)
+        (word)
+        (word))
       content: (glue))
     (paragraph
       redirect: (divert
@@ -82,7 +118,10 @@ to Savile Row
     header: (knot
       name: (identifier))
     (paragraph
-      content: (text))
+      content: (text
+        (word)
+        (word)
+        (word)))
     (paragraph
       redirect: (divert
         target: (identifier))))
@@ -91,7 +130,13 @@ to Savile Row
       name: (identifier))
     (paragraph
       content: (glue)
-      content: (text))))
+      content: (text
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)))))
 
 ===
 .ADDa. Glue on same line as divert
@@ -111,7 +156,10 @@ We hurried home <> -> to_savile_row
     header: (knot
       name: (identifier))
     (paragraph
-      content: (text)
+      content: (text
+        (word)
+        (word)
+        (word))
       content: (glue)
       redirect: (divert
         target: (identifier))))
@@ -120,7 +168,10 @@ We hurried home <> -> to_savile_row
       name: (identifier))
     (paragraph
       content: (glue)
-      content: (text)
+      content: (text
+        (word)
+        (word)
+        (word))
       redirect: (divert
         target: (identifier))))
   (knot_block
@@ -128,7 +179,13 @@ We hurried home <> -> to_savile_row
       name: (identifier))
     (paragraph
       content: (glue)
-      content: (text))))
+      content: (text
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)))))
 
 ===
 .ADDb. Can't use too much glue
@@ -138,13 +195,23 @@ When we <> came home, <> <> <> we went to sleep.
 
 (ink
   (paragraph
-    (text)
+    (text
+      (word)
+      (word))
     (glue)
-    (text)
+    (text
+      (word)
+      (word)
+      (word))
     (glue)
     (glue)
     (glue)
-    (text)))
+    (text
+      (word)
+      (word)
+      (word)
+      (word)
+      (word))))
 
 ===
 .ADDc. Syntax Stress Test: Confusing sequences of symbols
