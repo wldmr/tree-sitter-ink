@@ -17,13 +17,16 @@ VAR current_chief_suspect = HASTINGS
 (ink
   (global
     (identifier)
-    (string))
+    (string
+      (word)))
   (global
     (identifier)
-    (string))
+    (string
+      (word)))
   (global
     (identifier)
-    (string))
+    (string
+      (word)))
   (global
     (identifier)
     (identifier))

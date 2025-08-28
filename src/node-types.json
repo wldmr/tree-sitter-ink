@@ -166,6 +166,21 @@
     ]
   },
   {
+    "type": "_text",
+    "named": false,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "word",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "alt_arm",
     "named": true,
     "fields": {},
@@ -1715,6 +1730,11 @@
     }
   },
   {
+    "type": "string",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "tag",
     "named": true,
     "fields": {
@@ -1909,6 +1929,10 @@
     "named": false
   },
   {
+    "type": "\"",
+    "named": false
+  },
+  {
     "type": "#",
     "named": false
   },
@@ -2061,30 +2085,6 @@
     "named": false
   },
   {
-    "type": "\\#",
-    "named": false
-  },
-  {
-    "type": "\\[",
-    "named": false
-  },
-  {
-    "type": "\\]",
-    "named": false
-  },
-  {
-    "type": "\\{",
-    "named": false
-  },
-  {
-    "type": "\\|",
-    "named": false
-  },
-  {
-    "type": "\\}",
-    "named": false
-  },
-  {
     "type": "]",
     "named": false
   },
@@ -2175,10 +2175,6 @@
   {
     "type": "stopping",
     "named": false
-  },
-  {
-    "type": "string",
-    "named": true
   },
   {
     "type": "temp",

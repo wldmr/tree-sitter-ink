@@ -89,21 +89,24 @@ VAR microwaveState = cold
         (call
           (identifier)
           (args
-            (string)
+            (string
+              (word))
             (identifier)))))
     (paragraph
       (thread
         (call
           (identifier)
           (args
-            (string)
+            (string
+              (word))
             (identifier)))))
     (paragraph
       (thread
         (call
           (identifier)
           (args
-            (string)
+            (string
+              (word))
             (identifier)))))
     (gather_block
       (gather

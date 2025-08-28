@@ -71,15 +71,36 @@
   (code
     (return
       (binary
-        (string)
-        (string))))
+        (string
+          (word)
+          (word)
+          (word)
+          (word))
+        (string
+          (word)
+          (word)
+          (word)
+          (word)))))
   (code
     (return
       (binary
-        (string)
-        (string))))
+        (string
+          (word)
+          (word)
+          (word)
+          (word)
+          (word))
+        (string
+          (word)
+          (word)
+          (word)
+          (word)))))
   (code
     (return
       (binary
-        (string)
-        (string)))))
+        (string
+          (word)
+          (word)
+          (word))
+        (string
+          (word))))))

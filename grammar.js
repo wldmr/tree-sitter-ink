@@ -114,15 +114,7 @@ function make_expr(named = true) {
     [rule('number')]: _ => NUMBER_REGEX,
     [rule('boolean')]: _ => choice('false', 'true'),
 
-    [rule('string')]: _ => token(seq(
-      '"',
-      prec.left(repeat(choice(
-        /[^\\"|]+/, // strings are always interrupded by pipes '|'
-        alias('\\"', '\\"'),
-        alias('\\', '\\\\'),
-      ))),
-      '"',
-    )),
+    [rule('string')]: $ => seq('"', optional(alias($.text, '_text')), '"'),
 
     [rule('divert')]: $ => seq(
       $._divert_mark,
@@ -303,20 +295,12 @@ module.exports = grammar({
 
     text: $ =>  prec.right(repeat1($.word)),
 
-    word: _ =>  prec(-1, choice(
-      // '-', '<', '>', '/', // individual characters also occurring in divert, thread or comment marks
-      // '[', ']', // square brackets outside of choices are fine
-      // 'LIST', 'INCLUDE', 'TODO', 'VAR', 'GLOBAL', 'temp',  // keywords, which for some reason don't get recognized by the word_regex and cause errors for text like `LISTED`
-      // escaped special chars:
-      '\\[', '\\]',
-      '\\{', '\\}',
-      '\\|', '\\#',
-      // token(prec(-1, /[^\s\{\}\[\]#\-<>/|\\]/)),
-      /\p{Punctuation}/,
-      '[', ']', '<', '>', '(', ')',  // these brackets are ok in most circumstances.
+    word: _ =>  choice(
       IDENTIFIER_REGEX,
       NUMBER_REGEX,
-    )),
+      /\\./,  // any single character can be escaped and thus becomes text
+      /[^|{}\p{Space}]/ // anything else that isn't *very* special
+    ),
 
     content: $ => prec.right(choice(
       seq(
