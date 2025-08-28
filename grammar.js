@@ -5,6 +5,18 @@ let mark = rule => token(prec(1, rule));
 const IDENTIFIER_REGEX  = /[\p{Letter}_][\p{Letter}\p{Number}_]*/
 const NUMBER_REGEX = /\d+(\.\d+)?/
 
+// This is how we build text and strings (which syntactically overlap): Strings and
+// normal text are almost the same, except strings can’t contain (unescaped) double
+// quotes. So we define the smallest common denominator here, and use it in both
+// definitions.
+const STRING_PARTS = [
+      IDENTIFIER_REGEX,
+      NUMBER_REGEX,
+      /\\./,  // any single character can be escaped and thus becomes text
+      '\\',
+      /[^|{}\p{Space}]/, // anything else that isn't *very* special
+]
+
 PREC = {
   // For ink syntax contstructs that could be confused for text content
   ink: 1,
@@ -114,7 +126,7 @@ function make_expr(named = true) {
     [rule('number')]: _ => NUMBER_REGEX,
     [rule('boolean')]: _ => choice('false', 'true'),
 
-    [rule('string')]: $ => seq('"', optional(alias($.text, '_text')), '"'),
+    [rule('string')]: _ => seq('"', repeat(choice(...STRING_PARTS)), '"'),
 
     [rule('divert')]: $ => seq(
       $._divert_mark,
@@ -194,7 +206,7 @@ module.exports = grammar({
   ],
 
   conflicts: $ => [
-    // [$.word, $.identifier],
+    [$.word, $.string],
     [$.tunnel],
     [$._redirect, $.tunnel],
     [$.tunnel, $.divert],
@@ -295,12 +307,7 @@ module.exports = grammar({
 
     text: $ =>  prec.right(repeat1($.word)),
 
-    word: _ =>  choice(
-      IDENTIFIER_REGEX,
-      NUMBER_REGEX,
-      /\\./,  // any single character can be escaped and thus becomes text
-      /[^|{}\p{Space}]/ // anything else that isn't *very* special
-    ),
+    word: _ =>  choice(...STRING_PARTS, '"'), // as stated above: everything a string can be, plus `"`
 
     content: $ => prec.right(choice(
       seq(
@@ -417,7 +424,6 @@ module.exports = grammar({
           field('condition', $._choice_condition),
           optional($._eol_field),
         )),
-        field('separator', optional('\\')),  // to separate conditions from content starting with logic (e.g. conditional text): https://github.com/inkle/ink/blob/master/Documentation/WritingWithInk.md#features-of-alternatives
         $._choice_content,
       ),
     )),

@@ -8,26 +8,93 @@ The radio hissed into life. {"Three!"|"Two!"|"One!"|There was the white noise ra
 
 (ink
   (paragraph
-    (text)
+    (text
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word))
     (alternatives
       (content
-        (text))
+        (text
+          (word)
+          (word)
+          (word)
+          (word)))
       (content
-        (text))
+        (text
+          (word)
+          (word)
+          (word)
+          (word)))
       (content
-        (text))
+        (text
+          (word)
+          (word)
+          (word)
+          (word)))
       (content
-        (text))
+        (text
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)))
       (content
-        (text))))
+        (text
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)))))
   (paragraph
     (alternatives
       (content
-        (text))
+        (text
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)))
       (content
-        (text))
+        (text
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)))
       (content
-        (text)))))
+        (text
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word))))))
 
 ===
 .AHAa. Corner Case: Curly braces and pipes can be escaped
@@ -452,9 +519,9 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
     (alternatives
       (content
         (text)
-          (word)
-          (word)
-          (word)
-          (word)
-          (word))))
+        (word)
+        (word)
+        (word)
+        (word)
+        (word))))
   (line_comment))

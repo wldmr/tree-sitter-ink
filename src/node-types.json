@@ -166,21 +166,6 @@
     ]
   },
   {
-    "type": "_text",
-    "named": false,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "word",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "alt_arm",
     "named": true,
     "fields": {},
@@ -538,16 +523,6 @@
           {
             "type": "choice_marks",
             "named": true
-          }
-        ]
-      },
-      "separator": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "\\",
-            "named": false
           }
         ]
       },

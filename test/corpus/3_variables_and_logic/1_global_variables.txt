@@ -14,15 +14,7 @@ VAR current_epilogue = -> they_all_die_of_the_plague
     value: (boolean))
   (global
     name: (identifier)
-    value: (string
-      (word)
-      (word)
-      (word)
-      (word)
-      (word)
-      (word)
-      (word)
-      (word)))
+    value: (string))
   (global
     name: (identifier)
     value: (string))
@@ -46,8 +38,7 @@ My name is Jean Passepartout, but my friend's call me {friendly_name_of_player}.
 (ink
   (global
     (identifier)
-    (string
-      (word)))
+    (string))
   (global
     (identifier)
     (number))

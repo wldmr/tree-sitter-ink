@@ -501,8 +501,16 @@
           "value": "\\\\."
         },
         {
+          "type": "STRING",
+          "value": "\\"
+        },
+        {
           "type": "PATTERN",
           "value": "[^|{}\\p{Space}]"
+        },
+        {
+          "type": "STRING",
+          "value": "\""
         }
       ]
     },
@@ -1232,22 +1240,6 @@
                           "type": "BLANK"
                         }
                       ]
-                    }
-                  ]
-                }
-              },
-              {
-                "type": "FIELD",
-                "name": "separator",
-                "content": {
-                  "type": "CHOICE",
-                  "members": [
-                    {
-                      "type": "STRING",
-                      "value": "\\"
-                    },
-                    {
-                      "type": "BLANK"
                     }
                   ]
                 }
@@ -3011,21 +3003,32 @@
           "value": "\""
         },
         {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "ALIAS",
-              "content": {
-                "type": "SYMBOL",
-                "name": "text"
+          "type": "REPEAT",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "PATTERN",
+                "value": "[\\p{Letter}_][\\p{Letter}\\p{Number}_]*"
               },
-              "named": false,
-              "value": "_text"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
+              {
+                "type": "PATTERN",
+                "value": "\\d+(\\.\\d+)?"
+              },
+              {
+                "type": "PATTERN",
+                "value": "\\\\."
+              },
+              {
+                "type": "STRING",
+                "value": "\\"
+              },
+              {
+                "type": "PATTERN",
+                "value": "[^|{}\\p{Space}]"
+              }
+            ]
+          }
         },
         {
           "type": "STRING",
@@ -3173,6 +3176,10 @@
     }
   ],
   "conflicts": [
+    [
+      "word",
+      "string"
+    ],
     [
       "tunnel"
     ],

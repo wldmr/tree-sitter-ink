@@ -170,9 +170,7 @@ My favourite dinosaurs are {listWithCommas(favouriteDinosaurs, "all extinct")}.
         (identifier)
         (args
           (identifier)
-          (string
-            (word)
-            (word)))))
+          (string))))
     (text
       (word)))
   (knot_block
@@ -280,9 +278,7 @@ My favourite dinosaur{LIST_COUNT(favouriteDinosaurs) != 1:s} {isAre(favouriteDin
         (identifier)
         (args
           (identifier)
-          (string
-            (word)
-            (word)))))
+          (string))))
     (text
       (word))))
 

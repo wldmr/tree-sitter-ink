@@ -58,8 +58,7 @@
         (call
           (identifier)
           (args
-            (string
-              (word)))))))
+            (string))))))
   (choice_block
     (choice
       (choice_marks
@@ -75,8 +74,7 @@
         (call
           (identifier)
           (args
-            (string
-              (word)))))))
+            (string))))))
   (choice_block
     (choice
       (choice_marks
@@ -91,8 +89,7 @@
         (call
           (identifier)
           (args
-            (string
-              (word)))))))
+            (string))))))
   (knot_block
     (knot
       (identifier)
@@ -125,8 +122,7 @@
       (conditional_text
         (binary
           (identifier)
-          (string
-            (word)))
+          (string))
         (content
           (text
             (word)
