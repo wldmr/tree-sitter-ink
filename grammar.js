@@ -14,6 +14,19 @@ const STRING_PARTS = [
       NUMBER_REGEX,
       /\\./,  // any single character can be escaped and thus becomes text
       '\\',
+      // We now need to list ALL tokens that can occurr in an expression,
+      // so that strings, expressions and text get tokenized the same:
+      // function calls
+      '(', ')', ',',
+      // unary operators
+      'not', '!', '-',
+      // binary operators
+      '%', 'mod', '/', '*', '+', '^', 'hasnt', '!?', 'has', '?',
+      '!=', '>', '<', '<=', '>=', '==', 'or', 'and', '&&', '?',  // `||` can't occurr in text
+      // postfix operators
+      '++', '--',
+      // scope separator
+      '.',
       /[^|{}\p{Space}]/, // anything else that isn't *very* special
 ]
 
@@ -118,10 +131,10 @@ function make_expr(named = true) {
     ),
 
     [rule('identifier')]: _ => IDENTIFIER_REGEX,
-    [rule('qualified_name')]: $ => seq(
+    [rule('qualified_name')]: $ => prec.right(seq(
       $[rule('identifier')], '.', $[rule('identifier')],
       optional(seq('.', $[rule('identifier')])) // third level: -> knot.stitch.label
-    ),
+    )),
 
     [rule('number')]: _ => NUMBER_REGEX,
     [rule('boolean')]: _ => choice('false', 'true'),
@@ -201,12 +214,16 @@ module.exports = grammar({
   ],
 
   precedences: $ => [
+    [$.label, $.word],
     [$.condition, $.eval],  // since they are syntactically the same, maybe we just treat a condition as an eval?
     [$._choice_content, $.content],
   ],
 
   conflicts: $ => [
     [$.word, $.string],
+    [$.word, $.identifier],
+    [$.word, $.number],
+    [$.word, $.list_values],
     [$.tunnel],
     [$._redirect, $.tunnel],
     [$.tunnel, $.divert],
@@ -291,7 +308,7 @@ module.exports = grammar({
       $.thread,
     ),
 
-    _divert_target: $ => choice($.identifier, $.qualified_name, $.call),
+    _divert_target: $ => prec.right(choice($.identifier, $.qualified_name, $.call)),
 
     tunnel: $ => choice(
       seq($._tunnel_return, field('target', optional($._divert_target))),
@@ -421,7 +438,7 @@ module.exports = grammar({
           optional($._eol_field),
         )),
         repeat(seq(
-          field('condition', $._choice_condition),
+          field('condition', $.condition),
           optional($._eol_field),
         )),
         $._choice_content,
@@ -445,7 +462,6 @@ module.exports = grammar({
     _label_field: $ => prec(PREC.ink, field('label', $.label)),
     label: $ => seq('(', field('name', $.identifier), ')'),
 
-    _choice_condition: $ => prec.right(PREC.ink, $.condition),
     condition: $ => seq('{', field('expr', $.expr), '}', ),
 
     _choice_content: $ => prec.right(choice(
