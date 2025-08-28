@@ -21,22 +21,34 @@
       header: (stitch
         name: (identifier))
       (paragraph
-        content: (text)))
+        content: (text
+          (word)
+          (word)
+          (word))))
     (stitch_block
       header: (stitch
         name: (identifier))
       (paragraph
-        content: (text)))
+        content: (text
+          (word)
+          (word)
+          (word))))
     (stitch_block
       header: (stitch
         name: (identifier))
       (paragraph
-        content: (text)))
+        content: (text
+          (word)
+          (word)
+          (word))))
     (stitch_block
       header: (stitch
         name: (identifier))
       (paragraph
-        content: (text)))))
+        content: (text
+          (word)
+          (word)
+          (word))))))
 
 ===
 .AFAa. Comments belong to Knot/Stitch blocks that follow
@@ -61,14 +73,18 @@ stitch content
       (identifier))
     (line_comment)
     (paragraph
-      (text))
+      (text
+        (word)
+        (word)))
     (stitch_block
       (line_comment)
       (stitch
         (identifier))
       (line_comment)
       (paragraph
-        (text)))))
+        (text
+          (word)
+          (word))))))
 
 ===
 .AFB. Stitches have unique names
@@ -87,7 +103,11 @@ stitch content
         (choice_mark))
       choice_only: (choice_only
         (content
-          content: (text))))
+          content: (text
+            (word)
+            (word)
+            (word)
+            (word)))))
     (paragraph
       redirect: (divert
         target: (qualified_name
@@ -99,7 +119,14 @@ stitch content
         (choice_mark))
       choice_only: (choice_only
         (content
-          content: (text))))
+          content: (text
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)))))
     (paragraph
       redirect: (divert
         target: (qualified_name
@@ -139,8 +166,42 @@ INC is a common suffix for a company
   (include
     (path))
   (paragraph
-    (text))
+    (text
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)))
   (paragraph
-    (text))
+    (text
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)))
   (paragraph
-    (text)))
+    (text
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word))))

@@ -29,7 +29,13 @@ The guard frowns at you.
     header: (knot
       name: (identifier))
     (paragraph
-      content: (text))
+      content: (text
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)))
     (choice_block
       header: (choice
         marks: (choice_marks
@@ -38,9 +44,15 @@ The guard frowns at you.
           name: (identifier))
         choice_only: (choice_only
           (content
-            content: (text))))
+            content: (text
+              (word)
+              (word)))))
       (paragraph
-        content: (text)))
+        content: (text
+          (word)
+          (word)
+          (word)
+          (word))))
     (choice_block
       header: (choice
         marks: (choice_marks
@@ -48,18 +60,41 @@ The guard frowns at you.
         label: (label
           name: (identifier))
         main: (content
-          content: (text))
+          content: (text
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)))
         choice_only: (choice_only
           (content
-            content: (text)))
+            content: (text
+              (word)
+              (word))))
         when_chosen: (content
-          content: (text))))
+          content: (text
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)))))
     (gather_block
       header: (gather
         (gather_marks
           (gather_mark)))
       (paragraph
-        content: (text)))
+        content: (text
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word))))
     (choice_block
       header: (choice
         marks: (choice_marks
@@ -67,17 +102,31 @@ The guard frowns at you.
         condition: (condition
           expr: (identifier))
         main: (content
-          content: (text)))
+          content: (text
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word))))
       (line_comment))
     (choice_block
       header: (choice
         marks: (choice_marks
           (choice_mark))
         main: (content
-          content: (text))
+          content: (text
+            (word)
+            (word)
+            (word)
+            (word)))
         choice_only: (choice_only)
         when_chosen: (content
-          content: (text))))))
+          content: (text
+            (word)
+            (word)
+            (word)))))))
 
 ===
 .BCAa. v1.2.0: Choices can have a line break after the label (i.e. next line still belongs to the choice)
@@ -97,6 +146,12 @@ The guard frowns at you.
       (eol)
       (choice_only
         (content
-          (text))))
+          (text
+            (word)
+            (word)))))
     (paragraph
-      (text))))
+      (text
+        (word)
+        (word)
+        (word)
+        (word)))))

@@ -56,14 +56,22 @@ VAR microwaveState = cold
             (identifier)))
         (choice_only
           (content
-            (text)
+            (text
+              (word)
+              (word))
             (eval
               (identifier)))))
       (paragraph
-        (text)
+        (text
+          (word))
         (eval
           (identifier))
-        (text))
+        (text
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)))
       (code
         (assignment
           (identifier)

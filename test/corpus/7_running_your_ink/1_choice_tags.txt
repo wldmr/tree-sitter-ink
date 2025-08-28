@@ -11,27 +11,52 @@
       marks: (choice_marks
         (choice_mark))
       main: (content
-        content: (text)
+        content: (text
+          (word)
+          (word))
         tag: (tag
-          content: (text)))))
+          content: (text
+            (word))))))
   (choice_block
     header: (choice
       marks: (choice_marks
         (choice_mark))
       main: (content
-        content: (text)
+        content: (text
+          (word)
+          (word)
+          (word)
+          (word))
         tag: (tag
-          content: (text))
+          content: (text
+            (word)))
         tag: (tag
-          content: (text)))
+          content: (text
+            (word))))
       choice_only: (choice_only
         (content
-          content: (text)
+          content: (text
+            (word)
+            (word)
+            (word))
           tag: (tag
-            content: (text))))
+            content: (text
+              (word)
+              (word)
+              (word)))))
       when_chosen: (content
-        content: (text)
+        content: (text
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word))
         tag: (tag
-          content: (text))
+          content: (text
+            (word)
+            (word)
+            (word)))
         redirect: (divert
           target: (identifier))))))

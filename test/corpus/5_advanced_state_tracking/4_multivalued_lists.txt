@@ -70,14 +70,35 @@ LIST primeNumbers = (two = 2), (three) = 3, (five = 5)
             (identifier)))
         (eol)
         (paragraph
-          (text)))
+          (text
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word))))
       (cond_arm
         (binary
           (identifier)
           (identifier))
         (eol)
         (paragraph
-          (text)))
+          (text
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word))))
       (cond_arm
         (binary
           (identifier)
@@ -139,14 +160,19 @@ My favourite dinosaurs are {listWithCommas(favouriteDinosaurs, "all extinct")}.
       (list_value_def
         (identifier))))
   (paragraph
-    (text)
+    (text
+      (word)
+      (word)
+      (word)
+      (word))
     (eval
       (call
         (identifier)
         (args
           (identifier)
           (string))))
-    (text))
+    (text
+      (word)))
   (knot_block
     (knot
       (identifier)
@@ -172,7 +198,8 @@ My favourite dinosaurs are {listWithCommas(favouriteDinosaurs, "all extinct")}.
                 (identifier)
                 (args
                   (identifier))))
-            (text)
+            (text
+              (word))
             (eval
               (call
                 (identifier)
@@ -205,7 +232,8 @@ My favourite dinosaurs are {listWithCommas(favouriteDinosaurs, "all extinct")}.
                 (identifier)
                 (args
                   (identifier))))
-            (text)
+            (text
+              (word))
             (eval
               (call
                 (identifier)
@@ -226,7 +254,10 @@ My favourite dinosaur{LIST_COUNT(favouriteDinosaurs) != 1:s} {isAre(favouriteDin
 
 (ink
   (paragraph
-    (text)
+    (text
+      (word)
+      (word)
+      (word))
     (conditional_text
       (binary
         (call
@@ -235,7 +266,8 @@ My favourite dinosaur{LIST_COUNT(favouriteDinosaurs) != 1:s} {isAre(favouriteDin
             (identifier)))
         (number))
       (content
-        (text)))
+        (text
+          (word))))
     (eval
       (call
         (identifier)
@@ -247,7 +279,8 @@ My favourite dinosaur{LIST_COUNT(favouriteDinosaurs) != 1:s} {isAre(favouriteDin
         (args
           (identifier)
           (string))))
-    (text)))
+    (text
+      (word))))
 
 ===
 .EDF. Intersecting Lists
@@ -264,7 +297,17 @@ My favourite dinosaur{LIST_COUNT(favouriteDinosaurs) != 1:s} {isAre(favouriteDin
         (identifier)
         (identifier))
       (content
-        (text))))
+        (text
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)))))
   (paragraph
     (conditional_text
       (binary
@@ -276,7 +319,18 @@ My favourite dinosaur{LIST_COUNT(favouriteDinosaurs) != 1:s} {isAre(favouriteDin
               (identifier))))
         (number))
       (content
-        (text)
+        (text
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word))
         (conditional_text
           (binary
             (binary
@@ -284,4 +338,11 @@ My favourite dinosaur{LIST_COUNT(favouriteDinosaurs) != 1:s} {isAre(favouriteDin
               (identifier))
             (identifier))
           (content
-            (text)))))))
+            (text
+              (word)
+              (word)
+              (word)
+              (word)
+              (word)
+              (word)
+              (word))))))))

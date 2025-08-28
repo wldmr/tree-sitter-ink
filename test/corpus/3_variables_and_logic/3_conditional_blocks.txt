@@ -98,19 +98,23 @@
       (cond_arm
         (number)
         (paragraph
-          (text)))
+          (text
+            (word))))
       (cond_arm
         (number)
         (paragraph
-          (text)))
+          (text
+            (word))))
       (cond_arm
         (number)
         (paragraph
-          (text)))
+          (text
+            (word))))
       (cond_arm
         (else)
         (paragraph
-          (text))))))
+          (text
+            (word)))))))
 
 ===
 .CCD. Example: Context-Relevant Content
@@ -219,67 +223,173 @@ At the table, I drew a card. <>
     (multiline_alternatives
       (alt_arm
         (paragraph
-          (text)))
+          (text
+            (word)
+            (word)
+            (word)
+            (word)
+            (word))))
       (alt_arm
         (paragraph
-          (text)))
+          (text
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word))))
       (alt_arm
         (paragraph
-          (text)))))
+          (text
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word))))))
   (line_comment)
   (paragraph
-    (text)
+    (text
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word))
     (glue))
   (paragraph
     (multiline_alternatives
       (alt_arm
         (paragraph
-          (text)))
+          (text
+            (word)
+            (word)
+            (word)
+            (word))))
       (alt_arm
         (paragraph
-          (text)))
+          (text
+            (word)
+            (word)
+            (word)
+            (word))))
       (alt_arm
         (paragraph
-          (text))
+          (text
+            (word)
+            (word)
+            (word)
+            (word)))
         (paragraph
-          (text)))))
+          (text
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word))))))
   (paragraph
     (multiline_alternatives
       (alt_arm
         (paragraph
-          (text)))
+          (text
+            (word)
+            (word)
+            (word)
+            (word)
+            (word))))
       (alt_arm
         (paragraph
-          (text)))))
+          (text
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word))))))
   (paragraph
     (multiline_alternatives
       (alt_arm
         (paragraph
-          (text)))
+          (text
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word))))
       (alt_arm
         (paragraph
-          (text)))
+          (text
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word))))
       (alt_arm
         (paragraph
-          (text)))))
+          (text
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word))))))
   (line_comment)
   (paragraph
     (multiline_alternatives
       (alt_arm
         (paragraph
-          (text)))
+          (text
+            (word)
+            (word)
+            (word)
+            (word)
+            (word))))
       (alt_arm
         (paragraph
-          (text)))
+          (text
+            (word)
+            (word)
+            (word)
+            (word))))
       (alt_arm
         (paragraph
-          (text)))))
+          (text
+            (word)
+            (word)
+            (word))))))
   (line_comment)
   (paragraph
     (multiline_alternatives
       (alt_arm
         (paragraph
-          (text)))
+          (text
+            (word)
+            (word)
+            (word)
+            (word)
+            (word))))
       (alt_arm
         (paragraph
-          (text))))))
+          (text
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)))))))

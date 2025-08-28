@@ -486,45 +486,73 @@
       }
     },
     "word": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "\\["
-        },
-        {
-          "type": "STRING",
-          "value": "\\]"
-        },
-        {
-          "type": "STRING",
-          "value": "\\{"
-        },
-        {
-          "type": "STRING",
-          "value": "\\}"
-        },
-        {
-          "type": "STRING",
-          "value": "\\|"
-        },
-        {
-          "type": "STRING",
-          "value": "\\#"
-        },
-        {
-          "type": "PATTERN",
-          "value": "\\p{Punctuation}"
-        },
-        {
-          "type": "PATTERN",
-          "value": "[\\p{Letter}_][\\p{Letter}\\p{Number}_]*"
-        },
-        {
-          "type": "PATTERN",
-          "value": "\\d+(\\.\\d+)?"
-        }
-      ]
+      "type": "PREC",
+      "value": -1,
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "\\["
+          },
+          {
+            "type": "STRING",
+            "value": "\\]"
+          },
+          {
+            "type": "STRING",
+            "value": "\\{"
+          },
+          {
+            "type": "STRING",
+            "value": "\\}"
+          },
+          {
+            "type": "STRING",
+            "value": "\\|"
+          },
+          {
+            "type": "STRING",
+            "value": "\\#"
+          },
+          {
+            "type": "PATTERN",
+            "value": "\\p{Punctuation}"
+          },
+          {
+            "type": "STRING",
+            "value": "["
+          },
+          {
+            "type": "STRING",
+            "value": "]"
+          },
+          {
+            "type": "STRING",
+            "value": "<"
+          },
+          {
+            "type": "STRING",
+            "value": ">"
+          },
+          {
+            "type": "STRING",
+            "value": "("
+          },
+          {
+            "type": "STRING",
+            "value": ")"
+          },
+          {
+            "type": "PATTERN",
+            "value": "[\\p{Letter}_][\\p{Letter}\\p{Number}_]*"
+          },
+          {
+            "type": "PATTERN",
+            "value": "\\d+(\\.\\d+)?"
+          }
+        ]
+      }
     },
     "content": {
       "type": "PREC_RIGHT",

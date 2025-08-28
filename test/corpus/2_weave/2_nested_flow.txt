@@ -355,13 +355,22 @@
         (choice_mark)
         (choice_mark))
       (content
-        (text))))
+        (text
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)))))
   (choice_block
     (choice
       (choice_marks
         (choice_mark))
       (content
-        (text)))))
+        (text
+          (word)
+          (word))))))
 
 ===
 .BBBb. Comments belong to the following choice / gather block

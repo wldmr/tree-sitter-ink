@@ -32,14 +32,24 @@
       (stitch
         (identifier))
       (paragraph
-        (text))
+        (text
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)))
       (choice_block
         (choice
           (choice_marks
             (choice_mark))
           (choice_only
             (content
-              (text))))
+              (text
+                (word)))))
         (paragraph
           (tunnel
             (divert
@@ -52,19 +62,35 @@
       (stitch
         (identifier))
       (paragraph
-        (text))))
+        (text
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)))))
   (knot_block
     (knot
       (identifier))
     (paragraph
-      (text))
+      (text
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)))
     (choice_block
       (choice
         (choice_marks
           (choice_mark))
         (choice_only
           (content
-            (text))))
+            (text
+              (word)
+              (word)))))
       (paragraph
         (tunnel
           (divert
@@ -75,7 +101,10 @@
           (choice_mark))
         (choice_only
           (content
-            (text)))))
+            (text
+              (word)
+              (word)
+              (word))))))
     (gather_block
       (gather
         (gather_marks
@@ -86,13 +115,30 @@
     (knot
       (identifier))
     (paragraph
-      (text))
+      (text
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)))
     (paragraph
       (tunnel
         (divert
           (identifier))))
     (paragraph
-      (text))
+      (text
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)))
     (paragraph
       (tunnel
         (divert
@@ -129,7 +175,21 @@ Suddenly, there is a white light all around you. Fingers lift an eyepiece from y
             (args
               (number))))))
     (paragraph
-      (text)))
+      (text
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word))))
   (knot_block
     (knot
       (identifier)
@@ -154,4 +214,35 @@ Suddenly, there is a white light all around you. Fingers lift an eyepiece from y
     (knot
       (identifier))
     (paragraph
-      (text))))
+      (text
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)))))

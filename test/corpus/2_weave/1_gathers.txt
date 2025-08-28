@@ -14,50 +14,153 @@
 
 (ink
   (paragraph
-    (text))
+    (text
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)))
   (choice_block
     (choice
       (choice_marks
         (choice_mark))
       (content
-        (text))
+        (text
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)))
       (choice_only
         (content
-          (text)))
+          (text
+            (word)
+            (word))))
       (content
-        (text)))
+        (text
+          (word)
+          (word)
+          (word)
+          (word)
+          (word))))
     (paragraph
-      (text)))
+      (text
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word))))
   (choice_block
     (choice
       (choice_marks
         (choice_mark))
       (content
-        (text))
+        (text
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)))
       (choice_only)
       (content
-        (text)))
+        (text
+          (word)
+          (word)
+          (word))))
     (paragraph
-      (text)))
+      (text
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word))))
   (choice_block
     (choice
       (choice_marks
         (choice_mark))
       (content
-        (text))
+        (text
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)))
       (choice_only
         (content
-          (text)))
+          (text
+            (word)
+            (word))))
       (content
-        (text)))
+        (text
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word))))
     (paragraph
-      (text)))
+      (text
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word))))
   (gather_block
     (gather
       (gather_marks
         (gather_mark)))
     (paragraph
-      (text))))
+      (text
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)))))
 
 ===
 .BAB. Options and Gathers form chains of content
@@ -84,64 +187,195 @@ I ran through the forest, the dogs snapping at my heels.
     (knot
       (identifier))
     (paragraph
-      (text))
+      (text
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)))
     (choice_block
       (choice
         (choice_marks
           (choice_mark))
         (content
-          (text))
+          (text
+            (word)
+            (word)
+            (word)
+            (word)))
         (choice_only)
         (content
-          (text)
+          (text
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word))
           (glue))))
     (choice_block
       (choice
         (choice_marks
           (choice_mark))
         (content
-          (text))
+          (text
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)))
         (choice_only)
         (content
-          (text)
+          (text
+            (word)
+            (word)
+            (word)
+            (word)
+            (word))
           (glue))))
     (choice_block
       (choice
         (choice_marks
           (choice_mark))
         (content
-          (text)
+          (text
+            (word)
+            (word)
+            (word)
+            (word)
+            (word))
           (glue))))
     (gather_block
       (gather
         (gather_marks
           (gather_mark)))
       (paragraph
-        (text)))
+        (text
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word))))
     (choice_block
       (choice
         (choice_marks
           (choice_mark))
         (content
-          (text))
+          (text
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)))
         (choice_only)
         (content
-          (text))))
+          (text
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)))))
     (choice_block
       (choice
         (choice_marks
           (choice_mark))
         (content
-          (text))
+          (text
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)))
         (choice_only)
         (content
-          (text))))
+          (text
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)))))
     (gather_block
       (gather
         (gather_marks
           (gather_mark)))
       (paragraph
-        (text)))))
+        (text
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word))))))
 
 ===
 .BABa. Corner case: Gathers can contain normal content items (unlike Choices)
@@ -183,4 +417,19 @@ I ran through the forest, the dogs snapping at my heels.
       (choice_marks
         (choice_mark))
       (content
-        (text)))))
+        (text
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word))))))

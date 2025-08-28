@@ -10,22 +10,37 @@ I open the door. #suspense_music{RANDOM(1, 4)}.mp3
   (paragraph
     (eval
       (identifier))
-    (text)
+    (text
+      (word)
+      (word)
+      (word)
+      (word))
     (tag
       (eval
         (identifier))
-      (text)))
+      (text
+        (word)
+        (word)
+        (word))))
   (paragraph
-    (text)
+    (text
+      (word)
+      (word)
+      (word)
+      (word)
+      (word))
     (tag
-      (text)
+      (text
+        (word))
       (eval
         (call
           (identifier)
           (args
             (number)
             (number))))
-      (text))))
+      (text
+        (word)
+        (word)))))
 
 ===
 .HAB. Dynamic tags can contain inline logic (conditional text, alternatives, ...)
@@ -35,28 +50,44 @@ I push the door. # door_{door ? locked:thump|creak}.mp3 # suspense_music_{~1|2|3
 
 (ink
   (paragraph
-    (text)
+    (text
+      (word)
+      (word)
+      (word)
+      (word)
+      (word))
     (tag
-      (text)
+      (text
+        (word))
       (conditional_text
         (binary
           (identifier)
           (identifier))
         (content
-          (text))
+          (text
+            (word)))
         (content
-          (text)))
-      (text))
+          (text
+            (word))))
+      (text
+        (word)
+        (word)))
     (tag
-      (text)
+      (text
+        (word))
       (alternatives
         (content
-          (text))
+          (text
+            (word)))
         (content
-          (text))
+          (text
+            (word)))
         (content
-          (text)))
-      (text))))
+          (text
+            (word))))
+      (text
+        (word)
+        (word)))))
 
 ===
 .HAC. Dynamic tags can contain multiline logic (conditional text, alternatives, ...)
@@ -75,9 +106,15 @@ I push the door. # door_{door ? locked:
 (ink
   (line_comment)
   (paragraph
-    (text)
+    (text
+      (word)
+      (word)
+      (word)
+      (word)
+      (word))
     (tag
-      (text)
+      (text
+        (word))
       (cond_block
         (cond_arm
           (binary
@@ -86,25 +123,35 @@ I push the door. # door_{door ? locked:
           (eol)
           (paragraph
             (glue)
-            (text)
+            (text
+              (word))
             (glue)))
         (cond_arm
           (else)
           (paragraph
             (glue)
-            (text)
+            (text
+              (word))
             (glue))))
-      (text))
+      (text
+        (word)
+        (word)))
     (tag
-      (text)
+      (text
+        (word))
       (multiline_alternatives
         (alt_arm
           (paragraph
-            (text)))
+            (text
+              (word))))
         (alt_arm
           (paragraph
-            (text)))
+            (text
+              (word))))
         (alt_arm
           (paragraph
-            (text))))
-      (text))))
+            (text
+              (word)))))
+      (text
+        (word)
+        (word)))))

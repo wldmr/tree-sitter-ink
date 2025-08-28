@@ -56,7 +56,12 @@ VAR murmurersVolume = quiet
                 (postfix
                   (identifier)))
               (paragraph
-                (text)))))))))
+                (text
+                  (word)
+                  (word)
+                  (word)
+                  (word)
+                  (word))))))))))
 
 ===
 .ECB. Advanced: Defining your own numerical values

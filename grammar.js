@@ -303,7 +303,7 @@ module.exports = grammar({
 
     text: $ =>  prec.right(repeat1($.word)),
 
-    word: _ =>  choice(
+    word: _ =>  prec(-1, choice(
       // '-', '<', '>', '/', // individual characters also occurring in divert, thread or comment marks
       // '[', ']', // square brackets outside of choices are fine
       // 'LIST', 'INCLUDE', 'TODO', 'VAR', 'GLOBAL', 'temp',  // keywords, which for some reason don't get recognized by the word_regex and cause errors for text like `LISTED`
@@ -313,9 +313,10 @@ module.exports = grammar({
       '\\|', '\\#',
       // token(prec(-1, /[^\s\{\}\[\]#\-<>/|\\]/)),
       /\p{Punctuation}/,
+      '[', ']', '<', '>', '(', ')',  // these brackets are ok in most circumstances.
       IDENTIFIER_REGEX,
       NUMBER_REGEX,
-    ),
+    )),
 
     content: $ => prec.right(choice(
       seq(

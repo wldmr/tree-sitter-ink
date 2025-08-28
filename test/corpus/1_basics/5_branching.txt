@@ -19,14 +19,29 @@ You open the gate, and step out onto the path.
     header: (knot
       name: (identifier))
     (paragraph
-      content: (text))
+      content: (text
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)))
     (choice_block
       header: (choice
         marks: (choice_marks
           (choice_mark))
         choice_only: (choice_only
           (content
-            content: (text)))
+            content: (text
+              (word)
+              (word)
+              (word))))
         when_chosen: (content
           redirect: (divert
             target: (identifier)))))
@@ -36,7 +51,11 @@ You open the gate, and step out onto the path.
           (choice_mark))
         choice_only: (choice_only
           (content
-            content: (text)))
+            content: (text
+              (word)
+              (word)
+              (word)
+              (word))))
         when_chosen: (content
           redirect: (divert
             target: (identifier)))))
@@ -46,7 +65,12 @@ You open the gate, and step out onto the path.
           (choice_mark))
         choice_only: (choice_only
           (content
-            content: (text)))
+            content: (text
+              (word)
+              (word)
+              (word)
+              (word)
+              (word))))
         when_chosen: (content
           redirect: (divert
             target: (identifier))))))
@@ -54,9 +78,24 @@ You open the gate, and step out onto the path.
     header: (knot
       name: (identifier))
     (paragraph
-      content: (text))
+      content: (text
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)))
     (paragraph
-      content: (text))))
+      content: (text
+        (word)
+        (word)
+        (word)))))
 
 ===
 .AEB. Branching and joining
@@ -93,16 +132,38 @@ He insisted that we hurried home to Savile Row
     (knot
       (identifier))
     (paragraph
-      (text))
+      (text
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)))
     (choice_block
       (choice
         (choice_marks
           (choice_mark))
         (content
-          (text))
+          (text
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)))
         (choice_only)
         (content
-          (text)))
+          (text
+            (word)
+            (word)
+            (word))))
       (paragraph
         (divert
           (identifier))))
@@ -111,12 +172,41 @@ He insisted that we hurried home to Savile Row
         (choice_marks
           (choice_mark))
         (content
-          (text))
+          (text
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)))
         (choice_only)
         (content
-          (text)))
+          (text
+            (word)
+            (word)
+            (word))))
       (paragraph
-        (text))
+        (text
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)))
       (paragraph
         (divert
           (identifier))))
@@ -126,7 +216,10 @@ He insisted that we hurried home to Savile Row
           (choice_mark))
         (choice_only
           (content
-            (text)))
+            (text
+              (word)
+              (word)
+              (word))))
         (content
           (divert
             (identifier))))))
@@ -134,14 +227,29 @@ He insisted that we hurried home to Savile Row
     (knot
       (identifier))
     (paragraph
-      (text)
+      (text
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word))
       (divert
         (identifier))))
   (knot_block
     (knot
       (identifier))
     (paragraph
-      (text))
+      (text
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)))
     (paragraph
       (divert
         (identifier))))
@@ -150,4 +258,10 @@ He insisted that we hurried home to Savile Row
       (identifier))
     (paragraph
       (glue)
-      (text))))
+      (text
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)))))

@@ -50,7 +50,9 @@
         (choice_mark))
       (choice_only
         (content
-          (text))))
+          (text
+            (word)
+            (word)))))
     (paragraph
       (divert
         (call
@@ -63,7 +65,10 @@
         (choice_mark))
       (choice_only
         (content
-          (text))))
+          (text
+            (word)
+            (word)
+            (word)))))
     (paragraph
       (divert
         (call
@@ -76,7 +81,9 @@
         (choice_mark))
       (choice_only
         (content
-          (text))))
+          (text
+            (word)
+            (word)))))
     (paragraph
       (divert
         (call
@@ -90,25 +97,57 @@
         (param
           (identifier))))
     (paragraph
-      (text)
+      (text
+        (word)
+        (word)
+        (word))
       (eval
         (identifier))
-      (text))
+      (text
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)))
     (paragraph
-      (text)
+      (text
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word))
       (conditional_text
         (binary
           (identifier)
           (string))
         (content
-          (text))
+          (text
+            (word)
+            (word)
+            (word)
+            (word)))
         (content
           (eval
             (identifier))
-          (text)))
-      (text))
+          (text
+            (word))))
+      (text
+        (word)))
     (paragraph
-      (text))))
+      (text
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)))))
 
 ===
 .CDC. Sending divert Targets as parameters
@@ -130,7 +169,15 @@
     (knot
       (identifier))
     (paragraph
-      (text))
+      (text
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)))
     (paragraph
       (divert
         (call
@@ -146,7 +193,16 @@
           (divert
             (identifier)))))
     (paragraph
-      (text))
+      (text
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)))
     (paragraph
       (divert
         (identifier))))
@@ -154,7 +210,20 @@
     (knot
       (identifier))
     (paragraph
-      (text))))
+      (text
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)
+        (word)))))
 
 ===
 .CDCa. Corner case: Fully qualified divert targets

@@ -38,15 +38,26 @@ The radio hissed into life. {"Three!"|"Two!"|"One!"|There was the white noise ra
 
 (ink
   (paragraph
-    (text))
+    (text
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)))
   (paragraph
     (alternatives
       (content
-        (text))
+        (text
+          (word)))
       (content
-        (text))
+        (text
+          (word)
+          (word)
+          (word)
+          (word)))
       (content
-        (text)))))
+        (text
+          (word))))))
 
 ===
 .AHB. Alternatives: Cycles
@@ -56,23 +67,34 @@ It was {&Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday} today.
 
 (ink
   (paragraph
-    (text)
+    (text
+      (word)
+      (word))
     (alternatives
       (content
-        (text))
+        (text
+          (word)))
       (content
-        (text))
+        (text
+          (word)))
       (content
-        (text))
+        (text
+          (word)))
       (content
-        (text))
+        (text
+          (word)))
       (content
-        (text))
+        (text
+          (word)))
       (content
-        (text))
+        (text
+          (word)))
       (content
-        (text)))
-    (text)))
+        (text
+          (word))))
+    (text
+      (word)
+      (word))))
 
 ===
 .AHC. Alternatives: Once Only
@@ -82,16 +104,40 @@ He told me a joke. {!I laughed politely.|I smiled.|I grimaced.|I promised myself
 
 (ink
   (paragraph
-    (text)
+    (text
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word))
     (alternatives
       (content
-        (text))
+        (text
+          (word)
+          (word)
+          (word)
+          (word)))
       (content
-        (text))
+        (text
+          (word)
+          (word)
+          (word)))
       (content
-        (text))
+        (text
+          (word)
+          (word)
+          (word)))
       (content
-        (text)))))
+        (text
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word))))))
 
 ===
 .AHD. Alternatives: Shuffle
@@ -101,13 +147,21 @@ I tossed the coin. {~Heads|Tails}.
 
 (ink
   (paragraph
-    (text)
+    (text
+      (word)
+      (word)
+      (word)
+      (word)
+      (word))
     (alternatives
       (content
-        (text))
+        (text
+          (word)))
       (content
-        (text)))
-    (text)))
+        (text
+          (word))))
+    (text
+      (word))))
 
 ===
 .AHE. Alternatives: Blank elements
@@ -117,10 +171,22 @@ I took a step forward. {!||||Then the lights went out. -> eek}
 
 (ink
   (paragraph
-    content: (text)
+    content: (text
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word))
     content: (alternatives
       (content
-        content: (text)
+        content: (text
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word))
         redirect: (divert
           target: (identifier))))))
 
@@ -132,28 +198,44 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
 
 (ink
   (paragraph
-    (text)
+    (text
+      (word)
+      (word))
     (alternatives
       (content
         (alternatives
           (content
-            (text)))
-        (text))
+            (text
+              (word)
+              (word)
+              (word)
+              (word))))
+        (text
+          (word)))
       (content
-        (text)))
+        (text
+          (word))))
     (alternatives
       (content
-        (text))
+        (text
+          (word)
+          (word)))
       (content
-        (text)
+        (text
+          (word)
+          (word))
         (alternatives
           (content
-            (text))
+            (text
+              (word)))
           (content
-            (text))
+            (text
+              (word)))
           (content
-            (text)))))
-    (text)))
+            (text
+              (word))))))
+    (text
+      (word))))
 
 ===
 .AHG. Alternatives Inside Choice Text
@@ -167,20 +249,35 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
       marks: (choice_marks
         (choice_mark))
       main: (content
-        content: (text)
+        content: (text
+          (word)
+          (word)
+          (word))
         content: (alternatives
           (content
-            content: (text))
+            content: (text
+              (word)))
           (content
-            content: (text))
+            content: (text
+              (word)
+              (word)))
           (content
-            content: (text))
+            content: (text
+              (word)))
           (content
-            content: (text)))
-        content: (text))
+            content: (text
+              (word)
+              (word)
+              (word))))
+        content: (text
+          (word)
+          (word)))
       choice_only: (choice_only)
       when_chosen: (content
-        content: (text)))))
+        content: (text
+          (word)
+          (word)
+          (word))))))
 
 ===
 .AHH. Alternatives Starting Choice Text
@@ -196,11 +293,29 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
       main: (content
         content: (alternatives
           (content
-            content: (text))
+            content: (text
+              (word)
+              (word)
+              (word)
+              (word)
+              (word)))
           (content
-            content: (text))
+            content: (text
+              (word)
+              (word)
+              (word)
+              (word)
+              (word)
+              (word)))
           (content
-            content: (text)))))))
+            content: (text
+              (word)
+              (word)
+              (word)
+              (word)
+              (word)
+              (word)
+              (word))))))))
 
 ===
 .AHI. Conditional Text
@@ -214,18 +329,49 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
     content: (conditional_text
       condition: (identifier)
       (content
-        content: (text)
+        content: (text
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word))
         content: (conditional_text
           condition: (qualified_name
             (identifier)
             (identifier))
           (content
-            content: (text))
+            content: (text
+              (word)))
           (content
-            content: (text)))
-        content: (text))
+            content: (text
+              (word)
+              (word)
+              (word))))
+        content: (text
+          (word)
+          (word)))
       (content
-        content: (text)))))
+        content: (text
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word))))))
 
 ===
 .AHJa. Inline Logic syntax: Minimal distinguishing examples
@@ -243,13 +389,15 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
   (paragraph
     (alternatives
       (content
-        (text))))
+        (text
+          (word)))))
   (line_comment)
   (paragraph
     (conditional_text
       (identifier)
       (content
-        (text))))
+        (text
+          (word)))))
   (line_comment))
 
 ===
@@ -266,12 +414,18 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
         (identifier)
         (identifier))
       (content
-        (text))))
+        (text
+          (word)))))
   (line_comment)
   (paragraph
     (alternatives
       (content
-        (text))))
+        (text
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)))))
   (line_comment))
 
 ===
@@ -287,9 +441,18 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
     (alternatives
       (content
         (text
+          (word)
+          (word)
+          (word)
+          (word)
           (MISSING ")")))))
   (paragraph
     (alternatives
       (content
-        (text))))
+        (text)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word))))
   (line_comment))

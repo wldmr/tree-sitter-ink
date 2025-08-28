@@ -225,9 +225,25 @@ We hurried home to Savile Road sevent-<> no wait, it was a number <<>-> what_num
 
 (ink
   (paragraph
-    content: (text)
+    content: (text
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word))
     content: (glue)
-    content: (text)
+    content: (text
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word))
     content: (glue)
     redirect: (divert
       target: (identifier)))
@@ -235,4 +251,5 @@ We hurried home to Savile Road sevent-<> no wait, it was a number <<>-> what_num
     header: (knot
       name: (identifier))
     (paragraph
-      content: (text))))
+      content: (text
+        (word)))))
