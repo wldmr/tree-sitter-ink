@@ -2,32 +2,62 @@ let mark = rule => token(prec(1, rule));
 
 // The Ink docs get very specific about which Unicode they allow.
 // But just saying Letters and Numbers is so much simpler. This should be fine.
-const IDENTIFIER_REGEX  = /[\p{Letter}_][\p{Letter}\p{Number}_]*/
+const IDENTIFIER_REGEX = /[\p{Letter}_][\p{Letter}\p{Number}_]*/
 const NUMBER_REGEX = /\d+(\.\d+)?/
+
+// All operators. In our quest to make text tokenize the same as expressions (to generate conflicts),
+// we define all possible operators upfront, so we can guarantee they result in the same tokens.
+const OP = {
+  // function calls, list entries
+  par_left: '(',
+  par_right: ')',
+  comma: ',',
+  // unary operators
+  not: 'not',
+  exclam: '!',
+  minus: '-',
+  // binary operators
+  percent: '%',
+  mod: 'mod',
+  slash: '/',
+  asterisk: '*',
+  plus: '+',
+  caret: '^',
+  hasnt: 'hasnt',
+  exclamquestion: '!?',
+  has: 'has',
+  question: '?',
+  neq: '!=',
+  gt: '>',
+  lt: '<',
+  le: '<=',
+  ge: '>=',
+  eq: '==',
+  or: 'or',
+  and: 'and',
+  dbl_amp: '&&',
+  dbl_pipe: '||', // can't occurr in text
+  // postfix operators
+  dbl_plus: '++',
+  dbl_minus: '--',
+  // scope separator
+  period: '.',
+}
 
 // This is how we build text and strings (which syntactically overlap): Strings and
 // normal text are almost the same, except strings can’t contain (unescaped) double
 // quotes. So we define the smallest common denominator here, and use it in both
 // definitions.
 const STRING_PARTS = [
-      IDENTIFIER_REGEX,
-      NUMBER_REGEX,
-      /\\./,  // any single character can be escaped and thus becomes text
-      '\\',
-      // We now need to list ALL tokens that can occurr in an expression,
-      // so that strings, expressions and text get tokenized the same:
-      // function calls
-      '(', ')', ',',
-      // unary operators
-      'not', '!', '-',
-      // binary operators
-      '%', 'mod', '/', '*', '+', '^', 'hasnt', '!?', 'has', '?',
-      '!=', '>', '<', '<=', '>=', '==', 'or', 'and', '&&', '?',  // `||` can't occurr in text
-      // postfix operators
-      '++', '--',
-      // scope separator
-      '.',
-      /[^|{}\p{Space}]/, // anything else that isn't *very* special
+  IDENTIFIER_REGEX,
+  NUMBER_REGEX,
+  /\\./,  // any single character can be escaped and thus becomes text
+  '\\',
+  // We now need to list ALL tokens that can occurr in an expression,
+  // so that strings, expressions and text get tokenized the same:
+  ...Object.values(OP)
+    .filter(it => it != '||'),  // can't occur in text/strings
+  /[^|{}\p{Space}]/, // anything else that isn't *very* special
 ]
 
 PREC = {
@@ -90,50 +120,50 @@ function make_expr(named = true) {
 
     [rule('call')]: $ => prec.left(11, seq(
       field('name', choice($[rule('identifier')], $[rule('qualified_name')])),
-      '(',
+      OP.par_left,
       field('args', optional($[rule('args')])),
-      ')'
+      OP.par_right
     )),
-    [rule('args')]: $ => sepBy1(',', $[rule('expr')]),
+    [rule('args')]: $ => sepBy1(OP.comma, $[rule('expr')]),
 
     [rule('list_values')]: $ => seq(
-      '(',
-      optional(sepBy1(',',
+      OP.par_left,
+      optional(sepBy1(OP.comma,
         choice(
           $[rule('identifier')],
           $[rule('qualified_name')]
         ),
       )),
-      ')',
+      OP.par_right,
     ),
 
-    [rule('paren')]: $ => prec.left(15, seq('(', $[rule('expr')], ')')),
+    [rule('paren')]: $ => prec.left(15, seq(OP.par_left, $[rule('expr')], OP.par_right)),
     [rule('unary')]: $ => prec.left(14, seq(
       field('op', choice(
-        'not',
-        mark('!'),   // without the higher precedence, `* {!condition} choice` is a parse error
-        '-')),
+        OP.not,
+        mark(OP.exclam),   // without the higher precedence, `* {!condition} choice` is a parse error
+        OP.minus)),
       field('right', $[rule('expr')])
     )),
     [rule('postfix')]: $ => prec.left(13, seq(
       field('left', $[rule('identifier')]),
-      field('op', choice('--', '++'))
+      field('op', choice(OP.dbl_minus, OP.dbl_plus))
     )),
     [rule('binary')]: $ => choice(
-      binop($, 8, '%', 'mod'),
-      binop($, 7, '/'),
-      binop($, 6, '*'),
-      binop($, 5, '-',),
-      binop($, 4, '+',),
-      binop($, 3, '^', 'hasnt', '!?', 'has', '?'),
-      binop($, 2, '!=', '>', '<', '<=', '>=', '=='),
-      binop($, 1, 'or', 'and', '||', '&&'),
+      binop($, 8, OP.percent, OP.mod),
+      binop($, 7, OP.slash),
+      binop($, 6, OP.asterisk),
+      binop($, 5, OP.minus),
+      binop($, 4, OP.plus),
+      binop($, 3, OP.caret, OP.hasnt, OP.exclamquestion, OP.has, OP.question),
+      binop($, 2, OP.neq, OP.gt, OP.lt, OP.le, OP.ge, OP.eq),
+      binop($, 1, OP.or, OP.and, OP.dbl_pipe, OP.dbl_amp),
     ),
 
     [rule('identifier')]: _ => IDENTIFIER_REGEX,
     [rule('qualified_name')]: $ => prec.right(seq(
-      $[rule('identifier')], '.', $[rule('identifier')],
-      optional(seq('.', $[rule('identifier')])) // third level: -> knot.stitch.label
+      $[rule('identifier')], OP.period, $[rule('identifier')],
+      optional(seq(OP.period, $[rule('identifier')])) // third level: -> knot.stitch.label
     )),
 
     [rule('number')]: _ => NUMBER_REGEX,
@@ -322,9 +352,9 @@ module.exports = grammar({
 
     thread: $ => seq($._thread_mark, field('target', $._divert_target)),
 
-    text: $ =>  prec.right(repeat1($.word)),
+    text: $ => prec.right(repeat1($.word)),
 
-    word: _ =>  choice(...STRING_PARTS, '"'), // as stated above: everything a string can be, plus `"`
+    word: _ => choice(...STRING_PARTS, '"'), // as stated above: everything a string can be, plus `"`
 
     content: $ => prec.right(choice(
       seq(
@@ -462,7 +492,7 @@ module.exports = grammar({
     _label_field: $ => prec(PREC.ink, field('label', $.label)),
     label: $ => seq('(', field('name', $.identifier), ')'),
 
-    condition: $ => seq('{', field('expr', $.expr), '}', ),
+    condition: $ => seq('{', field('expr', $.expr), '}',),
 
     _choice_content: $ => prec.right(choice(
       field('main', $.content),
