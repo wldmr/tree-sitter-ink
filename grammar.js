@@ -67,116 +67,94 @@ PREC = {
   text: 0,
 }
 
-/** Create an object with grammar rules corresponding to expressions.
+let binop = ($, precedence, ...operators) => prec.left(precedence, seq(
+  field('left', $.expr),
+  // prevent single operator from being wrapped in a choice, otherwise tree-sitter will annoy us with a warning.
+  field('op', operators.length == 1 ? operators[0] : choice(...operators)),
+  field('right', $.expr))
+);
 
-Depending on value for `named`, create a tree of named nodes ($.expr,
-$.identifier, etc), or anonymous nodes ($._anon_expr, $._anon_identifier).
-(The extra `anon` is added because downstream tools may ignore the leading
-underscore and then complain that there are name clashes)
+// The whole exression syntax. We could inline it, but I like the modularity of having it separate.
+const EXPR = {
+  expr: $ => choice(
+    // terminals
+    $.identifier,
+    $.qualified_name,
+    $.number,
+    $.boolean,
+    $.string,
+    $.divert,
+    // compound
+    $.call,
+    $.paren,
+    $.list_values,
+    $.unary,
+    $.postfix,
+    $.binary,
+  ),
 
-The reason for this is that logic blocks (`{…}`) are ambiguous:
-Sometimes they start with an expression (conditional blocks),
-sometimes it's just text (alternatives).
+  call: $ => prec.left(11, seq(
+    field('name', choice($.identifier, $.qualified_name)),
+    OP.par_left,
+    field('args', optional($.args)),
+    OP.par_right
+  )),
+  args: $ => sepBy1(OP.comma, $.expr),
 
-To be able to trigger a GLR conflict for this distinction, we need both
-cases to create the same tokenization, but depending on which parse wins,
-we need different tokens in the parse tree (expressions are a full tree
-of named nodes, but text is just one named node (made up of many anonymous ones))
-
-This one is a doozy; maybe skip this part on a first read. It should become
-clearer when you see how it is used. Still, I nearly lost my mind writing
-this grammar, so be warned.
-*/
-function make_expr(named = true) {
-  let rule = str => named ? str : '_anon_' + str;
-
-  let binop = ($, precedence, ...operators) => prec.left(precedence, seq(
-    field('left', $[rule('expr')]),
-    // prevent single operator from being wrapped in a choice, otherwise tree-sitter will annoy us with a warning.
-    field('op', operators.length == 1 ? operators[0] : choice(...operators)),
-    field('right', $[rule('expr')]))
-  );
-
-  return {
-    [rule('expr')]: $ => choice(
-
-      // terminals
-      $[rule('identifier')],
-      $[rule('qualified_name')],
-      $[rule('number')],
-      $[rule('boolean')],
-      $[rule('string')],
-      $[rule('divert')],
-
-      // compound
-      $[rule('call')],
-      $[rule('paren')],
-      $[rule('list_values')],
-      $[rule('unary')],
-      $[rule('postfix')],
-      $[rule('binary')],
-
-    ),
-
-    [rule('call')]: $ => prec.left(11, seq(
-      field('name', choice($[rule('identifier')], $[rule('qualified_name')])),
-      OP.par_left,
-      field('args', optional($[rule('args')])),
-      OP.par_right
+  list_values: $ => seq(
+    OP.par_left,
+    optional(sepBy1(OP.comma,
+      choice(
+        $.identifier,
+        $.qualified_name
+      ),
     )),
-    [rule('args')]: $ => sepBy1(OP.comma, $[rule('expr')]),
+    OP.par_right,
+  ),
 
-    [rule('list_values')]: $ => seq(
-      OP.par_left,
-      optional(sepBy1(OP.comma,
-        choice(
-          $[rule('identifier')],
-          $[rule('qualified_name')]
-        ),
-      )),
-      OP.par_right,
-    ),
+  paren: $ => prec.left(15, seq(OP.par_left, $.expr, OP.par_right)),
 
-    [rule('paren')]: $ => prec.left(15, seq(OP.par_left, $[rule('expr')], OP.par_right)),
-    [rule('unary')]: $ => prec.left(14, seq(
-      field('op', choice(
-        OP.not,
-        mark(OP.exclam),   // without the higher precedence, `* {!condition} choice` is a parse error
-        OP.minus)),
-      field('right', $[rule('expr')])
-    )),
-    [rule('postfix')]: $ => prec.left(13, seq(
-      field('left', $[rule('identifier')]),
-      field('op', choice(OP.dbl_minus, OP.dbl_plus))
-    )),
-    [rule('binary')]: $ => choice(
-      binop($, 8, OP.percent, OP.mod),
-      binop($, 7, OP.slash),
-      binop($, 6, OP.asterisk),
-      binop($, 5, OP.minus),
-      binop($, 4, OP.plus),
-      binop($, 3, OP.caret, OP.hasnt, OP.exclamquestion, OP.has, OP.question),
-      binop($, 2, OP.neq, OP.gt, OP.lt, OP.le, OP.ge, OP.eq),
-      binop($, 1, OP.or, OP.and, OP.dbl_pipe, OP.dbl_amp),
-    ),
+  unary: $ => prec.left(14, seq(
+    field('op', choice(
+      OP.not,
+      mark(OP.exclam),   // without the higher precedence, `* {!condition} choice` is a parse error
+      OP.minus)),
+    field('right', $.expr)
+  )),
 
-    [rule('identifier')]: _ => IDENTIFIER_REGEX,
-    [rule('qualified_name')]: $ => prec.right(seq(
-      $[rule('identifier')], OP.period, $[rule('identifier')],
-      optional(seq(OP.period, $[rule('identifier')])) // third level: -> knot.stitch.label
-    )),
+  postfix: $ => prec.left(13, seq(
+    field('left', $.identifier),
+    field('op', choice(OP.dbl_minus, OP.dbl_plus))
+  )),
 
-    [rule('number')]: _ => NUMBER_REGEX,
-    [rule('boolean')]: _ => choice('false', 'true'),
+  binary: $ => choice(
+    binop($, 8, OP.percent, OP.mod),
+    binop($, 7, OP.slash),
+    binop($, 6, OP.asterisk),
+    binop($, 5, OP.minus),
+    binop($, 4, OP.plus),
+    binop($, 3, OP.caret, OP.hasnt, OP.exclamquestion, OP.has, OP.question),
+    binop($, 2, OP.neq, OP.gt, OP.lt, OP.le, OP.ge, OP.eq),
+    binop($, 1, OP.or, OP.and, OP.dbl_pipe, OP.dbl_amp),
+  ),
 
-    [rule('string')]: _ => seq('"', repeat(choice(...STRING_PARTS)), '"'),
+  identifier: _ => IDENTIFIER_REGEX,
 
-    [rule('divert')]: $ => seq(
-      $._divert_mark,
-      field('target', $[rule('_divert_target')]),
-    ),
+  qualified_name: $ => prec.right(seq(
+    $.identifier, OP.period, $.identifier,
+    optional(seq(OP.period, $.identifier)) // third level: -> knot.stitch.label
+  )),
 
-  }
+  number: _ => NUMBER_REGEX,
+
+  boolean: _ => choice('false', 'true'),
+
+  string: _ => seq('"', repeat(choice(...STRING_PARTS)), '"'),
+
+  divert: $ => seq(
+    $._divert_mark,
+    field('target', $._divert_target),
+  ),
 }
 
 
@@ -331,7 +309,7 @@ module.exports = grammar({
     ),
 
     _redirect: $ => choice(
-      $.divert,  // diverts are defined as part of the `make_expr` function.
+      $.divert,  // diverts are defined as part of expressions.
       $.tunnel,
       $.thread,
     ),
@@ -640,8 +618,7 @@ module.exports = grammar({
 
     _list_def_number: _ => /\d+/,  // weird bug: Using the actual $.number regex (/\d+(\.\d+)?/) leads to the number containing the leading whitespace. I don't get it.
 
-    // we create two sets of "expressions": One named for the actual expressions,
-    ...make_expr(named = true),
+    ...EXPR,
 
     todo_comment: _ => seq(
       field('keyword', mark('TODO')),
