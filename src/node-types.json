@@ -166,6 +166,22 @@
     ]
   },
   {
+    "type": "_eval",
+    "named": false,
+    "fields": {
+      "expr": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "expr",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "alt_arm",
     "named": true,
     "fields": {},
@@ -737,18 +753,7 @@
   {
     "type": "condition",
     "named": true,
-    "fields": {
-      "expr": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "expr",
-            "named": true
-          }
-        ]
-      }
-    }
+    "fields": {}
   },
   {
     "type": "conditional_text",

@@ -245,8 +245,6 @@ module.exports = grammar({
 
   precedences: $ => [
     [$.label, $.word],
-    [$.condition, $.eval],  // since they are syntactically the same, maybe we just treat a condition as an eval?
-    [$._choice_content, $.content],
   ],
 
   conflicts: $ => [
@@ -369,6 +367,23 @@ module.exports = grammar({
       field('redirect', $._redirect),
     )),
 
+    // Choice content can not start with logic blocks, so we make a special version.
+    _choice_start: $ => prec.right(choice(
+      seq(
+        field('content', seq(choice($.glue, $.text), optional($._glue_logic_or_text))),
+        field('tag', repeat($.tag)),
+        field('redirect', optional($._redirect)),
+      ),
+      seq(
+        field('tag', repeat1($.tag)),
+        field('redirect', optional($._redirect)),
+      ),
+      field('redirect', $._redirect),
+    )),
+    // No need to treat it as anything other than normal $.content
+    // Directly wrapping the above in an alias doesn't work.
+    _choice_main_content: $ => alias($._choice_start, $.content),
+
     _glue_logic_or_text: $ => prec.right(repeat1(choice(
       $.glue,
       $._logic,
@@ -459,7 +474,7 @@ module.exports = grammar({
       field('content', $._glue_logic_or_text)
     )),
 
-    choice: $ => prec.left(choice(
+    choice: $ => choice(
       field('marks', $.choice_marks),  // Completely empty choice == fallback choice. Generates a compiler warning ("please add a `->`"), but it is valid syntax.
       seq(
         field('marks', $.choice_marks),
@@ -473,8 +488,7 @@ module.exports = grammar({
         )),
         $._choice_content,
       ),
-    )),
-
+    ),
 
     gather: $ => prec.right(seq(
       $.gather_marks,
@@ -492,17 +506,17 @@ module.exports = grammar({
     _label_field: $ => prec(PREC.ink, field('label', $.label)),
     label: $ => seq('(', field('name', $.identifier), ')'),
 
-    condition: $ => seq('{', field('expr', $.expr), '}',),
+    condition: $ => alias($.eval, '_eval'),
 
     _choice_content: $ => prec.right(choice(
-      field('main', $.content),
+      field('main', $._choice_main_content),
       $._compound_choice_content,
       // empty fallback choice:
       $._divert_mark,
     )),
 
     _compound_choice_content: $ => prec.right(seq(
-      field('main', optional($.content)),
+      field('main', optional($._choice_main_content)),
       field('choice_only', $.choice_only),
       field('when_chosen', optional($.content))
     )),
