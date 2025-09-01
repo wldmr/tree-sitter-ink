@@ -116,6 +116,9 @@ const EXPR = {
   // XXX: Don't put a precedence number on this! If you do, then GLR conflicts with text won't occur
   paren: $ => prec.right(seq(OP.par_left, $.expr, OP.par_right)),
 
+  // BUG (sort of): This precedence leads to `{ not this | that }` being treated as an `eval` instead of an `alternative_text`.
+  // However, we need that precedence (I think), to generate correct expressions.
+  // I don't really s
   unary: $ => prec.left(14, seq(
     field('op', choice(
       OP.not,
