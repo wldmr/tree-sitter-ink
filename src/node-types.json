@@ -1787,17 +1787,7 @@
   {
     "type": "text",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "word",
-          "named": true
-        }
-      ]
-    }
+    "fields": {}
   },
   {
     "type": "thread",
@@ -1890,11 +1880,6 @@
         ]
       }
     }
-  },
-  {
-    "type": "word",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "!",

@@ -18,127 +18,50 @@
       (gather_marks
         (gather_mark)))
     (paragraph
-      (text
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word))))
+      (text)))
   (choice_block
     (choice
       (choice_marks
         (choice_mark))
       (content
-        (text
-          (word)
-          (word)
-          (word)
-          (word))))
+        (text)))
     (paragraph
-      (text
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)))
+      (text))
     (choice_block
       (choice
         (choice_marks
           (choice_mark)
           (choice_mark))
         (content
-          (text
-            (word)
-            (word)
-            (word)
-            (word)
-            (word)
-            (word)
-            (word)))))
+          (text))))
     (gather_block
       (gather
         (gather_marks
           (gather_mark)
           (gather_mark)))
       (paragraph
-        (text
-          (word)
-          (word)
-          (word)
-          (word)
-          (word)
-          (word)))))
+        (text))))
   (choice_block
     (choice
       (choice_marks
         (choice_mark))
       (content
-        (text
-          (word)
-          (word)
-          (word)
-          (word))))
+        (text)))
     (paragraph
-      (text
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)))
+      (text))
     (choice_block
       (choice
         (choice_marks
           (choice_mark)
           (choice_mark))
         (content
-          (text
-            (word)
-            (word)
-            (word)
-            (word)
-            (word)
-            (word)
-            (word))))))
+          (text)))))
   (gather_block
     (gather
       (gather_marks
         (gather_mark)))
     (paragraph
-      (text
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)))))
+      (text))))
 
 ===
 .BBAa. Corner Case: Block comments between choice/gather marks
@@ -155,8 +78,7 @@
         (block_comment)
         (choice_mark))
       (content
-        (text
-          (word))))
+        (text)))
     (gather_block
       (gather
         (gather_marks
@@ -165,8 +87,7 @@
           (block_comment)
           (gather_mark)))
       (paragraph
-        (text
-          (word))))))
+        (text)))))
 
 ===
 .BBB. You can nest as many levels as you like
@@ -187,59 +108,20 @@
       (gather_marks
         (gather_mark)))
     (paragraph
-      (text
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word))))
+      (text)))
   (choice_block
     (choice
       (choice_marks
         (choice_mark))
       (content
-        (text
-          (word)
-          (word)
-          (word)
-          (word)
-          (word)
-          (word)
-          (word)
-          (word)
-          (word)
-          (word)
-          (word)
-          (word)
-          (word)
-          (word)
-          (word)
-          (word)
-          (word)
-          (word))))
+        (text)))
     (choice_block
       (choice
         (choice_marks
           (choice_mark)
           (choice_mark))
         (content
-          (text
-            (word)
-            (word)
-            (word)
-            (word)
-            (word)
-            (word)
-            (word)
-            (word)
-            (word)
-            (word)
-            (word)
-            (word))))
+          (text)))
       (choice_block
         (choice
           (choice_marks
@@ -247,20 +129,7 @@
             (choice_mark)
             (choice_mark))
           (content
-            (text
-              (word)
-              (word)
-              (word)
-              (word)
-              (word)
-              (word)
-              (word)
-              (word)
-              (word)
-              (word)
-              (word)
-              (word)
-              (word))))
+            (text)))
         (choice_block
           (choice
             (choice_marks
@@ -269,21 +138,7 @@
               (choice_mark)
               (choice_mark))
             (content
-              (text
-                (word)
-                (word)
-                (word)
-                (word)
-                (word)
-                (word)
-                (word)
-                (word)
-                (word)
-                (word)
-                (word)
-                (word)
-                (word)
-                (word))))
+              (text)))
           (choice_block
             (choice
               (choice_marks
@@ -293,53 +148,19 @@
                 (choice_mark)
                 (choice_mark))
               (content
-                (text
-                  (word)
-                  (word)
-                  (word)
-                  (word)
-                  (word)
-                  (word)
-                  (word)
-                  (word)
-                  (word)
-                  (word)
-                  (word)))))))))
+                (text))))))))
   (choice_block
     (choice
       (choice_marks
         (choice_mark))
       (content
-        (text
-          (word)
-          (word)
-          (word)
-          (word)
-          (word)
-          (word)
-          (word)
-          (word)
-          (word)
-          (word)
-          (word)
-          (word)
-          (word)))))
+        (text))))
   (gather_block
     (gather
       (gather_marks
         (gather_mark)))
     (paragraph
-      (text
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)))))
+      (text))))
 
 ===
 .BBBa. Corner case: Weird nesting (this is how the compiler actually works)
@@ -355,22 +176,13 @@
         (choice_mark)
         (choice_mark))
       (content
-        (text
-          (word)
-          (word)
-          (word)
-          (word)
-          (word)
-          (word)
-          (word)))))
+        (text))))
   (choice_block
     (choice
       (choice_marks
         (choice_mark))
       (content
-        (text
-          (word)
-          (word))))))
+        (text)))))
 
 ===
 .BBBb. Comments belong to the following choice / gather block
@@ -395,16 +207,14 @@ content
 (ink
   (block_comment)
   (paragraph
-    (text
-      (word)))
+    (text))
   (choice_block
     (line_comment)
     (choice
       (choice_marks
         (choice_mark))
       (content
-        (text
-          (word))))
+        (text)))
     (choice_block
       (block_comment)
       (choice
@@ -412,14 +222,11 @@ content
           (choice_mark)
           (choice_mark))
         (content
-          (text
-            (word)
-            (word))))))
+          (text)))))
   (gather_block
     (line_comment)
     (gather
       (gather_marks
         (gather_mark)))
     (paragraph
-      (text
-        (word)))))
+      (text))))

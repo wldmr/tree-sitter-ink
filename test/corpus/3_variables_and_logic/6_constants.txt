@@ -40,9 +40,6 @@ VAR current_chief_suspect = HASTINGS
               (identifier)
               (identifier))))))
     (paragraph
-      (text
-        (word)
-        (word)
-        (word))
+      (text)
       (eval
         (identifier)))))

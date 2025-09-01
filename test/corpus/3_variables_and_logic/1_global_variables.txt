@@ -43,30 +43,10 @@ My name is Jean Passepartout, but my friend's call me {friendly_name_of_player}.
     (identifier)
     (number))
   (paragraph
-    (text
-      (word)
-      (word)
-      (word)
-      (word)
-      (word)
-      (word)
-      (word)
-      (word)
-      (word)
-      (word)
-      (word)
-      (word)
-      (word))
+    (text)
     (eval
       (identifier))
-    (text
-      (word)
-      (word)
-      (word)
-      (word))
+    (text)
     (eval
       (identifier))
-    (text
-      (word)
-      (word)
-      (word))))
+    (text)))

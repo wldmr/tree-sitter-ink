@@ -15,9 +15,7 @@
       condition: (condition
         expr: (boolean))
       main: (content
-        content: (text
-          (word)
-          (word)))))
+        content: (text))))
   (choice_block
     header: (choice
       marks: (choice_marks
@@ -25,9 +23,7 @@
       condition: (condition
         expr: (boolean))
       main: (content
-        content: (text
-          (word)
-          (word)))))
+        content: (text))))
   (choice_block
     header: (choice
       marks: (choice_marks
@@ -38,9 +34,7 @@
             name: (identifier))
           right: (number)))
       main: (content
-        content: (text
-          (word)
-          (word))))))
+        content: (text)))))
 
 ===
 .AIB. TURNS_SINCE
@@ -65,14 +59,7 @@
                   (identifier)))))
           right: (number)))
       main: (content
-        content: (text
-          (word)
-          (word)
-          (word)
-          (word)
-          (word)
-          (word)
-          (word))
+        content: (text)
         redirect: (divert
           target: (identifier)))))
   (choice_block
@@ -88,13 +75,7 @@
                 target: (identifier))))
           right: (number)))
       main: (content
-        content: (text
-          (word)
-          (word)
-          (word)
-          (word)
-          (word)
-          (word))))))
+        content: (text)))))
 
 ===
 .AIC. came_from
@@ -154,7 +135,4 @@
             right: (unary
               right: (number)))))
       main: (content
-        content: (text
-          (word)
-          (word)
-          (word))))))
+        content: (text)))))

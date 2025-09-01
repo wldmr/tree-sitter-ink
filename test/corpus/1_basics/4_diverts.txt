@@ -17,16 +17,7 @@ We hurried home to Savile Row as fast as we could.
     header: (knot
       name: (identifier))
     (paragraph
-      content: (text
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)))
+      content: (text))
     (paragraph
       redirect: (divert
         target: (identifier))))
@@ -34,19 +25,7 @@ We hurried home to Savile Row as fast as we could.
     header: (knot
       name: (identifier))
     (paragraph
-      content: (text
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word))))
+      content: (text)))
   (line_comment))
 
 ===
@@ -65,26 +44,14 @@ as fast as we could.
     header: (knot
       name: (identifier))
     (paragraph
-      content: (text
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word))
+      content: (text)
       redirect: (divert
         target: (identifier))))
   (knot_block
     header: (knot
       name: (identifier))
     (paragraph
-      content: (text
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)))))
+      content: (text))))
 
 ===
 .ADC. Glue
@@ -106,10 +73,7 @@ to Savile Row
     header: (knot
       name: (identifier))
     (paragraph
-      content: (text
-        (word)
-        (word)
-        (word))
+      content: (text)
       content: (glue))
     (paragraph
       redirect: (divert
@@ -118,10 +82,7 @@ to Savile Row
     header: (knot
       name: (identifier))
     (paragraph
-      content: (text
-        (word)
-        (word)
-        (word)))
+      content: (text))
     (paragraph
       redirect: (divert
         target: (identifier))))
@@ -130,13 +91,7 @@ to Savile Row
       name: (identifier))
     (paragraph
       content: (glue)
-      content: (text
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)))))
+      content: (text))))
 
 ===
 .ADDa. Glue on same line as divert
@@ -156,10 +111,7 @@ We hurried home <> -> to_savile_row
     header: (knot
       name: (identifier))
     (paragraph
-      content: (text
-        (word)
-        (word)
-        (word))
+      content: (text)
       content: (glue)
       redirect: (divert
         target: (identifier))))
@@ -168,10 +120,7 @@ We hurried home <> -> to_savile_row
       name: (identifier))
     (paragraph
       content: (glue)
-      content: (text
-        (word)
-        (word)
-        (word))
+      content: (text)
       redirect: (divert
         target: (identifier))))
   (knot_block
@@ -179,13 +128,7 @@ We hurried home <> -> to_savile_row
       name: (identifier))
     (paragraph
       content: (glue)
-      content: (text
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)))))
+      content: (text))))
 
 ===
 .ADDb. Can't use too much glue
@@ -195,23 +138,13 @@ When we <> came home, <> <> <> we went to sleep.
 
 (ink
   (paragraph
-    (text
-      (word)
-      (word))
+    (text)
     (glue)
-    (text
-      (word)
-      (word)
-      (word))
+    (text)
     (glue)
     (glue)
     (glue)
-    (text
-      (word)
-      (word)
-      (word)
-      (word)
-      (word))))
+    (text)))
 
 ===
 .ADDc. Syntax Stress Test: Confusing sequences of symbols
@@ -225,25 +158,9 @@ We hurried home to Savile Road sevent-<> no wait, it was a number <<>-> what_num
 
 (ink
   (paragraph
-    content: (text
-      (word)
-      (word)
-      (word)
-      (word)
-      (word)
-      (word)
-      (word)
-      (word))
+    content: (text)
     content: (glue)
-    content: (text
-      (word)
-      (word)
-      (word)
-      (word)
-      (word)
-      (word)
-      (word)
-      (word))
+    content: (text)
     content: (glue)
     redirect: (divert
       target: (identifier)))
@@ -251,5 +168,4 @@ We hurried home to Savile Road sevent-<> no wait, it was a number <<>-> what_num
     header: (knot
       name: (identifier))
     (paragraph
-      content: (text
-        (word)))))
+      content: (text))))

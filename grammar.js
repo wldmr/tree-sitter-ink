@@ -222,14 +222,14 @@ module.exports = grammar({
   ],
 
   precedences: $ => [
-    [$.label, $.word],
+    [$.label, $._word],
   ],
 
   conflicts: $ => [
-    [$.word, $.string],
-    [$.word, $.identifier],
-    [$.word, $.number],
-    [$.word, $.list_values],
+    [$._word, $.string],
+    [$._word, $.identifier],
+    [$._word, $.number],
+    [$._word, $.list_values],
     [$.tunnel],
     [$._redirect, $.tunnel],
     [$.tunnel, $.divert],
@@ -328,9 +328,9 @@ module.exports = grammar({
 
     thread: $ => seq($._thread_mark, field('target', $._divert_target)),
 
-    text: $ => prec.right(repeat1($.word)),
+    text: $ => prec.right(repeat1($._word)),
 
-    word: _ => choice(...STRING_PARTS, '"'), // as stated above: everything a string can be, plus `"`
+    _word: _ => choice(...STRING_PARTS, '"'), // as stated above: everything a string can be, plus `"`
 
     content: $ => prec.right(choice(
       seq(
@@ -627,6 +627,7 @@ module.exports = grammar({
     ),
 
     _space: _ => /[ \t]+/,
+    // _space: _ => /\p{Space}+/, TODO: activate and write test
 
     line_comment: $ => seq(/\/\/[^\n]*/, $._eol),
     block_comment: $ => seq(

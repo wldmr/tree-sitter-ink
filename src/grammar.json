@@ -485,11 +485,11 @@
         "type": "REPEAT1",
         "content": {
           "type": "SYMBOL",
-          "name": "word"
+          "name": "_word"
         }
       }
     },
-    "word": {
+    "_word": {
       "type": "CHOICE",
       "members": [
         {
@@ -3509,19 +3509,19 @@
   ],
   "conflicts": [
     [
-      "word",
+      "_word",
       "string"
     ],
     [
-      "word",
+      "_word",
       "identifier"
     ],
     [
-      "word",
+      "_word",
       "number"
     ],
     [
-      "word",
+      "_word",
       "list_values"
     ],
     [
@@ -3544,7 +3544,7 @@
       },
       {
         "type": "SYMBOL",
-        "name": "word"
+        "name": "_word"
       }
     ]
   ],

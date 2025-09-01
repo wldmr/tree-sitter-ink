@@ -61,11 +61,7 @@
           (call
             (identifier)))
         (content
-          (text
-            (word)
-            (word)
-            (word)
-            (word)))))))
+          (text))))))
 
 ===
 .CEB. Parameters can be passed by reference

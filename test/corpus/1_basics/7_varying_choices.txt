@@ -21,21 +21,7 @@
       marks: (choice_marks
         (choice_mark)))
     (paragraph
-      content: (text
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word))
+      content: (text)
       redirect: (divert
         target: (identifier)))))
 
@@ -58,40 +44,18 @@
     header: (knot
       name: (identifier))
     (paragraph
-      content: (text
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)))
+      content: (text))
     (choice_block
       header: (choice
         marks: (choice_marks
           (choice_mark))
         main: (content
-          content: (text
-            (word)
-            (word)
-            (word)
-            (word)
-            (word)))
+          content: (text))
         choice_only: (choice_only
           (content
-            content: (text
-              (word))))
+            content: (text)))
         when_chosen: (content
-          content: (text
-            (word)
-            (word)
-            (word)
-            (word)
-            (word))
+          content: (text)
           redirect: (divert
             target: (identifier)))))
     (choice_block
@@ -99,26 +63,12 @@
         marks: (choice_marks
           (choice_mark))
         main: (content
-          content: (text
-            (word)
-            (word)
-            (word)
-            (word)
-            (word)))
+          content: (text))
         choice_only: (choice_only
           (content
-            content: (text
-              (word))))
+            content: (text)))
         when_chosen: (content
-          content: (text
-            (word)
-            (word)
-            (word)
-            (word)
-            (word)
-            (word)
-            (word)
-            (word))
+          content: (text)
           redirect: (divert
             target: (identifier)))))
     (choice_block
@@ -126,25 +76,7 @@
         marks: (choice_marks
           (choice_mark)))
       (paragraph
-        content: (text
-          (word)
-          (word)
-          (word)
-          (word)
-          (word)
-          (word)
-          (word)
-          (word)
-          (word)
-          (word)
-          (word)
-          (word)
-          (word)
-          (word)
-          (word)
-          (word)
-          (word)
-          (word)))
+        content: (text))
       (paragraph
         redirect: (divert
           target: (identifier))))))
@@ -171,17 +103,9 @@
           (choice_mark))
         choice_only: (choice_only
           (content
-            content: (text
-              (word)
-              (word)
-              (word)))))
+            content: (text))))
       (paragraph
-        content: (text
-          (word)
-          (word)
-          (word)
-          (word)
-          (word))
+        content: (text)
         redirect: (divert
           target: (identifier))))
     (choice_block
@@ -190,26 +114,9 @@
           (choice_mark))
         choice_only: (choice_only
           (content
-            content: (text
-              (word)
-              (word)
-              (word)
-              (word)))))
+            content: (text))))
       (paragraph
-        content: (text
-          (word)
-          (word)
-          (word)
-          (word)
-          (word)
-          (word)
-          (word)
-          (word)
-          (word)
-          (word)
-          (word)
-          (word)
-          (word)))
+        content: (text))
       (paragraph
         redirect: (divert
           target: (identifier))))))
@@ -234,11 +141,7 @@
           (choice_mark))
         choice_only: (choice_only
           (content
-            content: (text
-              (word)
-              (word)
-              (word)
-              (word))))
+            content: (text)))
         when_chosen: (content
           redirect: (divert
             target: (identifier)))))
@@ -248,11 +151,7 @@
           (choice_mark))
         choice_only: (choice_only
           (content
-            content: (text
-              (word)
-              (word)
-              (word)
-              (word))))
+            content: (text)))
         when_chosen: (content
           redirect: (divert
             target: (identifier)))))
@@ -284,10 +183,7 @@
           right: (identifier)))
       choice_only: (choice_only
         (content
-          content: (text
-            (word)
-            (word)
-            (word))))
+          content: (text)))
       when_chosen: (content
         redirect: (divert
           target: (identifier)))))
@@ -299,10 +195,7 @@
         expr: (identifier))
       choice_only: (choice_only
         (content
-          content: (text
-            (word)
-            (word)
-            (word))))
+          content: (text)))
       when_chosen: (content
         redirect: (divert
           target: (identifier)))))
@@ -316,10 +209,7 @@
           (identifier)))
       choice_only: (choice_only
         (content
-          content: (text
-            (word)
-            (word)
-            (word))))
+          content: (text)))
       when_chosen: (content
         redirect: (divert
           target: (identifier))))))
@@ -343,10 +233,7 @@
           right: (identifier)))
       choice_only: (choice_only
         (content
-          content: (text
-            (word)
-            (word)
-            (word))))
+          content: (text)))
       when_chosen: (content
         redirect: (divert
           target: (identifier)))))
@@ -362,10 +249,7 @@
       eol: (eol)
       choice_only: (choice_only
         (content
-          content: (text
-            (word)
-            (word)
-            (word))))
+          content: (text)))
       when_chosen: (content
         redirect: (divert
           target: (identifier))))))
@@ -395,17 +279,7 @@
               right: (identifier)))))
       choice_only: (choice_only
         (content
-          content: (text
-            (word)
-            (word)
-            (word)
-            (word)
-            (word)
-            (word)
-            (word)
-            (word)
-            (word)
-            (word))))
+          content: (text)))
       when_chosen: (content
         redirect: (divert
           target: (identifier))))))
@@ -448,10 +322,7 @@
         expr: (identifier))
       choice_only: (choice_only
         (content
-          content: (text
-            (word)
-            (word)
-            (word))))))
+          content: (text)))))
   (choice_block
     header: (choice
       marks: (choice_marks
@@ -462,10 +333,4 @@
           right: (number)))
       choice_only: (choice_only
         (content
-          content: (text
-            (word)
-            (word)
-            (word)
-            (word)
-            (word)
-            (word)))))))
+          content: (text))))))

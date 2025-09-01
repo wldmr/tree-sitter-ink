@@ -30,21 +30,7 @@ Before long, we arrived at his house.
     (knot
       (identifier))
     (paragraph
-      (text
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)))
+      (text))
     (paragraph
       (thread
         (identifier)))
@@ -55,85 +41,29 @@ Before long, we arrived at his house.
     (knot
       (identifier))
     (paragraph
-      (text
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)))
+      (text))
     (choice_block
       (choice
         (choice_marks
           (choice_mark))
         (content
-          (text
-            (word)
-            (word)
-            (word)
-            (word)
-            (word)
-            (word)
-            (word)
-            (word)
-            (word)
-            (word)))
+          (text))
         (choice_only)
         (content
-          (text
-            (word)
-            (word)
-            (word))))
+          (text)))
       (paragraph
-        (text
-          (word)
-          (word)
-          (word)
-          (word)
-          (word)
-          (word)
-          (word)
-          (word)
-          (word))))
+        (text)))
     (choice_block
       (choice
         (choice_marks
           (choice_mark))
         (content
-          (text
-            (word)
-            (word)
-            (word)
-            (word)
-            (word)
-            (word)
-            (word)
-            (word)
-            (word)
-            (word)))
+          (text))
         (choice_only)
         (content
-          (text
-            (word)
-            (word)
-            (word))))
+          (text)))
       (paragraph
-        (text
-          (word)
-          (word)
-          (word)
-          (word)
-          (word)
-          (word)
-          (word)
-          (word)
-          (word)
-          (word)
-          (word))))
+        (text)))
     (gather_block
       (gather
         (gather_marks
@@ -145,25 +75,14 @@ Before long, we arrived at his house.
     (knot
       (identifier))
     (paragraph
-      (text
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)))
+      (text))
     (choice_block
       (choice
         (choice_marks
           (choice_mark))
         (choice_only
           (content
-            (text
-              (word)
-              (word)))))
+            (text))))
       (paragraph
         (divert
           (identifier)))))
@@ -171,16 +90,7 @@ Before long, we arrived at his house.
     (knot
       (identifier))
     (paragraph
-      (text
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)
-        (word)))
+      (text))
     (paragraph
       (divert
         (identifier)))))
@@ -244,10 +154,7 @@ Before long, we arrived at his house.
               (identifier)))))
       (line_comment)
       (paragraph
-        (text
-          (word)
-          (word)
-          (word))))
+        (text)))
     (stitch_block
       (stitch
         (identifier)
@@ -257,16 +164,10 @@ Before long, we arrived at his house.
               (identifier)))))
       (line_comment)
       (paragraph
-        (text
-          (word)
-          (word)
-          (word))))
+        (text)))
     (stitch_block
       (stitch
         (identifier))
       (line_comment)
       (paragraph
-        (text
-          (word)
-          (word)
-          (word))))))
+        (text)))))
