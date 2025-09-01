@@ -94,7 +94,7 @@ const EXPR = {
     $.binary,
   ),
 
-  call: $ => prec.left(11, seq(
+  call: $ => prec.right(11, seq(
     field('name', choice($.identifier, $.qualified_name)),
     OP.par_left,
     field('args', optional($.args)),
@@ -113,7 +113,8 @@ const EXPR = {
     OP.par_right,
   ),
 
-  paren: $ => prec.left(15, seq(OP.par_left, $.expr, OP.par_right)),
+  // XXX: Don't put a precedence number on this! If you do, then GLR conflicts with text won't occur
+  paren: $ => prec.right(seq(OP.par_left, $.expr, OP.par_right)),
 
   unary: $ => prec.left(14, seq(
     field('op', choice(
@@ -230,7 +231,10 @@ module.exports = grammar({
     [$._word, $.string],
     [$._word, $.identifier],
     [$._word, $.number],
+    [$._word, $.paren],
     [$._word, $.list_values],
+    [$._word, $.list_values, $.paren],
+    [$.list_values, $.paren],
     [$._word, $.boolean],
     [$.tunnel],
     [$._redirect, $.tunnel],
@@ -384,7 +388,7 @@ module.exports = grammar({
 
     conditional_text: $ => prec.right(seq(
       '{',
-      prec.dynamic(PREC.ink, seq(field('condition', $.expr), ':')),
+      seq(field('condition', $.expr), ':'),
       $.content,
       optional(seq(
         '|',

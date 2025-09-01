@@ -282,30 +282,23 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
   (line_comment))
 
 ===
-.AHJc. Paranthesized expressions directly after opening brace _must_ be balanced (even if there is no colon)
+.AHJc. Paranthesized expressions directly after opening brace
 ===
 {(a + b|}
 {(a + b)|}
-// To be clear: This is how the ink compiler works as well.
+// NOTE: This is NOT how the ink compiler works! It needs parens to be balanced in this position!
 ---
 
 (ink
   (paragraph
-    (eval
-      (binary
-        (identifier)
-        (identifier)
-        (MISSING ")")))
-    (paragraph
-      (alternatives
-        (content
-          (text
-            (word)
-            (word)
-            (word)
-            (word)
-            (word)))))
-    (line_comment))
+    (alternatives
+      (content
+        (text))))
+  (paragraph
+    (alternatives
+      (content
+        (text))))
+  (line_comment))
 
 ===
 .AHJd. Booleans and words can conflict

@@ -940,25 +940,21 @@
             "value": "{"
           },
           {
-            "type": "PREC_DYNAMIC",
-            "value": 1,
-            "content": {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "FIELD",
-                  "name": "condition",
-                  "content": {
-                    "type": "SYMBOL",
-                    "name": "expr"
-                  }
-                },
-                {
-                  "type": "STRING",
-                  "value": ":"
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "FIELD",
+                "name": "condition",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "expr"
                 }
-              ]
-            }
+              },
+              {
+                "type": "STRING",
+                "value": ":"
+              }
+            ]
           },
           {
             "type": "SYMBOL",
@@ -2581,7 +2577,7 @@
       ]
     },
     "call": {
-      "type": "PREC_LEFT",
+      "type": "PREC_RIGHT",
       "value": 11,
       "content": {
         "type": "SEQ",
@@ -2720,8 +2716,8 @@
       ]
     },
     "paren": {
-      "type": "PREC_LEFT",
-      "value": 15,
+      "type": "PREC_RIGHT",
+      "value": 0,
       "content": {
         "type": "SEQ",
         "members": [
@@ -3538,7 +3534,20 @@
     ],
     [
       "_word",
+      "paren"
+    ],
+    [
+      "_word",
       "list_values"
+    ],
+    [
+      "_word",
+      "list_values",
+      "paren"
+    ],
+    [
+      "list_values",
+      "paren"
     ],
     [
       "_word",
