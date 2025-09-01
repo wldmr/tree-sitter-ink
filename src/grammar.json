@@ -621,6 +621,14 @@
           "value": "."
         },
         {
+          "type": "STRING",
+          "value": "false"
+        },
+        {
+          "type": "STRING",
+          "value": "true"
+        },
+        {
           "type": "PATTERN",
           "value": "[^|{}\\p{Space}]"
         },
@@ -3356,6 +3364,14 @@
                 "value": "."
               },
               {
+                "type": "STRING",
+                "value": "false"
+              },
+              {
+                "type": "STRING",
+                "value": "true"
+              },
+              {
                 "type": "PATTERN",
                 "value": "[^|{}\\p{Space}]"
               }
@@ -3523,6 +3539,10 @@
     [
       "_word",
       "list_values"
+    ],
+    [
+      "_word",
+      "boolean"
     ],
     [
       "tunnel"

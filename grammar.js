@@ -57,6 +57,7 @@ const STRING_PARTS = [
   // so that strings, expressions and text get tokenized the same:
   ...Object.values(OP)
     .filter(it => it != '||'),  // can't occur in text/strings
+  'false', 'true',
   /[^|{}\p{Space}]/, // anything else that isn't *very* special
 ]
 
@@ -230,6 +231,7 @@ module.exports = grammar({
     [$._word, $.identifier],
     [$._word, $.number],
     [$._word, $.list_values],
+    [$._word, $.boolean],
     [$.tunnel],
     [$._redirect, $.tunnel],
     [$.tunnel, $.divert],

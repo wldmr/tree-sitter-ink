@@ -306,3 +306,19 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
             (word)
             (word)))))
     (line_comment))
+
+===
+.AHJd. Booleans and words can conflict
+===
+{true|}
+{true}
+---
+
+(ink
+  (paragraph
+    (alternatives
+      (content
+        (text))))
+  (paragraph
+    (eval
+      (boolean))))
