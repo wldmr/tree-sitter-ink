@@ -2737,8 +2737,8 @@
       }
     },
     "unary": {
-      "type": "PREC_LEFT",
-      "value": 14,
+      "type": "PREC_RIGHT",
+      "value": 0,
       "content": {
         "type": "SEQ",
         "members": [
@@ -2774,8 +2774,12 @@
             "type": "FIELD",
             "name": "right",
             "content": {
-              "type": "SYMBOL",
-              "name": "expr"
+              "type": "PREC",
+              "value": 14,
+              "content": {
+                "type": "SYMBOL",
+                "name": "expr"
+              }
             }
           }
         ]
@@ -3535,6 +3539,10 @@
     [
       "_word",
       "paren"
+    ],
+    [
+      "_word",
+      "unary"
     ],
     [
       "_word",

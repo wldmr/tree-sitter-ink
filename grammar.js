@@ -116,15 +116,13 @@ const EXPR = {
   // XXX: Don't put a precedence number on this! If you do, then GLR conflicts with text won't occur
   paren: $ => prec.right(seq(OP.par_left, $.expr, OP.par_right)),
 
-  // BUG (sort of): This precedence leads to `{ not this | that }` being treated as an `eval` instead of an `alternative_text`.
-  // However, we need that precedence (I think), to generate correct expressions.
-  // I don't really s
-  unary: $ => prec.left(14, seq(
+  // NOTE: I don't 100% understand why, but here we need to give the numeric precedence to the *inner* expression.
+  unary: $ => prec.right(seq(
     field('op', choice(
       OP.not,
       mark(OP.exclam),   // without the higher precedence, `* {!condition} choice` is a parse error
       OP.minus)),
-    field('right', $.expr)
+    field('right', prec(14, $.expr))  // <- THIS is where the precedence goes.
   )),
 
   postfix: $ => prec.left(13, seq(
@@ -235,6 +233,7 @@ module.exports = grammar({
     [$._word, $.identifier],
     [$._word, $.number],
     [$._word, $.paren],
+    [$._word, $.unary],
     [$._word, $.list_values],
     [$._word, $.list_values, $.paren],
     [$.list_values, $.paren],
