@@ -12,6 +12,10 @@
         "named": true
       },
       {
+        "type": "postfix",
+        "named": true
+      },
+      {
         "type": "return",
         "named": true
       },
@@ -1559,7 +1563,7 @@
     "type": "postfix",
     "named": true,
     "fields": {
-      "left": {
+      "name": {
         "multiple": false,
         "required": true,
         "types": [

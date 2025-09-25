@@ -90,7 +90,7 @@ const EXPR = {
     $.paren,
     $.list_values,
     $.unary,
-    $.postfix,
+    $.postfix, // Ink will actually reject this, but we'll accept it anyway because users may expect it to work, and then we can do some "emergency" highlighting.
     $.binary,
   ),
 
@@ -123,11 +123,6 @@ const EXPR = {
       mark(OP.exclam),   // without the higher precedence, `* {!condition} choice` is a parse error
       OP.minus)),
     field('right', prec(14, $.expr))  // <- THIS is where the precedence goes.
-  )),
-
-  postfix: $ => prec.left(13, seq(
-    field('left', $.identifier),
-    field('op', choice(OP.dbl_minus, OP.dbl_plus))
   )),
 
   binary: $ => choice(
@@ -537,6 +532,7 @@ module.exports = grammar({
       $.assignment,
       $.temp_def,
       $.expr,
+      $.postfix,
       $.return,
     ),
 
@@ -551,6 +547,11 @@ module.exports = grammar({
       field('name', $.identifier),
       field('op', "="),
       field('value', $.expr)
+    ),
+
+    postfix: $ => seq(
+      field('name', $.identifier),
+      field('op', choice(OP.dbl_minus, OP.dbl_plus))
     ),
 
     return: $ => seq('return', $.expr),

@@ -24,7 +24,7 @@
           eol: (eol)
           (code
             (postfix
-              left: (identifier))))))))
+              name: (identifier))))))))
 
 ===
 .CDB. Knots and stitches can take parameters
