@@ -94,12 +94,12 @@ const EXPR = {
     $.binary,
   ),
 
-  call: $ => prec.right(11, seq(
+  call: $ => seq(
     field('name', choice($.identifier, $.qualified_name)),
     OP.par_left,
     field('args', optional($.args)),
     OP.par_right
-  )),
+  ),
   args: $ => sepBy1(OP.comma, $.expr),
 
   list_values: $ => seq(
