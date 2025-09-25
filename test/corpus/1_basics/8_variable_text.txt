@@ -327,11 +327,18 @@ The Ratbear {&{wastes no time and |}swipes|scratches} {&at you|into your {&leg|a
 .AHJe. Genuine ambiguities with pipes (the first could be eval, but this is how the ink compiler interprets these)
 ===
 {a||2}
+{a| |2}
 {a|||2}
 {a||||2}
 ---
 
 (ink
+  (paragraph
+    (alternatives
+      (content
+        (text))
+      (content
+        (text))))
   (paragraph
     (alternatives
       (content

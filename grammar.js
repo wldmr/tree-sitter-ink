@@ -36,7 +36,7 @@ const OP = {
   or: 'or',
   and: 'and',
   dbl_amp: '&&',
-  dbl_pipe: '||', // can't occurr in text
+  pipe: '|', // can't occurr in text
   // postfix operators
   dbl_plus: '++',
   dbl_minus: '--',
@@ -56,7 +56,7 @@ const STRING_PARTS = [
   // We now need to list ALL tokens that can occurr in an expression,
   // so that strings, expressions and text get tokenized the same:
   ...Object.values(OP)
-    .filter(it => it != '||'),  // can't occur in text/strings
+    .filter(it => it != OP.pipe),  // can't occur in text/strings
   'false', 'true',
   /[^|{}\p{Space}]/, // anything else that isn't *very* special
 ]
@@ -133,7 +133,14 @@ const EXPR = {
     binop($, 4, OP.plus),
     binop($, 3, OP.caret, OP.hasnt, OP.exclamquestion, OP.has, OP.question),
     binop($, 2, OP.neq, OP.gt, OP.lt, OP.le, OP.ge, OP.eq),
-    binop($, 1, OP.or, OP.and, OP.dbl_pipe, OP.dbl_amp),
+    binop($, 1, OP.or, OP.and, OP.dbl_amp, $._dbl_pipe),
+  ),
+
+  // We have to actually parse this (can't treat '||' as a token),
+  // because `{a||b}` in Ink is actually a *sequence*, so it means "a, then nothing, then b".
+  _dbl_pipe: _ => alias(
+    seq(OP.pipe, token.immediate(OP.pipe)),
+    '||' // Pretend like it is a token, no need to alarm anybody.
   ),
 
   identifier: _ => IDENTIFIER_REGEX,
@@ -381,7 +388,13 @@ module.exports = grammar({
       $.multiline_alternatives,
     ),
 
-    eval: $ => prec.right(seq('{', field('expr', $.expr), '}')),
+    // Lower dynamic precedence so that `{a||b}` is never interpreted as an `eval`,
+    // but instead as an `alternatives` (which is what the Ink compiler interprets it as).
+    eval: $ => prec.dynamic(-1, prec.right(seq(
+      '{',
+      field('expr', $.expr),
+      '}'
+    ))),
 
     conditional_text: $ => prec.right(seq(
       '{',

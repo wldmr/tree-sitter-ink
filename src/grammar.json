@@ -905,28 +905,32 @@
       ]
     },
     "eval": {
-      "type": "PREC_RIGHT",
-      "value": 0,
+      "type": "PREC_DYNAMIC",
+      "value": -1,
       "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "STRING",
-            "value": "{"
-          },
-          {
-            "type": "FIELD",
-            "name": "expr",
-            "content": {
-              "type": "SYMBOL",
-              "name": "expr"
+        "type": "PREC_RIGHT",
+        "value": 0,
+        "content": {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "{"
+            },
+            {
+              "type": "FIELD",
+              "name": "expr",
+              "content": {
+                "type": "SYMBOL",
+                "name": "expr"
+              }
+            },
+            {
+              "type": "STRING",
+              "value": "}"
             }
-          },
-          {
-            "type": "STRING",
-            "value": "}"
-          }
-        ]
+          ]
+        }
       }
     },
     "conditional_text": {
@@ -3134,11 +3138,11 @@
                     },
                     {
                       "type": "STRING",
-                      "value": "||"
+                      "value": "&&"
                     },
                     {
-                      "type": "STRING",
-                      "value": "&&"
+                      "type": "SYMBOL",
+                      "name": "_dbl_pipe"
                     }
                   ]
                 }
@@ -3155,6 +3159,27 @@
           }
         }
       ]
+    },
+    "_dbl_pipe": {
+      "type": "ALIAS",
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "|"
+          },
+          {
+            "type": "IMMEDIATE_TOKEN",
+            "content": {
+              "type": "STRING",
+              "value": "|"
+            }
+          }
+        ]
+      },
+      "named": false,
+      "value": "||"
     },
     "identifier": {
       "type": "PATTERN",
