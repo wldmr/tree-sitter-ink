@@ -125,6 +125,12 @@ const EXPR = {
     field('right', prec(14, $.expr))  // <- THIS is where the precedence goes.
   )),
 
+  // These precedence numbers are based on `RegisterExpressionOperators` in the Ink parser,
+  // see <https://github.com/inkle/ink/blob/v.1.2.0/compiler/InkParser/InkParser_Expressions.cs#L472-L497>.
+  // Ink is unusual in that `and` and `&&` bind equally as strongly as `or` and `||`,
+  // while, `/` binds tighter than `*`, `-` tighter than `+` and `mod` is tightest of all.
+  //
+  //                                    ¯\_(ツ)_/¯
   binary: $ => choice(
     binop($, 8, OP.percent, OP.mod),
     binop($, 7, OP.slash),
