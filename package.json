@@ -40,16 +40,5 @@
   "devDependencies": {
     "prebuildify": "^6.0.0",
     "tree-sitter-cli": "^0.22.5"
-  },
-  "tree-sitter": [
-    {
-      "scope": "source.ink",
-      "file-types": [
-        "ink"
-      ],
-      "injection-regex": "^ink$",
-      "highlights": "queries/highlights.scm",
-      "tags": "queries/tags.scm"
-    }
-  ]
+  }
 }

@@ -1,0 +1,32 @@
+{
+  "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/config.schema.json",
+  "metadata": {
+    "version": "24.6.18",
+    "license": "MPL-2.0",
+    "authors": [
+      {
+        "name": "wldmr",
+        "email": "nope@wldmr.net"
+      }
+    ],
+    "links": {
+      "repository": "https://github.com/wldmr/tree-sitter-ink"
+    }
+  },
+  "grammars": [
+    {
+      "name": "ink",
+      "camelcase": "Ink",
+      "title": "Ink",
+      "scope": "source.ink",
+      "file-types": [
+        "ink"
+      ],
+      "injection-regex": "^ink$",
+      "class-name": "TreeSitterInk",
+      "highlights": "queries/highlights.scm",
+      "tags": "queries/tags.scm",
+      "locals": "queries/locals.scm"
+    }
+  ]
+}
