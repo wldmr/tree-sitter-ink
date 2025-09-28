@@ -1,0 +1,33 @@
+===
+#10: Choice in switch
+===
+{ value:
+- 0:
+  * Choice related to zero
+- 1 :    *     Choice related to one
+}
+---
+(ink
+  (paragraph
+    (cond_block
+      (cond_arm
+        (identifier)
+        (eol))
+      (cond_arm
+        (number)
+        (eol)
+        (choice_block
+          (choice
+            (choice_marks
+              (choice_mark))
+            (content
+              (text)))))
+      (cond_arm
+        (number)
+        (choice_block
+          (choice
+            (choice_marks
+              (choice_mark))
+            (content
+              (text))))))))
+
