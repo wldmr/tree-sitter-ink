@@ -335,6 +335,13 @@ static BlockInfo lookahead_block_start(TSLexer *lexer) {
     }
   }
 
+  // Special case: Closing bracket → We're inside a block of some kind, and it just ended.
+  // That means there is no content anymore.
+  if (c == '}') {
+      MSG("There is no content, we've bumped up on a '}'");
+      return block;
+  }
+
   MSG("Next block is flow. Level indicators: %d\n", markers);
 
   block.level = BLOCK_LEVEL_FLOW + markers;
