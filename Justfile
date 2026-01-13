@@ -15,7 +15,7 @@ test *args: generate
 bench: generate
 	tree-sitter parse examples/**/*.ink --quiet --stat
 
-parse *args: generate
+parse *args="examples/ink/test.ink": generate
 	tree-sitter parse {{args}}
 
 highlight file="test/highlight/showcase.ink":
