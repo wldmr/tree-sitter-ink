@@ -1,6 +1,6 @@
 {
   "name": "treesitter-ink",
-  "version": "24.6.18",
+  "version": "26.1.13",
   "description": "A tree-sitter grammar for Inkle's Ink programming language",
   "main": "index.js",
   "types": "bindings/node",
@@ -26,11 +26,11 @@
   "author": "wldmr",
   "license": "MPL-2.0",
   "dependencies": {
-    "node-addon-api": "^7.1.0",
-    "node-gyp-build": "^4.8.0"
+    "node-addon-api": "^8.5.0",
+    "node-gyp-build": "^4.8.4"
   },
   "peerDependencies": {
-    "tree-sitter": "^0.21.0"
+    "tree-sitter": "^0.22.4"
   },
   "peerDependenciesMeta": {
     "tree_sitter": {
@@ -38,7 +38,7 @@
     }
   },
   "devDependencies": {
-    "prebuildify": "^6.0.0",
-    "tree-sitter-cli": "^0.22.5"
+    "prebuildify": "^6.0.1",
+    "tree-sitter-cli": "^0.26.3"
   }
 }
