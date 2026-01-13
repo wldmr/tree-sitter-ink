@@ -12,25 +12,15 @@
         "named": true
       },
       {
+        "type": "postfix",
+        "named": true
+      },
+      {
         "type": "return",
         "named": true
       },
       {
         "type": "temp_def",
-        "named": true
-      }
-    ]
-  },
-  {
-    "type": "_comment",
-    "named": true,
-    "subtypes": [
-      {
-        "type": "block_comment",
-        "named": true
-      },
-      {
-        "type": "line_comment",
         "named": true
       }
     ]
@@ -178,6 +168,22 @@
         "named": true
       }
     ]
+  },
+  {
+    "type": "_eval",
+    "named": false,
+    "fields": {
+      "expr": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "expr",
+            "named": true
+          }
+        ]
+      }
+    }
   },
   {
     "type": "alt_arm",
@@ -334,7 +340,7 @@
         ]
       },
       "op": {
-        "multiple": false,
+        "multiple": true,
         "required": true,
         "types": [
           {
@@ -438,6 +444,7 @@
   {
     "type": "block_comment",
     "named": true,
+    "extra": true,
     "fields": {}
   },
   {
@@ -536,16 +543,6 @@
           {
             "type": "choice_marks",
             "named": true
-          }
-        ]
-      },
-      "separator": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "\\",
-            "named": false
           }
         ]
       },
@@ -760,18 +757,7 @@
   {
     "type": "condition",
     "named": true,
-    "fields": {
-      "expr": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "expr",
-            "named": true
-          }
-        ]
-      }
-    }
+    "fields": {}
   },
   {
     "type": "conditional_text",
@@ -841,32 +827,6 @@
           }
         ]
       }
-    },
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "_logic",
-          "named": true
-        },
-        {
-          "type": "_redirect",
-          "named": true
-        },
-        {
-          "type": "glue",
-          "named": true
-        },
-        {
-          "type": "tag",
-          "named": true
-        },
-        {
-          "type": "text",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -1126,6 +1086,7 @@
   {
     "type": "ink",
     "named": true,
+    "root": true,
     "fields": {},
     "children": {
       "multiple": true,
@@ -1315,6 +1276,7 @@
   {
     "type": "line_comment",
     "named": true,
+    "extra": true,
     "fields": {}
   },
   {
@@ -1601,7 +1563,7 @@
     "type": "postfix",
     "named": true,
     "fields": {
-      "left": {
+      "name": {
         "multiple": false,
         "required": true,
         "types": [
@@ -1829,664 +1791,6 @@
   {
     "type": "text",
     "named": true,
-    "fields": {
-      "args": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "!",
-            "named": false
-          },
-          {
-            "type": "!=",
-            "named": false
-          },
-          {
-            "type": "!?",
-            "named": false
-          },
-          {
-            "type": "%",
-            "named": false
-          },
-          {
-            "type": "&&",
-            "named": false
-          },
-          {
-            "type": "(",
-            "named": false
-          },
-          {
-            "type": ")",
-            "named": false
-          },
-          {
-            "type": "*",
-            "named": false
-          },
-          {
-            "type": "+",
-            "named": false
-          },
-          {
-            "type": "++",
-            "named": false
-          },
-          {
-            "type": ",",
-            "named": false
-          },
-          {
-            "type": "-",
-            "named": false
-          },
-          {
-            "type": "--",
-            "named": false
-          },
-          {
-            "type": "->",
-            "named": false
-          },
-          {
-            "type": ".",
-            "named": false
-          },
-          {
-            "type": "/",
-            "named": false
-          },
-          {
-            "type": "<",
-            "named": false
-          },
-          {
-            "type": "<=",
-            "named": false
-          },
-          {
-            "type": "==",
-            "named": false
-          },
-          {
-            "type": ">",
-            "named": false
-          },
-          {
-            "type": ">=",
-            "named": false
-          },
-          {
-            "type": "?",
-            "named": false
-          },
-          {
-            "type": "^",
-            "named": false
-          },
-          {
-            "type": "and",
-            "named": false
-          },
-          {
-            "type": "false",
-            "named": false
-          },
-          {
-            "type": "has",
-            "named": false
-          },
-          {
-            "type": "hasnt",
-            "named": false
-          },
-          {
-            "type": "mod",
-            "named": false
-          },
-          {
-            "type": "not",
-            "named": false
-          },
-          {
-            "type": "or",
-            "named": false
-          },
-          {
-            "type": "true",
-            "named": false
-          },
-          {
-            "type": "||",
-            "named": false
-          }
-        ]
-      },
-      "left": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "!",
-            "named": false
-          },
-          {
-            "type": "!=",
-            "named": false
-          },
-          {
-            "type": "!?",
-            "named": false
-          },
-          {
-            "type": "%",
-            "named": false
-          },
-          {
-            "type": "&&",
-            "named": false
-          },
-          {
-            "type": "(",
-            "named": false
-          },
-          {
-            "type": ")",
-            "named": false
-          },
-          {
-            "type": "*",
-            "named": false
-          },
-          {
-            "type": "+",
-            "named": false
-          },
-          {
-            "type": "++",
-            "named": false
-          },
-          {
-            "type": ",",
-            "named": false
-          },
-          {
-            "type": "-",
-            "named": false
-          },
-          {
-            "type": "--",
-            "named": false
-          },
-          {
-            "type": "->",
-            "named": false
-          },
-          {
-            "type": ".",
-            "named": false
-          },
-          {
-            "type": "/",
-            "named": false
-          },
-          {
-            "type": "<",
-            "named": false
-          },
-          {
-            "type": "<=",
-            "named": false
-          },
-          {
-            "type": "==",
-            "named": false
-          },
-          {
-            "type": ">",
-            "named": false
-          },
-          {
-            "type": ">=",
-            "named": false
-          },
-          {
-            "type": "?",
-            "named": false
-          },
-          {
-            "type": "^",
-            "named": false
-          },
-          {
-            "type": "and",
-            "named": false
-          },
-          {
-            "type": "false",
-            "named": false
-          },
-          {
-            "type": "has",
-            "named": false
-          },
-          {
-            "type": "hasnt",
-            "named": false
-          },
-          {
-            "type": "mod",
-            "named": false
-          },
-          {
-            "type": "not",
-            "named": false
-          },
-          {
-            "type": "or",
-            "named": false
-          },
-          {
-            "type": "true",
-            "named": false
-          },
-          {
-            "type": "||",
-            "named": false
-          }
-        ]
-      },
-      "name": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": ".",
-            "named": false
-          }
-        ]
-      },
-      "op": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "!",
-            "named": false
-          },
-          {
-            "type": "!=",
-            "named": false
-          },
-          {
-            "type": "!?",
-            "named": false
-          },
-          {
-            "type": "%",
-            "named": false
-          },
-          {
-            "type": "&&",
-            "named": false
-          },
-          {
-            "type": "*",
-            "named": false
-          },
-          {
-            "type": "+",
-            "named": false
-          },
-          {
-            "type": "++",
-            "named": false
-          },
-          {
-            "type": "-",
-            "named": false
-          },
-          {
-            "type": "--",
-            "named": false
-          },
-          {
-            "type": "/",
-            "named": false
-          },
-          {
-            "type": "<",
-            "named": false
-          },
-          {
-            "type": "<=",
-            "named": false
-          },
-          {
-            "type": "==",
-            "named": false
-          },
-          {
-            "type": ">",
-            "named": false
-          },
-          {
-            "type": ">=",
-            "named": false
-          },
-          {
-            "type": "?",
-            "named": false
-          },
-          {
-            "type": "^",
-            "named": false
-          },
-          {
-            "type": "and",
-            "named": false
-          },
-          {
-            "type": "has",
-            "named": false
-          },
-          {
-            "type": "hasnt",
-            "named": false
-          },
-          {
-            "type": "mod",
-            "named": false
-          },
-          {
-            "type": "not",
-            "named": false
-          },
-          {
-            "type": "or",
-            "named": false
-          },
-          {
-            "type": "||",
-            "named": false
-          }
-        ]
-      },
-      "right": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "!",
-            "named": false
-          },
-          {
-            "type": "!=",
-            "named": false
-          },
-          {
-            "type": "!?",
-            "named": false
-          },
-          {
-            "type": "%",
-            "named": false
-          },
-          {
-            "type": "&&",
-            "named": false
-          },
-          {
-            "type": "(",
-            "named": false
-          },
-          {
-            "type": ")",
-            "named": false
-          },
-          {
-            "type": "*",
-            "named": false
-          },
-          {
-            "type": "+",
-            "named": false
-          },
-          {
-            "type": "++",
-            "named": false
-          },
-          {
-            "type": ",",
-            "named": false
-          },
-          {
-            "type": "-",
-            "named": false
-          },
-          {
-            "type": "--",
-            "named": false
-          },
-          {
-            "type": "->",
-            "named": false
-          },
-          {
-            "type": ".",
-            "named": false
-          },
-          {
-            "type": "/",
-            "named": false
-          },
-          {
-            "type": "<",
-            "named": false
-          },
-          {
-            "type": "<=",
-            "named": false
-          },
-          {
-            "type": "==",
-            "named": false
-          },
-          {
-            "type": ">",
-            "named": false
-          },
-          {
-            "type": ">=",
-            "named": false
-          },
-          {
-            "type": "?",
-            "named": false
-          },
-          {
-            "type": "^",
-            "named": false
-          },
-          {
-            "type": "and",
-            "named": false
-          },
-          {
-            "type": "false",
-            "named": false
-          },
-          {
-            "type": "has",
-            "named": false
-          },
-          {
-            "type": "hasnt",
-            "named": false
-          },
-          {
-            "type": "mod",
-            "named": false
-          },
-          {
-            "type": "not",
-            "named": false
-          },
-          {
-            "type": "or",
-            "named": false
-          },
-          {
-            "type": "true",
-            "named": false
-          },
-          {
-            "type": "||",
-            "named": false
-          }
-        ]
-      },
-      "target": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "!",
-            "named": false
-          },
-          {
-            "type": "!=",
-            "named": false
-          },
-          {
-            "type": "!?",
-            "named": false
-          },
-          {
-            "type": "%",
-            "named": false
-          },
-          {
-            "type": "&&",
-            "named": false
-          },
-          {
-            "type": "(",
-            "named": false
-          },
-          {
-            "type": ")",
-            "named": false
-          },
-          {
-            "type": "*",
-            "named": false
-          },
-          {
-            "type": "+",
-            "named": false
-          },
-          {
-            "type": "++",
-            "named": false
-          },
-          {
-            "type": ",",
-            "named": false
-          },
-          {
-            "type": "-",
-            "named": false
-          },
-          {
-            "type": "--",
-            "named": false
-          },
-          {
-            "type": "->",
-            "named": false
-          },
-          {
-            "type": ".",
-            "named": false
-          },
-          {
-            "type": "/",
-            "named": false
-          },
-          {
-            "type": "<",
-            "named": false
-          },
-          {
-            "type": "<=",
-            "named": false
-          },
-          {
-            "type": "==",
-            "named": false
-          },
-          {
-            "type": ">",
-            "named": false
-          },
-          {
-            "type": ">=",
-            "named": false
-          },
-          {
-            "type": "?",
-            "named": false
-          },
-          {
-            "type": "^",
-            "named": false
-          },
-          {
-            "type": "and",
-            "named": false
-          },
-          {
-            "type": "false",
-            "named": false
-          },
-          {
-            "type": "has",
-            "named": false
-          },
-          {
-            "type": "hasnt",
-            "named": false
-          },
-          {
-            "type": "mod",
-            "named": false
-          },
-          {
-            "type": "not",
-            "named": false
-          },
-          {
-            "type": "or",
-            "named": false
-          },
-          {
-            "type": "true",
-            "named": false
-          },
-          {
-            "type": "||",
-            "named": false
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "textrest",
-    "named": false,
     "fields": {}
   },
   {
@@ -2591,6 +1895,10 @@
   },
   {
     "type": "!?",
+    "named": false
+  },
+  {
+    "type": "\"",
     "named": false
   },
   {
@@ -2722,10 +2030,6 @@
     "named": false
   },
   {
-    "type": "GLOBAL",
-    "named": false
-  },
-  {
     "type": "INCLUDE",
     "named": false
   },
@@ -2747,30 +2051,6 @@
   },
   {
     "type": "\\",
-    "named": false
-  },
-  {
-    "type": "\\#",
-    "named": false
-  },
-  {
-    "type": "\\[",
-    "named": false
-  },
-  {
-    "type": "\\]",
-    "named": false
-  },
-  {
-    "type": "\\{",
-    "named": false
-  },
-  {
-    "type": "\\|",
-    "named": false
-  },
-  {
-    "type": "\\}",
     "named": false
   },
   {

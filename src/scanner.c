@@ -29,7 +29,7 @@ typedef enum {
 #define MSG(fmt, ...) \
         do { if (DEBUG) fprintf(stderr, fmt, ## __VA_ARGS__); } while (0)
 
-void print_valid_symbols(const bool *valid_symbols) {
+static void print_valid_symbols(const bool *valid_symbols) {
   if (valid_symbols[ERROR])
     MSG("======================================== ERROR =========================================\n");
   else
@@ -48,7 +48,7 @@ void print_valid_symbols(const bool *valid_symbols) {
   MSG("------------------\n");
 }
 
-char pretty(char c) {
+static char pretty(char c) {
   switch (c) {
     case '\n':
     case '\t':
@@ -97,7 +97,7 @@ typedef struct {
   Array(BlockLevel) blocks;
 } Scanner;
 
-void print_scanner_state(Scanner *scanner) {
+static void print_scanner_state(Scanner *scanner) {
   if (scanner->remaining_flow_marks > 0)
     MSG("Scanner: marks type %d ramaining: %d\n", scanner->block_type, scanner->remaining_flow_marks);
   MSG("Scanner: blocks=");
@@ -111,27 +111,27 @@ void print_scanner_state(Scanner *scanner) {
 // Lexing Helpers //
 ////////////////////
 
-void mark_end(TSLexer *lexer) {
+static void mark_end(TSLexer *lexer) {
   lexer->mark_end(lexer);
 }
 
-void skip(TSLexer *lexer) {
+static void skip(TSLexer *lexer) {
   lexer->advance(lexer, true);
 }
 
-void consume(TSLexer *lexer) {
+static void consume(TSLexer *lexer) {
   lexer->advance(lexer, false);
 }
 
-bool is_eof(TSLexer *lexer) {
+static bool is_eof(TSLexer *lexer) {
   return lexer->eof(lexer);
 }
 
-int32_t lookahead(TSLexer *lexer) {
+static int32_t lookahead(TSLexer *lexer) {
   return lexer->lookahead;
 }
 
-bool skip_char(TSLexer *lexer, char c) {
+static bool skip_char(TSLexer *lexer, char c) {
   MSG("Expecting %c", pretty(c));
   if (lexer->lookahead == c) {
     MSG(", which we got\n");
@@ -143,7 +143,7 @@ bool skip_char(TSLexer *lexer, char c) {
   }
 }
 
-bool is_at_line_start(TSLexer *lexer) {
+static bool is_at_line_start(TSLexer *lexer) {
   return lexer->get_column(lexer) == 0;
 }
 
@@ -212,28 +212,28 @@ void tree_sitter_ink_external_scanner_destroy(void *payload) {
 }
 
 /// Skip all whitspace (including carriage returns).
-void skip_ws(TSLexer *lexer) {
+static void skip_ws(TSLexer *lexer) {
   while (lookahead(lexer) <= ' ' && !is_eof(lexer))
     skip(lexer);
 }
 
 /// Skip whitespace until _before_ a carriage return (don't consume it).
 /// Return `true` if ended up at up carriage return, false otherwise.
-bool skip_whitspace_to_newline(TSLexer *lexer) {
+static bool skip_whitspace_to_newline(TSLexer *lexer) {
   while (lookahead(lexer) <= ' ' && lookahead(lexer) != '\n' && !is_eof(lexer))
     skip(lexer);
   return lookahead(lexer) == '\n';
 }
 
 /// Set `token` as the lexer result and add `level` to the `scanner` block hierarchy.
-bool start_block(TSLexer *lexer, Scanner *scanner, Token token, BlockLevel level) {
+static bool start_block(TSLexer *lexer, Scanner *scanner, Token token, BlockLevel level) {
   lexer->result_symbol = token;
   array_push(&scanner->blocks, level);
   return true; // Just so this can be called inline.
 }
 
 /// Set `token` as the lexer result and pop/discard the topmest element from the `scanner`'s block hierarchy.
-bool end_block(TSLexer *lexer, Scanner *scanner, Token token) {
+static bool end_block(TSLexer *lexer, Scanner *scanner, Token token) {
   lexer->result_symbol = token;
   (void) array_pop(&scanner->blocks);  // cast to void to shut up warnings about unused values.
   return true; // Just so this can be called inline.
@@ -249,7 +249,7 @@ typedef enum {
 ///
 /// If a block comment is still open at EOF then return NO_COMMENT_TOKEN,
 /// so that tree-sitter can treat it as an error.
-CommentType lookahead_comment(TSLexer *lexer) {
+static CommentType lookahead_comment(TSLexer *lexer) {
   if (!skip_char(lexer, '/'))
     return NO_COMMENT_TOKEN;
 
@@ -290,7 +290,7 @@ CommentType lookahead_comment(TSLexer *lexer) {
 /// (i.e. `- some_expression:`). We can't really distinguish that here without more complicated parsing.
 /// That's why it is important to cross-reference the result with the valid symbols at that position (i.e.
 /// can a gather even start here?).
-BlockInfo lookahead_block_start(TSLexer *lexer) {
+static BlockInfo lookahead_block_start(TSLexer *lexer) {
   MSG("Looking ahead for block start marker\n");
 
   BlockInfo block = BLOCK_INFO_INIT;

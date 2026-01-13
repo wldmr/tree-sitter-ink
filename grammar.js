@@ -2,7 +2,64 @@ let mark = rule => token(prec(1, rule));
 
 // The Ink docs get very specific about which Unicode they allow.
 // But just saying Letters and Numbers is so much simpler. This should be fine.
-IDENTIFIER_REGEX  = /[\p{Letter}_][\p{Letter}\p{Number}_]*/
+const IDENTIFIER_REGEX = /[\p{Letter}_][\p{Letter}\p{Number}_]*/
+const NUMBER_REGEX = /\d+(\.\d+)?/
+
+// All operators. In our quest to make text tokenize the same as expressions (to generate conflicts),
+// we define all possible operators upfront, so we can guarantee they result in the same tokens.
+const OP = {
+  // function calls, list entries
+  par_left: '(',
+  par_right: ')',
+  comma: ',',
+  // unary operators
+  not: 'not',
+  exclam: '!',
+  minus: '-',
+  // binary operators
+  percent: '%',
+  mod: 'mod',
+  slash: '/',
+  asterisk: '*',
+  plus: '+',
+  caret: '^',
+  hasnt: 'hasnt',
+  exclamquestion: '!?',
+  has: 'has',
+  question: '?',
+  neq: '!=',
+  gt: '>',
+  lt: '<',
+  le: '<=',
+  ge: '>=',
+  eq: '==',
+  or: 'or',
+  and: 'and',
+  dbl_amp: '&&',
+  pipe: '|', // can't occurr in text
+  // postfix operators
+  dbl_plus: '++',
+  dbl_minus: '--',
+  // scope separator
+  period: '.',
+}
+
+// This is how we build text and strings (which syntactically overlap): Strings and
+// normal text are almost the same, except strings can’t contain (unescaped) double
+// quotes. So we define the smallest common denominator here, and use it in both
+// definitions.
+const STRING_PARTS = [
+  IDENTIFIER_REGEX,
+  NUMBER_REGEX,
+  /\\./,  // any single character can be escaped and thus becomes text
+  '\\',
+  // We now need to list ALL tokens that can occurr in an expression,
+  // so that strings, expressions and text get tokenized the same:
+  ...Object.values(OP)
+    .filter(it => it != OP.pipe),  // can't occur in text/strings
+  'false', 'true',
+  /[^|{}\p{Space}]/, // anything else that isn't *very* special
+]
 
 PREC = {
   // For ink syntax contstructs that could be confused for text content
@@ -11,124 +68,104 @@ PREC = {
   text: 0,
 }
 
-/** Create an object with grammar rules corresponding to expressions.
+let binop = ($, precedence, ...operators) => prec.left(precedence, seq(
+  field('left', $.expr),
+  // prevent single operator from being wrapped in a choice, otherwise tree-sitter will annoy us with a warning.
+  field('op', operators.length == 1 ? operators[0] : choice(...operators)),
+  field('right', $.expr))
+);
 
-Depending on value for `named`, create a tree of named nodes ($.expr,
-$.identifier, etc), or anonymous nodes ($._anon_expr, $._anon_identifier).
-(The extra `anon` is added because downstream tools may ignore the leading
-underscore and then complain that there are name clashes)
+// The whole exression syntax. We could inline it, but I like the modularity of having it separate.
+const EXPR = {
+  expr: $ => choice(
+    // terminals
+    $.identifier,
+    $.qualified_name,
+    $.number,
+    $.boolean,
+    $.string,
+    $.divert,
+    // compound
+    $.call,
+    $.paren,
+    $.list_values,
+    $.unary,
+    $.postfix, // Ink will actually reject this, but we'll accept it anyway because users may expect it to work, and then we can do some "emergency" highlighting.
+    $.binary,
+  ),
 
-The reason for this is that logic blocks (`{…}`) are ambiguous:
-Sometimes they start with an expression (conditional blocks),
-sometimes it's just text (alternatives).
+  call: $ => seq(
+    field('name', choice($.identifier, $.qualified_name)),
+    OP.par_left,
+    field('args', optional($.args)),
+    OP.par_right
+  ),
+  args: $ => sepBy1(OP.comma, $.expr),
 
-To be able to trigger a GLR conflict for this distinction, we need both
-cases to create the same tokenization, but depending on which parse wins,
-we need different tokens in the parse tree (expressions are a full tree
-of named nodes, but text is just one named node (made up of many anonymous ones))
-
-This one is a doozy; maybe skip this part on a first read. It should become
-clearer when you see how it is used. Still, I nearly lost my mind writing
-this grammar, so be warned.
-*/
-function make_expr(named = true) {
-  let rule = str => named ? str : '_anon_' + str;
-
-  let binop = ($, precedence, ...operators) => prec.left(precedence, seq(
-    field('left', $[rule('expr')]),
-    // prevent single operator from being wrapped in a choice, otherwise tree-sitter will annoy us with a warning.
-    field('op', operators.length == 1 ? operators[0] : choice(...operators)),
-    field('right', $[rule('expr')]))
-  );
-
-  return {
-    [rule('expr')]: $ => choice(
-
-      // terminals
-      $[rule('identifier')],
-      $[rule('qualified_name')],
-      $[rule('number')],
-      $[rule('boolean')],
-      $[rule('string')],
-      $[rule('divert')],
-
-      // compound
-      $[rule('call')],
-      $[rule('paren')],
-      $[rule('list_values')],
-      $[rule('unary')],
-      $[rule('postfix')],
-      $[rule('binary')],
-
-    ),
-
-    [rule('call')]: $ => prec.left(11, seq(
-      field('name', choice($[rule('identifier')], $[rule('qualified_name')])),
-      '(',
-      field('args', optional($[rule('args')])),
-      ')'
+  list_values: $ => seq(
+    OP.par_left,
+    optional(sepBy1(OP.comma,
+      choice(
+        $.identifier,
+        $.qualified_name
+      ),
     )),
-    [rule('args')]: $ => sepBy1(',', $[rule('expr')]),
+    OP.par_right,
+  ),
 
-    [rule('list_values')]: $ => seq(
-      '(',
-      optional(sepBy1(',',
-        choice(
-          $[rule('identifier')],
-          $[rule('qualified_name')]
-        ),
-      )),
-      ')',
-    ),
+  // XXX: Don't put a precedence number on this! If you do, then GLR conflicts with text won't occur
+  paren: $ => prec.right(seq(OP.par_left, $.expr, OP.par_right)),
 
-    [rule('paren')]: $ => prec.left(15, seq('(', $[rule('expr')], ')')),
-    [rule('unary')]: $ => prec.left(14, seq(
-      field('op', choice(
-        'not',
-        mark('!'),   // without the higher precedence, `* {!condition} choice` is a parse error
-        '-')),
-      field('right', $[rule('expr')])
-    )),
-    [rule('postfix')]: $ => prec.left(13, seq(
-      field('left', $[rule('identifier')]),
-      field('op', choice('--', '++'))
-    )),
-    [rule('binary')]: $ => choice(
-      binop($, 8, '%', 'mod'),
-      binop($, 7, '/'),
-      binop($, 6, '*'),
-      binop($, 5, '-',),
-      binop($, 4, '+',),
-      binop($, 3, '^', 'hasnt', '!?', 'has', '?'),
-      binop($, 2, '!=', '>', '<', '<=', '>=', '=='),
-      binop($, 1, 'or', 'and', '||', '&&'),
-    ),
+  // NOTE: I don't 100% understand why, but here we need to give the numeric precedence to the *inner* expression.
+  unary: $ => prec.right(seq(
+    field('op', choice(
+      OP.not,
+      mark(OP.exclam),   // without the higher precedence, `* {!condition} choice` is a parse error
+      OP.minus)),
+    field('right', prec(14, $.expr))  // <- THIS is where the precedence goes.
+  )),
 
-    [rule('identifier')]: _ => IDENTIFIER_REGEX,
-    [rule('qualified_name')]: $ => seq(
-      $[rule('identifier')], '.', $[rule('identifier')],
-      optional(seq('.', $[rule('identifier')])) // third level: -> knot.stitch.label
-    ),
+  // These precedence numbers are based on `RegisterExpressionOperators` in the Ink parser,
+  // see <https://github.com/inkle/ink/blob/v.1.2.0/compiler/InkParser/InkParser_Expressions.cs#L472-L497>.
+  // Ink is unusual in that `and` and `&&` bind equally as strongly as `or` and `||`,
+  // while, `/` binds tighter than `*`, `-` tighter than `+` and `mod` is tightest of all.
+  //
+  //                                    ¯\_(ツ)_/¯
+  binary: $ => choice(
+    binop($, 8, OP.percent, OP.mod),
+    binop($, 7, OP.slash),
+    binop($, 6, OP.asterisk),
+    binop($, 5, OP.minus),
+    binop($, 4, OP.plus),
+    binop($, 3, OP.caret, OP.hasnt, OP.exclamquestion, OP.has, OP.question),
+    binop($, 2, OP.neq, OP.gt, OP.lt, OP.le, OP.ge, OP.eq),
+    binop($, 1, OP.or, OP.and, OP.dbl_amp, $._dbl_pipe),
+  ),
 
-    [rule('number')]: _ => /\d+(\.\d+)?/,
-    [rule('boolean')]: _ => choice('false', 'true'),
+  // We have to actually parse this (can't treat '||' as a token),
+  // because `{a||b}` in Ink is actually a *sequence*, so it means "a, then nothing, then b".
+  _dbl_pipe: _ => alias(
+    seq(OP.pipe, token.immediate(OP.pipe)),
+    '||' // Pretend like it is a token, no need to alarm anybody.
+  ),
 
-    [rule('string')]: _ => token(seq(
-      '"',
-      prec.left(repeat(choice(
-        /[^\\"|]+/, // strings are always interrupded by pipes '|'
-        alias('\\"', '\\"'),
-        alias('\\', '\\\\'),
-      ))),
-      '"',
-    )),
+  identifier: _ => IDENTIFIER_REGEX,
 
-    [rule('divert')]: $ => seq(
-      $._divert_mark,
-      field('target', $[rule('_divert_target')]),
-    ),
+  qualified_name: $ => prec.right(seq(
+    $.identifier, OP.period, $.identifier,
+    optional(seq(OP.period, $.identifier)) // third level: -> knot.stitch.label
+  )),
 
-  }
+  number: _ => NUMBER_REGEX,
+
+  boolean: _ => choice('false', 'true'),
+
+  string: _ => seq('"', repeat(choice(...STRING_PARTS)), '"'),
+
+  divert: $ => seq(
+    $._divert_mark,
+    field('target', $._divert_target),
+  ),
 }
 
 
@@ -196,22 +233,25 @@ module.exports = grammar({
   ],
 
   precedences: $ => [
-    [$.condition, $.eval],  // since they are syntactically the same, maybe we just treat a condition as an eval?
-    [$._anon_expr, $._anon_list_values],  // How should `(<identifier>)` be interpreted? Doesn't really matter, but we have to choose one.
-    [$._choice_content, $.content],
+    [$.label, $._word],
   ],
 
   conflicts: $ => [
-    [$.identifier, $._anon_identifier],
-    [$.number, $._anon_number],
-    [$.boolean, $._anon_boolean],
-    [$.string, $._anon_string],
-    [$.list_values, $._anon_list_values],
+    [$._word, $.string],
+    [$._word, $.identifier],
+    [$._word, $.number],
+    [$._word, $.paren],
+    [$._word, $.unary],
+    [$._word, $.list_values],
+    [$._word, $.list_values, $.paren],
+    [$.list_values, $.paren],
+    [$._word, $.boolean],
     [$.tunnel],
     [$._redirect, $.tunnel],
+    [$.tunnel, $.divert],
   ],
 
-  
+
   rules: {
     ink: $ => seq(
       optional($._content_block),
@@ -285,13 +325,12 @@ module.exports = grammar({
     ),
 
     _redirect: $ => choice(
-      $.divert,  // diverts are defined as part of the `make_expr` function.
+      $.divert,  // diverts are defined as part of expressions.
       $.tunnel,
       $.thread,
     ),
 
-    _divert_target: $ => choice($.identifier, $.qualified_name, $.call),
-    _anon__divert_target: $ => choice($._anon_identifier, $._anon_qualified_name, $._anon_call),
+    _divert_target: $ => prec.right(choice($.identifier, $.qualified_name, $.call)),
 
     tunnel: $ => choice(
       seq($._tunnel_return, field('target', optional($._divert_target))),
@@ -305,16 +344,9 @@ module.exports = grammar({
 
     thread: $ => seq($._thread_mark, field('target', $._divert_target)),
 
-    text: _ =>  prec.right(repeat1(choice(
-      '-', '<', '>', '/', // individual characters also occurring in divert, thread or comment marks
-      '[', ']', // square brackets outside of choices are fine
-      'LIST', 'INCLUDE', 'TODO', 'VAR', 'GLOBAL', 'temp',  // keywords, which for some reason don't get recognized by the word_regex and cause errors for text like `LISTED`
-      // escaped special chars:
-      '\\[', '\\]',
-      '\\{', '\\}',
-      '\\|', '\\#',
-      token(prec(-1, /[^\s\{\}\[\]#\-<>/|\\]/)),
-    ))),
+    text: $ => prec.right(repeat1($._word)),
+
+    _word: _ => choice(...STRING_PARTS, '"'), // as stated above: everything a string can be, plus `"`
 
     content: $ => prec.right(choice(
       seq(
@@ -329,40 +361,28 @@ module.exports = grammar({
       field('redirect', $._redirect),
     )),
 
-    // this "_fake" machinery exists so that we can generate conflicts between text or expressions
-    // after an opening `{`. The fake versions must mirror the normal versions exactly,
-    // except that the _first_ text element (if present) must lead to a conflict with expressions.
-    _fake_content: $ => prec.right(choice(
+    // Choice content can not start with logic blocks, so we make a special version.
+    _choice_start: $ => prec.right(choice(
       seq(
-        $._fake_glue_logic_or_text,
-        repeat($.tag),
-        optional($._redirect),
+        field('content', seq(choice($.glue, $.text), optional($._glue_logic_or_text))),
+        field('tag', repeat($.tag)),
+        field('redirect', optional($._redirect)),
       ),
       seq(
-        repeat1($.tag),
-        optional($._redirect),
+        field('tag', repeat1($.tag)),
+        field('redirect', optional($._redirect)),
       ),
-      $._redirect,
+      field('redirect', $._redirect),
     )),
+    // No need to treat it as anything other than normal $.content
+    // Directly wrapping the above in an alias doesn't work.
+    _choice_main_content: $ => alias($._choice_start, $.content),
 
     _glue_logic_or_text: $ => prec.right(repeat1(choice(
       $.glue,
       $._logic,
       $.text,
     ))),
-
-    _fake_glue_logic_or_text: $ => prec.right(seq(
-      choice(
-        $._logic,
-        $.glue,
-        alias($._maybe_expr_text, $.text),
-      ),
-      repeat(choice(
-        $.glue,
-        $._logic,
-        $.text,
-      )),
-    )),
 
     glue: _ => '<>',
 
@@ -374,11 +394,17 @@ module.exports = grammar({
       $.multiline_alternatives,
     ),
 
-    eval: $ => prec.right(seq('{', field('expr', $.expr), '}')),
+    // Lower dynamic precedence so that `{a||b}` is never interpreted as an `eval`,
+    // but instead as an `alternatives` (which is what the Ink compiler interprets it as).
+    eval: $ => prec.dynamic(-1, prec.right(seq(
+      '{',
+      field('expr', $.expr),
+      '}'
+    ))),
 
     conditional_text: $ => prec.right(seq(
       '{',
-      prec.dynamic(PREC.ink, seq(field('condition', $.expr), ':')),
+      seq(field('condition', $.expr), ':'),
       $.content,
       optional(seq(
         '|',
@@ -395,16 +421,11 @@ module.exports = grammar({
           field('mark', choice('$', '&', '~', mark('!'))),
           optional($.content),
         ),
-        optional(alias($._fake_content, $.content)),
+        optional($.content),
       )),
       '|',
       repeat(choice('|', $.content)),
       '}'
-    )),
-
-    _maybe_expr_text: $ => prec.right(seq(
-      prec.dynamic(PREC.text, $._anon_expr), optional(':'),  // the part causing the conflict with conditional text
-      optional(alias($.text, 'textrest')),
     )),
 
     cond_block: $ => prec.right(seq(
@@ -413,13 +434,13 @@ module.exports = grammar({
       repeat($.cond_arm),
       '}',
     )),
-    
+
     _first_cond_arm: $ => seq(
       field('condition', $.expr), ':',
       $._eol_field,  // eol NOT optional in first arm
       optional($._then_block)
     ),
-    
+
     cond_arm: $ => prec.right(seq($._if_line, optional($._then_block))),
 
     _if_line: $ => seq(
@@ -453,7 +474,7 @@ module.exports = grammar({
       field('content', $._glue_logic_or_text)
     )),
 
-    choice: $ => prec.left(choice(
+    choice: $ => choice(
       field('marks', $.choice_marks),  // Completely empty choice == fallback choice. Generates a compiler warning ("please add a `->`"), but it is valid syntax.
       seq(
         field('marks', $.choice_marks),
@@ -462,14 +483,12 @@ module.exports = grammar({
           optional($._eol_field),
         )),
         repeat(seq(
-          field('condition', $._choice_condition),
+          field('condition', $.condition),
           optional($._eol_field),
         )),
-        field('separator', optional('\\')),  // to separate conditions from content starting with logic (e.g. conditional text): https://github.com/inkle/ink/blob/master/Documentation/WritingWithInk.md#features-of-alternatives
         $._choice_content,
       ),
-    )),
-
+    ),
 
     gather: $ => prec.right(seq(
       $.gather_marks,
@@ -487,18 +506,17 @@ module.exports = grammar({
     _label_field: $ => prec(PREC.ink, field('label', $.label)),
     label: $ => seq('(', field('name', $.identifier), ')'),
 
-    _choice_condition: $ => prec.right(PREC.ink, $.condition),
-    condition: $ => seq('{', field('expr', $.expr), '}', ),
+    condition: $ => alias($.eval, '_eval'),
 
     _choice_content: $ => prec.right(choice(
-      field('main', $.content),
+      field('main', $._choice_main_content),
       $._compound_choice_content,
       // empty fallback choice:
       $._divert_mark,
     )),
 
     _compound_choice_content: $ => prec.right(seq(
-      field('main', optional($.content)),
+      field('main', optional($._choice_main_content)),
       field('choice_only', $.choice_only),
       field('when_chosen', optional($.content))
     )),
@@ -528,25 +546,31 @@ module.exports = grammar({
     )),
 
     code: $ => seq('~', $._code_stmt),
-    
+
     _code_stmt: $ => choice(
       $.assignment,
       $.temp_def,
       $.expr,
+      $.postfix,
       $.return,
     ),
-    
+
     assignment: $ => seq(
       field('name', $.identifier),
       field('op', choice('=', '-=', '+=')),
       field('value', $.expr)
     ),
-    
+
     temp_def: $ => seq(
       'temp', $._space,
       field('name', $.identifier),
       field('op', "="),
       field('value', $.expr)
+    ),
+
+    postfix: $ => seq(
+      field('name', $.identifier),
+      field('op', choice(OP.dbl_minus, OP.dbl_plus))
     ),
 
     return: $ => seq('return', $.expr),
@@ -622,10 +646,7 @@ module.exports = grammar({
 
     _list_def_number: _ => /\d+/,  // weird bug: Using the actual $.number regex (/\d+(\.\d+)?/) leads to the number containing the leading whitespace. I don't get it.
 
-    // we create two sets of "expressions": One named for the actual expressions,
-    ...make_expr(named = true),
-    // and one anonymous, to be able to trigger the GLR conflict between text and the starting expression of conditional text.
-    ...make_expr(named = false),
+    ...EXPR,
 
     todo_comment: _ => seq(
       field('keyword', mark('TODO')),
@@ -634,6 +655,7 @@ module.exports = grammar({
     ),
 
     _space: _ => /[ \t]+/,
+    // _space: _ => /\p{Space}+/, TODO: activate and write test
 
     line_comment: $ => seq(/\/\/[^\n]*/, $._eol),
     block_comment: $ => seq(

@@ -28,9 +28,9 @@ the corresponding subfolder should contain everything you need.
 - [ ] Emacs
 - [x] Helix
 
-	Put `languages.toml` and the `*.scm` files in your Helix user config (e.g. `~/.config/helix/`).
+  Put `languages.toml` and the `*.scm` files in your Helix user config (e.g. `~/.config/helix/`).
 
-	For details see the [Helix guides](https://docs.helix-editor.com/languages.html).
+  For details see the [Helix guides](https://docs.helix-editor.com/languages.html).
 
 - [ ] VSCode
 - [ ] \[… your editor here …\]

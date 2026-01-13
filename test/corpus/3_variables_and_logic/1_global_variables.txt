@@ -1,5 +1,5 @@
 ===
-.CAA. Definining Global Variables
+.CAA. Defining Global Variables
 ===
 VAR knowledge_of_the_cure = false
 VAR players_name = "Emilia, the \"escaped\" \ convict"
