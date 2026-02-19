@@ -1,9 +1,21 @@
 let mark = rule => token(prec(1, rule));
 
-// The Ink docs get very specific about which Unicode they allow.
-// But just saying Letters and Numbers is so much simpler. This should be fine.
-const IDENTIFIER_REGEX = /[\p{Letter}_][\p{Letter}\p{Number}_]*/
-const NUMBER_REGEX = /\d+(\.\d+)?/
+// The Ink docs get very specific about which Unicode they allow. But just saying
+// Letters and Numbers is so much simpler. This should be fine.
+//
+// The regex is a little complicated, because Ink (insanely) allows identifiers to
+// start with numbers, AS LONG AS THEY CONTAIN AT LEAST ONE NON-NUMBER. Therefore,
+// we split the identifier regex into two cases to capture that.
+//
+// (Otherwise we’d need to create a GLR conflict or rely on the tree-sitter’s
+// implicit grammar-order-precedence, which feels brittle.)
+const IDENTIFIER_REGEX = /(?:[\p{L}_]|\d+[\p{L}_])[\p{L}\d_]*/;
+//                           |------| .......................... Either starts with letter or underscore,
+//                                    |---------| .................. or starts with number(s),
+//                                                                      followed by letter or underscore
+//                                                                      (to distinguish it from numbers),
+//                                                |--------| ... and both optionally followed by letters, numbers, underscores
+const NUMBER_REGEX = /\d+(\.\d+)?/;
 
 // All operators. In our quest to make text tokenize the same as expressions (to generate conflicts),
 // we define all possible operators upfront, so we can guarantee they result in the same tokens.

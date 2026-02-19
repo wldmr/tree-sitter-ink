@@ -1,0 +1,45 @@
+===
+#13.1: Identifiers can be anything
+===
+VAR 4bidden = false
+
+== 1st_knot ==
+
+Isn't {4bidden > 0:this|that} and {1st_knot} insane?
+---
+
+(ink
+  (global
+    (identifier)
+    (boolean))
+  (knot_block
+    (knot
+      (identifier))
+    (paragraph
+      (text)
+      (conditional_text
+        (binary
+          (identifier)
+          (number))
+        (content
+          (text))
+        (content
+          (text)))
+      (text)
+      (eval
+        (identifier))
+      (text))))
+
+===
+#13.2: Minimal pair for numbers vs identifiers
+===
+{1} {1a}
+---
+
+(ink
+  (paragraph
+    (eval
+      (number))
+    (eval
+      (identifier))))
+
