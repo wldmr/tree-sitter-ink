@@ -494,7 +494,7 @@
       "members": [
         {
           "type": "PATTERN",
-          "value": "[\\p{Letter}_][\\p{Letter}\\p{Number}_]*"
+          "value": "(?:[\\p{L}_]|\\d+[\\p{L}_])[\\p{L}\\d_]*"
         },
         {
           "type": "PATTERN",
@@ -3183,7 +3183,7 @@
     },
     "identifier": {
       "type": "PATTERN",
-      "value": "[\\p{Letter}_][\\p{Letter}\\p{Number}_]*"
+      "value": "(?:[\\p{L}_]|\\d+[\\p{L}_])[\\p{L}\\d_]*"
     },
     "qualified_name": {
       "type": "PREC_RIGHT",
@@ -3258,7 +3258,7 @@
             "members": [
               {
                 "type": "PATTERN",
-                "value": "[\\p{Letter}_][\\p{Letter}\\p{Number}_]*"
+                "value": "(?:[\\p{L}_]|\\d+[\\p{L}_])[\\p{L}\\d_]*"
               },
               {
                 "type": "PATTERN",
