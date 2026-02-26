@@ -518,7 +518,7 @@ module.exports = grammar({
     _label_field: $ => prec(PREC.ink, field('label', $.label)),
     label: $ => seq('(', field('name', $.identifier), ')'),
 
-    condition: $ => alias($.eval, '_eval'),
+    condition: $ => seq('{', field('expr', $.expr), '}'),
 
     _choice_content: $ => prec.right(choice(
       field('main', $._choice_main_content),

@@ -1619,13 +1619,25 @@
       ]
     },
     "condition": {
-      "type": "ALIAS",
-      "content": {
-        "type": "SYMBOL",
-        "name": "eval"
-      },
-      "named": false,
-      "value": "_eval"
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "{"
+        },
+        {
+          "type": "FIELD",
+          "name": "expr",
+          "content": {
+            "type": "SYMBOL",
+            "name": "expr"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "}"
+        }
+      ]
     },
     "_choice_content": {
       "type": "PREC_RIGHT",
