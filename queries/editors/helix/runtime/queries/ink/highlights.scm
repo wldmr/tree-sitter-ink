@@ -1,3 +1,4 @@
+(identifier) @variable
 (return "return" @keyword.control.return)
 (global ["VAR" "CONST"] @keyword.storage.type
         "=" @operator)
@@ -9,7 +10,6 @@
           (identifier) @function)
 (todo_comment "TODO" @keyword ":" @comment) @comment
 (code "~" @keyword.directive)
-
 
 (binary "+" @operator)
 (binary "-" @operator)
@@ -43,29 +43,30 @@
 (assignment ["=" "+=" "-="]) @operator
 
 (choice_only ["[" "]"] @punctuation.bracket)  ; Need to specifiy choice here, because the grammar does always tokenize these brackets (for all text), but we don't want to highlight them outside of choices.
-(label ["(" ")"] @punctuation.bracket)
+(label ["(" ")"] @punctuation.bracket name: (_) @label)
 
 ["{" "}"] @punctuation.bracket ; Curlies are never just text, no need to qualify
 
 ["," "|" ":"] @punctuation.delimiter
 
-(call (identifier) @function)
+(call (identifier) @function ["(" ")"] @punctuation.bracket)
 
-(knot "==" @markup.heading.1)
+(knot "==" @markup.heading.1 (identifier) @label)
 (knot "function" @keyword.function
       (identifier) @function)
-(knot (identifier) @label)
 
-(stitch "=" @markup.heading.2)
-(stitch (identifier) @label)
+(stitch "=" @markup.heading.2 (identifier) @label)
 
-(choice_mark) @markup.list
-(label (identifier) @label)
-
+(choice_mark) @markup.list.numbered
 (gather_mark) @markup.list.unnumbered
 
-(param "ref" @keyword)
-(param (identifier) @variable.parameter)
+(params ["(" ")"] @punctuation.bracket)
+(param
+      "ref"? @keyword.storage.modifier
+      ; XXX: This "nested" value highlighting doesn's seem to work in Helix.
+      ; Not sure why; the query finds the correct ranges when used from the command line.
+      value: [ (identifier) @variable.parameter
+               (divert (identifier) @variable.parameter) ]?)
 
 (cond_arm "-" @keyword.control.conditional)
 (alt_arm "-" @keyword.control.repeat)
@@ -87,11 +88,10 @@
 
 ["->" "->->" "<-"] @keyword.control
 
-(param (divert (identifier) @variable.parameter)) ; exception to normal divert coloring: parameters should be distinguishable
+(divert (identifier) @label)
 (divert (identifier) @constant.builtin
         (#any-of? @constant.builtin "END" "DONE"))
 
-(divert (identifier)+ @label)
 (divert (call (identifier) @label))
 (divert (call (qualified_name (identifier) @label)))
 
@@ -120,12 +120,10 @@
 (line_comment) @comment.line
 (block_comment) @comment.block
 
-(identifier) @variable
 (qualified_name "." @punctuation.delimiter)
 (string) @string
 
 (number) @constant.numeric
 (boolean) @keyword.builtin.boolean
 
-(tag "#" @punctuation.delimiter (content)* @embedded) @attribute; after expr stuff so that evals get highlighted
-(content) @embedded
+(tag "#" @punctuation.special) @tag
