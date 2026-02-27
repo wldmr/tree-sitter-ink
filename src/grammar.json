@@ -3493,18 +3493,13 @@
         {
           "type": "REPEAT",
           "content": {
-            "type": "SEQ",
-            "members": [
-              {
-                "type": "ALIAS",
-                "content": {
-                  "type": "PATTERN",
-                  "value": "[^\\n]"
-                },
-                "named": false,
-                "value": "block_comment_line"
-              }
-            ]
+            "type": "ALIAS",
+            "content": {
+              "type": "PATTERN",
+              "value": "[^\\n]"
+            },
+            "named": false,
+            "value": "block_comment_line"
           }
         },
         {

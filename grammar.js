@@ -670,9 +670,9 @@ module.exports = grammar({
     // _space: _ => /\p{Space}+/, TODO: activate and write test
 
     line_comment: $ => seq(/\/\/[^\n]*/, $._eol),
-    block_comment: $ => seq(
+    block_comment: _ => seq(
       '/*',
-      repeat(seq(alias(/[^\n]/, 'block_comment_line', $._eol))),
+      repeat(alias(/[^\n]/, 'block_comment_line')),
       '*/'
     ),
 
