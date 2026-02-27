@@ -8,10 +8,6 @@ It supports all syntax up to version 1.2.0.
 	width="767px">
 </video>
 
-> [!CAUTION]
-> It's still early days. Things are likely to behave in strange, unintuitive ways. Or be plain buggy.
-> Please get in touch (by filing an issue, or by starting a discussion) so we can iron out the kinks.
-
 [Tree-sitter]: https://tree-sitter.github.io/tree-sitter/
 [Ink]: https://www.inklestudios.com/ink/
 
