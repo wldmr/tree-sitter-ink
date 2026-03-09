@@ -191,7 +191,7 @@ module.exports = grammar({
 
   externals: $ => [
     // This token lives in the external scanner so that we can treat end-of-line and end-of-file uniformly.
-    $._eol,
+    $.eol,
 
     // We have these explicit block markers so that blocks can actually start and end _before_
     // the marks that introduce them (by doing a lookahead in the external scanner).
@@ -202,14 +202,14 @@ module.exports = grammar({
     // We could probably get away with fewer block markers, but we _must_ at least distinguish
     // gather and choice blocks because gathers can't occurr in alternatives and if/switch blocks.
     // So it seems cleaner to just very specific right away.
-    $._knot_block_start,
-    $._knot_block_end,
-    $._stitch_block_start,
-    $._stitch_block_end,
-    $._choice_block_start,
-    $._choice_block_end,
-    $._gather_block_start,
-    $._gather_block_end,
+    $.knot_block_start,
+    $.knot_block_end,
+    $.stitch_block_start,
+    $.stitch_block_end,
+    $.choice_block_start,
+    $.choice_block_end,
+    $.gather_block_start,
+    $.gather_block_end,
 
     // The scanner state keeps track of how many marks still need to be emitted after a block start.
     // We have to emit these marks from the scanner itself, so that we can update the scanner state,
@@ -270,6 +270,19 @@ module.exports = grammar({
       repeat($.stitch_block), // Evidently we can define orphan stitches. OK …
       repeat($.knot_block),
     ),
+
+    // Transform the external nodes into anonymous nodes. That’s because hidden nodes
+    // don’t appear at all in downstream tools (can’t find them using cursors), but
+    // sometimes we need to know if the exist (or have been inserted as MISSING, etc.)
+    _eol: $ => alias($.eol, "EOL"),
+    _knot_block_start: $ => alias($.knot_block_start, "KNOT_BLOCK_START"),
+    _knot_block_end: $ => alias($.knot_block_end, "KNOT_BLOCK_END"),
+    _stitch_block_start: $ => alias($.stitch_block_start, "STITCH_BLOCK_START"),
+    _stitch_block_end: $ => alias($.stitch_block_end, "STITCH_BLOCK_END"),
+    _choice_block_start: $ => alias($.choice_block_start, "CHOICE_BLOCK_START"),
+    _choice_block_end: $ => alias($.choice_block_end, "CHOICE_BLOCK_END"),
+    _gather_block_start: $ => alias($.gather_block_start, "GATHER_BLOCK_START"),
+    _gather_block_end: $ => alias($.gather_block_end, "GATHER_BLOCK_END"),
 
     _content_block: $ => repeat1($._content_item),
 

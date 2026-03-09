@@ -841,6 +841,11 @@
     }
   },
   {
+    "type": "eol",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "eval",
     "named": true,
     "fields": {
@@ -2017,7 +2022,19 @@
     "named": false
   },
   {
+    "type": "CHOICE_BLOCK_END",
+    "named": false
+  },
+  {
+    "type": "CHOICE_BLOCK_START",
+    "named": false
+  },
+  {
     "type": "CONST",
+    "named": false
+  },
+  {
+    "type": "EOL",
     "named": false
   },
   {
@@ -2025,11 +2042,35 @@
     "named": false
   },
   {
+    "type": "GATHER_BLOCK_END",
+    "named": false
+  },
+  {
+    "type": "GATHER_BLOCK_START",
+    "named": false
+  },
+  {
     "type": "INCLUDE",
     "named": false
   },
   {
+    "type": "KNOT_BLOCK_END",
+    "named": false
+  },
+  {
+    "type": "KNOT_BLOCK_START",
+    "named": false
+  },
+  {
     "type": "LIST",
+    "named": false
+  },
+  {
+    "type": "STITCH_BLOCK_END",
+    "named": false
+  },
+  {
+    "type": "STITCH_BLOCK_START",
     "named": false
   },
   {
@@ -2074,10 +2115,6 @@
   },
   {
     "type": "else",
-    "named": true
-  },
-  {
-    "type": "eol",
     "named": true
   },
   {

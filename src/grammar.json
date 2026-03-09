@@ -33,6 +33,87 @@
         }
       ]
     },
+    "_eol": {
+      "type": "ALIAS",
+      "content": {
+        "type": "SYMBOL",
+        "name": "eol"
+      },
+      "named": false,
+      "value": "EOL"
+    },
+    "_knot_block_start": {
+      "type": "ALIAS",
+      "content": {
+        "type": "SYMBOL",
+        "name": "knot_block_start"
+      },
+      "named": false,
+      "value": "KNOT_BLOCK_START"
+    },
+    "_knot_block_end": {
+      "type": "ALIAS",
+      "content": {
+        "type": "SYMBOL",
+        "name": "knot_block_end"
+      },
+      "named": false,
+      "value": "KNOT_BLOCK_END"
+    },
+    "_stitch_block_start": {
+      "type": "ALIAS",
+      "content": {
+        "type": "SYMBOL",
+        "name": "stitch_block_start"
+      },
+      "named": false,
+      "value": "STITCH_BLOCK_START"
+    },
+    "_stitch_block_end": {
+      "type": "ALIAS",
+      "content": {
+        "type": "SYMBOL",
+        "name": "stitch_block_end"
+      },
+      "named": false,
+      "value": "STITCH_BLOCK_END"
+    },
+    "_choice_block_start": {
+      "type": "ALIAS",
+      "content": {
+        "type": "SYMBOL",
+        "name": "choice_block_start"
+      },
+      "named": false,
+      "value": "CHOICE_BLOCK_START"
+    },
+    "_choice_block_end": {
+      "type": "ALIAS",
+      "content": {
+        "type": "SYMBOL",
+        "name": "choice_block_end"
+      },
+      "named": false,
+      "value": "CHOICE_BLOCK_END"
+    },
+    "_gather_block_start": {
+      "type": "ALIAS",
+      "content": {
+        "type": "SYMBOL",
+        "name": "gather_block_start"
+      },
+      "named": false,
+      "value": "GATHER_BLOCK_START"
+    },
+    "_gather_block_end": {
+      "type": "ALIAS",
+      "content": {
+        "type": "SYMBOL",
+        "name": "gather_block_end"
+      },
+      "named": false,
+      "value": "GATHER_BLOCK_END"
+    },
     "_content_block": {
       "type": "REPEAT1",
       "content": {
@@ -3616,39 +3697,39 @@
   "externals": [
     {
       "type": "SYMBOL",
-      "name": "_eol"
+      "name": "eol"
     },
     {
       "type": "SYMBOL",
-      "name": "_knot_block_start"
+      "name": "knot_block_start"
     },
     {
       "type": "SYMBOL",
-      "name": "_knot_block_end"
+      "name": "knot_block_end"
     },
     {
       "type": "SYMBOL",
-      "name": "_stitch_block_start"
+      "name": "stitch_block_start"
     },
     {
       "type": "SYMBOL",
-      "name": "_stitch_block_end"
+      "name": "stitch_block_end"
     },
     {
       "type": "SYMBOL",
-      "name": "_choice_block_start"
+      "name": "choice_block_start"
     },
     {
       "type": "SYMBOL",
-      "name": "_choice_block_end"
+      "name": "choice_block_end"
     },
     {
       "type": "SYMBOL",
-      "name": "_gather_block_start"
+      "name": "gather_block_start"
     },
     {
       "type": "SYMBOL",
-      "name": "_gather_block_end"
+      "name": "gather_block_end"
     },
     {
       "type": "SYMBOL",
