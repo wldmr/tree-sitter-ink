@@ -146,6 +146,12 @@ TODO: implement external function
 // ^ keyword
 //           ^ variable.parameter
 
+=== function greet(name, age)
+~ return "Hi I'm {name} and I'm {age - 10} years old"
+//        ^ string
+//                ^ variable.parameter
+//                              ^ punctuation.bracket
+
 === chores ===
 I cleaned the soap, aired out the trash and folded the stove.
 ->->

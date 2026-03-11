@@ -1716,7 +1716,21 @@
   {
     "type": "string",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "_logic",
+          "named": true
+        },
+        {
+          "type": "glue",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "tag",

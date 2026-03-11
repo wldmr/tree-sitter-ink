@@ -172,7 +172,7 @@ const EXPR = {
 
   boolean: _ => choice('false', 'true'),
 
-  string: _ => seq('"', repeat(choice(...STRING_PARTS)), '"'),
+  string: $ => seq('"', repeat(choice($._logic, $.glue, ...STRING_PARTS)), '"'),
 
   divert: $ => seq(
     $._divert_mark,

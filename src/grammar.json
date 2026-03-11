@@ -3350,6 +3350,14 @@
             "type": "CHOICE",
             "members": [
               {
+                "type": "SYMBOL",
+                "name": "_logic"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "glue"
+              },
+              {
                 "type": "PATTERN",
                 "value": "(?:[\\p{L}_]|\\d+[\\p{L}_])[\\p{L}\\d_]*"
               },
