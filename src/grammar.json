@@ -2061,7 +2061,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "expr"
+          "name": "call"
         },
         {
           "type": "SYMBOL",

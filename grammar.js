@@ -575,7 +575,7 @@ module.exports = grammar({
     _code_stmt: $ => choice(
       $.assignment,
       $.temp_def,
-      $.expr,
+      $.call,
       $.postfix,
       $.return,
     ),

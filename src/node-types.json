@@ -8,7 +8,7 @@
         "named": true
       },
       {
-        "type": "expr",
+        "type": "call",
         "named": true
       },
       {
