@@ -77,14 +77,6 @@
 (choice_mark) @markup.list.numbered
 (gather_mark) @markup.list.unnumbered
 
-(params ["(" ")"] @punctuation.bracket)
-(param
-      "ref"? @keyword.storage.modifier
-      ; XXX: This "nested" value highlighting doesn's seem to work in Helix.
-      ; Not sure why; the query finds the correct ranges when used from the command line.
-      value: [ (identifier) @variable.parameter
-               (divert (identifier) @variable.parameter) ]?)
-
 (cond_arm "-" @keyword.control.conditional)
 (alt_arm "-" @keyword.control.repeat)
 (else) @constant.builtin
@@ -113,6 +105,13 @@
 (divert (call (qualified_name (identifier) @label)))
 
 (thread [(identifier) (call)] @label)
+
+; Deal with parames *after* the general divert highlighting, so that divert parames still look like params
+(params ["(" ")"] @punctuation.bracket)
+(param
+      "ref"? @keyword.storage.modifier
+      value: [ (identifier) @variable.parameter
+               (divert (identifier) @variable.parameter) ]?)
 
 (multiline_alternatives ["shuffle" "stopping" "cycle" "once"] @keyword.control.repeat)
 (alternatives ["&" "$" "~" "!"] @keyword.control.repeat)
