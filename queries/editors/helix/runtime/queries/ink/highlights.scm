@@ -49,7 +49,24 @@
 
 ["," "|" ":"] @punctuation.delimiter
 
-(call (identifier) @function ["(" ")"] @punctuation.bracket)
+(call (identifier) @function.builtin
+      (#any-of? @function.builtin
+       ; List Functions
+       "LIST_VALUE"
+       "LIST_COUNT"
+       "LIST_MIN"
+       "LIST_MAX"
+       "LIST_RANDOM"
+       "LIST_RANGE"
+       "LIST_INVERT"
+       ; Game Queries
+       "CHOICE_COUNT"
+       "TURNS"
+       "TURNS_SINCE"
+       "LIST_FOO"
+       "SEED_RANDOM"))
+(call (identifier) @function)
+(call ["(" ")"] @punctuation.bracket)
 
 (knot "==" @markup.heading.1 (identifier) @label)
 (knot "function" @keyword.function
@@ -96,23 +113,6 @@
 (divert (call (qualified_name (identifier) @label)))
 
 (thread [(identifier) (call)] @label)
-
-(call (identifier) @function.builtin
-      (#any-of? @function.builtin
-       ; List Functions
-       "LIST_VALUE"
-       "LIST_COUNT"
-       "LIST_MIN"
-       "LIST_MAX"
-       "LIST_RANDOM"
-       "LIST_RANGE"
-       "LIST_INVERT"
-       ; Game Queries
-       "CHOICE_COUNT"
-       "TURNS"
-       "TURNS_SINCE"
-       "LIST_FOO"
-       "SEED_RANDOM"))
 
 (multiline_alternatives ["shuffle" "stopping" "cycle" "once"] @keyword.control.repeat)
 (alternatives ["&" "$" "~" "!"] @keyword.control.repeat)
